@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<dolfin xmlns:dolfin="http://www.fenicsproject.org">
+  <mesh celltype="tetrahedron" dim="3">
+    <vertices size="4">
+      <vertex index="0" x="0.0000000000000000e+00" y="0.0000000000000000e+00" z="0.0000000000000000e+00"/>
+      <vertex index="1" x="1.0000000000000000e+00" y="0.0000000000000000e+00" z="0.0000000000000000e+00"/>
+      <vertex index="2" x="0.0000000000000000e+00" y="1.0000000000000000e+00" z="0.0000000000000000e+00"/>
+      <vertex index="3" x="0.0000000000000000e+00" y="0.0000000000000000e+00" z="1.0000000000000000e+00"/>
+    </vertices>
+    <cells size="1">
+      <tetrahedron index="0" v0="0" v1="2" v2="3" v3="1"/>
+    </cells>
+  </mesh>
+</dolfin>
