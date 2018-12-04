@@ -1,1 +1,1 @@
-/Library/Developer/CommandLineTools/usr/bin/cc  -Wl,-search_paths_first -Wl,-headerpad_max_install_names  CMakeFiles/test.dir/test.c.o  -o test -Wl,-rpath,/Users/gabrielerovi/anaconda3/envs/fenicsproject/lib /Users/gabrielerovi/anaconda3/envs/fenicsproject/lib/libpetsc.dylib 
+/opt/moose/mpich-3.2/clang-5.0.1/bin/mpicc  -Wl,-search_paths_first -Wl,-headerpad_max_install_names  CMakeFiles/test.dir/test.c.o  -o test /opt/moose/petsc-3.7.6/mpich-3.2_clang-5.0.1-opt/lib/libpetsc.dylib 

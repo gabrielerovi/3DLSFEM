@@ -6,37 +6,25 @@
 
 #IncludeRegexTransform: 
 
-/Users/gabrielerovi/anaconda3/envs/fenicsproject/include/mpi.h
-stddef.h
--
-cstdint
--
-stdint.h
--
-mpio.h
-/Users/gabrielerovi/anaconda3/envs/fenicsproject/include/mpio.h
-mpicxx.h
-/Users/gabrielerovi/anaconda3/envs/fenicsproject/include/mpicxx.h
-
-/Users/gabrielerovi/anaconda3/envs/fenicsproject/include/mpicxx.h
+/Users/gabrielerovi/fenics/3DLSFEM/petsc_prova/test.c
+petscvec.h
+/Users/gabrielerovi/fenics/3DLSFEM/petsc_prova/petscvec.h
+petscmat.h
+/Users/gabrielerovi/fenics/3DLSFEM/petsc_prova/petscmat.h
 stdio.h
 -
 
-/Users/gabrielerovi/anaconda3/envs/fenicsproject/include/mpio.h
-mpi.h
-/Users/gabrielerovi/anaconda3/envs/fenicsproject/include/mpi.h
-
-/Users/gabrielerovi/anaconda3/envs/fenicsproject/include/petsc/private/petscfptimpl.h
+/opt/moose/petsc-3.7.6/mpich-3.2_clang-5.0.1-opt/include/petsc/private/petscfptimpl.h
 petscviewertypes.h
 -
 petscsys.h
 -
 
-/Users/gabrielerovi/anaconda3/envs/fenicsproject/include/petscconf.h
+/opt/moose/petsc-3.7.6/mpich-3.2_clang-5.0.1-opt/include/petscconf.h
 
-/Users/gabrielerovi/anaconda3/envs/fenicsproject/include/petscdrawtypes.h
+/opt/moose/petsc-3.7.6/mpich-3.2_clang-5.0.1-opt/include/petscdrawtypes.h
 
-/Users/gabrielerovi/anaconda3/envs/fenicsproject/include/petscerror.h
+/opt/moose/petsc-3.7.6/mpich-3.2_clang-5.0.1-opt/include/petscerror.h
 petscsys.h
 -
 petscsys.h
@@ -76,9 +64,9 @@ petsc/private/petscfptimpl.h
 petscsys.h
 -
 
-/Users/gabrielerovi/anaconda3/envs/fenicsproject/include/petscfix.h
+/opt/moose/petsc-3.7.6/mpich-3.2_clang-5.0.1-opt/include/petscfix.h
 
-/Users/gabrielerovi/anaconda3/envs/fenicsproject/include/petscis.h
+/opt/moose/petsc-3.7.6/mpich-3.2_clang-5.0.1-opt/include/petscis.h
 petscsys.h
 -
 petscsftypes.h
@@ -86,13 +74,35 @@ petscsftypes.h
 petscistypes.h
 -
 
-/Users/gabrielerovi/anaconda3/envs/fenicsproject/include/petscistypes.h
+/opt/moose/petsc-3.7.6/mpich-3.2_clang-5.0.1-opt/include/petscistypes.h
 
-/Users/gabrielerovi/anaconda3/envs/fenicsproject/include/petsclog.h
+/opt/moose/petsc-3.7.6/mpich-3.2_clang-5.0.1-opt/include/petsclog.h
 petscsys.h
 -
 
-/Users/gabrielerovi/anaconda3/envs/fenicsproject/include/petscmath.h
+/opt/moose/petsc-3.7.6/mpich-3.2_clang-5.0.1-opt/include/petscmat.h
+petscvec.h
+-
+petscmat.h
+-
+petscmat.h
+-
+petscmat.h
+-
+petscmat.h
+-
+petscmat.h
+-
+petscmat.h
+-
+petscmat.h
+-
+petscmat.h
+-
+petscmat.h
+-
+
+/opt/moose/petsc-3.7.6/mpich-3.2_clang-5.0.1-opt/include/petscmath.h
 math.h
 -
 quadmath.h
@@ -118,7 +128,7 @@ petscmath.h
 petscmath.h
 -
 
-/Users/gabrielerovi/anaconda3/envs/fenicsproject/include/petscoptions.h
+/opt/moose/petsc-3.7.6/mpich-3.2_clang-5.0.1-opt/include/petscoptions.h
 petscsys.h
 -
 petscviewertypes.h
@@ -132,9 +142,9 @@ petscoptions.h
 petscoptions.h
 -
 
-/Users/gabrielerovi/anaconda3/envs/fenicsproject/include/petscsftypes.h
+/opt/moose/petsc-3.7.6/mpich-3.2_clang-5.0.1-opt/include/petscsftypes.h
 
-/Users/gabrielerovi/anaconda3/envs/fenicsproject/include/petscsys.h
+/opt/moose/petsc-3.7.6/mpich-3.2_clang-5.0.1-opt/include/petscsys.h
 petscconf.h
 -
 petscfix.h
@@ -238,7 +248,7 @@ sys/param.h
 sys/types.h
 -
 
-/Users/gabrielerovi/anaconda3/envs/fenicsproject/include/petscvec.h
+/opt/moose/petsc-3.7.6/mpich-3.2_clang-5.0.1-opt/include/petscvec.h
 petscis.h
 -
 petscviewer.h
@@ -248,9 +258,9 @@ petscvec.h
 petscvec.h
 -
 
-/Users/gabrielerovi/anaconda3/envs/fenicsproject/include/petscversion.h
+/opt/moose/petsc-3.7.6/mpich-3.2_clang-5.0.1-opt/include/petscversion.h
 
-/Users/gabrielerovi/anaconda3/envs/fenicsproject/include/petscviewer.h
+/opt/moose/petsc-3.7.6/mpich-3.2_clang-5.0.1-opt/include/petscviewer.h
 petscsys.h
 -
 petscviewertypes.h
@@ -258,9 +268,5 @@ petscviewertypes.h
 petscdrawtypes.h
 -
 
-/Users/gabrielerovi/anaconda3/envs/fenicsproject/include/petscviewertypes.h
-
-/Users/gabrielerovi/fenics/lsfem_elasticity/petsc_prova/test.c
-petscvec.h
-/Users/gabrielerovi/fenics/lsfem_elasticity/petsc_prova/petscvec.h
+/opt/moose/petsc-3.7.6/mpich-3.2_clang-5.0.1-opt/include/petscviewertypes.h
 
