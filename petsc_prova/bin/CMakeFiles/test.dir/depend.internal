@@ -5,15 +5,19 @@ CMakeFiles/test.dir/test.c.o
  /Users/gabrielerovi/fenics/3DLSFEM/petsc_prova/test.c
  /opt/moose/petsc-3.7.6/mpich-3.2_clang-5.0.1-opt/include/petsc/private/petscfptimpl.h
  /opt/moose/petsc-3.7.6/mpich-3.2_clang-5.0.1-opt/include/petscconf.h
+ /opt/moose/petsc-3.7.6/mpich-3.2_clang-5.0.1-opt/include/petscdmtypes.h
  /opt/moose/petsc-3.7.6/mpich-3.2_clang-5.0.1-opt/include/petscdrawtypes.h
  /opt/moose/petsc-3.7.6/mpich-3.2_clang-5.0.1-opt/include/petscerror.h
  /opt/moose/petsc-3.7.6/mpich-3.2_clang-5.0.1-opt/include/petscfix.h
  /opt/moose/petsc-3.7.6/mpich-3.2_clang-5.0.1-opt/include/petscis.h
  /opt/moose/petsc-3.7.6/mpich-3.2_clang-5.0.1-opt/include/petscistypes.h
+ /opt/moose/petsc-3.7.6/mpich-3.2_clang-5.0.1-opt/include/petscksp.h
  /opt/moose/petsc-3.7.6/mpich-3.2_clang-5.0.1-opt/include/petsclog.h
  /opt/moose/petsc-3.7.6/mpich-3.2_clang-5.0.1-opt/include/petscmat.h
  /opt/moose/petsc-3.7.6/mpich-3.2_clang-5.0.1-opt/include/petscmath.h
  /opt/moose/petsc-3.7.6/mpich-3.2_clang-5.0.1-opt/include/petscoptions.h
+ /opt/moose/petsc-3.7.6/mpich-3.2_clang-5.0.1-opt/include/petscpc.h
+ /opt/moose/petsc-3.7.6/mpich-3.2_clang-5.0.1-opt/include/petscpctypes.h
  /opt/moose/petsc-3.7.6/mpich-3.2_clang-5.0.1-opt/include/petscsftypes.h
  /opt/moose/petsc-3.7.6/mpich-3.2_clang-5.0.1-opt/include/petscsys.h
  /opt/moose/petsc-3.7.6/mpich-3.2_clang-5.0.1-opt/include/petscvec.h
