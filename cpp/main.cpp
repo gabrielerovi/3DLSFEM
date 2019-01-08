@@ -131,7 +131,6 @@
 // .. code-block:: cpp
 
 #include <dolfin.h>
-#include "boost/graph/distributed/boman_et_al_graph_coloring.h"
 #include "MixedPoisson.h"
 
 using namespace dolfin;
@@ -224,7 +223,7 @@ parameters["ghost_mode"] = "shared_vertex";
 parameters["reorder_vertices_gps"] = true;
 parameters["reorder_cells_gps"] = true;
 
-auto mesh = std::make_shared<UnitSquareMesh>(3,1);
+auto mesh = std::make_shared<UnitSquareMesh>(1,1);
 
 const double Lambda = 1.0;
 const double Mu = 1.0;
@@ -237,8 +236,14 @@ auto alpha=std::make_shared<Constant>(((-Beta) * Lambda /(2*Lambda +2*Mu)));
 
   // Construct function space
   auto W = std::make_shared<MixedPoisson::FunctionSpace>(mesh);
+  
   MixedPoisson::BilinearForm a(W, W);
   MixedPoisson::LinearForm L(W);
+
+
+
+
+
 
 int world_rank;
 MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);  
@@ -246,7 +251,9 @@ auto gdim = mesh->geometry().dim();
 auto dofmap = W->dofmap();
 
 
-
+//constGraph* graph;
+//std::vector<ColorType> boostcolors;
+//BoostGraphColoring->compute_local_vertex_coloring(graph, boostcolors);
 auto colors=mesh->color("vertex");
 
 if(world_rank==1)
@@ -276,6 +283,58 @@ a.alpha=alpha;
 auto f = std::make_shared<Source>();
 L.f = f;
 L.C_equilibrium=C_equilibrium;
+
+
+//PETScVector b ;  
+PETScMatrix A;
+assemble(A,a);
+Mat Amat=A.mat();
+
+
+MatAssemblyBegin(Amat,MAT_FINAL_ASSEMBLY);
+MatAssemblyEnd(Amat,MAT_FINAL_ASSEMBLY);
+MatView(Amat, PETSC_VIEWER_STDOUT_WORLD);
+
+PetscErrorCode ierr;
+PetscScalar *v;
+PetscInt *indices;
+PetscInt n_loc=2;
+//indices=(PetscInt *)malloc(n_loc*n_loc*sizeof(PetscInt)); 
+PetscMalloc1(n_loc,&indices);
+PetscMalloc1(n_loc*n_loc,&v);
+
+
+PetscInt first_row;
+PetscInt last_row;
+
+MatGetOwnershipRange(Amat,&first_row,&last_row);
+
+for(int ii=0;ii<n_loc;ii++)
+   indices[ii]=ii+first_row;
+//std::cout<<"idx "<<idx[ii]<<std::endl;
+MatGetValues(Amat,n_loc,indices,n_loc,indices, v);
+
+std::cout<<"world_rank: "<<world_rank<<", first_row: "<<first_row<<", last_row: "<<last_row<<std::endl;
+for(int ii=0;ii<n_loc*n_loc;ii++)
+   std::cout<<"world_rank "<<world_rank<<", v "<<v[ii]<<std::endl;
+   
+Mat submat2;
+IS is;
+ierr=ISCreateGeneral(PETSC_COMM_SELF,n_loc,indices,PETSC_COPY_VALUES,&is);CHKERRQ(ierr);
+PetscFree(indices);
+ierr=ISView(is,PETSC_VIEWER_STDOUT_SELF);CHKERRQ(ierr);
+//ierr=MatAssemblyBegin(submat2,MAT_FINAL_ASSEMBLY);CHKERRQ(ierr);
+ierr=MatGetLocalSubMatrix(Amat, is, is,&submat2);CHKERRQ(ierr);
+ierr=MatRestoreLocalSubMatrix(Amat, is, is,&submat2);CHKERRQ(ierr);
+MatView(submat2, PETSC_VIEWER_STDOUT_WORLD);
+ISDestroy(&is);
+PetscFree(is);
+//ierr=MatAssemblyEnd(submat2,MAT_FINAL_ASSEMBLY);CHKERRQ(ierr);
+// MatView(submat, PETSC_VIEWER_STDOUT_WORLD);
+
+//assemble(b,L);
+
+
 // It only remains to prescribe the boundary condition for the
 // flux. Essential boundary conditions are specified through the class
 // :cpp:class:`DirichletBC` which takes three arguments: the function
