@@ -254,26 +254,28 @@ auto gdim = mesh->geometry().dim();
 auto dofmap = W->dofmap();
 
 
+
+
 //constGraph* graph;
 //std::vector<ColorType> boostcolors;
 //BoostGraphColoring->compute_local_vertex_coloring(graph, boostcolors);
 auto colors=mesh->color("vertex");
 
-if(world_rank==1)
-{
-for(int ii=0;ii<colors.size();ii++)
-{auto cell=Cell(*mesh,ii);
-std::vector<double> cell_coor;
-cell.get_vertex_coordinates(cell_coor);
-for(int jj=0;jj<0.5*cell_coor.size();jj++)
-{
-//std::cout<<"world_rank["<<world_rank<<"]: "<<"colors["<<ii<<"]: "<<colors[ii]<<" cell "<< cell_coor[2*jj]<<", "<< cell_coor[2*jj+1]<< std::endl;
-}
-
-}
-
-
-}
+// if(world_rank==1)
+// {
+// for(int ii=0;ii<colors.size();ii++)
+// {auto cell=Cell(*mesh,ii);
+// std::vector<double> cell_coor;
+// cell.get_vertex_coordinates(cell_coor);
+// for(int jj=0;jj<0.5*cell_coor.size();jj++)
+// {
+// //std::cout<<"world_rank["<<world_rank<<"]: "<<"colors["<<ii<<"]: "<<colors[ii]<<" cell "<< cell_coor[2*jj]<<", "<< cell_coor[2*jj+1]<< std::endl;
+// }
+// 
+// }
+// 
+// 
+// }
  
 // TOPOLOGICAL INFORMATION
  // node to edge 
@@ -311,8 +313,37 @@ auto topology_N2K=mesh->topology()(0,gdim);
 
 
 
+std::vector<std::vector< int > > topology_N2N(mesh->num_vertices());
+
+for(int rr=0;rr<world_size;rr++)
+{
+if(world_rank==rr)
+{
+for(int nn=0;nn<mesh->num_vertices();nn++)
+{
+auto actual_vertex=Vertex(*mesh, nn);
+auto point_vertex=actual_vertex.point();
+//std::cout<<"world_rank=="<<world_rank<<", point_vertex==("<<point_vertex[0]<<", "<<point_vertex[1]<<")"<<std::endl;
 
 
+  for (MeshEntityIterator ee(  MeshEntity(*mesh, 0, nn),gdim-1 ); !ee.end(); ++ee)
+ {
+    auto edge_dof=topology_N2F(nn)[ee.pos()];
+    for(int nn2=0;nn2<gdim;nn2++)
+       if(nn!=topology_F2N(edge_dof)[nn2])
+       {
+        topology_N2N[nn].push_back(topology_F2N(edge_dof)[nn2]);
+        auto patch_vertex=Vertex(*mesh, topology_F2N(edge_dof)[nn2]);
+        auto point_patch=patch_vertex.point();
+       // std::cout<<"world_rank=="<<world_rank<<", point_patch==("<<point_patch[0]<<", "<<point_patch[1]<<")"<<std::endl;
+
+      }            
+ }
+}
+
+}
+MPI_Barrier(MPI_COMM_WORLD);
+}
 
 
 
@@ -572,31 +603,190 @@ PetscFree(all_is);
 
 
 std::vector<unsigned int> keys;
+std::vector<unsigned int> shared_rank,all_shared_ranks;
 std::vector<std::set<unsigned int> > vals;
+const int* all_shared_ranks_array;
+unsigned int cont=0;
+     
     for (std::map< int, std::set<unsigned int> >::iterator it=shared_vertices.begin(); it!= shared_vertices.end(); ++it)
        {keys.push_back(it->first);
        vals.push_back(it->second);
+       for ( std::set<unsigned int>::iterator setit = vals[cont].begin(); setit != vals[cont].end(); ++setit)
+             shared_rank.push_back(*setit);
+       cont++;
        }
 
 
+//for(shared_rank=shared_rank.begin();shared_rank!=shared_rank.end();shared_rank++)
+//    std::cout<<"world_rank=="<<world_rank<<", shared_rank : "<<*shared_rank<<std::endl;
+    
+std::sort(shared_rank.begin(),shared_rank.end());
+auto shared_rank_tmp = std::unique(shared_rank.begin(), shared_rank.end());
+shared_rank.erase(shared_rank_tmp, shared_rank.end()); 
+
+all_shared_ranks=shared_rank;
+all_shared_ranks.push_back(world_rank);
+all_shared_ranks_array = (const int*)&all_shared_ranks[0];
+
+//
+MPI_Group MPI_COMM_GROUP,shared_group;
+MPI_Comm_group(MPI_COMM_WORLD, &MPI_COMM_GROUP);
+
+MPI_Group_incl(
+	MPI_COMM_GROUP,
+	all_shared_ranks.size(),
+	all_shared_ranks_array,
+	&shared_group);
 
 
-   
-  for(int jj=0;jj<world_size;jj++)
+
+for(int ii=0;ii<all_shared_ranks.size();ii++)
+   {
+   //std::cout<<"world_rank=="<<world_rank<<", shared_rank : "<<shared_rank[ii]<<std::endl;
+   }
+
+//// Create Map Global to Local for vertices. It is important because the global indices are fixed and we use them for coloring
+std::map<unsigned int, unsigned int> global_to_local_vertex;   
+ for (std::map< int, std::set<unsigned int> >::iterator shared_node=shared_vertices.begin(); shared_node!= shared_vertices.end(); ++shared_node)
+ {
+   auto vertex_index=shared_node->first;
+   auto actual_vertex=Vertex(*mesh, vertex_index);
+   global_to_local_vertex[actual_vertex.global_index()] = vertex_index;
+    
+ }
+
+std::map<unsigned int,unsigned int>::iterator it_global_to_local_vertex = global_to_local_vertex.begin();
+while(it_global_to_local_vertex != global_to_local_vertex.end())
+{
+std::cout<<"world_rank: "<<world_rank<<"it_global_to_local_vertex: "<<it_global_to_local_vertex->first<<" :: "<<global_to_local_vertex[it_global_to_local_vertex->first]<<std::endl;
+it_global_to_local_vertex++;
+}
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+std::vector<unsigned int> used_color(1,mesh->num_vertices());
+// we initialize with zero the vector, since 0 is the color related to non-shared (internal) nodes
+std::vector<unsigned int> vertex_shared_color(mesh->num_vertices(),0 );//std::distance(shared_vertices.begin(),shared_vertices.end()),0);  
+for(int ii=0;ii<vertex_shared_color.size();ii++)
+    {
+    auto actual_vertex=Vertex(*mesh, ii);
+ 	auto point_vertex=actual_vertex.point();    
+   // std::cout<<"//////////////world_rank: "<<world_rank<<"  point=(" <<point_vertex[0]<<", "<<point_vertex[1]<<") "<<" vertex_shared_color["<<ii<<"]=="<<vertex_shared_color[ii]<<std::endl;
+     }
+// loop on all the processors of the world_rank processor, communicating through ghost cells
+for(std::vector<unsigned int>::iterator rank_shared_on_this_proc=all_shared_ranks.begin();rank_shared_on_this_proc!=all_shared_ranks.end();rank_shared_on_this_proc++)
+{
+// consider the rank=rank_now
+unsigned int rank_now=*rank_shared_on_this_proc;
+// then only the rank_now processor will color the vertices, while all the others will wait (MPI_Barrier) for it to finish
+// then rank_now will sen to all the the shared processor the information regarding the colored vertices
+// so that each of them can update their color
+if(rank_now==world_rank)
+{
+     // loop on all the shared (ghost) vertices and use the coloring algorithm
+     for (std::map< int, std::set<unsigned int> >::iterator shared_node=shared_vertices.begin(); shared_node!= shared_vertices.end(); ++shared_node)
+        {
+        std::vector<unsigned int> patch_shared_color;
+        unsigned int vertex_index=shared_node->first;
+         // for the first node, use the color=1
+         if(used_color.size()==1)
+           {
+            used_color.push_back(1);
+            vertex_shared_color[vertex_index]=1;
+           }
+         else
+         {
+     	   auto N2N=topology_N2N[vertex_index];
+     	   
+    	    // check which color I can use 
+    	    for(int ii=0;ii<N2N.size();ii++)
+   	        {
+   	          // consider all the colors >1 of the patch
+  	          if(vertex_shared_color[N2N[ii]]>0)
+  	            patch_shared_color.push_back(vertex_shared_color[N2N[ii]]);
+  	         }
+  	     // sort and unique patch_shared_color
+ 		 std::sort(patch_shared_color.begin(),patch_shared_color.end());
+         auto patch_shared_color_tmp = std::unique(patch_shared_color.begin(), patch_shared_color.end());
+    	 patch_shared_color.erase(patch_shared_color_tmp, patch_shared_color.end());   	
+    	 
+    	 // if the numer of colors up to now used (except the zero) is equal to the ones on the patch
+    	 // then add onother color
+    	 unsigned int used_color_size=used_color.size();
+    	 if(patch_shared_color.size()==used_color_size-1)   
+    	   {
+    	    used_color.push_back(1);
+    	    vertex_shared_color[vertex_index]=used_color_size;
+    	   }     
+    	 //otherwise we can opt among one of the colors already use
+    	 // we discard the ones in patch_shared_color
+    	 // and of the remaining in used_colors, we take the one which has less vertices
+    	 else
+    	   {
+    	    std::vector<unsigned int> unused_colors(used_color);
+    	    std::vector<int> unused_colors_range(unused_colors.size());
+            std::iota(unused_colors_range.begin(), unused_colors_range.end(), 0);
+            
+    	    for(int ii=0;ii<patch_shared_color.size();ii++)
+                {unused_colors.erase( unused_colors.begin() +  patch_shared_color[ii]-ii);
+                 unused_colors_range.erase( unused_colors_range.begin() +  patch_shared_color[ii]-ii);
+                }
+            
+            if(0==world_rank)
+            for(int ii=0;ii<unused_colors.size();ii++)
+               {}//std::cout<<"world_rank: "<<world_rank<<" unused_colors "<< unused_colors[ii]<<std::endl;
+            vertex_shared_color[vertex_index]=unused_colors_range[std::distance(unused_colors.begin(), std::min_element(unused_colors.begin(), unused_colors.end()))];
+            }
+         
+         
+         
+         }
+         if(rank_now==world_rank)
+            {    
+             auto actual_vertex=Vertex(*mesh, vertex_index);
+ 			 auto point_vertex=actual_vertex.point(); 
+ 			for(int jj=0;jj<patch_shared_color.size();jj++)
+ 			   {}//std::cout<<"world_rank: "<<world_rank<<" patch_shared_color "<< patch_shared_color[jj]<<std::endl;
+            std::cout<<"world_rank: "<<world_rank<<" global_index()=="<< actual_vertex.global_index()<<"  point=(" <<point_vertex[0]<<", "<<point_vertex[1]<<") "<<" vertex_shared_color["<<vertex_index<<"]=="<<vertex_shared_color[vertex_index]<<std::endl;
+            }
+        patch_shared_color.clear();  
+        // used_color
+        }
+}
+        
+     //    if(0==world_rank)
+//         for(int ii=0;ii<vertex_shared_color.size();ii++)
+//             {
+//              auto actual_vertex=Vertex(*mesh, ii);
+//  			 auto point_vertex=actual_vertex.point();    
+//             std::cout<<"world_rank: "<<world_rank<<"  point=(" <<point_vertex[0]<<", "<<point_vertex[1]<<") "<<" vertex_shared_color["<<ii<<"]=="<<vertex_shared_color[ii]<<std::endl;
+//             }
+        
+}
+      
+for(int jj=0;jj<world_size;jj++)
      {
       MPI_Barrier(MPI_COMM_WORLD);
      if(world_rank==jj)
           {
           for(int ii=0;ii<keys.size();ii++)
 			{
- 			 std::cout<<"KEYS NUMBER: "<<ii<<std::endl;
+ 			// std::cout<<"KEYS NUMBER: "<<ii<<std::endl;
  			 auto vertex_index=keys[ii];
  			 auto actual_vertex=Vertex(*mesh, vertex_index);
  			 auto point_vertex=actual_vertex.point();
 
- 	       std::cout<<"world_rank: "<<world_rank<<"keys "<<keys[ii]<<"  point=(" <<point_vertex[0]<<", "<<point_vertex[1]<<") "<<std::endl;
+ 	       //std::cout<<"world_rank: "<<world_rank<<"keys "<<keys[ii]<<"  point=(" <<point_vertex[0]<<", "<<point_vertex[1]<<") "<<std::endl;
         	for ( std::set<unsigned int>::iterator setit = vals[ii].begin(); setit != vals[ii].end(); ++setit)
-             std::cout<<"--- "<<*setit<<std::endl; 
+        	     {
+        	     }
+             //std::cout<<"--- "<<*setit<<std::endl; 
              } 
              }
 	  }
@@ -610,12 +800,12 @@ std::vector<std::set<unsigned int> > vals;
 while(it != shared_cells.end())
 {
 auto nodes=topology_K2N(it->first);
-std::cout<<"world_rank: "<<world_rank<<", cell "<<it->first<<", nodes "<< nodes[0]<<", "<<nodes[1]<<", "<<nodes[2]<<std::endl;
+//std::cout<<"world_rank: "<<world_rank<<", cell "<<it->first<<", nodes "<< nodes[0]<<", "<<nodes[1]<<", "<<nodes[2]<<std::endl;
 for(int ii=0;ii<3;ii++)
 {
 auto actual_vertex=Vertex(*mesh, nodes[ii]);
 auto point_vertex=actual_vertex.point();
-std::cout<<point_vertex[0]<<", "<<point_vertex[1]<<std::endl;
+//std::cout<<point_vertex[0]<<", "<<point_vertex[1]<<std::endl;
 }
 it++;
 }
