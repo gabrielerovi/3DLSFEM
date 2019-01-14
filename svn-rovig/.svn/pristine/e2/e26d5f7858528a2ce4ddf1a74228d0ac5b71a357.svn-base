@@ -1,0 +1,38 @@
+\relax 
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Contact boundary}{1}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Poisson equation}{2}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Dual Linear Elasticity}{2}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}LSFEM Linear Elasticity}{3}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Linear elasticity equations}{4}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Signorini problem: strong formulation}{4}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Spaces}{5}}
+\@writefile{toc}{\contentsline {section}{\numberline {8}Least squares functionals}{6}}
+\@writefile{toc}{\contentsline {section}{\numberline {9}Solving the functional}{7}}
+\@writefile{toc}{\contentsline {section}{\numberline {10}A posteriori error estimator}{7}}
+\@writefile{toc}{\contentsline {section}{\numberline {11}The least squares functional as an a posteriori estimator: reliability and efficiency}{8}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {11.1}Reliability}{8}}
+\@writefile{toc}{\contentsline {section}{\numberline {12}Efficiency}{10}}
+\@writefile{toc}{\contentsline {section}{\numberline {13}The augmented functional is convex}{13}}
+\@writefile{toc}{\contentsline {section}{\numberline {14}Discretization}{15}}
+\@writefile{toc}{\contentsline {section}{\numberline {15}Raviart Thomas}{17}}
+\@writefile{toc}{\contentsline {section}{\numberline {16}Mass Matrix}{21}}
+\@writefile{toc}{\contentsline {section}{\numberline {17}Essential Boundary Condition}{22}}
+\@writefile{toc}{\contentsline {section}{\numberline {18}MultiGrid}{23}}
+\@writefile{toc}{\contentsline {section}{\numberline {19}Iterative methods by subspace correction[by Xu Jinchao]}{26}}
+\@writefile{toc}{\contentsline {section}{\numberline {20}Multigrid Hdiv}{27}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {20.1}Orthogonal decomposition}{28}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {20.2}Hdiv and Hcurl}{28}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {20.3}Commuting diagram}{30}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Commuting diagram}}{30}}
+\newlabel{abb_arc}{{1}{30}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Table relating $H(\mathcal  {D},\Omega )$ and $H(\mathaccentV {tilde}07E{\mathcal  {D}},\Omega )$ }}{31}}
+\newlabel{commuting_diagram}{{1}{31}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {20.4}Smoothing algorithm}{31}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {20.5}Relation between Nedelec and Raviart spaces}{32}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {20.6}Transfer operator}{33}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {20.7}Linear Elasticity $\mathcal  {ND}\to \mathcal  {RT}$ operator}{37}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {20.8}Questions}{38}}
+\@writefile{toc}{\contentsline {section}{\numberline {21}Saddle Point problem}{38}}
+\@writefile{toc}{\contentsline {section}{\numberline {22}Subdifferential}{40}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {22.1}Nodal Auxiliary Space Preconditioning}{40}}

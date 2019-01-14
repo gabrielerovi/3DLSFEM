@@ -1,0 +1,18 @@
+\relax 
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Contact boundary}{1}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Poisson equation}{2}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Dual Linear Elasticity}{2}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Linear elasticity equations}{3}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Signorini problem: strong formulation}{3}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Spaces}{3}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Least squares functionals}{4}}
+\@writefile{toc}{\contentsline {section}{\numberline {8}Solving the functional}{5}}
+\@writefile{toc}{\contentsline {section}{\numberline {9}A posteriori error estimator}{5}}
+\@writefile{toc}{\contentsline {section}{\numberline {10}The least squares functional as an a posteriori estimator: reliability and efficiency}{6}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.1}Reliability}{6}}
+\@writefile{toc}{\contentsline {section}{\numberline {11}Efficiency}{9}}
+\@writefile{toc}{\contentsline {section}{\numberline {12}The augmented functional is convex}{11}}
+\@writefile{toc}{\contentsline {section}{\numberline {13}Discretization}{14}}
+\@writefile{toc}{\contentsline {section}{\numberline {14}Raviart Thomas}{16}}
+\@writefile{toc}{\contentsline {section}{\numberline {15}Mass Matrix}{20}}

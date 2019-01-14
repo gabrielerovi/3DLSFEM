@@ -1,0 +1,424 @@
+
+@article{Arn,
+  title={Multigrid preconditioning in {H}(div) on non-convex polygons.},
+  author={Arnold Douglas, Richard S. Falk, Ragnar Winther}
+}
+
+@article{Arn08,
+  title={Finite elements for symmetric tensors in three dimensions},
+  author={Arnold, Douglas and Awanou, Gerard and Winther, Ragnar},
+  journal={Mathematics of Computation},
+  volume={77},
+  number={263},
+  pages={1229--1251},
+  year={2008}
+}
+@article{AFW00,
+  title={Multigrid in {H}(div) and {H}(curl)},
+  author={Arnold, Douglas N and Falk, Richard S and Winther, Ragnar},
+  journal={Numerische Mathematik},
+  volume={85},
+  number={2},
+  pages={197--217},
+  year={2000},
+  publisher={Springer}
+}
+@article{AW97,
+  title={Preconditioning in {H}(div) and applications},
+  author={Arnold, Douglas and Falk, Richard and Winther, Ragnar},
+  journal={Mathematics of Computation of the American Mathematical Society},
+  volume={66},
+  number={219},
+  pages={957--984},
+  year={1997}
+}
+
+@inproceedings{Bad02,
+  title={Convergence rate of a multiplicative Schwarz method for strongly nonlinear variational inequalities},
+  author={Badea, Lori},
+  booktitle={IFIP International Information Security Conference},
+  pages={31--41},
+  year={2002},
+  organization={Springer}
+}
+
+@article{Bad14,
+  title={Global convergence rate of a standard multigrid method for variational inequalities},
+  author={Badea, Lori},
+  journal={IMA Journal of Numerical Analysis},
+  volume={34},
+  number={1},
+  pages={197--216},
+  year={2014},
+  publisher={OUP}
+}
+
+
+@article{BCY06,
+  title={A note on least-squares mixed finite elements in relation to standard and mixed finite elements},
+  author={Brandts, Jan and Chen, Yanping and Yang, Julie},
+  journal={IMA Journal of Numerical Analysis},
+  volume={26},
+  number={4},
+  pages={779--789},
+  year={2006},
+  publisher={Oxford University Press}
+}
+
+@book{BF12,
+  title={Mixed and hybrid finite element methods},
+  author={Brezzi, Franco and Fortin, Michel},
+  volume={15},
+  year={2012},
+  publisher={Springer Science \& Business Media}
+}
+
+
+@book{BH93,
+  title={Multigrid solution of Signorini type problems in contact elastostatics},
+  author={Bader, Harald and Hoppe, Ronald HW},
+  year={1993},
+  publisher={Bibliothek der Fak. Mathematik und Informatik, Technische Univ.}
+}
+
+@article{BK12,
+  title={One-and two-level Schwarz methods for variational inequalities of the second kind and their application to frictional contact},
+  author={Badea, Lori and Krause, Rolf},
+  journal={Numerische Mathematik},
+  volume={120},
+  number={4},
+  pages={573--599},
+  year={2012},
+  publisher={Springer}
+}
+
+@article{BMM+05,
+  title={Analysis of first-order system least squares (FOSLS) for elliptic problems with discontinuous coefficients: Part {I},
+  author={Berndt, Markus and Manteuffel, Thomas A and McCormick, Stephen F and Starke, Gerhard},
+  journal={SIAM Journal on Numerical Analysis},
+  volume={43},
+  number={1},
+  pages={386--408},
+  year={2005},
+  publisher={SIAM}
+}
+@article{BMM97,
+  title={Local error estimates and adaptive refinement for first-order system least squares ({FOSLS})},
+  author={Berndt, Markus and Manteuffel, Thomas A and McCormick, Stephen F},
+  journal={Electron. Trans. Numer. Anal},
+  volume={6},
+  pages={35--43},
+  year={1997}
+}
+@book{Boc09,
+  title={Least-squares finite element methods},
+  author={Bochev, Pavel B and Gunzburger, Max D},
+  volume={166},
+  year={2009},
+  publisher={Springer Science \& Business Media}
+}
+
+@article{BY10,
+  title={Multigrid convergence: a brief trip down memory lane},
+  author={Bank, Randolph E and Yserentant, Harry},
+  journal={Computing and visualization in science},
+  volume={13},
+  number={4},
+  pages={147--152},
+  year={2010},
+  publisher={Springer}
+}
+
+@article{CLM+94,
+  title={First-order system least squares for second-order partial differential equations: Part {I},
+  author={Cai, Zhiqiang and Lazarov, R and Manteuffel, Thomas A and McCormick, Stephen F},
+  journal={SIAM Journal on Numerical Analysis},
+  volume={31},
+  number={6},
+  pages={1785--1799},
+  year={1994},
+  publisher={SIAM}
+}
+@article{CS04,
+  title={Least-squares methods for linear elasticity},
+  author={Cai, Zhiqiang and Starke, Gerhard},
+  journal={SIAM Journal on Numerical Analysis},
+  volume={42},
+  number={2},
+  pages={826--842},
+  year={2004},
+  publisher={SIAM}
+}
+
+@article{CZ94,
+  title={Multigrid algorithms for mixed methods for second order elliptic problems},
+  author={Chen, Zhangxin},
+  year={1994}
+}
+
+@book{ET99,
+  title={Convex analysis and variational problems},
+  author={Ekeland, Ivar and Temam, Roger},
+  volume={28},
+  year={1999},
+  publisher={Siam}
+}
+
+@article{GM90,
+  title={On multilevel iterative methods for optimization problems},
+  author={Gelman, E and Mandel, J},
+  journal={Mathematical Programming},
+  volume={48},
+  number={1-3},
+  pages={1--17},
+  year={1990},
+  publisher={Springer}
+}
+@article{Hip97,
+  title={Multigrid method for {H}(div) in three dimensions},
+  author={Hiptmair, Ralf},
+  journal={Electron. Trans. Numer. Anal},
+  volume={6},
+  number={1},
+  pages={133--152},
+  year={1997}
+}
+
+@incollection{HT00,
+  title={Overlapping and multilevel Schwarz methods for vector valued elliptic problems in three dimensions},
+  author={Hiptmair, Ralf and Toselli, Andrea},
+  booktitle={Parallel solution of partial differential equations},
+  pages={181--208},
+  year={2000},
+  publisher={Springer}
+}
+
+@article{HX07,
+  title={Nodal auxiliary space preconditioning in {H}(curl) and {H}(div) spaces},
+  author={Hiptmair, Ralf and Xu, Jinchao},
+  journal={SIAM Journal on Numerical Analysis},
+  volume={45},
+  number={6},
+  pages={2483--2509},
+  year={2007},
+  publisher={SIAM}
+}
+
+@book{Kik88,
+  title={Contact problems in elasticity: a study of variational inequalities and finite element methods},
+  author={Kikuchi, Noboru and Oden, John Tinsley},
+  volume={8},
+  year={1988},
+  publisher={siam}
+}
+
+@article{KK01,
+  title={Adaptive multigrid methods for {S}ignorini's problem in linear elasticity},
+  author={Kornhuber, Ralf and Krause, Rolf},
+  journal={Computing and Visualization in Science},
+  volume={4},
+  number={1},
+  pages={9--20},
+  year={2001},
+  publisher={Springer}
+}
+
+@article{KKS+08,
+  title={A monotone multigrid solver for two body contact problems in biomechanics},
+  author={Kornhuber, Ralf and Krause, Rolf and Sander, O and Deuflhard, P and Ertel, S},
+  journal={Computing and Visualization in Science},
+  volume={11},
+  number={1},
+  pages={3--15},
+  year={2008},
+  publisher={Springer}
+}
+@article{KMS17,
+  title={An adaptive least-squares mixed finite element method for the {S}ignorini problem},
+  author={Krause, Rolf and M{\"u}ller, Benjamin and Starke, Gerhard},
+  journal={Numerical Methods for Partial Differential Equations},
+  volume={33},
+  number={1},
+  pages={276--289},
+  year={2017},
+  publisher={Wiley Online Library}
+}
+@article{Kor94,
+  title={Monotone multigrid methods for elliptic variational inequalities I},
+  author={Kornhuber, Ralf},
+  journal={Numerische Mathematik},
+  volume={69},
+  number={2},
+  pages={167--184},
+  year={1994},
+  publisher={Springer}
+}
+
+@article{Kra09,
+  title={A nonsmooth multiscale method for solving frictional two-body contact problems in 2D and 3D with multigrid efficiency},
+  author={Krause, Rolf},
+  journal={SIAM Journal on Scientific Computing},
+  volume={31},
+  number={2},
+  pages={1399--1423},
+  year={2009},
+  publisher={SIAM}
+}
+@article{KV12,
+  title={Parallel auxiliary space AMG solver for H(div) problems},
+  author={Kolev, Tzanio V and Vassilevski, Panayot S},
+  journal={SIAM Journal on Scientific Computing},
+  volume={34},
+  number={6},
+  pages={A3079--A3098},
+  year={2012},
+  publisher={SIAM}
+}
+
+@article{KRS12,
+  title={A parallel multigrid method for constrained minimization problems and its application to friction, contact, and obstacle problems},
+  author={Krause, Rolf and Rigazzi, Alessandro and Steiner, Johannes},
+  journal={Computing and Visualization in Science},
+  volume={18},
+  number={1},
+  pages={1--15},
+  year={2016},
+  publisher={Springer}
+}
+
+@article{Man84,
+  title={A multilevel iterative method for symmetric, positive definite linear complementarity problems},
+  author={Mandel, Jan},
+  journal={applied mathematics and optimization},
+  volume={11},
+  number={1},
+  pages={77--95},
+  year={1984},
+  publisher={Springer}
+}
+
+@phdthesis{Mul15,
+  title={Mixed least squares finite element methods based on inverse stress-strain relations in hyperelasticity},
+  author={M{\"u}ller, Benjamin},
+  year={2015},
+  school={Universit{\"a}tsbibliothek Duisburg-Essen}
+}
+@article{RKL09,
+  title={Efficient assembly of H(div) and H(curl) conforming finite elements},
+  author={Rognes, Marie E and Kirby, Robert C and Logg, Anders},
+  journal={SIAM Journal on Scientific Computing},
+  volume={31},
+  number={6},
+  pages={4130--4151},
+  year={2009},
+  publisher={SIAM}
+}
+
+@article{SSS11,
+  title={Analysis of a modified first-order system least squares method for linear elasticity with improved momentum balance},
+  author={Starke, Gerhard and Schwarz, Alexander and Schr{\"o}der, J{\"o}rg},
+  journal={SIAM Journal on Numerical Analysis},
+  volume={49},
+  number={3},
+  pages={1006--1022},
+  year={2011},
+  publisher={SIAM}
+}
+
+@article{Sta99,
+  title={Multilevel boundary functionals for least-squares mixed finite element methods},
+  author={Starke, Gerhard},
+  journal={SIAM journal on numerical analysis},
+  volume={36},
+  number={4},
+  pages={1065--1077},
+  year={1999},
+  publisher={SIAM}
+}\\
+
+@article{Sta00,
+  title={{G}auss-{N}ewton multilevel methods for least-squares finite element computations of variably saturated subsurface flow},
+  author={Starke, Gerhard},
+  journal={Computing},
+  volume={64},
+  number={4},
+  pages={323--338},
+  year={2000},
+  publisher={Springer}
+}
+
+@article{Sta07,
+  title={An adaptive least-squares mixed finite element method for elasto-plasticity},
+  author={Starke, Gerhard},
+  journal={SIAM Journal on Numerical Analysis},
+  volume={45},
+  number={1},
+  pages={371--388},
+  year={2007},
+  publisher={SIAM}
+}
+
+@inproceedings{Sta09,
+  title={Adaptive least squares finite element methods in elasto-plasticity},
+  author={Starke, Gerhard},
+  booktitle={International Conference on Large-Scale Scientific Computing},
+  pages={671--678},
+  year={2009},
+  organization={Springer}
+}
+
+
+@article{Vas12,
+  title={Parallel auxiliary space AMG solver for {H}(div) problems},
+  author={Kolev, Tzanio V and Vassilevski, Panayot S},
+  journal={SIAM Journal on Scientific Computing},
+  volume={34},
+  number={6},
+  pages={A3079--A3098},
+  year={2012},
+  publisher={SIAM}
+}
+
+
+@incollection{XCN09,
+  title={Optimal multilevel methods for {H}(grad), {H}(curl), and {H}(div) systems on graded and unstructured grids},
+  author={Xu, Jinchao and Chen, Long and Nochetto, Ricardo H},
+  booktitle={Multiscale, nonlinear and adaptive approximation},
+  pages={599--659},
+  year={2009},
+  publisher={Springer}
+}
+
+@article{Xu92,
+  title={Iterative methods by space decomposition and subspace correction},
+  author={Xu, Jinchao},
+  journal={SIAM review},
+  volume={34},
+  number={4},
+  pages={581--613},
+  year={1992},
+  publisher={SIAM}
+}
+
+@article{Xu96,
+  title={The auxiliary space method and optimal multigrid preconditioning techniques for unstructured grids},
+  author={Xu, Jinchao},
+  journal={Computing},
+  volume={56},
+  number={3},
+  pages={215--235},
+  year={1996},
+  publisher={Springer}
+}
+@article{YL97,
+  title={Least-squares finite element methods for the elasticity problem},
+  author={Yang, Suh-Yuh and Liu, Jinn-Liang},
+  journal={Journal of computational and applied mathematics},
+  volume={87},
+  number={1},
+  pages={39--60},
+  year={1997},
+  publisher={Elsevier}
+}
+
+

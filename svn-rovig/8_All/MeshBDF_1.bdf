@@ -1,0 +1,13 @@
+$ Created by Gmsh
+BEGIN BULK
+GRID    1       0       0.00E+000.00E+000.00E+00 
+GRID    2       0       1.00E+000.00E+000.00E+00 
+GRID    3       0       1.00E+001.00E+000.00E+00 
+GRID    4       0       0.00E+001.00E+000.00E+00 
+CBAR    15      1       1       2       0.      0.      0. 
+CBAR    16      2       2       3       0.      0.      0. 
+CBAR    17      3       3       4       0.      0.      0. 
+CBAR    18      4       4       1       0.      0.      0. 
+CTRIA3  19      6       1       2       3 
+CTRIA3  20      6       1       3       4 
+ENDDATA

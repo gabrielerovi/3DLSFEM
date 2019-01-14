@@ -1,0 +1,71 @@
+close all
+clear all
+figure
+hold on
+
+liminf=-9.2;
+limsup=-2;
+
+
+load ('SquareResidualLambda1Mu1C1F2.mat')
+resSquare{1}=residual;
+load ('SquareResidualLambda1Mu1C1F3.mat')
+resSquare{2}=residual;
+load ('SquareResidualLambda1Mu1C1F4.mat')
+resSquare{3}=residual;
+load ('SquareResidualLambda1Mu1C1F5.mat')
+resSquare{4}=residual;
+load ('SquareResidualLambda1Mu1C1F6.mat')
+resSquare{5}=residual;
+load ('SquareResidualLambda1Mu1C1F7.mat')
+resSquare{6}=residual;
+load ('SquareResidualLambda1Mu1C1F8.mat')
+resSquare{7}=residual;
+load ('SquareResidualLambda1Mu1C1F9.mat')
+resSquare{8}=residual;
+
+for lev=1:length(resSquare)
+tmp=find(resSquare{lev}<-9);
+minimum(lev)=tmp(1);
+% colors(lev,1:3)=0.0001+lev/(length(resSquare)+1);
+% colors(lev,2)=0.0001+(length(resSquare)-lev)/(length(resSquare)+1);;
+% colors(lev,3)=0.0001+lev/(length(resSquare)+1);
+end
+colors = {'k','b','r','g','y',[.5 .6 .7],[.8 .2 .6],[.1 .4 .7]}
+for lev=1:length(resSquare)
+plot(resSquare{lev},'color',colors{lev},'LineWidth',12);
+end
+
+l=legend('L=2, Dofs=50 ','L=3, Dofs=162 ','L=4, Dofs=578 ','L=5, Dofs=2178 ', 'L=6, Dofs=8450', 'L=7, Dofs=33282', 'L=8, Dofs=132098', 'L=9, Dofs=526338' );
+l.FontSize=46;
+xx=xlabel('Iterations');
+yy=ylabel('log10(Residual)');
+set(gca,'fontsize',48)
+title('\lambda=1, \mu=1, C_{eq}=1e2, C_{compl}=1e2')
+
+ylim([liminf limsup])
+
+for ii=1:8
+    for kk=1:length(resSquare{ii})-1
+%         if(kk==8 && ii==3)
+%             fermami=1
+%         end
+        if((resSquare{ii}(kk))>liminf+0.5)
+        rate{ii}(kk)=10^(resSquare{ii}(kk+1))/10^(resSquare{ii}(kk));
+        end
+    end
+end
+
+figure 
+hold on
+colors = {'k','b','r','g','y',[.5 .6 .7],[.8 .2 .6],[.1 .4 .7]};
+for lev=1:length(resSquare)
+plot(rate{lev},'color',colors{lev},'LineWidth',12);
+end
+l=legend('L=2, Dofs=50 ','L=3, Dofs=162 ','L=4, Dofs=578 ','L=5, Dofs=2178 ', 'L=6, Dofs=8450', 'L=7, Dofs=33282', 'L=8, Dofs=132098', 'L=9, Dofs=526338' );
+l.FontSize=46;
+l.Location='southeast';
+xx=xlabel('Iterations');
+yy=ylabel('Rate');
+set(gca,'fontsize',48)
+title('\lambda=1, \mu=1, C_{eq}=1e2, C_{compl}=1e2')

@@ -1,0 +1,165 @@
+\begin{thebibliography}{10}
+
+\bibitem{BMM+05}
+Analysis of first-order system least squares (fosls) for elliptic problems with
+  discontinuous coefficients: Part {I}, author={Berndt, Markus and Manteuffel,
+  Thomas A and McCormick, Stephen F and Starke, Gerhard}, journal={SIAM Journal
+  on Numerical Analysis}, volume={43}, number={1}, pages={386--408},
+  year={2005}, publisher={SIAM}.
+
+\bibitem{AW97}
+Douglas Arnold, Richard Falk, and Ragnar Winther.
+\newblock Preconditioning in {H}(div) and applications.
+\newblock {\em Mathematics of Computation of the American Mathematical
+  Society}, 66(219):957--984, 1997.
+
+\bibitem{AFW00}
+Douglas~N Arnold, Richard~S Falk, and Ragnar Winther.
+\newblock Multigrid in {H}(div) and {H}(curl).
+\newblock {\em Numerische Mathematik}, 85(2):197--217, 2000.
+
+\bibitem{Arn}
+Ragnar~Winther Arnold~Douglas, Richard S.~Falk.
+\newblock Multigrid preconditioning in {H}(div) on non-convex polygons.
+
+\bibitem{Bad02}
+Lori Badea.
+\newblock Convergence rate of a multiplicative schwarz method for strongly
+  nonlinear variational inequalities.
+\newblock In {\em IFIP International Information Security Conference}, pages
+  31--41. Springer, 2002.
+
+\bibitem{Bad14}
+Lori Badea.
+\newblock Global convergence rate of a standard multigrid method for
+  variational inequalities.
+\newblock {\em IMA Journal of Numerical Analysis}, 34(1):197--216, 2014.
+
+\bibitem{BK12}
+Lori Badea and Rolf Krause.
+\newblock One-and two-level schwarz methods for variational inequalities of the
+  second kind and their application to frictional contact.
+\newblock {\em Numerische Mathematik}, 120(4):573--599, 2012.
+
+\bibitem{BH93}
+Harald Bader and Ronald~HW Hoppe.
+\newblock {\em Multigrid solution of Signorini type problems in contact
+  elastostatics}.
+\newblock Bibliothek der Fak. Mathematik und Informatik, Technische Univ.,
+  1993.
+
+\bibitem{BMM97}
+Markus Berndt, Thomas~A Manteuffel, and Stephen~F McCormick.
+\newblock Local error estimates and adaptive refinement for first-order system
+  least squares ({FOSLS}).
+\newblock {\em Electron. Trans. Numer. Anal}, 6:35--43, 1997.
+
+\bibitem{Boc09}
+Pavel~B Bochev and Max~D Gunzburger.
+\newblock {\em Least-squares finite element methods}, volume 166.
+\newblock Springer Science \& Business Media, 2009.
+
+\bibitem{BF12}
+Franco Brezzi and Michel Fortin.
+\newblock {\em Mixed and hybrid finite element methods}, volume~15.
+\newblock Springer Science \& Business Media, 2012.
+
+\bibitem{CS04}
+Zhiqiang Cai and Gerhard Starke.
+\newblock Least-squares methods for linear elasticity.
+\newblock {\em SIAM Journal on Numerical Analysis}, 42(2):826--842, 2004.
+
+\bibitem{ET99}
+Ivar Ekeland and Roger Temam.
+\newblock {\em Convex analysis and variational problems}, volume~28.
+\newblock Siam, 1999.
+
+\bibitem{GM90}
+E~Gelman and J~Mandel.
+\newblock On multilevel iterative methods for optimization problems.
+\newblock {\em Mathematical Programming}, 48(1-3):1--17, 1990.
+
+\bibitem{Hip97}
+Ralf Hiptmair.
+\newblock Multigrid method for {H}(div) in three dimensions.
+\newblock {\em Electron. Trans. Numer. Anal}, 6(1):133--152, 1997.
+
+\bibitem{HX07}
+Ralf Hiptmair and Jinchao Xu.
+\newblock Nodal auxiliary space preconditioning in {H}(curl) and {H}(div)
+  spaces.
+\newblock {\em SIAM Journal on Numerical Analysis}, 45(6):2483--2509, 2007.
+
+\bibitem{Kik88}
+Noboru Kikuchi and John~Tinsley Oden.
+\newblock {\em Contact problems in elasticity: a study of variational
+  inequalities and finite element methods}, volume~8.
+\newblock siam, 1988.
+
+\bibitem{Vas12}
+Tzanio~V Kolev and Panayot~S Vassilevski.
+\newblock Parallel auxiliary space amg solver for {H}(div) problems.
+\newblock {\em SIAM Journal on Scientific Computing}, 34(6):A3079--A3098, 2012.
+
+\bibitem{Kor94}
+Ralf Kornhuber.
+\newblock Monotone multigrid methods for elliptic variational inequalities i.
+\newblock {\em Numerische Mathematik}, 69(2):167--184, 1994.
+
+\bibitem{KK01}
+Ralf Kornhuber and Rolf Krause.
+\newblock Adaptive multigrid methods for {S}ignorini's problem in linear
+  elasticity.
+\newblock {\em Computing and Visualization in Science}, 4(1):9--20, 2001.
+
+\bibitem{KKS+08}
+Ralf Kornhuber, Rolf Krause, O~Sander, P~Deuflhard, and S~Ertel.
+\newblock A monotone multigrid solver for two body contact problems in
+  biomechanics.
+\newblock {\em Computing and Visualization in Science}, 11(1):3--15, 2008.
+
+\bibitem{KMS17}
+Rolf Krause, Benjamin M{\"u}ller, and Gerhard Starke.
+\newblock An adaptive least-squares mixed finite element method for the
+  {S}ignorini problem.
+\newblock {\em Numerical Methods for Partial Differential Equations},
+  33(1):276--289, 2017.
+
+\bibitem{KRS12}
+Rolf Krause, Alessandro Rigazzi, and Johannes Steiner.
+\newblock A parallel multigrid method for constrained minimization problems and
+  its application to friction, contact, and obstacle problems.
+\newblock {\em Computing and Visualization in Science}, 18(1):1--15, 2016.
+
+\bibitem{Man84}
+Jan Mandel.
+\newblock A multilevel iterative method for symmetric, positive definite linear
+  complementarity problems.
+\newblock {\em applied mathematics and optimization}, 11(1):77--95, 1984.
+
+\bibitem{Sta00}
+Gerhard Starke.
+\newblock {G}auss-{N}ewton multilevel methods for least-squares finite element
+  computations of variably saturated subsurface flow.
+\newblock {\em Computing}, 64(4):323--338, 2000.
+
+\bibitem{Sta07}
+Gerhard Starke.
+\newblock An adaptive least-squares mixed finite element method for
+  elasto-plasticity.
+\newblock {\em SIAM Journal on Numerical Analysis}, 45(1):371--388, 2007.
+
+\bibitem{XCN09}
+Jinchao Xu, Long Chen, and Ricardo~H Nochetto.
+\newblock Optimal multilevel methods for {H}(grad), {H}(curl), and {H}(div)
+  systems on graded and unstructured grids.
+\newblock In {\em Multiscale, nonlinear and adaptive approximation}, pages
+  599--659. Springer, 2009.
+
+\bibitem{YL97}
+Suh-Yuh Yang and Jinn-Liang Liu.
+\newblock Least-squares finite element methods for the elasticity problem.
+\newblock {\em Journal of computational and applied mathematics}, 87(1):39--60,
+  1997.
+
+\end{thebibliography}

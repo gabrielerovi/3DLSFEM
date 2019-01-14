@@ -1,0 +1,290 @@
+\documentclass[]{usiinfprospectus}
+\usepackage{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
+%\geometry{landscape}                		% Activate for rotated page geometry
+%\usepackage[parfill]{parskip}    		% Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
+								% TeX will automatically convert eps --> pdf in pdflatex		
+
+\usepackage{amsmath}
+\captionsetup{labelfont={bf}}
+
+\author{Gabriele Rovi}
+
+\title{Least-Square FE-Method for the Signorini Problem}
+\subtitle{FE discretization and solution by hierarchical optimization}
+\versiondate{\today}
+
+\begin{committee}
+%With more than 1 advisor an error is raised...: only 1 advisor is allowed!
+\researchadvisor[Universit\`a della Svizzera Italiana, Switzerland]{Prof.}{Rolf}{Krause}
+\academicadvisor[Universit\`a della Svizzera Italiana, Switzerland]{Prof.}{Rolf}{Krause}
+\committeemember[Universit\`a della Svizzera Italiana, Switzerland]{Prof.}{Committee}{Member1}
+\committeemember[Universit\`a della Svizzera Italiana, Switzerland]{Prof.}{Committee}{Member2}
+%\committeemember[Universit\`a della Svizzera Italiana, Switzerland]{Prof.}{Committee}{Member3}
+\coadvisor[Universit\`a della Svizzera Italiana, Switzerland]{Prof.}{Research}{Co-Advisor1}
+\coadvisor[Universit\`a della Svizzera Italiana, Switzerland]{Prof.}{Research}{Co-Advisor2}
+%\coadvisor[Universit\`a della Svizzera Italiana, Switzerland]{Prof.}{Research}{Co-Advisor3}
+\phddirector{Prof.}{Binder}{/Bronstein}
+\end{committee}
+
+\abstract {
+The goal of this project is to exploit the huge potential of finite element approaches based on the approximation of stresses as the dual variable for variational inequalities in solid mechanics. This includes models of frictional contact as well as elasto-plastic deformations and emphasizes adaptive refinement strategies based on built-in a posteriori error estimators as well as efficient iterative solution methods for the arising non-smooth problems. Approximating stresses directly by suitable finite element spaces allows for algorithmic simplifications and improved accuracy, in particular, in association with plasticity and friction where stress components play a prominent role. 
+}
+
+\newcommand{\supp}{\operatorname{supp}}
+\newcommand{\dist}{\operatorname{dist}}
+\newcommand{\divr}{\operatorname{div}}
+\newcommand{\tdiv}{\operatorname{div}}
+\newcommand{\ess}{\operatorname{ess}}
+\newcommand{\rotore}{\operatorname{rot}}
+\newcommand{\curl}{\operatorname{\textbf{curl}}}
+\newcommand{\bcurl}{\operatorname{\textbf{curl}}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\bA}{\textbf{A}}
+\newcommand{\ba}{\textbf{a}}
+\newcommand{\bb}{\textbf{b}}
+\newcommand{\bB}{\textbf{B}}
+\newcommand{\bC}{\textbf{C}}
+\newcommand{\bd}{\textbf{d}}
+\newcommand{\bD}{\textbf{D}}
+\newcommand{\be}{\textbf{e}}
+\newcommand{\bE}{\textbf{E}}
+\newcommand{\bff}{\textbf{f}}
+\newcommand{\bF}{\textbf{F}}
+\newcommand{\bg}{\textbf{g}}
+\newcommand{\bG}{\textbf{G}}
+\newcommand{\bi}{\textbf{i}}
+\newcommand{\bI}{\textbf{I}}
+\newcommand{\bj}{\textbf{j}}
+\newcommand{\bJ}{\textbf{J}}
+\newcommand{\bh}{\textbf{h}}
+\newcommand{\bH}{\textbf{H}}
+\newcommand{\bk}{\textbf{k}}
+\newcommand{\bK}{\textbf{K}}
+\newcommand{\bl}{\textbf{l}}
+\newcommand{\bL}{\textbf{L}}
+\newcommand{\bm}{\textbf{m}}
+\newcommand{\bM}{\textbf{M}}
+\newcommand{\bn}{\textbf{n}}
+\newcommand{\bN}{\textbf{N}}
+\newcommand{\bp}{\textbf{p}}
+\newcommand{\bP}{\textbf{P}}
+\newcommand{\bo}{\textbf{o}}
+\newcommand{\bq}{\textbf{q}}
+\newcommand{\bQ}{\textbf{Q}}
+\newcommand{\br}{\textbf{r}}
+\newcommand{\bR}{\textbf{R}}
+\newcommand{\bs}{\textbf{s}}
+\newcommand{\bS}{\textbf{S}}
+\newcommand{\btau}{\boldsymbol{\tau}}
+\newcommand{\bt}{\textbf{t}}
+\newcommand{\bv}{\textbf{v}}
+\newcommand{\bV}{\textbf{V}}
+\newcommand{\bw}{\textbf{w}}
+\newcommand{\bW}{\textbf{W}}
+\newcommand{\bu}{\textbf{u}}
+\newcommand{\bU}{\textbf{U}}
+\newcommand{\by}{\textbf{y}}
+\newcommand{\bY}{\textbf{Y}}
+\newcommand{\bbx}{\textbf{x}}
+\newcommand{\bX}{\textbf{X}}
+\newcommand{\beps}{\boldsymbol{\varepsilon}}
+\newcommand{\bphi}{\boldsymbol{\phi}}
+\newcommand{\bPhi}{\boldsymbol{\Phi}}
+\newcommand{\bpsi}{\boldsymbol{\psi}}
+\newcommand{\bomega}{\boldsymbol{\omega}}
+\newcommand{\bsigma}{\boldsymbol{\sigma}}
+\newcommand{\bSigma}{\boldsymbol{\Sigma}}
+\newcommand{\bxi}{\boldsymbol{\xi}}
+\newcommand{\aaa}{\`a}
+\newcommand{\eee}{\`e}
+\newcommand{\iii}{\`i}
+\newcommand{\ooo}{\`o}
+\newcommand{\uuu}{\`u}
+\newcommand{\aaaa}{\'a}
+\newcommand{\eeee}{\'e}
+\newcommand{\iiii}{\'i}
+\newcommand{\oooo}{\'o}
+\newcommand{\uuuu}{\'u}
+\newcommand{\AAA}{\`A}
+\newcommand{\EEE}{\`E}
+\newcommand{\III}{\`I}
+\newcommand{\OOO}{\`O}
+\newcommand{\UUU}{\`U}
+\newcommand{\AAAA}{\'A}
+\newcommand{\EEEE}{\'E}
+\newcommand{\IIII}{\'I}
+\newcommand{\OOOO}{\'O}
+\newcommand{\UUUU}{\'U}
+\newcommand{\ND}{\mathcal{ND}}
+\newcommand{\RT}{\mathcal{RT}}
+
+
+\begin{document}
+\maketitle
+Contact problems arise in different engineering fields, from biomedical applications to electric ones...
+Contact can be described by proper PDEs and constraints. In particular we will focus on the Signorini problem, that takes into account linear elasticity subject to the well-known contact conditions. To solve it, we have to discretize the PDE by means of LS-FE method (from now on, LS and FE stand respectively for 'Least Squares' and 'Finite Element'). In the next sections we explain why LS-approach can be a better choice with respect to the primal or dual formulations. 
+Before describing contact in details, it is necessary to understand LSFEM for linear elasticity. This means focusing on its discretization
+Since the contact is between two or more solid bodies, Linear elasticity is a model that can properly describe contact between two or more solids. 
+
+\section{Linear elasticity and its weak formulations: why LSFEM?}
+In this section we want to stress out why the choice of the LSFEM can be a good candidate for the solution of linear elasticity. In particular it is when we want to deal with an incompressible solid or solve accurately for the stresses. \textbf{Since the explanation is the same for the contact case, we focus only on linear elasticity to make the speech easier(dillo altrove).}\\
+Let $\Omega$ be an open, bounded, connected subset of $\mathbb{R}^d$, where $d=2,3$ is the dimension of the problem. The boundary $\partial \Omega$, Lipschitz and continuous, is the union of two open disjoint subsets $\partial \Omega= \Gamma_D \cup \Gamma_N$, with  $\Gamma_D \neq \emptyset$ and  $\Gamma_D \cap\Gamma_N = \emptyset$.\\
+Then let $\bff=(f_1,...,f_d)^T$ be the body force, $\bu=(u_1,...,u_d)^T$ the displacement field,  $\bsigma=(\sigma_{ij})_{d \times d}$ the stress tensor. The strong formulation of linear elasticity is the following:\textit{ find $\bu$, $\bsigma$ such that}:
+\begin{align*}
+\begin{cases}
+\text{div} \bsigma + \bff=0 & \Omega  \qquad \text{momentum balance equation}\\
+\mathcal{A} \bsigma - \boldsymbol{\varepsilon}(\bu)=0 &\Omega \qquad \text{constitutive law}\\
+\bu = \bu^D & \Gamma_D\qquad \text{Dirichlet BC}\\
+\bsigma \cdot \bn = \bt^N & \Gamma_N\qquad \text{Neumann BC}\\
+\end{cases} 
+\end{align*}
+where the linearized strain tensor $\boldsymbol{\varepsilon}(\bu)= \text{sym} (\nabla \bu)$ is the symmetric part of the displacement gradient, the compliance tensor is $\mathcal{A}=\dfrac{1}{2 \mu} \left(\bsigma-\dfrac{\lambda}{d \lambda + 2 \mu } \text{tr} \bsigma \bI\right)$ with $\text{tr}$, $d$, $\lambda$ and $\mu$ denoting respectively the trace operator, the dimension of the problem and the Lam\eeee${}$ parameters.\\
+From the strong formulation of the linear elasticity we can derive different variants of weak forms. By substituing the constitutive equation ($\bsigma = \mathcal{C}\boldsymbol{\varepsilon}(\bu)$, with $\mathcal{C}=\mathcal{A}^{-1}$ the elasticity tensor) into the momentum balance one, we obtain the displacement formulation. \textbf{Because of the positive definiteness of the energy-functional, also the related system will be.} Nevertheless, since we solve directly for displacements ($\bu \in H^1(\Omega)$), the stresses are derived \textit{a posteriori} and cannot be carefully approximated. Furthermore locking phenomena can arise for incompressible or nearly incompressible solids ($\lambda \gg 1$ or $\lambda \to \infty$).\\
+To achieve a better approximation of the stresses, the dual mixed formulation by Hellinger-Reissner can be used. Given the energy-functional $\mathcal{J}(\bu,\bsigma)=\frac{1}{2}\left(\mathcal{A} \bsigma, \bsigma \right) + \left(\nabla \cdot \bsigma + \bff, \bu \right)  $, we search for both displacement and stresses $(\bu,\bsigma) \in L^2(\Omega)^d  \times  H_{\text{div},S}(\Omega)^d$, where $H_{\text{div},S}(\Omega)^d$ is the space of symmetric tensors in $H_{\text{div}}(\Omega)$. In this case, in order to satisfy the inf-sup condition in the discrete setting, a stable combination of finite element spaces is needed. Although such spaces have been built, the number of degrees of freedem they require is very large. Furthermore the corresponding linear system is a saddle point problem, that in general is difficult to solve. \\
+The approach that we here present is based on the least-square principle. The main idea is to build a fictitious functional as the sum of the squared $L^2$-norms of the residuals of the equations defined on the domain. For the linear elasticity, this is translated in finding $\bu \in H^1(\Omega)$, $\bsigma \in H_{\text{div}}(\Omega)$ that minimize the least-square functional:
+\begin{align*}
+ \mathcal{J}(\bu,\bsigma)=C_1 ||\text{div} \bsigma+\bff||_{L^2(\Omega)^d}^2+C_2 ||\mathcal{A}\bsigma -\boldsymbol{\varepsilon}(\bu)||_{L^2(\Omega)^d}^2   \quad \rightarrow \quad (\tilde{\bu},\tilde{\bsigma})=\text{argmin}\mathcal{J}(\bu,\bsigma)
+\end{align*}
+Since the functional is continuous, convex and positive definite, the weak formulation can be derived by enforcing the first-order necessary optimality condition.\\
+Search for $(\bu, \bsigma) \in $ $\left[H_{\Gamma_d}^1(\Omega) \right]^d\times \left[ H_{\Gamma_N}^{\text{div}}(\Omega) \right]^d$ such that:
+\begin{align*}
+ \begin{cases}
+C_1(\text{div} \bsigma , \text{div} \btau) + C_2 (\mathcal{A} \bsigma,\mathcal{A} \btau) - C_2(\boldsymbol{\varepsilon}(\bu),\mathcal{A} \btau)=-C_1(\bff , \text{div} \btau) & \forall \btau \in \left[ H_{\Gamma_N^0}^{\text{div}}(\Omega) \right]^d \\
+- C_2(\boldsymbol{\varepsilon}(\bv),\mathcal{A} \bsigma)+
+C_2(\boldsymbol{\varepsilon}(\bu),\boldsymbol{\varepsilon}(\bv))=0 & \forall \bv \in \left[H_{\Gamma_{d}^0}^1(\Omega) \right]^d
+ \end{cases}
+\end{align*}
+where the spaces with the pedex $\Gamma_d$, $\Gamma_N$ satisfy the boundary conditions of the problem, whilst the ones with $\Gamma_d^0$, $\Gamma_N^0$ have homogeneous ones.\\
+The weights $C_1$ and $C_2$ have to be determined. Because the LS-functional is fictitious and has no physical meaning, this decision has to be made a posteriori and will influence also the symmetry of the stress tensor. From (PAPER STARKE ELASTICITA), we know that the asimmetry of stresses can be bounded by the constitutive law: $||\sigma-\sigma^T||\leq 4 \mu || \mathcal{A} \bsigma-\boldsymbol{\varepsilon}(\bu)||$. So we could think of using $C_2 \gg C_1$ to ensure its simmetry. Nevertheless, in this way, the equilibrium  is not well captured and the solution will be not satisfactory. This behaviour can be well understood in the case of a beam subjct to bending. Therefore we prefer to add the simmetry in the LS-functional, with a proper weight $C_3$ such that $C_1$, $C_3$ are both greater than $C_2$. By adopting this model, we are able also to describe bending, that otheriwse would be difficult to describe. Then the functional is:\\
+\begin{align*}
+ \mathcal{J}(\bu,\bsigma)=C_1 ||\text{div} \bsigma+\bff||_{L^2(\Omega)^d}^2+C_2 ||\mathcal{A}\bsigma -\boldsymbol{\varepsilon}(\bu)||_{L^2(\Omega)^d}^2 +C_3  ||\bsigma- \bsigma^T||_{L^2(\Omega)^d}
+\end{align*}
+Starting from this new functional, we can derive the weak formulation from the first-order necessary optimality condition. As before, what we obtain is nothing but the normal equations. Therefore, instead of solving $\bA \bbx =\bb$, we are going to solve $\bA^* \bA \bbx =\bA^* \bb$. Of course this is the reason why the system is positive definite. Unfortunately the new condition number is bounded from the previous condition number to the power of two: $K(A^* A) \leq K(A)^2$. A good preconditioning tecnique must be take into consideration in order to use iterative solvers. In particular we want to examine multigrid algorhitms.
+\section{Geometric Multigrid in $H^{\text{div}}$}
+\textbf{GEOMETRIC MG\\
+}It has been shown that the condition number of the LS system can be very large. Then an iterative solver with a proper preconditioner must be considered. In particular domain decomposition and multigrid methods (MG) are well-known for their $h-$indipendent convergence rate. For this reason, we want to investigate MG also in the context of LSFEM. The difference with respect to usual schemes is that in the LS approach the variables live respectively in $H^1$ and $H^{\text{div}}$. Therefore classical MG for $H^1$ is necessary, but not sufficient, since we have also to take care of the stress components. The amount of literature that tackles $H^1$-MG is very large (\textbf{REFERENCES TO H1 MG}), so we prefer to focus on $H^{\text{div}}$-MG.\\
+Unfortunately classical $H^1$-MG is not able to solve $H^{\text{div}}$ problems. Indeed the prerequisite of MG is that eigenfunctions associated to small eigenvalues can be well represented on coarse meshes. This is automatically satisfied in $H^1$, but it is not in $H^{\text{div}}$ because the kernel of the div operator is very large $\mathcal{N}(\text{div})$. For a better understanding, let us consider the two basic prototype weak forms  for $H^1$ and $H^{\text{div}}$ and the corresponding eigenvalues: 
+\begin{align*}
+\begin{cases}
+\Lambda_{H^1}(\bu,\bv)=(\bu,\bv)+(\nabla \bu,\nabla \bv) \\
+\lambda_{H^1}=1+\frac{|\nabla \bu|_1^2}{||\bu||_{L^2}^2}
+\end{cases}
+\qquad 
+\begin{cases}
+\Lambda_{H^{\text{div}}}(\bu,\bv)=(\bu,\bv)+(\text{div} \bu,\text{div} \bv)\\
+\lambda_{H^{\text{div}}}=1+\frac{|\text{div} \bu|_1^2}{||\bu||_{L^2}^2}
+\end{cases}
+\end{align*}
+It is obvious that the aforementioned essential requirement is certainly fullfilled for the operator $\Lambda_{H^1}$.  The eigenvalue $\lambda_{H^1}$ decreses for less oscillatory functions and equals the unity for constant functions. Therefore on coarse meshes, these functions can be appropriately represented. 
+On the other hand, $H^{\text{div}}$ small eigenvalues $\lambda_{H^{\text{div}}}$ can be associated to free-divergence functions with large gradients that a low-quality mesh in unable to characterize. In short, we are not able to properly approximate direclty the elements of $\mathcal{N}(\text{div})$.\\\\\\\\\\
+
+
+
+In order to tackle this undesirable feature, several tecniques have ben presented. The first one we want to examine is the smoother by Arnold (\textbf{CITA}). In this paper the divergence-free components of the solution are taken into account by a smoother that acts contemporarily on a whole patch of the mesh. The algorithms is the following:\\\\
+RIMUOVI FORSE\\\\
+\textit{Loop on all the vertices of the mesh; for each vertex, consider all the elements that share it; then solve the problem restricted to this small patch, imposing dirichlet-boundary on the boundary of the patch. }\\\\
+In particular we can solve for the displacement and stresses separately of contemporarily. In the previous case, we have to solve for two smaller problems, while in the second one we solve only for one, but bigger. What is important in this kind of smoother is that we do not distinguish between $H^{\text{div}}$ and $H^1$. We go from a level to another one with the right projection operators and then simply use this smoother for both, displacement and stresses. Essentially it is a smoother for the overall LS-system that does not make any difference between $\bu$ and $\bsigma$.\\\\\\
+We define the $d-$dimensional first-order Lagrange and Raviart-Thomas spaces by $\bU_h$ and $\bSigma_h$. Then for each vertex $\nu \in \mathcal{T}_h$, we define the patch $\Omega_{\nu}$ as the union of all the elements that share the vertex $\nu$. The smoother strategy is the following. Loop on all the vertices $\nu$ of the mesh; for each $\nu$, solve the difference problem restricted to this small patch $\Omega_{\nu}$, imposing homogeneous dirichlet boundary on the boundary of the patch:
+\begin{align*}
+\min_{\delta \bu_{\nu} \in \bU_h, \delta \bsigma_{\nu} \in \bSigma_h } \mathcal{F}(\bu_{\nu}^k+ \delta \bu_{\nu} ,\bsigma_{\nu}^k+ \delta \bsigma_{\nu} )
+\begin{cases}
+\min_{\delta \bsigma_{\nu} \in \bSigma_h } \mathcal{F}(\bu_{\nu}^k ,\bsigma_{\nu}^k+ \delta \bsigma_{\nu} )
+\min_{\delta \bu_{\nu} \in \bU_h} \mathcal{F}(\bu_{\nu}^k+ \delta \bu_{\nu} ,\bsigma_{\nu}^k )
+\end{cases}
+\end{align*}
+Then update $\bu_{\nu}^{k+1}=\bu_{\nu}^k+\delta \bu_{\nu}$,  $\bsigma_{\nu}^{k+1}=\bsigma_{\nu}^k+\delta \bsigma_{\nu}$.\\\\\\
+Another approach for smoothing the divergence-free components of the error has been proposed by Hiptmair (CITA ARTICOLI). The two main ingredients are the Helmholtz decomposition and the commuting diagram. 
+\\\\
+By means of Helmholtz decomposition $H^{\text{div}}$ can be studied as the sum of the kernel of the divergence operator and its orthogonal complement, $H^{\text{div}}=\mathcal{N}(div)\oplus\mathcal{N}(div)^{\perp}$. Usual smoothers work properly only on the latter component, but do not on the first one, since we lose the ellipticity of the operator. Nevertheless we can take advantage of the commuting diagram and, in particular, of the fact that $\mathcal{N}(div)=\bcurl H^{\bcurl}$.  
+Given $\bu=\bv+\bw$, with $\bv \in \mathcal{N}(div)$ and $\bw \in \mathcal{N}(div)^{\perp}$, we can approach $\bw$ with common smoothers. We cannot do the same for $\bv$, so we write is as $\bv=\bcurl \bphi$, with $\bphi$ potential variable belonging to $H^{\bcurl}$. Then we achieve a weak formulation in terms of $\bphi$ for which the problem of free-divergence functions disappears. Therefore our strategy is to solve for corrections in the potential space and then project them back in the $H^{\text{div}}$. \\\\
+In the FE discretization, it would be desirable to have two different subspaces of $H^{\text{div}}$ for  $\mathcal{N}(div)^{\perp}$ and $\mathcal{N}(div)$. Since we do know any pairs of this kind, we approximate $\mathcal{N}(div)^{\perp}$ by the whole space $\RT_0$ and the potential space $H^{\bcurl}$ by $\ND_1$, the first kind Nedelec space of the first order. \\\\
+INSERISCI COMMUTING DIAGRAM
+\\\\\\
+The present work aims to extend this idea from the basic example of the $a(\bu,\bv)=(\bu,\bv)+(\text{div}\bu,\text{div}\bv)$ to LS linear elasticity, with general boundary conditions. \textbf{In contrast to Arnold smoother that acts upon the overall system, now we have two different smoothers that can be applied separately on the displacement and the stresses. }\\\\
+Fortunately, \textbf{GUARDA ARNOLD PRECONDITIONING IN HDIV}, we can use a block preconditioning strategy. This means we can apply $H^1$-MG and $H^{\text{div}}$-MG indipendently. This also means we have to solve the system in a staggered way and not for the whole system.  Different methods can be considered to deal with the two blocks of the matrix:
+\begin{itemize}
+\item Jacobi: $ \bM_{\bsigma,\bsigma} \bsigma^{k+1}=\bb_{\bsigma} -\bM_{\bsigma,\bu}\bu^{k}$,
+$ \bM_{\bu,\bu} \bu^{k+1}=\bb_{\bu} -\bM_{\bsigma,\bu}^T\bsigma^{k}$.
+\item Block Gauss-Seidel: $ \bM_{\bsigma,\bsigma} \bsigma^{k+\frac{1}{2}}=\bb_{\bsigma} -\bM_{\bsigma,\bu}\bu^{k}$,
+$ \bM_{\bu,\bu} \bu^{k+1}=\bb_{\bu} -\bM_{\bsigma,\bu}^T\bsigma^{k+\frac{1}{2}}$.
+\item CG with block diagonal preconditioner.
+\begin{align*}
+\bP=\begin{bmatrix}
+MG_{\bM_{\bsigma,\bsigma}H^{\text{div}}}^{-1}& 0 \\
+0 & MG_{\bM_{\bu,\bu}H^1}^{-1}
+\end{bmatrix}\qquad
+\bM=\begin{bmatrix}
+\bM_{\bsigma,\bsigma} &\bM_{\bsigma,\bu} \\
+\bM_{\bsigma,\bu}^T &\bM_{\bu,\bu} 
+\end{bmatrix}
+\quad
+\bP \bM \bbx = \bP  \bb
+\end{align*}
+\end{itemize}
+For each of these schemes, $H^1$-MG and $H^{\text{div}}$-MG are applied on the two diagonal blocks of the system, while the extradiagonals go into the right hand side. \\\\
+\\
+For a fixed value of the displacement $\bu$, we can write the raw of the system related to the stress in the following way:
+\begin{align*}
+\int_{\Omega}\text{div}  \bsigma \cdot \text{div} \btau + \mathcal{A} \bsigma : \mathcal{A} \btau =  \int_{\Omega} \varepsilon(\bu) :  \mathcal{A} \btau -\int_{\Omega} \bff \text{div} \:\btau 
+\end{align*}
+or alternatively $\langle \bA \sigma, \btau \rangle = \langle \bff (\bu), \btau \rangle$. By spilliting the solution in $\bsigma=\br + \bcurl \bphi$, where $\br \in \mathcal{N}(\text{div})^{\perp}$, $\bcurl \bphi \in \mathcal{N}(\text{div})$, we can at first solve for $\br$ and then for $\bphi$. For computing $\br$ we solve the original problem $\langle \bA \br, \btau \rangle = \langle \bff , \btau \rangle$.  For $\bphi$ we observe that, if $\textbf{res}=\bff-\bA\br$:
+\begin{align*}
+\qquad \langle \bA (\br + \bcurl \bphi) \, \by \rangle = \langle \bff , \by \rangle 
+\quad \rightarrow \quad \langle \bA \br, \btau \rangle + \langle\bcurl \bphi , \btau \rangle = \langle \bff , \btau \rangle 
+\quad \rightarrow \quad \langle \bA\bcurl \bphi , \bcurl \bpsi \rangle  =\langle \textbf{res} ,  \bcurl \bpsi \rangle  \quad \forall \bpsi
+\end{align*}
+The problem for the potential variable $\bs$ reads as follows:
+search for $\bphi \in H^{\text{div}}(\Omega)$ such that:
+\begin{align*}
+\begin{cases}
+&C_2 \int_{\Omega}  \mathcal{A} \bcurl \phi^{k+1} : \mathcal{A} \bcurl \psi= \int_{\Omega} \textbf{res} :  bcurl \psi \qquad
+\forall \bpsi \in \left[ H_{\Gamma_N^0}^{\bcurl}(\Omega) \right]^d \\
+& \bcurl \bphi  \bn  =0 \qquad \Gamma_N
+\end{cases}
+\end{align*}
+In the LS setting Neumann conditions can be enforced in an essential manner. Therefore $\bsigma \bn =\bg$ is exactly satisfied and its residual is zero. For this reason the bc is now $\bcurl \bphi  \bn  =0 $. Unfortunately in the FE discretization this boundary condition is no more local and for each normal involevs degrees of freedom of the three surrounding edges.
+
+\section{FEM discretization}
+In order to solve the LS functional, we have to discretize its weak formulation on a tassellation $\mathcal{T}_h$ of $\Omega$. Then we can choose proper discrete-space for the approximation of displacement and stresses.\\
+An important feature of the LS-approach is that, in principle, it does not give rise to a saddle-point problem. A  positive definite system can be derived with any kind of conforming approximation space. In general, in order to discretize displacement and stresses, we use respectively a first-order Lagrange FE space $P^1(T_h)$ and the zero-order Raviart-Thomas space $\RT_0(T_h)$. 
+\section{Signorini problem: strong formulation}
+\begin{align*}
+\begin{cases}
+\text{div} \bsigma + \bff=0 & \Omega  \qquad \text{momentum balance equation}\\
+\mathcal{A} \bsigma - \boldsymbol{\varepsilon}(\bu)=0 &\Omega \qquad \text{constitutive law}\\
+\bu = \bu^D & \Gamma_D\\
+\bsigma \cdot \bn = \bt^N & \Gamma_N\\
+\end{cases} 
+\end{align*}
+with the constraints:
+\begin{align*}
+\begin{cases}
+\bu \cdot \bn - g  \leq 0 & \Gamma_D \qquad \text{impenetrability}\\
+(\bsigma \bn) \cdot \bn \leq 0 &\Gamma_N \qquad \text{direction of the surface pressure}\\
+\langle \bu \cdot \bn -g, (\bsigma \bn) \cdot \bn \rangle_{\Gamma_c}=0 & \Gamma_C \subset \Gamma_N \qquad \text{complementarity condition}
+\end{cases}
+\end{align*}
+Between the two possible formulations, the one that uses $\mathcal{A} \bsigma -\boldsymbol{\varepsilon}=0$ is preferred to $\bsigma - \mathcal{C} \boldsymbol{\varepsilon}=0$. In this way, we can also deal with near incompressible or incompressible materials ($\lambda \gg 1$, $\lambda \to \infty$).
+\begin{align*}
+&\mathcal{A} \bsigma= \dfrac{1}{2 \mu} \left(\bsigma-\dfrac{\lambda}{d \lambda + 2 \mu } \text{tr} \bsigma \bI\right)\\
+&\mathcal{C} \boldsymbol{\varepsilon}=\lambda \text{tr} \boldsymbol{\varepsilon}(\bu) \bI+ 2 \mu \boldsymbol{\varepsilon}(\bu)
+\end{align*}
+We could use the linear elasticity LS-functional subject to the contact-constraints. Nevertheless it is difficult to deal with the non linear complementary condition. For this reason, we augment the LS functional by a boundary term, that is always positive if the conditions on impenetrability and direction of the surface pressure are satisfied.
+\begin{align*}
+ \mathcal{J}(\bu,\bsigma)=||\text{div} \bsigma+\bff||_{L^2(\Omega)^d}^2+||\mathcal{A}\bsigma -\boldsymbol{\varepsilon}(\bu)||_{L^2(\Omega)^d}^2   \quad \rightarrow \quad \min_{\bu,\bsigma} \mathcal{J}
+\end{align*}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction} \label{introduction}
+%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Verbum Laudatur Si Factum Sequatur}
+
+The research prospectus outlines the research area in which the student intends to perform research, and describes initial work performed by the student. It should be no more than 4 pages in length (excluding bibliography). The research prospectus must be submitted to the prospectus review committee at least one week before the {\em prospectus review}.
+~\cite{CS04} \cite{CS04}
+%%%%%
+\bibliography{biblio}
+\bibliographystyle{plain}
+
+\end{document}

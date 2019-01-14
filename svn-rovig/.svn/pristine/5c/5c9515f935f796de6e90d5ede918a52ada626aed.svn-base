@@ -1,0 +1,110 @@
+clear all
+close all
+clc
+%echo on
+
+% data
+
+parameters =parameters();
+
+
+[mesh,h]=mesh(parameters);
+L=length(mesh);
+ 
+    
+[maps,graph]=graph_and_maps(mesh);
+maps=ArnoldMonotoneConstraint(mesh,maps,parameters);
+Constraint = CheckConstraintsNT(mesh,maps,parameters);
+
+% for ii=1:length(mesh)
+% vv{ii}=0;
+% end
+% print_mesh_L(mesh,vv);
+
+
+
+
+
+[AFinenobcnt,Complementarity,bnt,bnt1,Pnt]=create_system_contact(parameters,mesh,h,maps.Patch_Node_Monotone);
+
+ 
+
+activeset=Constraint.WorkingSetE;
+big_value=10^10;
+c=big_value*ones(2*mesh{L}.NE+2*mesh{L}.N,1);
+c(mesh{L}.E_contact)=Constraint.RhsE2;
+c(mesh{L}.N_contact+2*mesh{L}.NE)=Constraint.RhsN2;
+
+B=speye(length(bnt));
+WorkingSet=[];
+
+% IT IS ALREADY HERE DO NOT ADD IT LATER
+
+
+
+% devi ruotare il sistema di riferimento localeeee
+
+removes=[mesh{L}.E_remove,mesh{L}.E_remove+mesh{L}.NE, 2*mesh{L}.NE + mesh{L}.N_remove,2*mesh{L}.NE + mesh{L}.N + mesh{L}.N_remove];
+x=bnt;
+tmp=1:(mesh{L}.NE*2);
+remove=setdiff(tmp,removes);
+x(remove)=0;
+
+WorkingSetContact{1}=sparse(mesh{L}.NE*2+mesh{L}.N*2,1);
+for lev=1:L
+    mesh_parameters{lev}.RemoveNT=mesh{lev}.RemoveNT;
+    mesh_parameters{lev}.NE=mesh{lev}.NE;
+    mesh_parameters{lev}.N=mesh{lev}.N;
+    mesh_parameters{lev}.E_contact=mesh{lev}.E_contact;
+    mesh_parameters{lev}.N_contact=mesh{lev}.N_contact;
+    mesh_parameters{lev}.RemoveNT=mesh{lev}.RemoveNT;
+    mesh_parameters{lev}.Patch_Internal_All=maps.Patch_Internal_All{lev};
+    if(lev<L)
+    mesh_parameters{lev}.Patch_Edge_Monotone=maps.Patch_Edge_Monotone{lev};
+    mesh_parameters{lev}.Patch_Node_Monotone=maps.Patch_Node_Monotone{lev};
+    end
+end
+
+
+clearvars mesh
+clearvars maps
+
+[x,WorkingSet] = ArnoldNestedIteration(AFinenobcnt,Complementarity,h,bnt1,c,mesh_parameters,Pnt);
+
+
+
+for mm=1:parameters.max_iter
+
+% allvars = whos;
+% memused = sum([allvars.bytes])
+[x,WorkingSetContact{mm+1},residual(mm)] = ArnoldVcycleContact(AFinenobcnt,Complementarity,bnt,x,h,c,WorkingSetContact{mm},parameters.smoothing_steps,mesh_parameters,graph,Pnt,L,L);
+
+[mm,residual(mm)]
+
+if(residual(mm)<parameters.toll_loop)
+break
+end
+
+end
+
+
+% string1='squareResidualn1C1F';
+% string2=num2str(parameters.FINE);
+% string3='.mat';
+% string=strcat(string1,string2,string3);
+% save(string,'residual');
+
+% householder=1;
+%[M_Normal_Tangent] = MatrixOnGammaCwithNormalTangentComponents(mesh{parameters.L},householder);
+% sol=M_Normal_Tangent*x;
+% print_displacement_solution(mesh,sol(1+2*mesh{L}.NE:2*mesh{L}.NE+mesh{L}.N)',sol(1+2*mesh{L}.NE+mesh{L}.N:end)');
+
+% figure
+% plot(log10(residual))
+% hold on
+% plot(log10(resz))
+% top2bottom=1;
+% lev=L;
+% is_on_coarser_grid=0;
+% smoothing_steps=10;
+% figure

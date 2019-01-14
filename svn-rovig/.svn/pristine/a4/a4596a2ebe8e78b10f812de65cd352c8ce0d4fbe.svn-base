@@ -1,0 +1,161 @@
+clear all
+close all
+clc
+%echo on
+
+% data
+
+parameters =parameters();
+
+
+[mesh,h]=mesh(parameters);
+L=length(mesh);
+
+dim=parameters.dim;
+Dofs=3*(mesh{1}.N+mesh{1}.NF)
+Dofs=3*(mesh{L}.N+mesh{L}.NF)
+% for ii=1:length(mesh)
+% vv{ii}=0;
+% end
+% print_mesh_L(mesh,vv);
+
+[M_Normal_Tangent] = MatrixOnGammaCwithNormalTangentComponents(mesh{parameters.L});
+
+
+[maps,graph]=graph_and_maps(mesh);
+maps=ArnoldMonotoneConstraint(mesh,maps,parameters);
+Constraint = CheckConstraintsNT(mesh,parameters);
+
+
+
+
+
+
+[AFinenobcnt,Complementarity,bnt,bnt1,Pnt]=create_system_contact(parameters,mesh,h,maps.Patch_Node_Monotone);
+Dofs=3*(mesh{L}.N+mesh{L}.NF)
+
+%  AFinenobcnt=add_boundary_bc_system(AFinenobcnt,mesh{L}.RemoveNT);
+%  
+%  sol=AFinenobcnt\bnt;
+%  [M_Normal_Tangent] = MatrixOnGammaCwithNormalTangentComponents(mesh{parameters.L});
+%  sol=M_Normal_Tangent*sol;
+%  print_displacement_solution3D(mesh,sol)
+big_value=10^10;
+c=big_value*ones(dim * (mesh{L}.NF+mesh{L}.N),1);
+c(mesh{L}.F_contact)=Constraint.RhsF;
+c(mesh{L}.N_contact+dim*mesh{L}.NF)=Constraint.RhsN;
+
+
+% IT IS ALREADY HERE DO NOT ADD IT LATER
+
+
+
+% WorkingSetContact{1}=sparse(mesh{L}.NE*2+mesh{L}.N*2,1);
+for lev=1:L
+    mesh_parameters{lev}.RemoveNT=mesh{lev}.RemoveNT;
+    mesh_parameters{lev}.NF=mesh{lev}.NF;
+    mesh_parameters{lev}.N=mesh{lev}.N;
+    mesh_parameters{lev}.F_contact=mesh{lev}.F_contact;
+    mesh_parameters{lev}.N_contact=mesh{lev}.N_contact;
+    mesh_parameters{lev}.Remove=mesh{lev}.Remove;
+    mesh_parameters{lev}.RemoveNT=mesh{lev}.RemoveNT;
+    mesh_parameters{lev}.Patch_Internal_All=maps.Patch_Internal_All{lev};
+    if(lev<L)
+    mesh_parameters{lev}.Patch_Face_Monotone=maps.Patch_Face_Monotone{lev};
+    mesh_parameters{lev}.Patch_Node_Monotone=maps.Patch_Node_Monotone{lev};
+    end
+end
+
+
+% clearvars mesh
+% clearvars maps
+
+
+%%% guarda meglio ArnoldCoarseConstraint3D
+[x,WorkingSetContact{1}] = ArnoldNestedIteration3D(AFinenobcnt,Complementarity,h,bnt1,c,mesh_parameters,Pnt);
+Dofs=3*(mesh{L}.N+mesh{L}.NF)
+
+% load('x');
+
+for mm=1:parameters.max_iter
+
+% allvars = whos;
+% memused = sum([allvars.bytes])
+[x,WorkingSetContact{mm+1},residual(mm)] = ArnoldVcycleContact3D(AFinenobcnt,Complementarity,bnt,x,h,c,WorkingSetContact{mm},parameters.smoothing_steps,mesh_parameters,graph,Pnt,L,L);
+
+[mm,log10(residual(mm))]
+
+save('x','x');
+if(residual(mm)<parameters.toll_loop)
+break
+end
+
+end
+
+
+
+
+
+ContactPressure(mesh,x,parameters);
+[M_Normal_Tangent] = MatrixOnGammaCwithNormalTangentComponents(mesh{parameters.L});
+sol=M_Normal_Tangent*x;
+% print_displacement_solution3D(mesh,sol)
+% ContactDisplacement(mesh,sol,parameters);
+string0='';
+string1='CubeLinear';
+string1=strcat(string1,string0,'Residuallambda');
+string2=num2str(parameters.lambda);
+string3='mu';
+string4=num2str(parameters.mu);
+string5='Ceq';
+string6=num2str(parameters.C_eq);
+string7='Casym';
+string8=num2str(parameters.C_asym);
+string9='Csmoothing';
+string10=num2str(parameters.smoothing_steps);
+string11='Dofs';
+string12=num2str(3*(mesh{L}.N+mesh{L}.NF));
+string13='C1F';
+string14=num2str(L);
+string15='.mat';
+stringext=strcat(string2,string3,string4,string5,string6,string7,string8,string9,string10,string11,string12,string13,string14,string15);
+string=strcat(string1,stringext);
+save(string,'residual');
+
+
+string1='CubeLinear';
+string1=strcat(string1,string0,'Solutionlambda');
+string=strcat(string1,stringext);
+save(string,'sol');
+
+string1='Cube';
+string1=strcat(string1,string0,'SolutionNTlambda');
+string=strcat(string1,stringext);
+save(string,'x');
+
+
+
+
+
+
+
+% string1='CubeResidualLambda1e50Mu1C1F';
+% string2=num2str(parameters.FINE);
+% string3='.mat';
+% string=strcat(string1,string2,string3);
+% residual=log10(residual);
+% save(string,'residual');
+[erruL2,errgrad,errsigmaL2,errdivsigmaL2]=error_displacement(mesh,sol,parameters)
+
+[M_Normal_Tangent] = MatrixOnGammaCwithNormalTangentComponents(mesh{parameters.L});
+sol=M_Normal_Tangent*x;
+% print_displacement_solution3D(mesh,sol)
+% figure
+% plot(log10(residual))
+% hold on
+% plot(log10(resz))
+% top2bottom=1;
+% lev=L;
+% is_on_coarser_grid=0;
+% smoothing_steps=10;
+% figure

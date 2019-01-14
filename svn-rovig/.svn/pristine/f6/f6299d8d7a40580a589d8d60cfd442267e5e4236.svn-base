@@ -1,0 +1,96 @@
+function [mesh]=node_and_face_normal_boundary(mesh,parameters)
+L=length(mesh);
+kk=[3;1;2];
+for lev=1:L
+grid=mesh{lev};
+node_per_elem=grid.node_per_elem;
+face_per_elem=grid.face_per_elem;
+node=grid.node;
+face=grid.face;
+NT=grid.NT;
+N=grid.N;
+NF=grid.NF;
+F_bc=grid.F_bc;
+
+[dirichlet_F,n_and_or_t_F,bool_bc_F]= boundary_value_bool(3);
+
+
+for nn=1:N
+    normal_node{lev,nn}=[0;0;0];
+    normal_node_patch{lev,nn}=[];
+    normal_node_contact{lev,nn}=[0;0;0];
+end
+for ff=1:NF
+    normal_face{lev,ff}=[];
+    normal_face_contact{lev,ff}=[0;0;0];
+end
+
+for tt=1:NT
+elemF=grid.elemF(tt,:);
+elem=grid.elem(tt,:);
+
+
+for ff=1:face_per_elem
+    fftot=elemF(ff);
+    if(F_bc(fftot)>0)
+        vertices=face(fftot,:);
+        opposite_vertex=setdiff(elem,face(fftot,:));
+        side=node(vertices,:);
+        opposite_node=node(opposite_vertex,:);
+        mean_node=mean(side);
+        opposite_vector=mean_node-opposite_node;
+        normal_face{lev,fftot}=cross(side(2,:)-side(1,:),side(3,:)-side(1,:))';
+        sign=(opposite_vector*normal_face{lev,fftot});
+        normal_face{lev,fftot}=sign*normal_face{lev,fftot}/norm(normal_face{lev,fftot});        
+     
+        for jj=1:face_per_elem-1
+        normal_node{lev,vertices(jj)}=normal_node{lev,vertices(jj)}+normal_face{lev,fftot};
+        normal_node_patch{lev,vertices(jj)}=[normal_node_patch{lev,vertices(jj)},normal_face{lev,fftot};]    ;
+        end      
+        % if we are on GammaC, then we sum up to the previous normal, the
+        % new one
+        if(dirichlet_F(F_bc(fftot),end)==1 && parameters.body_normal_bool==true)
+        for jj=1:face_per_elem
+        normal_node_contact{lev,vertices(jj)}=normal_node_contact{lev,vertices(jj)}+normal_face{lev,fftot};
+        end
+        normal_face_contact{lev,fftot}= normal_face{lev,fftot};
+        
+        elseif(dirichlet_F(F_bc(fftot),end)==1 && parameters.body_normal_bool==false)
+            
+        for jj=1:face_per_elem-1
+        normal_node_contact{lev,vertices(jj)}=[parameters.body_normal_x( side(jj,1), side(jj,2), side(jj,3)); 
+                                               parameters.body_normal_y( side(jj,1), side(jj,2), side(jj,3));
+                                               parameters.body_normal_z( side(jj,1), side(jj,2), side(jj,3));] ;
+        end
+
+
+        normal_face_contact{lev,fftot}=[ parameters.body_normal_x( mean_node(1), mean_node(2),mean_node(3)); 
+                                         parameters.body_normal_y( mean_node(1),mean_node(2), mean_node(3));
+                                         parameters.body_normal_z( mean_node(1),mean_node(2), mean_node(3))] ;
+        normal_face_contact{lev,fftot}=normal_face_contact{lev,fftot}/norm(normal_face_contact{lev,fftot});
+        end
+    end
+end
+end
+
+for nn=1:N
+   if(isempty(normal_node{lev,nn})==false)
+       normal_node{lev,nn}=normal_node{lev,nn}/norm(normal_node{lev,nn});
+       normal_node_contact{lev,nn}=normal_node_contact{lev,nn}/norm(normal_node_contact{lev,nn});
+   end
+end
+end
+
+
+for lev=1:L
+    for nn=1:mesh{lev}.N
+    mesh{lev}.normal_node{nn}=normal_node{lev,nn};
+    mesh{lev}.normal_node_contact{nn}=normal_node_contact{lev,nn};
+    mesh{lev}.normal_node_patch{nn}=normal_node_patch{lev,nn};
+    end
+    for ff=1:mesh{lev}.NF
+    mesh{lev}.normal_face{ff}=normal_face{lev,ff};
+    mesh{lev}.normal_face_contact{ff}=normal_face_contact{lev,ff};
+    end
+end
+end

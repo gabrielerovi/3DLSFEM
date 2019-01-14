@@ -1,0 +1,108 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyperFirstAtBeginDocument{\AtBeginDocument}
+\HyperFirstAtBeginDocument{\ifx\hyper@anchor\@undefined
+\global\let\oldcontentsline\contentsline
+\gdef\contentsline#1#2#3#4{\oldcontentsline{#1}{#2}{#3}}
+\global\let\oldnewlabel\newlabel
+\gdef\newlabel#1#2{\newlabelxx{#1}#2}
+\gdef\newlabelxx#1#2#3#4#5#6{\oldnewlabel{#1}{{#2}{#3}}}
+\AtEndDocument{\ifx\hyper@anchor\@undefined
+\let\contentsline\oldcontentsline
+\let\newlabel\oldnewlabel
+\fi}
+\fi}
+\global\let\hyper@last\relax 
+\gdef\HyperFirstAtBeginDocument#1{#1}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Coercivity of the LS functional for homogeneous BC}{1}{section.2}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Coercivity}{2}{subsection.2.1}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Convexity of the LS contact functional}{5}{section.3}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}LS contact formulation}{5}{section.4}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Normal-tangent Coordinate system}{7}{section.5}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Gap function on coarser levels}{7}{section.6}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Interpolation for $P_1$ on $\Gamma _C$}{8}{subsection.6.1}}
+\newlabel{coarsegapfunctionconditionP1}{{36}{8}{Interpolation for $P_1$ on $\Gamma _C$}{equation.6.36}{}}
+\newlabel{coarsegapfunctionconditionP1@cref}{{[equation][36][]36}{8}}
+\newlabel{coarsegapfunctionconditionP1LinearInterpolation}{{37}{8}{Interpolation for $P_1$ on $\Gamma _C$}{equation.6.37}{}}
+\newlabel{coarsegapfunctionconditionP1LinearInterpolation@cref}{{[equation][37][]37}{8}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Interpolation for $\mathcal  {RT}_0$ on $\Gamma _C$}{10}{subsection.6.2}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Truncated Basis}{11}{section.7}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces \textbf  {[x,WS]=V-CYCLE(A,b,x,g,P,j,J,k)}}}{11}{algorithm.1}}
+\@writefile{toc}{\contentsline {section}{\numberline {8}Numerical Experiments}{12}{section.8}}
+\newlabel{ContactPressureDisplacement}{{8}{12}{Numerical Experiments}{section.8}{}}
+\newlabel{ContactPressureDisplacement@cref}{{[section][8][]8}{12}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Square2D3LComparison}}{12}{figure.1}}
+\newlabel{Square2D3LComparison}{{1}{12}{Square2D3LComparison}{figure.1}{}}
+\newlabel{Square2D3LComparison@cref}{{[figure][1][]1}{12}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Signorini2D2LComparison}}{13}{figure.2}}
+\newlabel{Square2D3LComparison}{{2}{13}{Signorini2D2LComparison}{figure.2}{}}
+\newlabel{Square2D3LComparison@cref}{{[figure][2][]2}{13}}
+\@writefile{toc}{\contentsline {section}{\numberline {9}Idea: Monotone Parallel Gauss-Seidel}{13}{section.9}}
+\@writefile{toc}{\contentsline {section}{\numberline {10}Monotone Multigrid}{14}{section.10}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Left: coloring of the the smallest subspaces; use active set on each of these for the exact correction. Right: coloring of larger subspaces; use non-linear Gauss-Seidel on each of these for an approximate correction.}}{15}{figure.3}}
+\newlabel{meshcoloring}{{3}{15}{Left: coloring of the the smallest subspaces; use active set on each of these for the exact correction. Right: coloring of larger subspaces; use non-linear Gauss-Seidel on each of these for an approximate correction}{figure.3}{}}
+\newlabel{meshcoloring@cref}{{[figure][3][]3}{15}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.1}Discrete approximation property for $\mathcal  {RT}_0$}{16}{subsection.10.1}}
+\@writefile{toc}{\contentsline {section}{\numberline {11}Proofs}{17}{section.11}}
+\@writefile{toc}{\contentsline {section}{\numberline {12}RERELOAD AGAIN}{18}{section.12}}
+\@writefile{toc}{\contentsline {section}{\numberline {13}RELOAD EVERYTHING}{21}{section.13}}
+\@writefile{toc}{\contentsline {section}{\numberline {14}Decomposition??????????}{23}{section.14}}
+\@writefile{toc}{\contentsline {section}{\numberline {15}Bounds for Operators}{30}{section.15}}
+\@writefile{toc}{\contentsline {section}{\numberline {16}Bound L2 norm with divergence}{32}{section.16}}
+\@writefile{toc}{\contentsline {section}{\numberline {17}Theorem (Badea, 2013)}{32}{section.17}}
+\@writefile{toc}{\contentsline {section}{\numberline {18}Proof for the convergence of the 1-level method}{33}{section.18}}
+\@writefile{toc}{\contentsline {section}{\numberline {19}Non-Linear Interpolation Operator $\mathcal  {RT}_0$}{34}{section.19}}
+\newlabel{convex_combination}{{40}{34}{Non-Linear Interpolation Operator $\RT _0$}{equation.19.40}{}}
+\newlabel{convex_combination@cref}{{[equation][40][]40}{34}}
+\@writefile{toc}{\contentsline {section}{\numberline {20}Tai}{38}{section.20}}
+\@writefile{toc}{\contentsline {section}{\numberline {21}Contact boundary}{39}{section.21}}
+\@writefile{toc}{\contentsline {section}{\numberline {22}Poisson equation}{39}{section.22}}
+\@writefile{toc}{\contentsline {section}{\numberline {23}Dual Linear Elasticity}{40}{section.23}}
+\@writefile{toc}{\contentsline {section}{\numberline {24}LSFEM Linear Elasticity}{41}{section.24}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {24.1}Linear elasticity equations}{42}{subsection.24.1}}
+\@writefile{toc}{\contentsline {section}{\numberline {25}Signorini problem: strong formulation}{42}{section.25}}
+\@writefile{toc}{\contentsline {section}{\numberline {26}Spaces}{43}{section.26}}
+\@writefile{toc}{\contentsline {section}{\numberline {27}Least squares functionals}{44}{section.27}}
+\@writefile{toc}{\contentsline {section}{\numberline {28}Solving the functional}{45}{section.28}}
+\@writefile{toc}{\contentsline {section}{\numberline {29}A posteriori error estimator}{45}{section.29}}
+\@writefile{toc}{\contentsline {section}{\numberline {30}The least squares functional as an a posteriori estimator: reliability and efficiency}{46}{section.30}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {30.1}Reliability}{46}{subsection.30.1}}
+\@writefile{toc}{\contentsline {section}{\numberline {31}Efficiency}{48}{section.31}}
+\@writefile{toc}{\contentsline {section}{\numberline {32}The augmented functional is convex}{51}{section.32}}
+\@writefile{toc}{\contentsline {section}{\numberline {33}Discretization}{53}{section.33}}
+\@writefile{toc}{\contentsline {section}{\numberline {34}Raviart Thomas}{55}{section.34}}
+\@writefile{toc}{\contentsline {section}{\numberline {35}Mass Matrix}{59}{section.35}}
+\@writefile{toc}{\contentsline {section}{\numberline {36}Essential Boundary Condition}{60}{section.36}}
+\@writefile{toc}{\contentsline {section}{\numberline {37}MultiGrid}{61}{section.37}}
+\@writefile{toc}{\contentsline {section}{\numberline {38}Iterative methods by subspace correction[by Xu Jinchao]}{64}{section.38}}
+\@writefile{toc}{\contentsline {section}{\numberline {39}Multigrid Hdiv}{65}{section.39}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {39.1}Orthogonal decomposition}{66}{subsection.39.1}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {39.2}Hdiv and Hcurl}{66}{subsection.39.2}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {39.3}Commuting diagram}{68}{subsection.39.3}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Commuting diagram}}{68}{figure.4}}
+\newlabel{abb_arc}{{4}{68}{Commuting diagram}{figure.4}{}}
+\newlabel{abb_arc@cref}{{[figure][4][]4}{68}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Table relating $H(\mathcal  {D},\Omega )$ and $H(\mathaccentV {tilde}07E{\mathcal  {D}},\Omega )$ }}{69}{table.1}}
+\newlabel{commuting_diagram}{{1}{69}{Table relating $H(\mathcal {D},\Omega )$ and $H(\tilde {\mathcal {D}},\Omega )$}{table.1}{}}
+\newlabel{commuting_diagram@cref}{{[table][1][]1}{69}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {39.4}Smoothing algorithm}{69}{subsection.39.4}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {39.5}Relation between Nedelec and Raviart spaces}{70}{subsection.39.5}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {39.6}Transfer operator}{71}{subsection.39.6}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {39.7}Linear Elasticity $\mathcal  {ND}\to \mathcal  {RT}$ operator}{75}{subsection.39.7}}
+\@writefile{toc}{\contentsline {section}{\numberline {40}Linear elasticity projected on $\mathcal  {ND}$ space}{76}{section.40}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {40.1}Questions}{80}{subsection.40.1}}
+\@writefile{toc}{\contentsline {section}{\numberline {41}Saddle Point problem}{80}{section.41}}
+\@writefile{toc}{\contentsline {section}{\numberline {42}Subdifferential}{81}{section.42}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {42.1}Nodal Auxiliary Space Preconditioning}{82}{subsection.42.1}}
+\newlabel{ c1_inequality}{{46}{83}{Nodal Auxiliary Space Preconditioning}{equation.42.46}{}}
+\newlabel{ c1_inequality@cref}{{[equation][46][]46}{83}}
+\newlabel{ cs_inequality}{{47}{83}{Nodal Auxiliary Space Preconditioning}{equation.42.47}{}}
+\newlabel{ cs_inequality@cref}{{[equation][47][]47}{83}}
+\newlabel{ c0_inequality}{{48}{83}{Nodal Auxiliary Space Preconditioning}{equation.42.48}{}}
+\newlabel{ c0_inequality@cref}{{[equation][48][]48}{83}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {42.2}Curl-Preconditioner}{86}{subsection.42.2}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {42.3}Div-Preconditioner}{87}{subsection.42.3}}
+\@writefile{toc}{\contentsline {section}{\numberline {43}COARSE SPACE FOR CONTACT BOUNDARY}{88}{section.43}}

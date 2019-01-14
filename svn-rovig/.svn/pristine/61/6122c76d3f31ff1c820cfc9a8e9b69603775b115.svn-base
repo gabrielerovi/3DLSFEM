@@ -1,0 +1,48 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyperFirstAtBeginDocument{\AtBeginDocument}
+\HyperFirstAtBeginDocument{\ifx\hyper@anchor\@undefined
+\global\let\oldcontentsline\contentsline
+\gdef\contentsline#1#2#3#4{\oldcontentsline{#1}{#2}{#3}}
+\global\let\oldnewlabel\newlabel
+\gdef\newlabel#1#2{\newlabelxx{#1}#2}
+\gdef\newlabelxx#1#2#3#4#5#6{\oldnewlabel{#1}{{#2}{#3}}}
+\AtEndDocument{\ifx\hyper@anchor\@undefined
+\let\contentsline\oldcontentsline
+\let\newlabel\oldnewlabel
+\fi}
+\fi}
+\global\let\hyper@last\relax 
+\gdef\HyperFirstAtBeginDocument#1{#1}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}}
+\@writefile{toc}{\contentsline {section}{\numberline {2}LS contact formulation}{1}{section.2}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Coercivity of the LS functional for homogeneous BC}{2}{section.3}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Coercivity}{3}{subsection.3.1}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Convexity of the LS contact functional}{6}{section.4}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Normal-tangent Coordinate system}{6}{section.5}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Gap function on coarser levels}{7}{section.6}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Interpolation for $P_1$ on $\Gamma _C$}{8}{subsection.6.1}}
+\newlabel{coarsegapfunctionconditionP1}{{36}{8}{Interpolation for $P_1$ on $\Gamma _C$}{equation.6.36}{}}
+\newlabel{coarsegapfunctionconditionP1@cref}{{[equation][36][]36}{8}}
+\newlabel{coarsegapfunctionconditionP1LinearInterpolation}{{37}{8}{Interpolation for $P_1$ on $\Gamma _C$}{equation.6.37}{}}
+\newlabel{coarsegapfunctionconditionP1LinearInterpolation@cref}{{[equation][37][]37}{8}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Interpolation for $\mathcal  {RT}_0$ on $\Gamma _C$}{10}{subsection.6.2}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Truncated Basis}{10}{section.7}}
+\@writefile{toc}{\contentsline {section}{\numberline {8}Numerical Experiments}{10}{section.8}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces \textbf  {[x,WS]=V-CYCLE(A,b,x,g,P,j,J,k)}}}{11}{algorithm.1}}
+\newlabel{ContactPressureDisplacement}{{8}{11}{Numerical Experiments}{section.8}{}}
+\newlabel{ContactPressureDisplacement@cref}{{[section][8][]8}{11}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Square2D3LComparison}}{12}{figure.1}}
+\newlabel{Square2D3LComparison}{{1}{12}{Square2D3LComparison}{figure.1}{}}
+\newlabel{Square2D3LComparison@cref}{{[figure][1][]1}{12}}
+\@writefile{toc}{\contentsline {section}{\numberline {9}Idea: Monotone Parallel Gauss-Seidel}{12}{section.9}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Signorini2D2LComparison}}{13}{figure.2}}
+\newlabel{Square2D3LComparison}{{2}{13}{Signorini2D2LComparison}{figure.2}{}}
+\newlabel{Square2D3LComparison@cref}{{[figure][2][]2}{13}}
+\bibstyle{plain}
+\bibdata{biblio}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Left: coloring of the the smallest subspaces; use active set on each of these for the exact correction. Right: coloring of larger subspaces; use non-linear Gauss-Seidel on each of these for an approximate correction.}}{14}{figure.3}}
+\newlabel{meshcoloring}{{3}{14}{Left: coloring of the the smallest subspaces; use active set on each of these for the exact correction. Right: coloring of larger subspaces; use non-linear Gauss-Seidel on each of these for an approximate correction}{figure.3}{}}
+\newlabel{meshcoloring@cref}{{[figure][3][]3}{14}}

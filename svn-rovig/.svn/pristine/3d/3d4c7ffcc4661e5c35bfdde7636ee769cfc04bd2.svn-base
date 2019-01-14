@@ -1,0 +1,587 @@
+\documentclass[11pt, oneside]{article}   	% use "amsart" instead of "article" for AMSLaTeX format
+\usepackage{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   		% ... or a4paper or a5paper or ... 
+%\geometry{landscape}                		% Activate for rotated page geometry
+%\usepackage[parfill]{parskip}    		% Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
+								% TeX will automatically convert eps --> pdf in pdflatex		
+\usepackage{amssymb}
+\usepackage{amsmath}
+
+
+
+% ref packages
+\usepackage{nameref}
+% folowing  must be in this order
+\usepackage{varioref}
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+\usepackage{booktabs}
+\usepackage {tikz}
+\usetikzlibrary {positioning}
+\definecolor {processblue}{cmyk}{0.96,0,0,0}
+
+
+
+%SetFonts
+
+%SetFonts
+\newcommand{\supp}{\operatorname{supp}}
+\newcommand{\dist}{\operatorname{dist}}
+\newcommand{\divr}{\operatorname{div}}
+\newcommand{\tdiv}{\operatorname{div}}
+\newcommand{\ess}{\operatorname{ess}}
+\newcommand{\rotore}{\operatorname{rot}}
+\newcommand{\curl}{\operatorname{\textbf{curl}}}
+\newcommand{\bcurl}{\operatorname{\textbf{curl}}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\bA}{\textbf{A}}
+\newcommand{\ba}{\textbf{a}}
+\newcommand{\bb}{\textbf{b}}
+\newcommand{\bB}{\textbf{B}}
+\newcommand{\bc}{\textbf{c}}
+\newcommand{\bC}{\textbf{C}}
+\newcommand{\bd}{\textbf{d}}
+\newcommand{\bD}{\textbf{D}}
+\newcommand{\be}{\textbf{e}}
+\newcommand{\bE}{\textbf{E}}
+\newcommand{\bff}{\textbf{f}}
+\newcommand{\bF}{\textbf{F}}
+\newcommand{\bg}{\textbf{g}}
+\newcommand{\bG}{\textbf{G}}
+\newcommand{\bi}{\textbf{i}}
+\newcommand{\bI}{\textbf{I}}
+\newcommand{\bj}{\textbf{j}}
+\newcommand{\bJ}{\textbf{J}}
+\newcommand{\bh}{\textbf{h}}
+\newcommand{\bH}{\textbf{H}}
+\newcommand{\bk}{\textbf{k}}
+\newcommand{\bK}{\textbf{K}}
+\newcommand{\bl}{\textbf{l}}
+\newcommand{\bL}{\textbf{L}}
+\newcommand{\bm}{\textbf{m}}
+\newcommand{\bM}{\textbf{M}}
+\newcommand{\bn}{\textbf{n}}
+\newcommand{\bN}{\textbf{N}}
+\newcommand{\bp}{\textbf{p}}
+\newcommand{\bP}{\textbf{P}}
+\newcommand{\bo}{\textbf{o}}
+\newcommand{\bq}{\textbf{q}}
+\newcommand{\bQ}{\textbf{Q}}
+\newcommand{\br}{\textbf{r}}
+\newcommand{\bR}{\textbf{R}}
+\newcommand{\bs}{\textbf{s}}
+\newcommand{\bS}{\textbf{S}}
+\newcommand{\btau}{\boldsymbol{\tau}}
+\newcommand{\bt}{\textbf{t}}
+\newcommand{\bv}{\textbf{v}}
+\newcommand{\bV}{\textbf{V}}
+\newcommand{\bw}{\textbf{w}}
+\newcommand{\bW}{\textbf{W}}
+\newcommand{\bu}{\textbf{u}}
+\newcommand{\bU}{\textbf{U}}
+\newcommand{\by}{\textbf{y}}
+\newcommand{\bY}{\textbf{Y}}
+\newcommand{\bbx}{\textbf{x}}
+\newcommand{\bX}{\textbf{X}}
+\newcommand{\beps}{\boldsymbol{\varepsilon}}
+\newcommand{\bphi}{\boldsymbol{\phi}}
+\newcommand{\bPhi}{\boldsymbol{\Phi}}
+\newcommand{\bpsi}{\boldsymbol{\psi}}
+\newcommand{\bomega}{\boldsymbol{\omega}}
+\newcommand{\bsigma}{\boldsymbol{\sigma}}
+\newcommand{\bSigma}{\boldsymbol{\Sigma}}
+\newcommand{\bxi}{\boldsymbol{\xi}}
+\newcommand{\aaa}{\`a}
+\newcommand{\eee}{\`e}
+\newcommand{\iii}{\`i}
+\newcommand{\ooo}{\`o}
+\newcommand{\uuu}{\`u}
+\newcommand{\aaaa}{\'a}
+\newcommand{\eeee}{\'e}
+\newcommand{\iiii}{\'i}
+\newcommand{\oooo}{\'o}
+\newcommand{\uuuu}{\'u}
+\newcommand{\AAA}{\`A}
+\newcommand{\EEE}{\`E}
+\newcommand{\III}{\`I}
+\newcommand{\OOO}{\`O}
+\newcommand{\UUU}{\`U}
+\newcommand{\AAAA}{\'A}
+\newcommand{\EEEE}{\'E}
+\newcommand{\IIII}{\'I}
+\newcommand{\OOOO}{\'O}
+\newcommand{\UUUU}{\'U}
+\newcommand{\ND}{\mathcal{ND}}
+\newcommand{\RT}{\mathcal{RT}}
+
+\title{Signorini problem: adaptive least/squares }
+\author{Gabriele Rovi}
+%\date{}							% Activate to display a given date or no date
+
+
+\begin{document}
+\section{2D Raviart Thomas}
+\begin{align*}
+&\Phi_A=\dfrac{1}{H_A}(\bbx-\ba)=\dfrac{L_A}{d K}(\bbx-\ba)\\
+&\Phi_B=-\dfrac{1}{H_B}(\bbx-\bb)=-\dfrac{L_B}{d K}(\bbx-\bb)\\
+&\Phi_C=\dfrac{1}{H_C}(\bbx-\bc)=\dfrac{L_C}{d K}(\bbx-\bc)
+\end{align*}
+\begin{itemize}
+\item \textbf{abc}:
+\begin{align*}
+\Phi_A&=\dfrac{-\alpha_b 2 L_A}{d K}(\bbx-\ba) \\
+&\alpha_a=0
+ \quad \alpha_b=-\dfrac{1}{2}
+ \quad 
+ \alpha_c=0
+\\\\
+\Phi_B&=
+\dfrac{-\alpha_c 2 L_B}{d K}(\bbx-\bff)+\dfrac{-\alpha_b 2 L_A}{d K}(\bbx-\ba)=
+\dfrac{-\alpha_c 2 L_B}{d K}(\bbx-\dfrac{\ba+\bb}{2})+\dfrac{-\alpha_b 2 L_A}{d K}(\bbx-\ba)\\
+&=
+\dfrac{2}{d K}\left[\bbx \left( -\alpha_c L_B -\alpha_b L_A\right)+\bb\dfrac{1}{2}\alpha_c L_B +\ba \left(\dfrac{\alpha_c L_b}{2}+ \alpha_b L_A \right)
+\right]\\
+&\alpha_a=0
+\quad \alpha_b=-\dfrac{L_B}{2 L_A}
+\quad
+\alpha_c=-1 
+\\\\
+\Phi_C&=
+\dfrac{\alpha_a 2 L_C}{d K}(\bbx-\be)+\dfrac{-\alpha_b 2 L_A}{d K}(\bbx-\ba)=
+\dfrac{\alpha_a 2 L_C}{d K}(\bbx-\dfrac{\ba+\bc}{2})+\dfrac{-\alpha_b 2 L_A}{d K}(\bbx-\ba)\\
+&=\dfrac{2}{d K}\left[\bbx \left(\alpha_a L_C -\alpha_b L_A \right) + \bc \left( -\dfrac{1}{2} \alpha_a L_C\right)+\ba \left( -\dfrac{\alpha_a L_C}{2} + \alpha_B L_A \right) \right]
+\\
+& \alpha_a=1 \quad \alpha_b=\dfrac{L_C}{2 L_A}  \quad \alpha_c=0
+\end{align*}
+Therefore:
+\begin{align*}
+\Phi |_{abc}=
+\phi_a U_C + \phi_b \left(-\dfrac{1}{2}U_A -\dfrac{L_B}{2 L_A} U_B +\dfrac{L_C}{2 L_A} U_C \right)+\phi_c (-U_B)
+\end{align*}
+\item \textbf{def}:
+\begin{align*}
+\Phi_A&=\dfrac{\alpha_d 2 L_A}{d K}(\bbx-\dfrac{\bb+\bc}{2})-
+\dfrac{\alpha_e 2 L_B}{d K}(\bbx-\dfrac{\ba+\bc}{2})
++
+\dfrac{\alpha_f 2 L_C}{d K}(\bbx-\dfrac{\ba+\bb}{2})\\
+=&
+\dfrac{2}{d K}\left[ 
+\bbx \left(\alpha_d L_A - \alpha_e L_B +\alpha_f L_C \right)
++
+\ba \dfrac{1}{2}\left(
+\alpha_e L_B-\alpha_f L_C
+ \right)
+ -
+\bb \dfrac{1}{2}\left(
+\alpha_d L_A+\alpha_f L_C
+ \right)
+ +\bc
+ \dfrac{1}{2}\left(
+-\alpha_d L_A+\alpha_e L_B
+ \right)
+\right]\\
+&\alpha_f=-\dfrac{\alpha_d L_A}{L_C} \quad \alpha_e=\dfrac{\alpha_d L_A}{L_B} \quad
+\alpha_d=-\dfrac{1}{2}\\
+&
+\alpha_d=-\dfrac{1}{2} \quad
+\alpha_e=- \dfrac{ L_A}{2 L_B} \quad 
+\alpha_f=\dfrac{ L_A}{2 L_C} 
+\\
+\\\\
+\Phi_B&=\dfrac{\alpha_d 2 L_A}{d K}(\bbx-\dfrac{\bb+\bc}{2})-
+\dfrac{\alpha_e 2 L_B}{d K}(\bbx-\dfrac{\ba+\bc}{2})
++
+\dfrac{\alpha_f 2 L_C}{d K}(\bbx-\dfrac{\ba+\bb}{2})\\
+=&
+\dfrac{2}{d K}\left[ 
+\bbx \left(\alpha_d L_A - \alpha_e L_B +\alpha_f L_C \right)
++
+\ba \dfrac{1}{2}\left(
+\alpha_e L_B-\alpha_f L_C
+ \right)
+ -
+\bb \dfrac{1}{2}\left(
+\alpha_d L_A+\alpha_f L_C
+ \right)
+ +\bc
+ \dfrac{1}{2}\left(
+-\alpha_d L_A+\alpha_e L_B
+ \right)
+\right]\\
+& \alpha_f=\dfrac{L_B \alpha_e}{L_C} \quad \alpha_d=\dfrac{\alpha_e L_B}{L_A} \quad \alpha_e=-\dfrac{1}{2}\\
+& 
+\alpha_d=-\dfrac{ L_B}{2 L_A} \quad
+\alpha_e=-\dfrac{1}{2} \quad
+\alpha_f=-\dfrac{L_B }{2 L_C}   
+\\\\
+\Phi_C&=\dfrac{\alpha_d 2 L_A}{d K}(\bbx-\dfrac{\bb+\bc}{2})-
+\dfrac{\alpha_e 2 L_B}{d K}(\bbx-\dfrac{\ba+\bc}{2})
++
+\dfrac{\alpha_f 2 L_C}{d K}(\bbx-\dfrac{\ba+\bb}{2})\\
+=&
+\dfrac{2}{d K}\left[ 
+\bbx \left(\alpha_d L_A - \alpha_e L_B +\alpha_f L_C \right)
++
+\ba \dfrac{1}{2}\left(
+\alpha_e L_B-\alpha_f L_C
+ \right)
+ -
+\bb \dfrac{1}{2}\left(
+\alpha_d L_A+\alpha_f L_C
+ \right)
+ +\bc
+ \dfrac{1}{2}\left(
+-\alpha_d L_A+\alpha_e L_B
+ \right)
+\right]\\\\
+& \alpha_e=\dfrac{L_C \alpha_f}{L_B} \quad \alpha_d=-\dfrac{\alpha_f L_C}{L_A} \quad \alpha_f=-\dfrac{1}{2}\\
+& \alpha_d=-\dfrac{ L_C}{2 L_A} \quad
+\alpha_e=\dfrac{L_C }{2 L_B} \quad \alpha_f=-\dfrac{1}{2}
+\end{align*}
+Therefore
+\begin{align*}
+\Phi |_{def}&=
+\phi_d \left(
+-\dfrac{1}{2}U_A-\dfrac{L_B}{2 L_A}U_B-\dfrac{L_C}{2 L_A}U_C
+\right)\\
+&
+ +
+ \phi_e \left(
+ -\dfrac{L_A}{2 L_B}U_A-\dfrac{1}{2}U_B+\dfrac{L_C}{2 L_B}
+\right) +
+ \phi_f \left(
+ \dfrac{L_A}{2 L_C}U_A -\dfrac{L_B}{2 L_C}U_B -\dfrac{1}{2}U_C
+\right)
+\end{align*}
+\item \textbf{ghi}
+\begin{align*}
+\Phi_A&=\dfrac{\alpha_g 2 L_B}{d K}(\bbx-\bb)-
+\dfrac{\alpha_h 2 L_C}{d K}(\bbx-\dfrac{\bb+\bc}{2})
++
+\dfrac{\alpha_i 2 L_A}{d K}(\bbx-\dfrac{\ba+\bb}{2})\\
+=&
+\dfrac{2}{d K}
+\left[
+\bbx \left(
+\alpha_g L_B -\alpha_h L_C +\alpha_i L_A \right)
++
+\ba 
+\dfrac{1}{2}
+\left(
+-\alpha_i L_A
+\right)
++
+\bb 
+\left(-
+\alpha_g L_B
+-\dfrac{1}{2}\alpha_i L_A
++\dfrac{1}{2}\alpha_h L_C
+\right)
++
+\bc 
+\dfrac{1}{2}
+\left(
+\alpha_h L_C
+\right)
+\right]\\
+& \quad \alpha_g=-\dfrac{L_A}{2 L_B}
+\quad
+\alpha_h =0 \quad \alpha_i =1 
+\\\\
+\Phi_B&=\dfrac{\alpha_g 2 L_B}{d K}(\bbx-\bb)-
+\dfrac{\alpha_h 2 L_C}{d K}(\bbx-\dfrac{\bb+\bc}{2})
++
+\dfrac{\alpha_i 2 L_A}{d K}(\bbx-\dfrac{\ba+\bb}{2})\\
+=&
+\dfrac{2}{d K}
+\left[
+\bbx \left(
+\alpha_g L_B -\alpha_h L_C +\alpha_i L_A \right)
++
+\ba 
+\dfrac{1}{2}
+\left(
+-\alpha_i L_A
+\right)
++
+\bb 
+\left(-
+\alpha_g L_B
+-\dfrac{1}{2}\alpha_i L_A
++\dfrac{1}{2}\alpha_h L_C
+\right)
++
+\bc 
+\dfrac{1}{2}
+\left(
+\alpha_h L_C
+\right)
+\right]\\
+&
+\alpha_g=-\dfrac{1}{2}
+\quad \alpha_h =0 \quad
+\alpha_i=0  \\\\
+\Phi_C&=\dfrac{\alpha_g 2 L_B}{d K}(\bbx-\bb)-
+\dfrac{\alpha_h 2 L_C}{d K}(\bbx-\dfrac{\bb+\bc}{2})
++
+\dfrac{\alpha_i 2 L_A}{d K}(\bbx-\dfrac{\ba+\bb}{2})\\
+=&
+\dfrac{2}{d K}
+\left[
+\bbx \left(
+\alpha_g L_B -\alpha_h L_C +\alpha_i L_A \right)
++
+\ba 
+\dfrac{1}{2}
+\left(
+-\alpha_i L_A
+\right)
++
+\bb 
+\left(-
+\alpha_g L_B
+-\dfrac{1}{2}\alpha_i L_A
++\dfrac{1}{2}\alpha_h L_C
+\right)
++
+\bc 
+\dfrac{1}{2}
+\left(
+\alpha_h L_C
+\right)
+\right]\\
+&\alpha_g=-\dfrac{ L_C}{ 2 L_B}
+\quad
+\alpha_h=-1 \quad \alpha_i =0 \quad 
+\end{align*}
+Therefore:
+\begin{align*}
+\Phi|_{ghi}=
+\phi_g \left(-\dfrac{L_A}{2 L_B}U_A -\dfrac{1}{2}U_B-\dfrac{L_C}{2 L_B}U_C \right) 
++
+\phi_h \left(- U_C \right) +
+\phi_i \left( U_A\right) 
+\end{align*}
+\item \textbf{jkl}
+\begin{align*}
+\Phi_A&=-\dfrac{\alpha_j 2 L_C}{d K}(\bbx-\bc)+
+\dfrac{\alpha_k 2 L_B}{d K}(\bbx-\dfrac{\bb+\bc}{2})
+-
+\dfrac{\alpha_l 2 L_A}{d K}(\bbx-\dfrac{\ba+\bc}{2})\\
+=&
+\dfrac{2}{d K}
+\left[
+\bbx \left(
+-\alpha_j L_C+\alpha_K L_B-\alpha_l L_A
+\right)
++
+\ba 
+\dfrac{1}{2}
+\left(
+\alpha_l L_A
+\right)
++
+\bb 
+\left(-
+\dfrac{1}{2}\alpha_K L_B
+\right)
++
+\bc 
+\left(
+\alpha_j L_C-
+\dfrac{1}{2}
+\alpha_K L_B+
+\dfrac{1}{2}
+\alpha_l L_A
+\right)
+\right]\\
+&
+ \alpha_j=\dfrac{L_A}{2 L_C}
+ \quad \alpha_k=0 \quad
+ \alpha_l=-1 
+\\\\
+\Phi_B&=-\dfrac{\alpha_j 2 L_C}{d K}(\bbx-\bc)+
+\dfrac{\alpha_k 2 L_B}{d K}(\bbx-\dfrac{\bb+\bc}{2})
+-
+\dfrac{\alpha_l 2 L_A}{d K}(\bbx-\dfrac{\ba+\bc}{2})\\
+=&
+\dfrac{2}{d K}
+\left[
+\bbx \left(
+-\alpha_j L_C+\alpha_K L_B-\alpha_l L_A
+\right)
++
+\ba 
+\dfrac{1}{2}
+\left(
+\alpha_l L_A
+\right)
++
+\bb 
+\left(-
+\dfrac{1}{2}\alpha_K L_B
+\right)
++
+\bc 
+\left(
+\alpha_j L_C-
+\dfrac{1}{2}
+\alpha_K L_B+
+\dfrac{1}{2}
+\alpha_l L_A
+\right)
+\right]\\
+&
+\alpha_j=-\dfrac{L_B}{2 L_C}
+\quad
+\alpha_k=-1 \quad \alpha_l=0 \quad 
+\\\\
+\Phi_C&=-\dfrac{\alpha_j 2 L_C}{d K}(\bbx-\bc)+
+\dfrac{\alpha_k 2 L_B}{d K}(\bbx-\dfrac{\bb+\bc}{2})
+-
+\dfrac{\alpha_l 2 L_A}{d K}(\bbx-\dfrac{\ba+\bc}{2})\\
+=&
+\dfrac{2}{d K}
+\left[
+\bbx \left(
+-\alpha_j L_C+\alpha_K L_B-\alpha_l L_A
+\right)
++
+\ba 
+\dfrac{1}{2}
+\left(
+\alpha_l L_A
+\right)
++
+\bb 
+\left(-
+\dfrac{1}{2}\alpha_K L_B
+\right)
++
+\bc 
+\left(
+\alpha_j L_C-
+\dfrac{1}{2}
+\alpha_K L_B+
+\dfrac{1}{2}
+\alpha_l L_A
+\right)
+\right]\\
+& \alpha_j=-\dfrac{1}{2} \quad  \alpha_k=0  \quad
+\alpha_l=0
+\end{align*}
+Therefore:
+\begin{align*}
+\Phi|_{jkl}=
+\phi_j \left(\dfrac{L_A}{2 L_C} U_A -\dfrac{L_B}{2 L_C} U_B -\dfrac{1}{2}U_C
+\right) +
+\phi_k \left(-U_B\right) +
+\phi_l \left(-U_A\right) 
+\end{align*}
+\end{itemize}
+All together:
+\begin{align*}
+\Phi |_{abc}=
+\phi_a U_C + \phi_b \left(-\dfrac{1}{2}U_A -\dfrac{L_B}{2 L_A} U_B +\dfrac{L_C}{2 L_A} U_C \right)+\phi_c (-U_B)
+\end{align*}
+
+\begin{align*}
+\Phi |_{def}&=
+\phi_d \left(
+-\dfrac{1}{2}U_A-\dfrac{L_B}{2 L_A}U_B-\dfrac{L_C}{2 L_A}U_C
+\right)\\
+&
+ +
+ \phi_e \left(
+ -\dfrac{L_A}{2 L_B}U_A-\dfrac{1}{2}U_B+\dfrac{L_C}{2 L_B}
+\right) +
+ \phi_f \left(
+ \dfrac{L_A}{2 L_C}U_A -\dfrac{L_B}{2 L_C}U_B -\dfrac{1}{2}U_C
+\right)
+\end{align*}
+
+\begin{align*}
+\Phi|_{ghi}=
+\phi_g \left(-\dfrac{L_A}{2 L_B}U_A -\dfrac{1}{2}U_B-\dfrac{L_C}{2 L_B}U_C \right) 
++
+\phi_h \left(- U_C \right) +
+\phi_i \left( U_A\right) 
+\end{align*}
+
+
+
+\begin{align*}
+\Phi|_{jkl}=
+\phi_j \left(\dfrac{L_A}{2 L_C} U_A -\dfrac{L_B}{2 L_C} U_B -\dfrac{1}{2}U_C
+\right) +
+\phi_k \left(-U_B\right) +
+\phi_l \left(-U_A\right) 
+\end{align*}
+
+The difference is:
+\begin{align*}
+\Phi |_{abc}&=
+\phi_a (U_C-w_a) + \phi_b \left(-\dfrac{1}{2}U_A -\dfrac{L_B}{2 L_A} U_B +\dfrac{L_C}{2 L_A} U_C -w_b \right)+\phi_c (-w_c-U_B)\\
+\Phi|_{jkl}&=
+\phi_j \left(\dfrac{L_A}{2 L_C} U_A -\dfrac{L_B}{2 L_C} U_B -\dfrac{1}{2}U_C-w_j
+\right) +
+\phi_k \left(-U_B -w_k\right) +
+\phi_l \left(-U_A-w_l\right) \\
+\Phi |_{def}&=
+\phi_d \left(
+-\dfrac{1}{2}U_A-\dfrac{L_B}{2 L_A}U_B-\dfrac{L_C}{2 L_A}U_C-w_d
+\right)\\
+&
+ +
+ \phi_e \left(
+ -\dfrac{L_A}{2 L_B}U_A-\dfrac{1}{2}U_B+\dfrac{L_C}{2 L_B}-w_e
+\right) +
+ \phi_f \left(
+ \dfrac{L_A}{2 L_C}U_A -\dfrac{L_B}{2 L_C}U_B -\dfrac{1}{2}U_C-w_f
+\right)\\
+\Phi |_{abc}&=
+\phi_a (U_C -w_a)+ \phi_b \left(-\dfrac{1}{2}U_A -\dfrac{L_B}{2 L_A} U_B +\dfrac{L_C}{2 L_A} U_C -w_b \right)+\phi_c (-U_B - w_c)
+\end{align*}
+where:
+\begin{align*}
+U_A=\dfrac{w_b+w_c}{2}\quad 
+U_B=\dfrac{w_a+w_c}{2} \quad
+U_C=\dfrac{w_a+w_b}{2} 
+\end{align*}
+
+
+\section{Boh}
+Let $\sigma_h=\sum_{i \in I} \phi_i S_i$ and $u_h=\sum_{j \in J} \psi_j U_j$, with $I$ / $J$ strictly contained in the face/node dofs. Or equivalently  $\sigma_h=\sum_i \phi_i S_i$ and $u_h=\sum_j \psi_j U_j$, but if $i \notin I$ then $S_i=0$ and if $j \notin J$ then $U_j=0$. (but for what I am going to ask you here, this is not important)\\
+If I apply the trace operator, that is linear, only the shape functions on $\Gamma_C$ should survive. Right?  For the stress, for example (maybe here the trace is related to its application to the normal, but basically it should be the same):\\
+\begin{align*}
+\text{tr}(\sigma_h ) =\sum_{i \in  I \cap  i \in \Gamma_C} \text{tr} \phi_i S_i
+\end{align*}
+So on $\Gamma_C$:
+\begin{align*}
+\sigma_h=\sum_i \phi_i S_i \qquad \tau_h=\sum_{i \cap \Gamma_C} \phi_i S_i \quad \to \quad
+\text{tr}(\tau_h)=\text{tr}(\sigma_h)
+\end{align*}
+We consider the complementarity and we can replace the definition of the traces of these two operators, since they are the same. By using $\tau_h$, after Caushy Schwarz and trace inequality, I will have a domain that is the union of all the elements of the mesh that are on $\Gamma_C$. With $\sigma_h$ I would have instead all the elements in which $\sigma_h$ has its support.\\
+Is this clear?
+
+
+
+\section{Complementarity}
+We define $s= \bn^T \bsigma \bn$,  $t= \bn^T \btau \bn$, $u=\bu \cdot \bn$, $v=\bv \cdot \bn$.  Then convexity means:
+\begin{align*}
+F(x+y)-F(x) \geq F'(x) y 
+\end{align*}
+In this case $x=[\bsigma,\bu]$, $y=[\btau,\bv]$:
+\begin{align*}
+F(x+y)-F(x)=& \langle s+t, u+v-g \rangle - \langle s, u-g \rangle 
+=\langle s, u+v-g \rangle + \langle t, u+v-g \rangle- \langle s, u-g \rangle \\
+&=\langle s, u-g \rangle + \langle t, u-g \rangle  +\langle s,v\rangle +\langle t,v \rangle- \langle s, u-g \rangle \\
+&=\langle t, u-g \rangle  +\langle s,v\rangle +\langle t,v \rangle
+\end{align*}
+And
+\begin{align*}
+F'(x) y = \langle t, u -g \rangle + \langle s, v \rangle
+\end{align*}
+\end{document}  

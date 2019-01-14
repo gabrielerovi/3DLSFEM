@@ -1,0 +1,83 @@
+clear all;
+close all;
+clc;
+
+%the odd expansion following gottleib - trying eval at intermediate points
+%flipping the matrix so that the basis vectors are columns - yes
+
+N = 128;                                                 %N should be even we get N+1 points
+
+jj = (0:N)';                                            %grid idx
+    
+xx = (2*pi)*jj/(N+1);                                   %grid points on period [0,2*pi]
+
+f = @(x) sin(x).*sin(20*x)+1;       %.*power(x,3)           %data
+                                      
+ff = f(xx);
+
+nn = (-N/2:N/2)';                                       %integer frequencies -N/2 to +N/2 
+
+J = exp(kron(-1i*xx,nn'));                              %DFT matrix - frequency basis vectors as columns
+
+f_un = J'*ff/(N+1);                                    	%fourier coeffs (complex)
+
+N2 = 200;
+
+xx2 = (2*pi)*(0:N2)'/(N2+1);
+
+J2 = exp(kron(-1i*xx2,nn'));
+
+f_fs = real(J2*f_un);                                 	%eval
+
+
+HH=N/4;
+subplot(N/HH+1,1,1);
+% plot(xx2,f(xx2));
+plot(xx2,f_fs,'-r','LineWidth',3,'MarkerSize',4);
+titolo=title('Error');
+titolo.FontSize=40;
+set(gca,'fontsize',30)
+xlim([0,xx2(end)])
+
+% grid on;
+% xlim([0,2*pi]);
+
+
+% subplot(1,4,2);
+% plot(imag(J2(:,1:10)));
+% grid on;
+
+
+% subplot(N,1,2);
+% plot(real(J2(:,1)*f_un(1)));
+% hold on;
+v(1)=N/2+1;
+iold=1;
+for m=1:N/2-1
+    i=iold+1;
+    v(i)=N/2+1-m;
+    v(i+1)=N/2+1+m;
+    iold=i+1;
+    
+end
+cont=1;
+for i = 1:HH:N
+    i
+    
+    cont=cont+1;
+    subplot(N/HH+1,1,cont);
+    plot(xx2,real(J2(:,v(i))*f_un(v(i))),'-b','LineWidth',3,'MarkerSize',4);
+xlim([0,xx2(end)])
+yy=ylabel('');
+set(gca,'fontsize',30)
+
+end
+    plot(xx2,real(J2(:,v(end))*f_un(v(end))),'-b','LineWidth',3,'MarkerSize',4);
+xlim([0,xx2(end)])
+set(gca,'fontsize',30)
+
+hold off;
+% grid on;
+
+
+

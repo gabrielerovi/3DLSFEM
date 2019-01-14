@@ -1,0 +1,2267 @@
+\documentclass[11pt, oneside]{article}   	% use "amsart" instead of "article" for AMSLaTeX format
+\usepackage{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   		% ... or a4paper or a5paper or ... 
+%\geometry{landscape}                		% Activate for rotated page geometry
+%\usepackage[parfill]{parskip}    		% Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
+								% TeX will automatically convert eps --> pdf in pdflatex		
+\usepackage{amssymb}
+\usepackage{amsmath}
+
+
+
+% ref packages
+\usepackage{nameref}
+% folowing  must be in this order
+\usepackage{varioref}
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+\usepackage{booktabs}
+\usepackage {tikz}
+\usetikzlibrary {positioning}
+\definecolor {processblue}{cmyk}{0.96,0,0,0}
+
+
+
+%SetFonts
+
+%SetFonts
+\newcommand{\supp}{\operatorname{supp}}
+\newcommand{\dist}{\operatorname{dist}}
+\newcommand{\divr}{\operatorname{div}}
+\newcommand{\tdiv}{\operatorname{div}}
+\newcommand{\ess}{\operatorname{ess}}
+\newcommand{\rotore}{\operatorname{rot}}
+\newcommand{\curl}{\operatorname{\textbf{curl}}}
+\newcommand{\bcurl}{\operatorname{\textbf{curl}}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\bA}{\textbf{A}}
+\newcommand{\ba}{\textbf{a}}
+\newcommand{\bb}{\textbf{b}}
+\newcommand{\bB}{\textbf{B}}
+\newcommand{\bc}{\textbf{c}}
+\newcommand{\bC}{\textbf{C}}
+\newcommand{\bd}{\textbf{d}}
+\newcommand{\bD}{\textbf{D}}
+\newcommand{\be}{\textbf{e}}
+\newcommand{\bE}{\textbf{E}}
+\newcommand{\bff}{\textbf{f}}
+\newcommand{\bF}{\textbf{F}}
+\newcommand{\bg}{\textbf{g}}
+\newcommand{\bG}{\textbf{G}}
+\newcommand{\bi}{\textbf{i}}
+\newcommand{\bI}{\textbf{I}}
+\newcommand{\bj}{\textbf{j}}
+\newcommand{\bJ}{\textbf{J}}
+\newcommand{\bh}{\textbf{h}}
+\newcommand{\bH}{\textbf{H}}
+\newcommand{\bk}{\textbf{k}}
+\newcommand{\bK}{\textbf{K}}
+\newcommand{\bl}{\textbf{l}}
+\newcommand{\bL}{\textbf{L}}
+\newcommand{\bm}{\textbf{m}}
+\newcommand{\bM}{\textbf{M}}
+\newcommand{\bn}{\textbf{n}}
+\newcommand{\bN}{\textbf{N}}
+\newcommand{\bp}{\textbf{p}}
+\newcommand{\bP}{\textbf{P}}
+\newcommand{\bo}{\textbf{o}}
+\newcommand{\bq}{\textbf{q}}
+\newcommand{\bQ}{\textbf{Q}}
+\newcommand{\br}{\textbf{r}}
+\newcommand{\bR}{\textbf{R}}
+\newcommand{\bs}{\textbf{s}}
+\newcommand{\bS}{\textbf{S}}
+\newcommand{\btau}{\boldsymbol{\tau}}
+\newcommand{\bt}{\textbf{t}}
+\newcommand{\bv}{\textbf{v}}
+\newcommand{\bV}{\textbf{V}}
+\newcommand{\bw}{\textbf{w}}
+\newcommand{\bW}{\textbf{W}}
+\newcommand{\bu}{\textbf{u}}
+\newcommand{\bU}{\textbf{U}}
+\newcommand{\by}{\textbf{y}}
+\newcommand{\bY}{\textbf{Y}}
+\newcommand{\bbx}{\textbf{x}}
+\newcommand{\bX}{\textbf{X}}
+\newcommand{\beps}{\boldsymbol{\varepsilon}}
+\newcommand{\bphi}{\boldsymbol{\phi}}
+\newcommand{\bPhi}{\boldsymbol{\Phi}}
+\newcommand{\bpsi}{\boldsymbol{\psi}}
+\newcommand{\bomega}{\boldsymbol{\omega}}
+\newcommand{\bsigma}{\boldsymbol{\sigma}}
+\newcommand{\bSigma}{\boldsymbol{\Sigma}}
+\newcommand{\bxi}{\boldsymbol{\xi}}
+\newcommand{\aaa}{\`a}
+\newcommand{\eee}{\`e}
+\newcommand{\iii}{\`i}
+\newcommand{\ooo}{\`o}
+\newcommand{\uuu}{\`u}
+\newcommand{\aaaa}{\'a}
+\newcommand{\eeee}{\'e}
+\newcommand{\iiii}{\'i}
+\newcommand{\oooo}{\'o}
+\newcommand{\uuuu}{\'u}
+\newcommand{\AAA}{\`A}
+\newcommand{\EEE}{\`E}
+\newcommand{\III}{\`I}
+\newcommand{\OOO}{\`O}
+\newcommand{\UUU}{\`U}
+\newcommand{\AAAA}{\'A}
+\newcommand{\EEEE}{\'E}
+\newcommand{\IIII}{\'I}
+\newcommand{\OOOO}{\'O}
+\newcommand{\UUUU}{\'U}
+\newcommand{\ND}{\mathcal{ND}}
+\newcommand{\RT}{\mathcal{RT}}
+
+\title{Signorini problem: adaptive least/squares }
+\author{Gabriele Rovi}
+%\date{}							% Activate to display a given date or no date
+
+
+\begin{document}
+\maketitle 
+\section{Introduction}
+\section{Contact boundary}
+If the domain is locally Lipschitz, we can define local coordinates such that:
+\begin{align*}
+\gamma_{loc}=\{ (y_1,y_2,y_3): \: y_3 = \eta_{loc}(y_1,y_2), |y_1|<\alpha_1,\varepsilon, |y_2|<\alpha_2,\varepsilon, \varepsilon \:\:\varepsilon \text{sufficiently small}  \}
+\end{align*}
+So that locally we can represent the points : 
+\begin{align*}
+x_3 = \eta_x (x_1,x_2)
+\end{align*}
+Nota bene. Direi che il sistema locale di coordinate vede la "z" come la coordinata normale. \\
+Sto dicendo che l'altezza (dall'alto) del punto spostato X deve essere inferiore a quella dell'ostacolo valutata nel punto spostato X. \\
+ASSUNZIONE IMPLICITA: normali esterne sono tra loro vicine. Forse intende dire che se cosi non fosse, potrei avere un ostacolo con diverse concavita' e convessita', per cui nello spostare il punto, questo andrebbe a pentrare una protuberanza intermedia.
+\begin{align*}
+\eta_x(x_1,x_2)+u_3(x_1,x_2,\eta_x(x_1,x_2)) \leq \eta_y(x_1+u_1(x_1,x_2,\eta_x(x_1,x_2)),x_2+u_2(x_1,x_2,\eta_x(x_1,x_2)))
+\end{align*}
+Per piccoli spostamenti:
+\begin{align*}
+\eta_x(x_1,x_2)+u_3 \leq \eta_y(x_1,x_2)+\left( \dfrac{\partial \eta_y}{\partial y_1},\dfrac{\partial \eta}{\partial y_2}\right) \cdot \left(u_1,u_2\right)^T
+\end{align*}
+che porta a:
+\begin{align*}
+\bn_y \cdot (u_1,u_2,u_3)^T \leq G(x)
+\end{align*}
+dove la normale e' quella sull'ostacolo. Per piccoli spostamenti, la si confonde con quella del corpo.
+
+
+\section{Poisson equation}
+\begin{align*}
+\begin{cases}
+\bu+\nabla p=0\\
+\text{div} \bu = f
+\end{cases}
+\end{align*}
+\begin{align*}
+\begin{cases}
+\int_{\Omega}\bu \bv-\int_{\Omega}  p \text{div} \bv +\int_{\partial \Omega} p \bv \cdot \bn=0 \\ 
+\int_{\Omega} \text{div} \bu  q= \int_{\Omega} f q\\
+\end{cases}
+\end{align*}
+\begin{itemize}
+\item $u_x$:
+\begin{align*}
+J(u_x,u_x)= \int \phi_u test_u  \qquad J(u_x,u_y)= 0 \quad J(u_x,p)=  -\int \phi_p test_{u,x}
+\end{align*}
+\item $u_y$:
+\begin{align*}
+J(u_y,u_x)= 0  \qquad J(u_y,u_y)= \int \phi_u test_u \quad J(u_y,p)=  - \int \phi_p test_{u,y}
+\end{align*}
+\item $p$:
+\begin{align*}
+J(p,u_x)= \int \phi_{u,x} test_p   \qquad J(p,u_y)= \int \phi_{u,y} test_p \quad J(p,p)=  0
+\end{align*}
+\end{itemize}
+\section{Dual Linear Elasticity}
+\begin{align*}
+\begin{cases}
+\mathcal{A} \bsigma - \boldsymbol{\varepsilon}(\bu)=0\\
+\text{div} \bsigma + \bff=0
+\end{cases}
+\end{align*}
+\begin{align*}
+\begin{cases}
+\int_{\Omega} \mathcal{A} \bsigma : \btau - \int_{\Omega}\boldsymbol{\varepsilon}(\bu): \btau=0\\
+\int_{\Omega}  \left( \text{div} \bsigma + \bff \right) \bv=0
+\end{cases}
+\end{align*}
+\begin{align*}
+\begin{cases}
+\int_{\Omega} \mathcal{A} \bsigma : \btau -\int_{\Omega}\nabla \bu : \frac{1}{2}(\btau+\btau^T)=0\\
+\int_{\Omega}  \left( \text{div} \bsigma + \bff \right) \bv=0
+\end{cases}
+\end{align*}
+\begin{align*}
+\begin{cases}
+\int_{\Omega} \mathcal{A} \bsigma : \btau +\frac{1}{2}\int_{\Omega} \bu\: \text{div}\left(\btau+\btau^T \right)- \frac{1}{2}\int_{\partial \Omega} \bu \cdot \left(\btau+\btau^T \right)\bn =0\\
+\int_{\Omega}  \left( \text{div} \bsigma + \bff \right) \bv=0
+\end{cases}
+\end{align*}
+In case the simmetry is strongly enforced in the space:
+\begin{align*}
+\begin{cases}
+\int_{\Omega} \mathcal{A} \bsigma : \btau +\int_{\Omega} \bu\: \text{div}\btau- \int_{\partial \Omega} \bu \cdot \btau \bn =0\\
+\int_{\Omega}  \left( \text{div} \bsigma + \bff \right) \bv=0
+\end{cases}
+\end{align*}
+Being:
+\begin{align*}
+ \mathcal{A} \bsigma : \btau =  \beta \bsigma : \btau +  \alpha \text{tr}(\bsigma)\text{tr}(\btau) 
+\end{align*}
+\begin{itemize}
+\item $\btau_{raw1}$:\\
+\begin{align*}
+\int_{\Omega}  \beta \bsigma_{raw1} \cdot \btau_{raw1} +  \alpha \left(\bsigma_{raw1,1}+\bsigma_{raw2,2} \right) \btau_{raw1,1}
++\int_{\Omega} \bu_1\: \text{div}\btau_{raw1}\\
+\end{align*}
+\item $\btau_{raw1}$:\\
+\begin{align*}
+\int_{\Omega}  \beta \bsigma_{raw2} \cdot \btau_{raw2} +  \alpha \left(\bsigma_{raw1,1}+\bsigma_{raw2,2} \right) \btau_{raw2,2}
++\int_{\Omega} \bu_2\: \text{div}\btau_{raw2}\\
+\end{align*}
+\item  $v_{1}$:\\
+\begin{align*}
+\int_{\Omega} \bv_1\: \text{div}\bsigma_{raw1}\\
+\end{align*}
+\item  $v_{2}$:\\
+\begin{align*}
+\int_{\Omega} \bv_2\: \text{div}\bsigma_{raw2}\\
+\end{align*}
+\end{itemize}
+\section{LSFEM Linear Elasticity}
+\begin{align*}
+\begin{cases}
+& \left( \boldsymbol{\varepsilon} (\bu) -\mathcal{A} \bsigma , \boldsymbol{\varepsilon} (\bu_h ) \right)=0\\
+&  \left( \text{div} \bsigma + \bff,  \text{div} \bsigma_h \right)
++ \left( \mathcal{A} \bsigma - \boldsymbol{\varepsilon} (\bu), \mathcal{A} \bsigma_h \right)=0
+\end{cases}
+\end{align*}
+We obtain the Jacobian:
+\begin{itemize}
+\item  $v_x$:\\
+\begin{align*}
+u_{x,x}v_{x,x} + \dfrac{u_{x,y}+u_{y,x}}{2} v_{x,y} - \beta \left(\sigma_{xx} v_{x,x} +\dfrac{\sigma_{xy}+\sigma_{yx}}{2} v_{x,y} \right)-\alpha \left(\sigma_{xx}+\sigma_{yy}\right) v_{x,x}
+\end{align*}
+\item  $v_y$:\\
+\begin{align*}
+u_{y,y}v_{y,y} + \dfrac{u_{x,y}+u_{y,x}}{2} v_{y,x} - \beta \left(\sigma_{yy} v_{y,y} +\dfrac{\sigma_{xy}+\sigma_{yx}}{2} v_{y,x} \right)-\alpha \left(\sigma_{xx}+\sigma_{yy}\right) v_{y,y}
+\end{align*}
+\item  $\tau_{raw,1}$:\\
+\begin{align*}
+\left( \text{div} \bsigma_{raw1} f_1\right) \text{div} \btau_{raw1} +
+\beta^2 \bsigma_{raw1} \btau_{raw1} +
+\tau_{raw1,1} \left( \sigma_{raw1,1} + \sigma_{raw2,2} \right)  \left( 2 \alpha \beta + \text{dim}\: \alpha^2 \right)\\
+-\beta \left( u_{x,x} \tau_{raw1,1} +\dfrac{u_{x,y}+u_{y,x}}{2} \tau_{raw1,2} \right)
+-\alpha \left( u_{x,x} +u_{y,y} \right) \tau_{raw1,1}
+\end{align*}
+\item  $\tau_{raw,2}$:\\
+\begin{align*}
+\left( \text{div} \bsigma_{raw2} f_2\right) \text{div} \btau_{raw2} +
+\beta^2 \bsigma_{raw2} \btau_{raw2} +
+\tau_{raw2,2} \left( \sigma_{raw1,1} + \sigma_{raw2,2} \right)  \left( 2 \alpha \beta + \text{dim}\: \alpha^2 \right)\\
+-\beta \left( u_{y,y} \tau_{raw2,2} +\dfrac{u_{x,y}+u_{y,x}}{2} \tau_{raw2,1} \right)
+-\alpha \left( u_{x,x} +u_{y,y} \right) \tau_{raw2,2}
+\end{align*}
+\end{itemize}
+The Jacobian is (in 11 add $\text{div}{\sigma_1}
+\text{div}{\tau_1}$, in 22 add $\text{div}{\sigma_2}
+\text{div}{\tau_2}$):
+{\tiny
+\begin{align*}
+\begin{bmatrix}
+\beta^2 \sigma_{xy}\tau_{xy} + \sigma_{xx}\tau{xx}  (\alpha^2 +(\alpha+\beta)^2) & 
+2  \alpha (\alpha+\beta) \sigma_{yy} \tau_{xx}  &
+ - (\tau_{xx} u_{x,x}(\alpha+\beta) + 0.5 \beta \tau_{xy} u_{x,y})&
+  -(\alpha \tau_{xx} u_{y,y} + 0.5 \beta \tau_{xy} u_{y,x}\\
+ 2  \alpha (\alpha+\beta) \sigma_{xx} \tau_{yy} & 
+ \beta^2 \sigma_{yx}\tau_{yx} + \sigma_{yy}\tau_{yy}  (\alpha^2 +(\alpha+\beta)^2)&
+  - (\alpha \tau_{yy} u_{x,x} + 0.5 \beta  \tau_{yx} u_{x,y} &
+   - ((\alpha+\beta) \tau_{yy} u_{y,y} + 0.5 \beta \tau_{yx} u_{y,x}) ) \\
+ - (\sigma_{xx} v_{xx} (\alpha + \beta) +0.5 \beta \sigma_{xy} v_{x,y}) )&                 
+ -( \alpha \sigma_{yy} v_{x,x} +0.5  \beta \sigma_{yx} v_{x,y})&     
+ u_{x,x} v_{x,x} + 0.5 (u_{x,y}v_{x,y})&
+ 0.5 u_{y,x} v_{x,y}\\
+ - (\alpha \sigma_{xx} v_{y,y} +0.5 \beta \sigma_{xy} v_{y,x})&
+-( \sigma_{yy}v_{y,y} (\alpha + \beta) + 0.5 \beta \sigma_{yx} v_{y,x})&                              
+ 0.5 u_{x,y} v_{y,x}&
+0.5 u_{y,x} v_{y,x}+ u_{y,y} v_{y,y}
+\end{bmatrix}
+\end{align*}
+}
+\subsection{Linear elasticity equations}
+
+\section{Signorini problem: strong formulation}
+\begin{align*}
+\begin{cases}
+\text{div} \bsigma + \bff=0 & \Omega  \qquad \text{momentum balance equation}\\
+\mathcal{A} \bsigma - \boldsymbol{\varepsilon}(\bu)=0 &\Omega \qquad \text{constitutive law}\\
+\bu = \bu^D & \Gamma_D\\
+\bsigma \cdot \bn = \bt^N & \Gamma_N\\
+\end{cases} 
+\end{align*}
+with the constraints:
+\begin{align*}
+\begin{cases}
+\bu \cdot \bn - g  \leq 0 & \Gamma_D \qquad \text{impenetrability}\\
+(\bsigma \bn) \cdot \bn \leq 0 &\Gamma_N \qquad \text{direction of the surface pressure}\\
+\langle \bu \cdot \bn -g, (\bsigma \bn) \cdot \bn \rangle_{\Gamma_c}=0 & \Gamma_C \subset \Gamma_N \qquad \text{complementarity condition}
+\end{cases}
+\end{align*}
+Between the two possible formulations, the one that uses $\mathcal{A} \bsigma -\boldsymbol{\varepsilon}=0$ is preferred to $\bsigma - \mathcal{C} \boldsymbol{\varepsilon}=0$. In this way, we can also deal with near incompressible or incompressible materials ($\lambda \gg 1$, $\lambda \to \infty$).
+\begin{align*}
+&\mathcal{A} \bsigma= \dfrac{1}{2 \mu} \left(\bsigma-\dfrac{\lambda}{d \lambda + 2 \mu } \text{tr} \bsigma \bI\right)\\
+&\mathcal{C} \boldsymbol{\varepsilon}=\lambda \text{tr} \boldsymbol{\varepsilon}(\bu) \bI+ 2 \mu \boldsymbol{\varepsilon}(\bu)
+\end{align*}
+
+
+\section{Spaces}
+\begin{align*}
+&W^{m,p}(\Omega) =\{v \in L^p(\Omega) ; \quad \partial^{\alpha}  v \in L^p(\Omega) \quad \forall |\alpha| \leq m \}\\
+&|| v ||_{m,p,\Omega}=\left( \sum_{|\alpha| \leq m \int_{\Omega} } | \partial^{\alpha} v(x) |^{\alpha} \right)^{1/p}
+\end{align*}
+where $W^{-m,p'}(\Omega)$, with $1/p+1/p'=1$ is the dual space normed by:
+\begin{align*}
+&|| f ||_{-m,p',\Omega}=\sup_{v \neq 0  v \in W_0^{m,p}(\Omega)} \dfrac{ \langle f, v \rangle }{|| v||_{m,p,\Omega} }
+\end{align*}
+A lemma characterizes the functionals of $W^{-m,p'}(\Omega)$:
+\begin{align*}
+f \in W^{-m,p'}(\Omega) \quad \iff \quad \exists  f_{\alpha}=  \sum_{|\alpha| \leq m  }| \partial^{\alpha} f_{\alpha}|\in L^{p'}(\Omega)  
+\end{align*}
+For $p=2$,  $W^{m,2}(\Omega)$ can be defined in a different way by using the Fourier transforms. For real $s >0$:
+\begin{align*}
+&H^{s}(\mathbb{R}^N) =\{v \in L^2(\mathbb{R}^N) ; \quad (1+|| x||^{2} )^{1/2}  \hat{v}(x) \in L^2(\mathbb{R}^N) \quad \forall |\alpha| \leq m \}\\
+&|| v ||_{s,\mathbb{R}^N}=\left(|| v ||_{L^{2}(\mathbb{R} )}^{2} +|| (1+ || x||^{2} )^{s/2} \hat{v}(x)||_{L^{2}(\mathbb{R} )}^{2}  \right)^{1/2}\\
+&H^{s}(\Omega) =\{ v \in L^2\: \quad \exists \tilde{v} \in H^{s}\left(\mathbb{R}^N\right) \:\: \text{with} \: \tilde{v} =v  \: \text{on} \:\Omega \}\\
+&||v||_{s,\Omega} = \inf_{ \tilde{v} \in H^{s}\left(\mathbb{R}^N\right), \tilde{v} = v \: \text{in} \: \Omega} || \tilde{v}||_{s,\mathbb{R}^N}
+\end{align*}
+Let $\Omega$ be a Lipschitz-continuous bounded open subset of $\mathbb{R}^N$. Then:
+\begin{align*}
+&H^{s}(\Omega) = W^{s,2}\left(\Omega \right)
+\end{align*}
+\textbf{Theorem}\\
+Let $\Omega$ be like in the previous definition (WHICH ONE) and let $p \geq 1$, $s \geq 0$ be two real numbers such that $s \leq  k + 1$, $s-1/p= l + \sigma$ where $l \geq 0$ is an integer and $\sigma < 1$. Then the mapping $ u \to \gamma_0 u$ defined on $\mathcal{D}(\bar{\Omega})$ has a unique linear continuous extension as an operator from: 
+\begin{align*}
+W^{s,p}\left(\Omega \right) \quad \text{onto} \quad W^{s-1/p,p}\left(\Gamma \right) 
+\end{align*}
+Moreover, in $W^{1,p}$ we have Ker$(\gamma_0)=W_0^{1,p}$. The norm that can be used is:
+\begin{align*}
+&||f||_{s-1/p,p,\Gamma} = 
+\inf_{ \tilde{v} \in W^{s,p}\left(\Omega \right), \gamma_0 \tilde{v} = f \: \text{in} \: \Omega } 
+|| \tilde{v}||_{s,p,\Omega}
+\end{align*}
+
+\begin{align*}
+&H_d^1(\Omega) = \{q \in H^1 \left(\Omega \right): \:q=0 \:\text{on}\:\Gamma_d \}\\ 
+&H_d^1(\text{div},\Omega) = \{\bw \in H^1 \left(\text{div},\Omega \right): \: \bw \cdot \bn=0 \:\text{on}\:\Gamma_N \}\\
+&V_h \subset H_d^1(\Omega)\\
+&\Sigma_h \subset H_d^1(\text{div},\Omega)\\
+&H_d^{1/2}(\Gamma_d) = \{v \in L^2 \left(\Gamma_d \right): \: \exists u \in H_d^1(\Omega), \:v=\text{tr} (u) \}\\ 
+&H_d^{-1/2}(\Gamma_N) \: \: \qquad H_d^{1/2}(\Gamma_N)  \text{ dual space}\\  
+&|| f ||_{-1/2,\Omega}=\sup_{v \neq 0 , \: v \in W_0^{1/2}(\Omega)} \dfrac{ \langle f, v \rangle }{|| v||_{1/2,\Omega} }
+\end{align*}
+
+
+
+\section{Least squares functionals}
+The least squares functional:
+\begin{align*}
+\mathcal{F}_C(\bu,\bsigma)=||\text{div} \bsigma+\bff||^2+||\mathcal{A}\bsigma -\boldsymbol{\varepsilon}(\bu)||^2 \geq 0
+\end{align*}
+and the augmented least squares functional (positive thanks to the constraints):
+\begin{align*}
+\mathcal{F}(\bu,\bsigma)=||\text{div} \bsigma+\bff||^2+||\mathcal{A}\bsigma -\boldsymbol{\varepsilon}(\bu)||^2+\langle \bu \cdot \bn, (\bsigma \bn) \cdot \bn \rangle_{\Gamma_C} \geq 0  
+\end{align*}
+Searching for an approximate solution $(\bu_h^{\perp},\bsigma_h^{\perp})$ such that exactly satisfy:
+\begin{align*}
+\langle \bu \cdot \bn, (\bsigma \bn) \cdot \bn \rangle_{\Gamma_C}=0
+\end{align*}
+means that (being the set of $(\bu_h^{\perp},\bsigma_h^{\perp})$ smaller than the one in which we search for $(\bu_h^{},\bsigma_h^{})$):
+\begin{align*}
+\mathcal{F}(\bu_h,\bsigma_h) \leq \mathcal{F}_C(\bu_h,\bsigma_h) \leq \mathcal{F}_C(\bu_h^{\perp},\bsigma_h^{\perp}) =\mathcal{F}(\bu_h^{\perp},\bsigma_h^{\perp}) 
+\end{align*}
+
+
+\section{Solving the functional}
+We have to minimize the augmented functional:
+\begin{align*}
+\mathcal{F}_C(\bu,\bsigma)=||\text{div} \bsigma+\bff||^2+||\mathcal{A}\bsigma -\boldsymbol{\varepsilon}(\bu)||^2+\langle \bu \cdot \bn, (\bsigma \bn) \cdot \bn \rangle_{\Gamma_C} \geq 0  
+\end{align*}
+with respect to the finite element subspaces $V_h \subset  H_d^1(\Omega)^d $ and $\Sigma_h \subset H_{N,C}(\text{div},\Omega)$. So we search for a solution $(\bu_h,\bsigma_h) = (\bu^D,\bsigma^N)+(\hat{\bu}_h,\hat{\bsigma}_h) $ with $\hat{\bu}_h$ and $\hat{\bsigma}$ in $V_h$ and $\Sigma_h$, such that the inequality constraints are satisfied. \\
+This is equivalent to the system of variational inequalities:
+\begin{align}
+\begin{cases}
+-2 \left( \mathcal{A} \bsigma_h-\boldsymbol{\varepsilon}(\bu_h),\boldsymbol{\varepsilon}(\bv_h-\bu_h) \right)+
+\langle \bn \cdot (\bsigma_h  \bn), \bn \cdot (\bv_h-\bu_h)\rangle_{\Gamma_C} \geq 0\\
+2 \left( \text{div} \bsigma_h + \bff, \text{div} (\btau_h-\bsigma_h)\right)+
+2\left( \mathcal{A} \bsigma_h - \boldsymbol{\varepsilon}(\bu_h), \mathcal{A}(\btau_h-\bsigma_h \right)+
+\langle \bn \cdot \bu_h  -g, \bn \cdot (\btau_h-\bsigma_h)\rangle_{\Gamma_C} \geq 0\\
+\end{cases}
+\end{align}
+
+
+\section{A posteriori error estimator}
+\textbf{Theorem}\\
+Let $(\bu_h,\bsigma_h) \in H^1(\Omega)^d \times H(\text{div},\Omega)^d$ be the exact solution of the constrainted problem. Then $\forall (\bu_h,\bsigma_h) \in (\bu_h^D,\bsigma_h^D)  + V_h \times \Sigma_h$ which satisfy the constraints, $\exists \: C_R>0$ ($\lambda$ indipendent) such that:
+\begin{align*}
+&\mathcal{F}_C(\bu,_h\bsigma_h) \geq C_R
+\left(|| (\boldsymbol{\varepsilon}(\bu_h)-\boldsymbol{\varepsilon}(\bu))||^2+||\text{div} (\bsigma-\bsigma_h)||^2+||\mathcal{A}(\bsigma-\bsigma_h)||^2 \right)  
+\end{align*}
+
+\textbf{Korn's inequality}\\
+Let $\Gamma_d \subset \Gamma$ be a set of positive measure $|\Gamma_d| > 0$. Then $|| \boldsymbol{\varepsilon}\left( \bv \right)||$ is an equivalent norm to $||v||_{1,\Omega} $ in $H_d^1(\Omega)^d$
+\begin{align*}
+&||v||_{1,\Omega} \leq C_l || \boldsymbol{\varepsilon}\left( \bv \right)|| \qquad \forall \bv \in H_d^1(\Omega)^d
+\end{align*}
+\textbf{Lemma 1}\\
+Let $\Gamma_N \subset \Gamma$ be a set of positive measure $|\Gamma_N| > 0$. Then:
+\begin{itemize}
+\item \begin{align*}
+|| \btau|| \leq C \left( ||\text{dev} (\btau)||+|| \text{div} (\btau) || \right) \qquad
+ \forall \btau \in H_N(\text{div}, \Omega)^d
+\end{align*}
+\item \begin{align*}
+|| \text{dev} \btau|| \leq 2 \mu  ||\mathcal{A} (\btau) ||  \qquad
+|| \text{dev} \btau|| \leq  \sqrt{2 \mu}  \left( \mathcal{A} (\btau),\btau \right) 
+\end{align*}
+\item Trace inequalities: \begin{align*}
+||v||_{1/2,\Gamma_C} \leq C_T \mu  ||v||_{1,\Omega} \quad \forall \: \bv \in H^1(\Omega) \qquad  \qquad
+|| \bsigma \cdot \bn||_{-1/2,\Gamma_c} \leq  C_T || \bsigma||_{\text{div},\Omega} \quad \forall \: \bsigma  \in H_N(\text{div},\Omega)
+\end{align*}
+\end{itemize}
+\begin{align*}
+&\mathcal{F}(\bu,\bsigma)=||\text{div} \bsigma + \bff||^2 + || \mathcal{A} \bsigma-\boldsymbol{\varepsilon}(\bu)||^2\\
+&\mathcal{F}_C(\bu,\bsigma)=||\text{div} \bsigma + \bff||^2 + || \mathcal{A} \bsigma-\boldsymbol{\varepsilon}(\bu)||^2+ \langle \bn \cdot \bu -g, \bn \cdot (\bsigma \cdot \bn)\rangle
+\end{align*}
+
+
+\section{The least squares functional as an a posteriori estimator: reliability and efficiency}
+Let be $e$ the error. Then we want a functional that is both reliable and efficient. In this way, the functional is equivalent to the norm of the error.
+\begin{align}
+&C_1 ||\text{e}||  \overbrace{\leq}^{ \text{reliability} }  \mathcal{F} \overbrace{\leq}^{\text{efficiency}} C_2 ||\text{e}||  \qquad \to \qquad
+ ||\text{e}||   \to 0 \qquad \iff \qquad \mathcal{F} \to 0
+\end{align}
+If both are taken singularly, we are no sure of the fact that the functional is a good estimator. Indeed it could happen:\\
+Reliability: $||\text{e}|| \approx 0$, $\mathcal{F} \gg 1$ (refinement, although is not necessary $\to$ wasting time)\\
+Efficiency:     $\mathcal{F} \approx 0$, $||\text{e}|| \gg 1$ (not refinement, but it is necessary $\to$ bad solving) 
+
+
+\subsection{Reliability}
+$(\bu_h,\bsigma_h) \in (\bu^D,\bsigma^N)+\bV_h \times \bSigma_h$.
+\begin{align*}
+&\mathcal{F}_C(\bu_h,\bsigma_h) \geq C_R \left( 
+\overbrace{||\text{div}(\bsigma-\bsigma_h)||^2}^{a)}+
+\overbrace{||\mathcal{A}(\bsigma-\bsigma_h)||^2}^{b)}+
+\overbrace{|| \boldsymbol{\varepsilon}(\bu-\bu_h)||^2}^{c)}
+ \right)
+\end{align*}
+
+
+\begin{itemize}
+\item a)  \begin{align*}
+ ||\text{div}(\bsigma-\bsigma_h)||^2\overset{\pm \bff}{=}||\text{div}(\bff+\bsigma_h)||^2 \leq \mathcal{F}_C(\bu_h,\bsigma_h)
+\end{align*}
+\item b) Remarking the fact that, for a scalar product, $(\text{sym}(a),b)+(a,\text{as}(b))=(a,b)$ and using Greens formula:
+\begin{align*}
+(\boldsymbol{\varepsilon}(\bu-\bu_h),\bsigma-\bsigma_h)=&
+\langle (\bsigma-\bsigma_h)\cdot \bn , \bu -\bu_h\rangle_{\Gamma_C}-(\text{div}(\bsigma-\bsigma_h),\bu-\bu_h)-(\text{as}(\bsigma-\bsigma_h),\nabla(\bu-\bu_h))\\
+\overset{\text{lemma1}}{\leq} &\langle \bsigma_h \bn \cdot  \bn , \bu_h \cdot \bn -g\rangle_{\Gamma_C}+\\
+&||\text{div} (\bsigma- \bsigma_h)|| ||\bu- \bu_h||+||\text{as} (\bsigma- \bsigma_h)|| ||\nabla(\bu- \bu_h)||\\
+{\leq} &\mathcal{F}_C(\bu_h,\bsigma_h)+ \sqrt{2} \left(
+||\text{div} (\bsigma- \bsigma_h)||^{2}+||\text{as} (\bsigma- \bsigma_h)||^{2} \right)^{1/2}||\bu- \bu_h||_1
+\end{align*}
+where:
+\begin{align*}
+||\text{div} (\bsigma- \bsigma_h)||^{2}+||\text{as} (\bsigma- \bsigma_h)||^{2} \overset{\text{as}(\bsigma)=0}{=} &||\text{div} (\bsigma_h)+\bff||^{2}+||\text{as} ( \bsigma_h)||^{2}\\
+\overset{\text{as}(\boldsymbol{\varepsilon}(\bu_h))=0}{=}& ||\text{div} (\bsigma_h)+\bff||^{2}+(2 \mu)^{2}||\text{as} (\mathcal{A} \bsigma_h-\boldsymbol{\varepsilon}(\bu_h))||^{2}\\
+\overset{ ||\text{as}(\cdot)||\leq  ||\text{}(\cdot)||}{=}& ||\text{div} (\bsigma_h)+\bff||^{2}+(2 \mu)^{2}|| (\mathcal{A} \bsigma_h-\boldsymbol{\varepsilon}(\bu_h))||^{2}\\
+\leq & \max(1, (2 \mu)^{2})\mathcal{F}_C(\bu_h,\bsigma_h)
+\end{align*}
+Now we take advantage of this inequality:
+\begin{align*}
+||\boldsymbol{\varepsilon} (\bu_h- \bu)|| \overset{\pm \mathcal{A} \bsigma}{=} &|| ( \mathcal{A} \bsigma -\boldsymbol{\varepsilon} (\bu) ) + (\boldsymbol{\varepsilon} (\bu_h) - \mathcal{A} \bsigma)||=\\
+ \overset{ \mathcal{A} \bsigma -\boldsymbol{\varepsilon} (\bu) = 0 }{=} & ||\boldsymbol{\varepsilon} (\bu_h) - \mathcal{A} \bsigma||\\
+   \overset{ \pm \mathcal{A} \bsigma_h} {\leq}   &||\mathcal{A}\bsigma- \mathcal{A} \bsigma_h||_1+||\boldsymbol{\varepsilon} (\bu_h) - \mathcal{A} \bsigma_h||\\
+{\leq}     &||\mathcal{A}\bsigma- \mathcal{A} \bsigma_h||+ \mathcal{F}_C(\bu_h,\bsigma_h)^{1/2}
+\end{align*}
+and using the Korn's inequality:
+\begin{align*}
+(\boldsymbol{\varepsilon}(\bu-\bu_h),\bsigma-\bsigma_h) \leq & \mathcal{F}_C(\bu_h,\bsigma_h) +  \sqrt{2 \max(1, (2 \mu)^{2})}  \mathcal{F}_C(\bu_h,\bsigma_h)^{1/2} ||\boldsymbol{\varepsilon} (\bu- \bu_h)||\\
+{\leq}  & C \mathcal{F}_C(\bu_h,\bsigma_h)^{1/2} ( \mathcal{F}_C(\bu_h,\bsigma_h)^{1/2}+||\mathcal{A}\bsigma- \mathcal{A} \bsigma_h||)\\
+ &\overset{ ||\bsigma- \bsigma_h||_{\mathcal{A}} =(\mathcal{A}\bsigma,\bsigma)} {\leq}   C \mathcal{F}_C(\bu_h,\bsigma_h)^{1/2} ( \mathcal{F}_C(\bu_h,\bsigma_h)^{1/2}+||\bsigma- \bsigma_h||_{\mathcal{A}})
+\end{align*}
+where the last inequality holds with a particular C indipendent on $\lambda$:
+\begin{align*}
+(\mathcal{A} \bsigma, \bsigma)=& \int_{\Omega} \dfrac{1}{2 \mu}\left[  \sum_{i \neq j} \sigma_{ij}^{2}  + \sum_{i = j} (\sigma_{ij}-\text{tr}\sigma_{ij})\sigma_{ij} \right]+\dfrac{1}{d(d \lambda + 2 \mu)}\left[ \sum_{i = j} \sigma_{ij}\text{tr}  \sigma_{ij} \right]=\\
+&\int_{\Omega} \dfrac{1}{2 \mu}\left[  \sum_{i, j} \sigma_{ij}^{2}  - \text{tr} ^{2} \sigma_{ij} \right]+\dfrac{1}{d(d \lambda + 2 \mu)} \text{tr} ^{2} \sigma_{ij}=\\
+&\int_{\Omega} \dfrac{1}{2 \mu}  \left[\sum_{i, j} \sigma_{ij}^{2}  +\dfrac{ 2(d-1) \mu+ \lambda d^{2} }{2 \mu d(d \lambda + 2 \mu)} \text{tr}^{2} \sigma_{ij} \right]\\
+(\mathcal{A} \bsigma, \mathcal{A} \bsigma)=& \int_{\Omega} \left(\dfrac{1}{2 \mu}\right)^{2} \left[  \sum_{i \neq j} \sigma_{ij}^{2}  + \sum_{i = j} (\sigma_{ij}-\text{tr}\sigma_{ij})^{2}\right]+\dfrac{1}{d(d \lambda + 2 \mu)^{2}}  \text{tr}^{2}\sigma_{ij} \\
+& \int_{\Omega} \left(\dfrac{1}{2 \mu}\right)^{2} \left[  \sum_{i, j} \sigma_{ij}^{2}  + \dfrac{(2 \mu)^{2} + (d-2)d (d \lambda + 2 \mu)^{2}}{d(d \lambda + 2 \mu)^{2}}  \text{tr}^{2}\sigma_{ij} \right]\\
+\end{align*}
+where the costant $C$ can be defined as:
+\begin{align*}
+C=\dfrac{1}{2 \mu} \sup_{\lambda} \left[1, 
+\left(\dfrac{2 \mu d(d \lambda + 2 \mu)} { 2(d-1) \mu+ \lambda d^{2} }\right) 
+\left(\dfrac{(2 \mu)^{2} + (d-2)d (d \lambda + 2 \mu)^{2}}{d(d \lambda + 2 \mu)^{2}}  \right)\right]
+\end{align*}
+Therefore:
+\begin{align*}
+||\bsigma -\bsigma_h||_{\mathcal{A}}^{2} \overset{\pm \boldsymbol{\varepsilon}(\bu-\bu_h)}{=}&(\mathcal{A}(\bsigma-\bsigma_h)-\boldsymbol{\varepsilon}(\bu-\bu_h), \bsigma-\bsigma_h)+(\boldsymbol{\varepsilon}(\bu-\bu_h),\bsigma-\bsigma_h)\\
+\leq &  \sqrt{2} (||\mathcal{A}(\bsigma-\bsigma_h)||^{2}  +  ||\boldsymbol{\varepsilon}(\bu-\bu_h)||^{2})^{1/2}     ||\bsigma -\bsigma_h||+\\ 
+&C \mathcal{F}_C(\bu_h,\bsigma_h)^{1/2}(\mathcal{F}_C(\bu_h,\bsigma_h)^{1/2}+||\bsigma -\bsigma_h||_{\mathcal{A}})\\
+\leq & \mathcal{F}_C(\bu_h,\bsigma_h)^{1/2}||\bsigma -\bsigma_h||+ C \mathcal{F}_C(\bu_h,\bsigma_h)^{1/2}(\mathcal{F}_C(\bu_h,\bsigma_h)^{1/2}+||\bsigma -\bsigma_h||_{\mathcal{A}})
+\end{align*}
+Now by using the lemma 2:
+\begin{align*}
+ ||\bsigma -\bsigma_h|| \leq &\tilde{C}_D ( (\mathcal{A}(\bsigma -\bsigma_h),(\bsigma -\bsigma_h)) + || \text{div} (\bsigma -\bsigma_h) ||)\\
+  = & \tilde{C}_D (||\bsigma -\bsigma_h||_{\mathcal{A}} + || \text{div} (\bff +\bsigma_h) ||)\\
+  \leq & \tilde{C}_D (||\bsigma -\bsigma_h||_{\mathcal{A}} + \mathcal{F}(\bu_h,\bsigma_h))^{1/2}
+\end{align*}
+So finally:
+\begin{align*}
+||\bsigma -\bsigma_h||_{\mathcal{A}}^{2} \leq C \mathcal{F}_C(\bu_h,\bsigma_h)^{1/2} \left( \mathcal{F}_C(\bu_h,\bsigma_h)^{1/2}+||\bsigma -\bsigma_h||_{\mathcal{A}}) \right)
+\end{align*}
+Then exists a constant $C_R$ such that:
+\begin{align*}
+C_R ||\bsigma -\bsigma_h||_{\mathcal{A}}^{2} \leq \mathcal{F}(\bu_h,\bsigma_h)
+\end{align*}
+Imposing $||\bsigma -\bsigma_h||_{\mathcal{A}}=x$ and ${\mathcal{F}}(\bu_h,\bsigma_h)= {C_R} x^{2} $, we obtain $x^{2} \leq C {C_R} x^{2} +C {C_R} x^{2} $ and find that $C_R \geq \dfrac{1}{2 C}$. Even more so, we can state that:
+\begin{align*}
+C_R ||{\mathcal{A}}(\bsigma -\bsigma_h)||^{2} \leq \mathcal{F}(\bu_h,\bsigma_h)
+\end{align*}
+\item c) Taking advantage of the previous point:
+\begin{align*}
+ ||\boldsymbol{\varepsilon}(\bu-\bu_h)||= &||\mathcal{A}(\bsigma-\bsigma_h)+\mathcal{A}(\bsigma_h)-\boldsymbol{\varepsilon}(\bu_h)||=\\
+ \leq & ||\mathcal{A}(\bsigma-\bsigma_h)||+||\mathcal{A}(\bsigma_h)-\boldsymbol{\varepsilon}(\bu_h)||\\
+  \leq & ||\mathcal{A}(\bsigma-\bsigma_h)||+\mathcal{F}(\bu_h,\bsigma_h)^{1/2}\\
+  \leq & \left( \dfrac{1}{C_R}+1 \right) \mathcal{F}(\bu_h,\bsigma_h)^{1/2}
+\end{align*}
+\end{itemize}
+
+
+
+
+
+\section{Efficiency}
+The element-wise version of the augmented functional:
+\begin{align*}
+\mathcal{F}_{C,T}(\bu,\bsigma)&=\mathcal{F}_{T}(\bu,\bsigma)+\langle \bu \cdot \bn, (\bsigma \bn) \cdot \bn \rangle_{\Gamma_C \cap \delta T}\\
+&=||\text{div} \bsigma+\bff||_T^2+||\mathcal{A}\bsigma -\boldsymbol{\varepsilon}(\bu)||_T^2+\langle \bu \cdot \bn, (\bsigma \bn) \cdot \bn \rangle_{\Gamma_C \cap \delta T}
+\end{align*}
+We can minimize $\mathcal{F}_T$ as follows:
+\begin{align*}
+\mathcal{F}_{T}(\bu_h,\bsigma_h) 
+&\overset{\mathcal{A} \bsigma - \boldsymbol{\varepsilon}(\bu)=0 }{=} 
+||\text{div} \bsigma_h+\bff \pm \bsigma||_T^2+||(\mathcal{A}\bsigma -\boldsymbol{\varepsilon}(\bu) )+(\boldsymbol{\varepsilon}(\bu_h)-\mathcal{A}\bsigma_h)||_T^2\\
+& \overset{\text{div} \bsigma + \bff=0} {\leq}||\text{div} (\bsigma- \bsigma_h)||_T^2+ 2||\mathcal{A}(\bsigma-\bsigma_h) ||_T^2 +2||(\boldsymbol{\varepsilon}(\bu-\bu_h)||_T^2\\
+& \quad \:\:\:{\leq} 2\:\:\left(||\text{div}( \bsigma- \bsigma_h)||_T^2+ ||\mathcal{A}(\bsigma-\bsigma_h) ||_T^2 +||(\boldsymbol{\varepsilon}(\bu-\bu_h)||_T^2\right)
+\end{align*}
+Regarding the boundary term, we take advantage of the following fact:
+\begin{align*}
+\begin{cases}
+\Gamma_{C,a},\: \:\bu \cdot \bn - g=0: &\langle \bu_h \cdot \bn-g, (\bsigma_h \bn) \cdot \bn \rangle_{\Gamma_{C,a}} =\langle  (\bu_h-\bu)\cdot \bn, ((\bsigma_h-\bsigma) \bn) \cdot \bn \rangle_{\Gamma_{C,a}} \\
+\Gamma_C \backslash \Gamma_{C,a} ,\:      (\bsigma \bn) \cdot \bn =0: & \langle \bu_h \cdot \bn-g, (\bsigma_h \bn) \cdot \bn \rangle_{\Gamma_C \backslash \Gamma_{C,a}} =\langle \bu_h \cdot \bn-g, ((\bsigma_h -\bsigma_h)\bn) \cdot \bn \rangle_{\Gamma_C \backslash \Gamma_{C,a}}
+\end{cases}
+\end{align*}
+in order to show that:
+\begin{align*}
+\langle \bu_h \cdot \bn-g, (\bsigma_h \bn) \cdot \bn \rangle_{\Gamma_C }
+=&\langle \bu_h \cdot \bn-g, (\bsigma_h \bn) \cdot \bn \rangle_{\Gamma_C \backslash \Gamma_{C,a} }+\langle \bu_h \cdot \bn-g, (\bsigma_h \bn) \cdot \bn \rangle_{\Gamma_{C,a}}\\
+=&\langle \bu_h \cdot \bn-g \pm \bu \cdot \bn, ((\bsigma_h -\bsigma)\bn) \cdot \bn \rangle_{\Gamma_C \backslash \Gamma_{C,a}}+\langle  (\bu_h-\bu)\cdot \bn, ((\bsigma_h \pm \bsigma) \bn) \cdot \bn \rangle_{\Gamma_{C,a}} \\
+=&\langle \bu\cdot \bn-g, ((\bsigma_h -\bsigma)\bn) \cdot \bn \rangle_{\Gamma_C \backslash \Gamma_{C,a}}+\langle  (\bu_h-\bu)\cdot \bn, (\bsigma \bn) \cdot \bn \rangle_{\Gamma_{C,a}}+\\
+&\langle  (\bu_h-\bu)\cdot \bn, ((\bsigma_h-\bsigma) \bn) \cdot \bn \rangle_{\Gamma_{C}} \\
+=&\langle \bu\cdot \bn-g, ((\bsigma_h -\bsigma_h)\bn) \cdot \bn \rangle_{\Gamma_C }+\langle  (\bu_h-\bu)\cdot \bn, (\bsigma \bn) \cdot \bn \rangle_{\Gamma_{C}}+\\
+&\langle  (\bu_h-\bu)\cdot \bn, ((\bsigma_h-\bsigma) \bn) \cdot \bn \rangle_{\Gamma_{C}} \\
+\end{align*}
+Using Cauchy-Schwarz and trace inequalities:
+\begin{align*}
+\langle \bu_h \cdot \bn-g, (\bsigma_h \bn) \cdot \bn \rangle_{\Gamma_C }
+=&\langle \bu\cdot \bn-g, ((\bsigma_h -\bsigma_h)\bn) \cdot \bn \rangle_{\Gamma_C }+\langle  (\bu_h-\bu)\cdot \bn, (\bsigma \bn) \cdot \bn \rangle_{\Gamma_{C}}+\\
+&\langle  (\bu_h-\bu)\cdot \bn, ((\bsigma_h-\bsigma) \bn) \cdot \bn \rangle_{\Gamma_{C}} \\
+\leq &||\bu \cdot \bn-g||_{1/2,\Gamma_C}||(\bsigma_h-\bsigma) \bn||_{-1/2,\Gamma_C}+
+||\bu_h-\bu||_{1/2,\Gamma_C}||\bsigma \bn||_{-1/2,\Gamma_C}+\\
+&||\bu_h-\bu||_{1/2,\Gamma_C}||(\bsigma_h-\bsigma) \bn||_{-1/2,\Gamma_C}\\
+\overset{}{\leq} &C_T||\bu \cdot \bn-g||_{1/2,\Gamma_C}||(\bsigma_h-\bsigma) \bn||_{1,\Omega}+
+C_T||\bu_h-\bu||_{1,\Omega}||\bsigma \bn||_{-1/2,\Gamma_C}+\\
+& C_T^2 ||\bu_h-\bu||_{1,\Omega}||(\bsigma_h-\bsigma) \bn||_{1,\Omega}
+\end{align*}
+We cannot rule out that the contact boundary term converges at a slower rate than the error itself.
+So we could avoid the presence of this term. Let the least squares functional be:
+\begin{align*}
+\mathcal{F}_C(\bu,\bsigma)=||\text{div} \bsigma+\bff||^2+||\mathcal{A}\bsigma -\boldsymbol{\varepsilon}(\bu)||^2 \geq 0
+\end{align*}
+and the augmented least squares functional (positive thanks to the constraints) be:
+\begin{align*}
+\mathcal{F}(\bu,\bsigma)=||\text{div} \bsigma+\bff||^2+||\mathcal{A}\bsigma -\boldsymbol{\varepsilon}(\bu)||^2+\langle \bu \cdot \bn, (\bsigma \bn) \cdot \bn \rangle_{\Gamma_C} \geq 0  
+\end{align*}
+Searching for an approximate solution $(\bu_h^{\perp},\bsigma_h^{\perp})$ such that exactly satisfy:
+\begin{align*}
+\langle \bu \cdot \bn, (\bsigma \bn) \cdot \bn \rangle_{\Gamma_C}=0
+\end{align*}
+means that (being the set of $(\bu_h^{\perp},\bsigma_h^{\perp})$ smaller than the one in which we search for $(\bu_h^{},\bsigma_h^{})$):
+\begin{align*}
+\mathcal{F}(\bu_h,\bsigma_h) \leq \mathcal{F}_C(\bu_h,\bsigma_h) \leq \mathcal{F}_C(\bu_h^{\perp},\bsigma_h^{\perp}) =\mathcal{F}(\bu_h^{\perp},\bsigma_h^{\perp}) 
+\end{align*}
+Namely, this solution $(\bu_h^{\perp},\bsigma_h^{\perp})$ is worse than $(\bu_h,\bsigma_h)$, but converges more quickly. However in practical cases, the boundary contribution is not so relevant with respect to the whole domain one, so we can search for $(\bu_h,\bsigma_h)$.
+
+\textbf{Lemma 1}\\
+Let $(\bu,\bsigma) \in H^1(\Omega)^2 \times H(\text{div},\Omega)^d$ be the exact solution of the contact problem. Moreover, let $(\bu_h,\bsigma_h) \in (u^D+\bU_h) \times \Sigma_h$ be such that the constraints are satisfied. Then:
+\begin{align*}
+\langle \bu-\bu_h,(\bsigma-\bsigma_h) \bn \rangle_{\Gamma_c}=\langle (\bu-\bu_h) \cdot \bn,(\bsigma-\bsigma_h)\bn \cdot \bn \rangle_{\Gamma_c} \leq 
+\langle \bn \cdot \bu_h-g, \bsigma_h \bn \cdot \bn\rangle_{\Gamma_c}
+\end{align*}
+
+\textbf{Proof}\\
+\begin{align*}
+\begin{cases}
+\Gamma = \Gamma_{c,d} \cup \Gamma_{c,s}\\
+\bn \cdot \bu - g \leq 0 &\Gamma_c\\
+(\bsigma \bn) \cdot \bn \leq 0 &\Gamma_c\\
+\bu \cdot \bn - g=0 & \Gamma_{c,d}\\
+(\bsigma \bn) \cdot \bn =0 & \Gamma_{c,s} 
+\end{cases}
+\quad \to \quad
+\begin{cases}
+\langle \bn \cdot \bu_h-g, \bsigma \bn \cdot \bn\rangle_{\Gamma_c,d} \geq 0\\
+\langle \bn \cdot \bu-g, \bsigma_h \bn \cdot \bn\rangle_{\Gamma_c,s} \geq 0 
+\end{cases}
+\end{align*}
+Therefore:
+\begin{align*}
+\langle \bn \cdot \bu_h-g,& (\bsigma_h \bn) \cdot \bn\rangle_{\Gamma_c} \geq\\
+&\langle \bn \cdot \bu_h-g, ((\bsigma_h-\bsigma) \bn) \cdot \bn\rangle_{\Gamma_{c,d}}+\langle \bn \cdot (\bu_h-\bu), (\bsigma_h \bn) \cdot \bn\rangle_{\Gamma_{c,s}} = \\
+&\langle \bn \cdot (\bu_h-\bu), ((\bsigma_h-\bsigma) \bn) \cdot \bn\rangle_{\Gamma_{c,d}}+
+\langle \bn \cdot (\bu_h-\bu), (\bsigma_h-\bsigma \bn) \cdot \bn\rangle_{\Gamma_{c,s}} = \\
+&\langle \bn \cdot (\bu_h-\bu), ((\bsigma_h-\bsigma) \bn) \cdot \bn\rangle_{\Gamma_c}
+\end{align*}
+\textbf{Lemma 2}\\
+Let be $\Gamma_N$ be a set of positive measure, $|\Gamma_N|>0$. Then:
+\begin{align*}
+||\btau|| \leq C_D (||\text{dev}( \btau) ||+ || \text{div} (\btau) ||) \qquad \forall \btau \in H_N(\text{div},\Omega)^d
+\end{align*}
+Since the following inequalities hold:
+\begin{align*}
+ ||\text{dev}( \btau) ||\leq 2 \mu  || \mathcal{A}\btau || \qquad   ||\text{dev}( \btau) ||\leq \sqrt{2 \mu}  (\mathcal{A}\btau,\btau)  \qquad \forall \btau \in H_N(\text{div},\Omega)^d
+\end{align*}
+We can also write:
+\begin{align*}
+||\btau|| \leq \hat{C}_D (|| \mathcal{A}\btau ||+ || \text{div} (\btau) ||) \qquad  ||\btau|| \leq \tilde{C}_D ( (\mathcal{A}\btau,\btau) + || \text{div} (\btau) ||)  \qquad \forall \btau \in H_N(\text{div},\Omega)^d
+\end{align*}
+
+
+
+
+\section{The augmented functional is convex}
+Let us consider
+\begin{align*}
+\mathcal{F}(\bu,\bsigma)=&\mathcal{F}_1(\bu,\bsigma)+\mathcal{F}_2(\bu,\bsigma)+\mathcal{F}_3(\bu,\bsigma)=\\
+=&||\text{div} \bsigma+\bff||^2+||\mathcal{A}\bsigma -\boldsymbol{\varepsilon}(\bu)||^2+\langle \bu \cdot \bn-g, (\bsigma \bn) \cdot \bn \rangle_{\Gamma_C} 
+\end{align*}
+whose derivative is the combination of:
+\begin{align*}
+\mathcal{F}_1(\bu,\bsigma)' \left[ \bu_h, \bsigma_h \right]&= 2 \left( \text{div} \bsigma + \bff,  \text{div} \bsigma_h \right)\\
+\mathcal{F}_2(\bu,\bsigma)' \left[ \bu_h, \bsigma_h \right]&=2 \left( \mathcal{A} \bsigma - \boldsymbol{\varepsilon} (\bu),\mathcal{A} \bsigma_h - \boldsymbol{\varepsilon} (\bu_h) \right)\\
+\mathcal{F}_3(\bu,\bsigma)' \left[ \bu_h, \bsigma_h \right]&=\langle \bu_h \cdot \bn-g, (\bsigma \bn) \cdot \bn \rangle_{\Gamma_C} +\langle \bu \cdot \bn-g, (\bsigma_h \bn) \cdot \bn \rangle_{\Gamma_C}
+\end{align*}
+so that:
+\begin{align*}
+\mathcal{F}(\bu,\bsigma)' \left[ \bu_h, \bsigma_h \right]=& 2 \left( \text{div} \bsigma + \bff,  \text{div} \bsigma_h \right)+
+2 \left( \mathcal{A} \bsigma - \boldsymbol{\varepsilon} (\bu),\mathcal{A} \bsigma_h - \boldsymbol{\varepsilon} (\bu_h) \right)+\\
+&\langle \bu_h \cdot \bn-g, (\bsigma \bn) \cdot \bn \rangle_{\Gamma_C} +\langle \bu \cdot \bn-g, (\bsigma_h \bn) \cdot \bn \rangle_{\Gamma_C}
+\end{align*}
+We can show that the functional $\mathcal{F}$ is convex by means of the equivalent statement:
+\begin{align*}
+\mathcal{F}(\bu +\bu_h,\bsigma+\bsigma_h) -\mathcal{F}(\bu_h,\bsigma) \geq \mathcal{F}(\bu,\bsigma)' \left[ \bu_h, \bsigma_h \right]
+\end{align*}
+In particular we have:
+\begin{align*}
+\mathcal{F}_1(\bu,\bsigma)' \left[ \bu_h, \bsigma_h \right] \leq & 
+2 \left( \text{div} \bsigma + \bff,  \text{div} \bsigma_h \right)+\left( \text{div} \bsigma_h \,  \text{div} \bsigma_h \right)\\
+\mathcal{F}_2(\bu,\bsigma)' \left[ \bu_h, \bsigma_h \right] \leq & 
+2 \left( \mathcal{A} \bsigma - \boldsymbol{\varepsilon} (\bu),\mathcal{A} \bsigma_h - \boldsymbol{\varepsilon} (\bu_h) \right)+
+\left( \mathcal{A} \bsigma_h - \boldsymbol{\varepsilon} (\bu_h),\mathcal{A} \bsigma_h - \boldsymbol{\varepsilon} (\bu_h) \right) \\
+\mathcal{F}_3(\bu,\bsigma)' \left[ \bu_h, \bsigma_h \right] \leq 
+& \langle \bu_h \cdot \bn-g, (\bsigma \bn) \cdot \bn \rangle_{\Gamma_C} +\langle \bu \cdot \bn-g, (\bsigma_h \bn) \cdot \bn \rangle_{\Gamma_C}+\langle \bu_h \cdot \bn-g, (\bsigma_h \bn) \cdot \bn \rangle_{\Gamma_C}
+\end{align*}
+
+where the last inequality holds thanks to the constraints. The gradient of the functional is:
+\begin{align*}
+\dfrac{\partial  \mathcal{F}(\bu,\bsigma)}{\partial \bu } \left[ \bu_h \right]=& 
+-2 \left( \mathcal{A} \bsigma - \boldsymbol{\varepsilon} (\bu), \boldsymbol{\varepsilon} (\bu_h ) \right)+\langle \bn \cdot \bu_h,  (\bsigma \bn) \cdot \bn \rangle_{\Gamma_C}\\
+\dfrac{\partial  \mathcal{F}(\bu,\bsigma)}{\partial \bsigma } \left[ \bsigma_h \right]=& 
+2 \left( \text{div} \bsigma + \bff,  \text{div} \bsigma_h \right)
++2 \left( \mathcal{A} \bsigma - \boldsymbol{\varepsilon} (\bu), \mathcal{A} \bsigma_h \right)
++\langle \bu \cdot \bn-g, ( \bsigma_h \: \bn) \cdot \bn \rangle_{\Gamma_C}
+\end{align*}
+In order to obtain the normal equations, we need some adjoints operators (DUBBIO: SU GAMMAC HO OPERATORI DI TRACCIA):
+\begin{align*}
+\left( \mathcal{A} \bsigma - \boldsymbol{\varepsilon} (\bu), \boldsymbol{\varepsilon} (\bu_h ) \right)&=\int_{\Omega} (\mathcal{A} \bsigma - \boldsymbol{\varepsilon} (\bu)) : \boldsymbol{\varepsilon} (\bu_h )=
+\int_{\Omega} (\mathcal{A} \bsigma - \boldsymbol{\varepsilon} (\bu)) : \frac{1}{2} \left( \nabla \bu_h+ \nabla^T \bu_h \right) \\
+&=\int_{\Omega} (\mathcal{A} \bsigma - \boldsymbol{\varepsilon} (\bu)) : \frac{1}{2}  \nabla \bu_h + \int_{\Omega} (\mathcal{A} \bsigma - \boldsymbol{\varepsilon} (\bu))^T : \frac{1}{2}  \nabla \bu_h \\
+&=\int_{\Omega} (\mathcal{A} \bsigma - \boldsymbol{\varepsilon} (\bu)) :  \nabla \bu_h \\
+&=\int_{ \Gamma_d} (\mathcal{A} \bsigma - \boldsymbol{\varepsilon} (\bu))  \bn \cdot \bu_h -\int_{\Omega} \text{div} \left(\mathcal{A} \bsigma - \boldsymbol{\varepsilon} (\bu) \right)\cdot \bu_h \ \\
+\\ 
+\langle \bn \bu_h,  (\bsigma \bn) \cdot \bn \rangle_{\Gamma_C}&=\int_{\Gamma_C}   (\bu_h \cdot \bn )  \left[(\bsigma \bn) \cdot \bn \right] = \int_{\Gamma_C}  (\bu_h \cdot \bn ) \bn  \cdot (\bsigma \bn) \\
+\left( \text{div} \bsigma + \bff,  \text{div} \bsigma_h \right)&= \int_{\Omega} ( \text{div} \bsigma + \bff) \text{div} \bsigma_h =\int_{\Gamma_N}  ( \text{div} \bsigma + \bff) \cdot  \bsigma_h \bn -\int_{\Omega} \nabla( \text{div} \bsigma + \bff) : \bsigma_h \\
+ \left( \mathcal{A} \bsigma - \boldsymbol{\varepsilon} (\bu), \mathcal{A} \bsigma_h \right)&=
+ \int_{\Omega}\left(\mathcal{A} \bsigma - \boldsymbol{\varepsilon} (\bu)\right): \mathcal{A} \bsigma_h\\
+ &=\int_{\Omega}\left(\mathcal{A} \bsigma - \boldsymbol{\varepsilon} (\bu)\right) : \left(\dfrac{1}{2 \mu} \bsigma_h- \dfrac{\lambda}{d \lambda + 2 \mu} \text{tr} \bsigma_h \bI \right)\\
+  &=\int_{\Omega}\dfrac{1}{2 \mu} \left(\mathcal{A} \bsigma - \boldsymbol{\varepsilon} (\bu)\right)  : \bsigma_h- \dfrac{\lambda}{d \lambda + 2 \mu} \text{tr}\left( \mathcal{A} \bsigma - \boldsymbol{\varepsilon} (\bu)\right)   \bI :\bsigma_h\\
+   &=\int_{\Omega} \left[ \dfrac{1}{2 \mu} \left(\mathcal{A} \bsigma - \boldsymbol{\varepsilon} (\bu)\right)  - \dfrac{\lambda}{d \lambda + 2 \mu} \text{tr}\left( \mathcal{A} \bsigma - \boldsymbol{\varepsilon} (\bu)\right)   \bI \right] :\bsigma_h\\
+      &=\int_{\Omega} \left[ \mathcal{A}\left(\mathcal{A} \bsigma - \boldsymbol{\varepsilon} (\bu)\right) \right] :\bsigma_h\\
+ \\
+\langle \bn \cdot \bu-g,  (\bsigma_h \bn) \cdot \bn \rangle_{\Gamma_C}&=\int_{\Gamma_C}   (\bu \cdot \bn -g )  \left[(\bsigma_h \bn) \cdot \bn \right] = \int_{\Gamma_C}  (\bu \cdot \bn -g ) \bn  \cdot (\bsigma_h \bn) \\
+\end{align*}
+So that:
+\begin{align*}
+\dfrac{\partial  \mathcal{F}(\bu,\bsigma)}{\partial \bu } \left[ \bu_h \right]=& 
+-2 \int_{ \Gamma_d} (\mathcal{A} \bsigma - \boldsymbol{\varepsilon} (\bu))  \bn \cdot \bu_h -2 \int_{\Omega} \text{div} \left(\mathcal{A} \bsigma - \boldsymbol{\varepsilon} (\bu) \right)\cdot \bu_h \\
+&+\int_{\Gamma_C}  (\bu_h \cdot \bn ) \bn  \cdot (\bsigma \bn) 
+\\
+\dfrac{\partial  \mathcal{F}(\bu,\bsigma)}{\partial \bsigma } \left[ \bsigma_h \right]=& 
++2\int_{\Gamma_N}  ( \text{div} \bsigma + \bff) \cdot  \bsigma_h \bn -2 \int_{\Omega} \nabla( \text{div} \bsigma + \bff) : \bsigma_h\\
+&+2\int_{\Omega} \left[ \mathcal{A}\left(\mathcal{A} \bsigma - \boldsymbol{\varepsilon} (\bu)\right) \right] :\bsigma_h\\
+&+\int_{\Gamma_C}  (\bu \cdot \bn -g ) \bn  \cdot (\bsigma_h \bn) \
+\end{align*}
+The operator equation associated to the residual energy functional is:
+\begin{align*}
+\text{div} \left(\mathcal{A} \bsigma - \boldsymbol{\varepsilon} (\bu) \right)= \textbf{0}\\
+- \nabla( \text{div} \bsigma + \bff) +\left[ \mathcal{A}\left(\mathcal{A} \bsigma - \boldsymbol{\varepsilon} (\bu)\right) \right] = \textbf{0}\\
+\end{align*}
+DOMANDA: ottengo un problema del tipo Ax=b. La matrice dovrebbe essere non singolare, quindi dovrebbe esistere una unica soluzione. Ora, i vincoli del problema di contatto, dove rientrano in tutto questo?\\\\
+A ME NON SEMBRA PUNTO SELLA. Tuttavia se moltiplico la prima per divTAU, la seconda per v, potrei ritrovare una sorta di punto sella ponendo Asigma-eps=C .MMM \\\\
+In the first equation, the term on $\Gamma_d$ is zero due to the test function.\\
+L'INTEGRALE SU GAMMAC non capisco perche si annulli.\\
+Being $\Gamma_C \subset \Gamma_N$ and $\bsigma \bn =$ on $\Gamma_N$ the boundary integrals of the second equation vanish.
+\section{Discretization}
+\begin{align*}
+\dfrac{\partial  \mathcal{F}(\bu,\bsigma)}{\partial \bu } \left[ \bu_h \right]=& 
+-2 \left( \mathcal{A} \bsigma - \boldsymbol{\varepsilon} (\bu), \boldsymbol{\varepsilon} (\bu_h ) \right)+\langle \bn \cdot \bu_h,  (\bsigma \bn) \cdot \bn \rangle_{\Gamma_C} =0 \\
+\dfrac{\partial  \mathcal{F}(\bu,\bsigma)}{\partial \bsigma } \left[ \bsigma_h \right]=& 
+2 \left( \text{div} \bsigma + \bff,  \text{div} \bsigma_h \right)
++2 \left( \mathcal{A} \bsigma - \boldsymbol{\varepsilon} (\bu), \mathcal{A} \bsigma_h \right)
++\langle \bu \cdot \bn-g, ( \bsigma_h \: \bn) \cdot \bn \rangle_{\Gamma_C} =0
+\end{align*}
+Let be:
+\begin{align*}
+\bsigma = \sum_{j=1}^{N_{\sigma}} \sigma_i \bphi_i \qquad \bu= \sum_{n=1}^{N_{\bu}} u_j \bpsi_j \qquad \bsigma_h = \bphi_i \qquad \bu_h= \bpsi_m
+\end{align*}
+Then:
+\begin{align*}
+& B_{1,\:ij}= -\int_{\Omega}  \mathcal{A} \bphi_i : \beps (\bpsi_j) & B_1 \in \mathcal{R}^{N_u \times N_{\sigma}}\\ 
+& B_{2,\:ij}= \int_{\Omega}  \beps (\bphi_i) : \beps (\bpsi_j) & B_2 \in \mathcal{R}^{N_u \times N_{u}}\\ 
+& B_{3,\:ij}= \frac{1}{2} \int_{\Gamma_c}   (\bphi_i \bn) \cdot \bn  (\bn \cdot \bpsi_j)  &B_3 \in \mathcal{R}^{N_u \times N_{\sigma}}\\ 
+& B_{4,\:ij}=  \int_{\Omega}  \text{div} \bphi_i \cdot \text{div} \bphi_j  &B_4 \in \mathcal{R}^{N_{\sigma} \times N_{\sigma}}\\ 
+& B_{5,\:ij}=  \int_{\Omega}  \mathcal{A} \bphi_i : \mathcal{A} \bphi_j  &B_5 \in \mathcal{R}^{N_{\sigma} \times N_{\sigma}}\\ 
+&F_{1,\:ij}=\frac{1}{2} \int_{\Gamma_c}g \:(\bphi_j \bn)\cdot \bn& F_1 \in \mathcal{R}^{N_{\sigma} }\\ 
+&F_{2,\:ij}=- \int_{\Omega} \bff \cdot \text{div} \bphi_j & F_2 \in \mathcal{R}^{N_{\sigma} }\\ 
+\end{align*}
+and (+ constraints??????):
+\begin{align*}
+\begin{bmatrix}
+B_1^T+B_3^T &B_4 + B_5\\
+B_2  & B_1+B_3
+\end{bmatrix}
+\begin{bmatrix}
+\bu\\
+\bsigma
+\end{bmatrix}
+=
+\begin{bmatrix}
+F_1+F2\\
+0
+\end{bmatrix}
+\end{align*}
+Substituting:
+
+\begin{align*}
+\begin{cases}
+\bu= - B_2^{-1}(B_1+B_3) \bsigma\\
+-(B_1+B_3)^T B_2^{-1}(B_1+B_3) \bsigma + (B_4+B_5) \bsigma = F_1+F_2\\
+C= B_1+B_3\\
+D=B_4+B_5
+\end{cases}
+\quad \to \quad
+\begin{cases}
+\bsigma= \left( -C^T B_2^{-1} C + D \right)^{-1} (F_1+F_2)\\
+\bu= - B_2^{-1}(B_1+B_3) \bsigma
+\end{cases}
+\end{align*}
+
+\section{Raviart Thomas}
+Computation of the divergence in 2D:
+\begin{align*}
+\text{div}_{\bbx} \bphi(\bbx)&= \text{div}_{\bbx} \left[ \dfrac{1}{\text{detJ}} \bJ\hat{\bphi}(F^{-1}(\bbx)) \right]\\
+&=\dfrac{1}{\text{detJ}}  \left[ \dfrac{d}{dx}\left( J_{11} \hat{\phi}_1(\hat{\bbx}) +J_{12} \hat{\phi}_2(\hat{\bbx}) \right)
++\dfrac{d}{dy}
+\left(  J_{21} \hat{\phi}_1(\hat{\bbx}) +J_{22} \hat{\phi}_2(\hat{\bbx})\right)
+\right]\\
+&=\dfrac{1}{\text{detJ}}  \bigg [
+ \dfrac{\partial}{\partial \xi}\left( J_{11} \hat{\phi}_1(\hat{\bbx}) +J_{12} \hat{\phi}_2(\hat{\bbx}) \right) \dfrac{d \xi}{dx}+
+\dfrac{\partial}{\partial \eta}\left( J_{11} \hat{\phi}_1(\hat{\bbx}) +J_{12} \hat{\phi}_2(\hat{\bbx}) \right) \dfrac{d \eta}{dx} \\
+&+\dfrac{\partial}{\partial \xi}
+\left(  J_{21} \hat{\phi}_1(\hat{\bbx}) +J_{22} \hat{\phi}_2(\hat{\bbx})\right) \dfrac{d \xi }{dy}
++\dfrac{\partial}{\partial \eta}
+\left(  J_{21} \hat{\phi}_1(\hat{\bbx}) +J_{22} \hat{\phi}_2(\hat{\bbx})\right) \dfrac{d \eta }{dy}
+\bigg ]
+\end{align*}
+The shape functions are:
+\begin{align*}
+\hat{\bphi}_a(\xi,\eta) =\begin{bmatrix}
+\xi \\
+\eta -1
+\end{bmatrix}
+\qquad
+\hat{\bphi}_b(\xi,\eta) =\begin{bmatrix}
+\xi \\
+\eta 
+\end{bmatrix}
+\qquad
+\hat{\bphi}_c(\xi,\eta) =\begin{bmatrix}
+1-\xi \\
+-\eta
+\end{bmatrix}
+\end{align*}
+Using:
+\begin{align*}
+&\dfrac{\partial \phi_{a,1} }{\partial \xi}= 1 \qquad 
+\dfrac{\partial \phi_{a,1} }{\partial \eta}= 0 \qquad 
+\dfrac{\partial \phi_{a,2} }{\partial \xi}= 0 \qquad 
+\dfrac{\partial \phi_{a,2} }{\partial \eta}= 1 \qquad \\
+&\dfrac{\partial \phi_{b,1} }{\partial \xi}= 1 \qquad 
+\dfrac{\partial \phi_{b,1} }{\partial \eta}= 0 \qquad 
+\dfrac{\partial \phi_{b,2} }{\partial \xi}= 0 \qquad 
+\dfrac{\partial \phi_{b,2} }{\partial \eta}= 1 \qquad \\
+&\dfrac{\partial \phi_{c,1} }{\partial \xi}= - 1 \qquad 
+\dfrac{\partial \phi_{c,1} }{\partial \eta}= 0 \qquad 
+\dfrac{\partial \phi_{c,2} }{\partial \xi}= 0 \qquad 
+\dfrac{\partial \phi_{c,2} }{\partial \eta}= -1 \qquad \\
+\end{align*}
+We obtain:
+\begin{align*}
+\text{div}_{\bbx} \bphi_a(\bbx)
+&=\dfrac{1}{\text{detJ}}  \bigg [
+ +J_{11}  \dfrac{d \xi}{dx} +J_{12}\dfrac{d \eta}{dx} +
+  J_{21}\dfrac{d \xi }{dy}
++ J_{22}  \dfrac{d \eta }{dy}
+\bigg ]\\
+\text{div}_{\bbx} \bphi_b(\bbx)
+&=\dfrac{1}{\text{detJ}}  \bigg [
+ +J_{11}  \dfrac{d \xi}{dx} +J_{12}\dfrac{d \eta}{dx} +
+  J_{21}\dfrac{d \xi }{dy}
++ J_{22}  \dfrac{d \eta }{dy}
+\bigg ]\\
+\text{div}_{\bbx} \bphi_c(\bbx)
+&=\dfrac{1}{\text{detJ}}  \bigg [
+ -J_{11}  \dfrac{d \xi}{dx} -
+ J_{12}\dfrac{d \eta}{dx} -
+  J_{21}\dfrac{d \xi }{dy}
+-J_{22}  \dfrac{d \eta }{dy}
+\bigg ]\\
+\end{align*}
+We know that:
+\begin{align*}
+J^{-1}=\begin{bmatrix}
+\dfrac{\partial \xi}{\partial x} &\dfrac{\partial \xi}{\partial y} \\
+\dfrac{\partial \eta}{\partial x} &\dfrac{\partial \eta}{\partial y} \\
+\end{bmatrix}=\dfrac{1}{\text{det J}}
+\begin{bmatrix}
+J_{22} & -J_{12}\\
+-J_{21} & J_{11}
+\end{bmatrix}
+\end{align*}
+So that:
+\begin{align*}
+\text{div}_{\bbx} \bphi_a(\bbx)
+&=\dfrac{1}{\text{detJ}^2}  
+\bigg [
+ +J_{11} J_{22} -J_{12}J_{21} -
+  J_{21}J_{12}
++ J_{22}  J_{11}
+\bigg ]\\
+&=\dfrac{1}{\text{detJ}^2}  
+\bigg [
+ +2 J_{11} J_{22} -2 J_{12}J_{21} 
+\bigg ]\\
+&=\dfrac{1}{\text{detJ}^2}  (2 \text{detJ})\\
+&=2 \dfrac{1}{\text{detJ}}  \\
+\text{div}_{\bbx} \bphi_b(\bbx)
+&=\dfrac{1}{\text{detJ}^2}  \bigg [
+ +J_{11}  J_{22} -J_{12}J_{21} -
+  J_{21}J_{12}
++ J_{22}  J_{11}
+\bigg ]\\
+&=\dfrac{1}{\text{detJ}^2}  \bigg [
+ + 2J_{11}  J_{22} -2 J_{12}J_{21}
+\bigg ]\\
+&=\dfrac{1}{\text{detJ}^2}  (2 \text{detJ})\\
+&=2 \dfrac{1}{\text{detJ}}  \\
+\text{div}_{\bbx} \bphi_c(\bbx)
+&=\dfrac{1}{\text{detJ}^2}  \bigg [
+ -J_{11}  J_{22} -J_{12}J_{21} +
+  J_{21}J_{12}
++ J_{22}  J_{11}
+\bigg ]\\
+&=\dfrac{1}{\text{detJ}^2}  \bigg [
+ - 2J_{11}  J_{22}+2 J_{12}J_{21}
+\bigg ]\\
+&=\dfrac{1}{\text{detJ}^2}  (-2 \text{detJ})\\
+&=-2 \dfrac{1}{\text{detJ}}  
+\end{align*}
+
+
+
+
+
+
+
+
+Computation of the divergence in 3D:
+\begin{align*}
+\text{div}_{\bbx} \bphi(\bbx)=& \text{div}_{\bbx} \left[ \dfrac{1}{\text{detJ}} \bJ\hat{\bphi}(F^{-1}(\bbx)) \right]\\
+=\dfrac{1}{\text{detJ}}  &
+\bigg [
+ \dfrac{d}{dx}
+ \underbrace{\left( J_{11} \hat{\phi}_1(\hat{\bbx}) +J_{12} \hat{\phi}_2(\hat{\bbx})  + J_{13} \hat{\phi}_3(\hat{\bbx})\right)}_{F_1}\\
+&+\dfrac{d}{dy}
+ \underbrace{\left(  J_{21} \hat{\phi}_1(\hat{\bbx}) +J_{22} \hat{\phi}_2(\hat{\bbx})
++ J_{23} \hat{\phi}_3(\hat{\bbx}) \right)}_{F_2}\\
+&+\dfrac{d}{dz}
+ \underbrace{\left(  J_{31} \hat{\phi}_1(\hat{\bbx}) +J_{32} \hat{\phi}_2(\hat{\bbx})
++ J_{33} \hat{\phi}_3(\hat{\bbx}) \right)}_{F_3}
+\bigg ]\\
+&=\dfrac{1}{\text{detJ}}  \bigg [
+ \dfrac{\partial F_1}{\partial \xi} \dfrac{d \xi}{dx}+
+\dfrac{\partial F_1}{\partial \eta} \dfrac{d \eta}{dx}+\dfrac{\partial F_1}{\partial \zeta} \dfrac{d \zeta}{dz}+ \\
+&+\dfrac{\partial F_2}{\partial \xi} \dfrac{d \xi }{dy}
++\dfrac{\partial F_2}{\partial \eta} \dfrac{d \eta }{dy}
++\dfrac{\partial F_2}{\partial \zeta} \dfrac{d \zeta}{dz}\\
+&+\dfrac{\partial F_3}{\partial \xi} \dfrac{d \xi }{dy}
++\dfrac{\partial F_3}{\partial \eta} \dfrac{d \eta }{dy}
++\dfrac{\partial F_3 }{\partial \zeta} \dfrac{d \zeta}{dz}
+\bigg ]
+\end{align*}
+The shape functions are:
+\begin{align*}
+\hat{\bphi}_a(\xi,\eta,\zeta) =\begin{bmatrix}
+-\xi \\
+-\eta\\
+1-\zeta
+\end{bmatrix}
+\qquad
+\hat{\bphi}_b(\xi,\eta,\zeta) =\begin{bmatrix}
+\xi \\
+\eta -1\\
+\zeta
+\end{bmatrix}
+\qquad
+\hat{\bphi}_c(\xi,\eta,\zeta) =\begin{bmatrix}
+1-\xi \\
+-\eta\\
+-\zeta
+\end{bmatrix}
+\qquad
+\hat{\bphi}_d(\xi,\eta,\zeta) =\begin{bmatrix}
+\xi \\
+\eta\\
+\zeta
+\end{bmatrix}
+\end{align*}
+So we have:
+\begin{itemize}
+\item for $\hat{\bphi}_a(\xi,\eta,\zeta)$
+\begin{align*}
+&\dfrac{\partial F_1 }{\partial \xi}=-J_{11}  \qquad 
+\dfrac{\partial F_1 }{\partial \eta}= -J_{12} \qquad 
+\dfrac{\partial F_1 }{\partial \zeta}= -J_{13} \\ 
+&\dfrac{\partial F_2 }{\partial \xi}= -J_{21} \qquad 
+\dfrac{\partial F_2 }{\partial \eta}= -J_{22}  \qquad 
+\dfrac{\partial F_2 }{\partial \zeta}= -J_{23}  \\ 
+&\dfrac{\partial F_3 }{\partial \xi}= -J_{31}  \qquad 
+\dfrac{\partial F_3 }{\partial \eta}= -J_{32}  \qquad 
+\dfrac{\partial F_3 }{\partial \zeta}= -J_{33}  \\ 
+\end{align*}
+\item for $\hat{\bphi}_b(\xi,\eta,\zeta)$
+\begin{align*}
+&\dfrac{\partial F_1 }{\partial \xi}=J_{11}  \qquad 
+\dfrac{\partial F_1 }{\partial \eta}= J_{12} \qquad 
+\dfrac{\partial F_1 }{\partial \zeta}= J_{13} \\ 
+&\dfrac{\partial F_2 }{\partial \xi}= J_{21} \qquad 
+\dfrac{\partial F_2 }{\partial \eta}= J_{22}  \qquad 
+\dfrac{\partial F_2 }{\partial \zeta}= J_{23}  \\ 
+&\dfrac{\partial F_3 }{\partial \xi}= J_{31}  \qquad 
+\dfrac{\partial F_3 }{\partial \eta}= J_{32}  \qquad 
+\dfrac{\partial F_3 }{\partial \zeta}=J_{33}  \\ 
+\end{align*}
+\item for $\hat{\bphi}_c(\xi,\eta,\zeta)$
+\begin{align*}
+&\dfrac{\partial F_1 }{\partial \xi}=-J_{11}  \qquad 
+\dfrac{\partial F_1 }{\partial \eta}= -J_{12} \qquad 
+\dfrac{\partial F_1 }{\partial \zeta}= -J_{13} \\ 
+&\dfrac{\partial F_2 }{\partial \xi}= -J_{21} \qquad 
+\dfrac{\partial F_2 }{\partial \eta}= -J_{22}  \qquad 
+\dfrac{\partial F_2 }{\partial \zeta}= -J_{23}  \\ 
+&\dfrac{\partial F_3 }{\partial \xi}= -J_{31}  \qquad 
+\dfrac{\partial F_3 }{\partial \eta}= -J_{32}  \qquad 
+\dfrac{\partial F_3 }{\partial \zeta}= -J_{33}  \\ 
+\end{align*}
+\item for $\hat{\bphi}_d(\xi,\eta,\zeta)$
+\begin{align*}
+&\dfrac{\partial F_1 }{\partial \xi}=J_{11}  \qquad 
+\dfrac{\partial F_1 }{\partial \eta}= J_{12} \qquad 
+\dfrac{\partial F_1 }{\partial \zeta}= J_{13} \\ 
+&\dfrac{\partial F_2 }{\partial \xi}= J_{21} \qquad 
+\dfrac{\partial F_2 }{\partial \eta}= J_{22}  \qquad 
+\dfrac{\partial F_2 }{\partial \zeta}= J_{23}  \\ 
+&\dfrac{\partial F_3 }{\partial \xi}= J_{31}  \qquad 
+\dfrac{\partial F_3 }{\partial \eta}= J_{32}  \qquad 
+\dfrac{\partial F_3 }{\partial \zeta}=J_{33}  \\ 
+\end{align*}
+\end{itemize}
+
+So:
+\begin{align*}
+\text{div}_{\bbx} \bphi_{a,b,c,d}(\bbx)&=\pm \dfrac{1}{\text{detJ}}    \bJ : \bJ^{-T}
+\end{align*}
+
+
+We obtain:
+\begin{align*}
+\text{div}_{\bbx} \bphi_a(\bbx)
+&=\dfrac{1}{\text{detJ}}  \bigg [
+ +J_{11}  \dfrac{d \xi}{dx} +J_{12}\dfrac{d \eta}{dx} +
+  J_{21}\dfrac{d \xi }{dy}
++ J_{22}  \dfrac{d \eta }{dy}
+\bigg ]\\
+\text{div}_{\bbx} \bphi_b(\bbx)
+&=\dfrac{1}{\text{detJ}}  \bigg [
+ +J_{11}  \dfrac{d \xi}{dx} +J_{12}\dfrac{d \eta}{dx} +
+  J_{21}\dfrac{d \xi }{dy}
++ J_{22}  \dfrac{d \eta }{dy}
+\bigg ]\\
+\text{div}_{\bbx} \bphi_c(\bbx)
+&=\dfrac{1}{\text{detJ}}  \bigg [
+ -J_{11}  \dfrac{d \xi}{dx} -
+ J_{12}\dfrac{d \eta}{dx} -
+  J_{21}\dfrac{d \xi }{dy}
+-J_{22}  \dfrac{d \eta }{dy}
+\bigg ]\\
+\end{align*}
+We know that:
+\begin{align*}
+J^{-1}=\begin{bmatrix}
+\dfrac{\partial \xi}{\partial x} &\dfrac{\partial \xi}{\partial y}  & \dfrac{\partial \xi}{\partial z} \\
+\dfrac{\partial \eta}{\partial x} &\dfrac{\partial \eta}{\partial y} &\dfrac{\partial \eta}{\partial z} \\
+\dfrac{\partial \zeta}{\partial x} &\dfrac{\partial \zeta}{\partial y} &\dfrac{\partial \zeta}{\partial z} \\
+\end{bmatrix}=\dfrac{1}{\text{det J}}
+\begin{bmatrix}
+J_{22} J_{33}- J_{23} J_{32}&
+ J_{13} J_{32} - J_{12}J_{33}&
+ J_{12}J_{23}-J_{13}J_{22}\\
+ J_{23} J_{31}- J_{21} J_{33}&
+ J_{11} J_{33} - J_{13}J_{31}&
+ J_{13}J_{21}-J_{11}J_{23}\\
+ J_{21} J_{32}- J_{22} J_{31}&
+ J_{12} J_{31} - J_{11}J_{32}&
+ J_{11}J_{22}-J_{12}J_{21}\\
+\end{bmatrix}
+\end{align*}
+So that:
+\begin{align*}
+\begin{cases}
+\text{div}_{\bbx} \bphi(\bbx)=\alpha \dfrac{3}{\text{detJ}}  \\
+\alpha =\begin{cases}
++1 \qquad \text{outward normal}\\
+-1 \qquad \text{inward normal}\\
+\end{cases}
+\end{cases}
+\end{align*}
+For a generic dimension $d=2,3$:
+\begin{align*}
+\begin{cases}
+\text{div}_{\bbx} \bphi(\bbx)=\alpha \dfrac{d}{\text{detJ}}  \\
+d=\text{dimension}\\
+\alpha =\begin{cases}
++1 \qquad \text{outward normal}\\
+-1 \qquad \text{inward normal}\\
+\end{cases}
+\end{cases}
+\end{align*}
+
+\section{Mass Matrix}
+Given the reference shape functions:
+\begin{align*}
+\hat{\bphi}_a(\xi,\eta) =\begin{bmatrix}
+\xi \\
+\eta -1
+\end{bmatrix}
+\qquad
+\hat{\bphi}_b(\xi,\eta) =\begin{bmatrix}
+\xi \\
+\eta 
+\end{bmatrix}
+\qquad
+\hat{\bphi}_c(\xi,\eta) =\begin{bmatrix}
+1-\xi \\
+-\eta
+\end{bmatrix}
+\end{align*}
+We want to compute the reference mass matrix:
+\begin{align*}
+M_{loc}=\int_{\hat{K}} \hat{\bphi}_i(\xi,\eta) \cdot \hat{\bphi}_j(\xi,\eta) d\hat{K} \qquad i,\:j=a,b,c
+\end{align*}
+The result is:
+\begin{align*}
+M_{loc}=
+\begin{bmatrix}
+\frac{1}{3} & 0 & \frac{1}{6}\\
+0 & \frac{1}{6} & 0\\
+\frac{1}{6} & 0 & \frac{1}{3}
+\end{bmatrix}
+\end{align*}
+In general we want to compute:
+\begin{align*}
+M=\int_{{K}} {\bphi}_i(x,y) \cdot{\bphi}_j(x,y) {K} =\dfrac{1}{\text{det}J}
+\int_{\hat{K}} (\bJ \hat{\bphi}_i(\xi,\eta))\cdot (\bJ \hat{\bphi}_j(\xi,\eta)) d\hat{K}=\int_{\hat{K}} \psi(\bJ, \xi,\eta,i,j) d\hat{K}
+\qquad i,\:j=a,b,c
+\end{align*}
+where:
+\begin{align*}
+ \psi(\bJ, \xi,\eta,i,j) =
+c_{xx} \hat{\bphi}_{i,x}\hat{\bphi}_{j,x} +
+c_{yy} \hat{\bphi}_{i,y}\hat{\bphi}_{j,y} +
+c_{xy}(\hat{\bphi}_{i,x}\hat{\bphi}_{j,y} +\hat{\bphi}_{i,y}\hat{\bphi}_{j,x} )\\
+c_{xx} =(J_{11}^2+J_{21}^2) \qquad 
+c_{yy} =(J_{12}^2+J_{22}^2) \qquad
+c_{xy} =(J_{12} J_{11} + J_{21} J_{22}) 
+\end{align*}
+If we define:
+\begin{align*}
+a_1= \frac{1}{12|\text{det}|}  \qquad a_2=\frac{1}{4|\text{det}| }
+\end{align*}
+
+
+    
+\begin{center}
+  \begin{tabular}{ | l |c| c | r | }
+    \hline
+(i,j) &            & &      \\ \hline
+(1,1)&    $a_1$ & $a_2$ &  $-a_2$  \\ \hline
+(1,2)&    $a_1$ & $-a_1$ &$-a_1$\\ \hline
+(1,3)&    $a_1$ & $a_1$ &$- a_2 $\\ \hline
+(2,2)&    $a_1$ & $a_1$ & $a_1 $\\ \hline
+(2,3)&    $a_1$ & $-a_1$ &$a_1 $\\ \hline
+(3,3)&    $a_2$ & $a_1$ & $-a_2$ \\
+    \hline
+  \end{tabular}
+\end{center}
+
+For the computation of a mixed term ($\phi_j$ shape function for the displacement):
+\begin{align*}
+\int_{{K}} \text{div}{\bphi}_i(x,y) {\phi}_j(x,y) d{K} =
+|\text{det}J| \int_{\hat{K}} \alpha \: \dfrac{\text{dim}}{\text{det}J} \: {\phi}_j(\xi,\eta) d \hat{K} =
+\alpha \: \text{dim} \: \text{sign}J \int_{\hat{K}}  {\phi}_j(\xi,\eta) d \hat{K} 
+\end{align*}
+
+\section{Essential Boundary Condition}
+Neumann conditions become essential in the Raviart-Thomas framework:
+\begin{align*}
+\bu \cdot \bn = f \qquad \Gamma_N
+\end{align*}
+Substituing $\bu = \sum_{i=1}^N U_i \bphi_i(x,y)$ and taking advantage of the support of each shape function, we obtain that on the boundayr:
+\begin{align*}
+\sum_{i=1}^N U_i \bphi_i(x,y) \cdot \bn =  U_i \bphi_i(x,y) \cdot \bn =  U_i  \alpha \dfrac{1}{L} = f \qquad \Gamma_N
+\end{align*}
+\begin{align*}
+\begin{cases}
+ U_i  \:\alpha \:\frac{1}{L} = f \qquad \Gamma_N\\
+ \alpha=\begin{cases}
+ +1 \qquad \text{outward Raviart-Thomas's normal}\\
+ -1 \qquad \text{inward Raviart-Thomas's normal}
+ \end{cases}\\
+ L= \text{length of the side of the triangle}
+ \end{cases}
+\end{align*}
+So that:
+\begin{align*}
+ U_i  -\alpha \: L \: f=0 \qquad \forall i \: \text{on} \: \Gamma_N
+\end{align*}
+
+
+
+
+
+\section{MultiGrid}
+Classical iterative methods are fast in removing high frequency components, while are quite slow in removing the slowest ones.
+We define the following norm:
+\begin{align*}
+||| x|||_s = (x,A^sx)^{\frac{1}{2}}
+\end{align*}
+It can be shown (nota: la norma L2 la scomponi sui triangoli, trovi i coefficienti moltiplicativi delle componenti di v come integrali, quindi hai due norme in Rn e sono equivalenti...qualcosa del genere):
+\begin{align*}
+c^{-1}||v||_0 \leq |||v|||_0 \leq c ||v||_0
+\end{align*}
+For second order elliptic problems, we have:
+\begin{align*}
+|||v|||_1^2=(v,A v)=a(v,v)
+\end{align*}
+and so:
+\begin{align*}
+\alpha ||v||_1 \leq ||| v|||_1 \leq M ||v ||_1
+\end{align*}
+We have that an eigenvalue is defined with the Rayleigh quotient and by taking advantage of the norm equivalence:
+\begin{align*}
+\lambda = \dfrac{\left(x, A_hx\right)}{(x,x)}=\dfrac{|||x|||_1}{|||x|||_0}\geq \dfrac{||x||_1}{||x||_0} =\dfrac{||x||_0 + |x|_1}{||x||_0} =1+ \dfrac{ |x|_1}{||x||_0}
+\end{align*}
+ The bigger the gradients (oscillations), the bigger the eigenvalues.\\\\
+ COMUNQUE non capisco perche' uno smoother agisca in questo modo. \\\\
+ In the Hackbusch framework, we can express the two-grid iteration as:
+ \begin{align*}
+ u^{1,k+1}-u_1=M (u^{1,k}-u_1)
+ \end{align*}
+ The matrix is:
+ \begin{align*}
+ M=S^{\nu_2}\left( I - p A_{2h}^{-1} r A_h \right)S^{\nu_1}=
+ S^{\nu_2}\left( A_h^{-1}- p A_{2h}^{-1} r  \right) A_hS^{\nu_1}
+ \end{align*}
+ where $S^{\nu_1}$ represents the pre-smoothing,  while $S^{\nu_2}$ is the post-smoothing. The operators $r$ and $p$ are respectively the reduction and prolongation operators. So the term $p A_{2h}^{-1} r A_h $ represents the coarse-grid correction for a two-grid method.\\
+ In order to have a convergent method indipendently on the mesh-size, we could use two inequalities of this kind:
+ \begin{align*}
+ &\text{Smoothing property:} \qquad\qquad ||A S^{\nu}|| \leq \dfrac{c}{\nu} h^{-2}\\
+ & \text{Approximation property:} \qquad || A_h^{-1}- p A_{2h}^{-1} r|| \leq c h^2
+ \end{align*}
+ In order to show the convergence of the multigrid method we always need these two properties.\\\\
+ Hypotheses:
+\begin{itemize}
+\item The boundary value problem is $H^1$ or $H_0^1$ elliptic
+\item The boundary value problem is $H^2$ regular
+\item The spaces $S_l$ are nested ($S_{l-1} \subset S_l$) and belong to a family of conforming FEM with uniform a triangulation.
+\item We use nodal basis
+\end{itemize} 
+We remark that $u^{l,k,m}$ is the solution at level $l$ and iteration $k$. Furthermore $m=1,2,3$ that stand for: after presmoothing, after coarse-grid correction, after post-smoothing. The case $m=0$ is omitted and is in general equal to $m=3$ of the previous iteration: $u^{l,k+1} = u^{l,k+1,0}= u^{l,k,3}$.\\\\
+\textbf{Convergence proof for the two-grid algorithm}\\
+Using Jacobi relaxation with $\omega=\lambda_{max}(A_h)$:
+\begin{align*}
+|| u^{1,k+1}-u_1||_0 \leq \dfrac{c}{\nu_1} || u^{1,k}-u^1|| 
+\end{align*}
+\textbf{proof}\\
+For smoothing with Richardson relaxation, if $u_1=u_{l_1}$ is the desired solution:
+\begin{align*}
+u^{1,k,1}-u_1=\left(I- \frac{1}{\omega} A_h \right) \left( u^{1,k}-u_1 \right)
+\end{align*}
+ We are going to use these three different inequalities:
+ \begin{itemize}
+ \item Smoothing property: 
+ \begin{align*}
+ ||| u^{1,k,1}-u_1|||_2 \leq \dfrac{c}{\nu_1} h^{-2}||u^{1,k}-u_1 ||
+ \end{align*}
+ \item Approximation property:
+ \begin{align*}
+ ||u^{1,k,2}-u_1||\leq c h^2 ||| u^{1,k,1}-u_1||_0
+ \end{align*}
+ \item \begin{align*}
+ || u^{1,k,3}-u_1||_0 \leq c || u^{1,k,2}-u_1||
+ \end{align*}
+  \end{itemize}
+ Taking advantage of the fact that $u^{1,k,3}=u^{1,k+1}$, the proof follows.\\\\
+ \textbf{Smoothing Property}\\
+ Under the assumption that guarantees the equivalence of the norms $||| \cdot|||_s$ and $|| \cdot ||_0$ and referring to an elliptic problem, exists a c indipendent of h such that:
+ \begin{align*}
+ &\lambda_{max} (A_h) = \sup \dfrac{(x,A_h x)}{(x,x)}= \sup \dfrac{|||v_h|||_1^2}{|||v_h|||_0^2} \leq c \sup \dfrac{||v_h||_1^2}{||v_h||_0^2} \leq c h^2\\
+  &\lambda_{min} (A_h) = \inf \dfrac{(x,A_h x)}{(x,x)}= \inf \dfrac{|||v_h|||_1^2}{|||v_h|||_0^2} \geq c^{-1} \inf \dfrac{||v_h||_1^2}{||v_h||_0^2} \geq c^{-1}\\
+ \end{align*}
+  Using the next lemma with $t=2$ and $s=0$, we obtain:
+  \begin{align*}
+  &|||x^{\nu}|||_{s+t} \leq c \nu^{-t/2}|||x^0|||_s\\
+  &|||x^{\nu}|||_{2} \leq \dfrac{c}{\nu} h^{-2}|||x^0|||_s
+  \end{align*}
+  
+  \textbf{Lemma}\\
+  Let $\omega \geq \lambda_{max}(A_h)$, $s \in \mathbb{R}$, $t>0$ and
+  \begin{align*}
+  x^{\nu +1} =\left(1 -\dfrac{1}{\omega}A\right) x^{\nu}
+  \end{align*}
+  Then:
+  \begin{align*}
+  ||| x^{\nu} |||_{s+t} \leq c \nu^{-t/2} ||| x^0 |||_s
+  \end{align*}
+  for $c=\left(\dfrac{t \omega}{2 e} \right)^{t/2}$.\\
+\textbf{Proof}\\
+Expand $x^0=\sum c_i z_i$ and $x^{\nu}=\sum 
+(1-\lambda_i/\omega)^{\nu} c_i z_i$. Then it is easy to show:
+\begin{align*}
+||| x^{\nu} |||_{s+t}^2=
+\sum \lambda_i^{s+t} 
+\left[ (1-\frac{\lambda_i }{\omega})^{\nu} c_i \right]^2
+\leq \omega^t \max_{\xi \in [0,1]} f(\xi) |||x^0|||_s^2
+\end{align*}
+where $f(\xi)= \xi^t (1-\xi)^{2 \nu}$.
+ 
+\textbf{Approximation Property}\\
+We want to use the following lemma:\\
+\textbf{Lemma}\\
+Given $v_h \in S_h$, let $u_{2h}$ be the solution of the weak equation
+\begin{align*}
+a(v_h-u_{2h},w)=0 \qquad \forall w \in S_{2h}
+\end{align*}
+In addition, let $\Omega$ be convex or have a smooth boundary. Then
+\begin{align*}
+&||v_h-u_{2h}||_1\leq c 2 h ||v_h||_2\\
+&||v_h - u_{2h}||_0 \leq c 2 h ||v_h -u_{2h}||
+\end{align*}
+\text{Proof}\\
+The last equation follows from the $H^2$ regularity. The first one from the ellipticity:
+\begin{align*}
+&\alpha ||v_h - u_{2h}||_1^2 \leq a(v_h-u_{2h},v_h-u_{2h})
+=a(v_h-u_{2h},v_h)=(v_h-u_{2h},A_h v_h)\leq \\
+&|||v_h-u_{2h}|||_0 |||v_h|||_2 \leq c_1 ||v_h-u_{2h}||_0 ||v_h||_2 
+\leq c_1 c_2 2 h ||v_h-u_{2h}||_1 ||v_h||_2 
+\end{align*}
+Combining both inequality we obtain:
+\begin{align*}
+&||v_h - u_{2h}||_0 \leq c  h^2 ||v_h||_2
+\end{align*}
+We can use this in the demonstration of the theorem considering the fact that $u^{1,k,2}=u^{1,k,1}+u_{2h}$ satisfies:
+\begin{align*}
+a(u^{1,k,1}+u_{2h},w)=(f,w)_0 \qquad \forall w \: \in S_{2h}
+\end{align*}
+and that $u_1$ satisfies $a(u_1,w)=(f,w)$ $\forall w\: \in S_h$ and so $\forall w\: \in S_{2h} \subset S_h$ . Subtracting the two equations:
+\begin{align*}
+a(u^{1,k,1}-u
+_1+u_{2h},w)=0 \qquad \forall w \: \in S_{2h}
+\end{align*}
+ Indeed we can consider $v_h= u^{1,k,1}-u_1$.
+ \section{Iterative methods by subspace correction[by Xu Jinchao]}
+ A decomposition ov $V$ consists of a number of subspaces $V_i \subset V$ (for $1\leq i \leq J$) such that:
+ \begin{align*}
+ V=\sum_{i=1}^J V_i
+ \end{align*}
+ Thus for each $v \in V$ there esists $v_i \in V_i$ such that $v=\sum_{i=1}^J v_i$. This representation is not unique.\\
+ We can define three different operators:
+ \begin{itemize}
+ \item $Q_i : V  \to V_i$ orthogonal projection w.r.t. $(\cdot,cdot)$:
+ \begin{align*}
+ (Q_i u, v_i)=(u,v_i)\qquad u \in V, v_i \in V_i
+ \end{align*}
+ \item$P_i : V  \to V_i$ orthogonal projection w.r.t. $(\cdot,cdot)_A$
+  \begin{align*}
+ (P_i u, v_i)_A=(u,v_i)_A \qquad u \in V, v_i \in V_i
+ \end{align*}
+ \item $A_i : V_i  \to V_i$
+   \begin{align*}
+ (A_i u_i, v_i)=(A u,v_i) \qquad u \in V, v_i \in V_i
+ \end{align*}
+ \end{itemize}
+ So that:
+ \begin{align*}
+ A_i P_i = Q_i A
+ \end{align*}
+ that also implies $A_i u_i = f_i$, with $f_i = Q_i f$ and $u_i=P_i u$, is equivalent to $A u = f$.\\\\
+ \textbf{Parallel subspace correction methods: PSC}\\
+
+ \begin{itemize}
+ \item $r_{old}= f - A u_{old}$
+ \item $A e = r_{old}$
+ \item Restrict the residual equation to $V_i$, $ A_i e_i=Q_i r_{old}$, with $e_i =P_i e$
+ \item Solve approximately $\hat{e_i}=R_i Q_i r_{old}$
+ \item Correct $u_{new}=u_{old} +\sum_{i=1}^{J} \hat{e_i}=u_{old} +B(f-A u_{old})$, with $B=\sum_{i=1}^{J} R_i Q_i $.
+ \end{itemize}
+ With $V=R^n$, we obtain the Jacobi algorithm.
+  \textbf{Successive subspace correction methods: SSC}\\
+ \begin{itemize}
+ \item Given $u_0 \in V$ and $u_k \in V_k$.
+ \item $u_{k+i/J}=u_{k+(i-1)/J}+R_i Q_i (f-A u_{k+(i-1)/J})=u_{k+(i-1)/J}+R_i Q_i f- T_i u_{k+(i-1)/J}$
+ \end{itemize}
+Note that $T_i=R_i A_i P_i : V \to V_i$ is symmetric with respect to $(,)_A$. We have:
+\begin{align*}
+u - u_{k+1}=E_j (u -u_k) \qquad E_j=(I-T_J)...(I-T_1)
+\end{align*}
+since $ u-u_{k+i/J}=(I-T_i)(u-u_{k+(i-1)/J})$.
+\section{Multigrid Hdiv}
+If $\bu \in \text{Ker}(\text{div})$ and $\bw \in\text{Ker}^{\perp}(\text{div})$, then:
+\begin{align*}
+(\bu,\bw)_{L^2(\Omega)}=0
+\end{align*}
+The only way to make appear a $\text{div}\bu=0$ is that $\bw=\nabla a$ and that $\bu \cdot \bn =0$ on $\partial \Omega$. In this way:
+\begin{align*}
+(\bu,\bw)_{L^2(\Omega)}=
+(\bu,\nabla a)_{L^2(\Omega)}=
+(\bu \cdot \bn, a)_{L^2(\partial \Omega)}
+-(\text{div}\bu, a)_{L^2(\Omega)}=
+0
+\end{align*}
+Similarly, if $\bu \in \text{Ker}(\curl)$ and $\bw \in\text{Ker}^{\perp}(\curl)$, then:
+\begin{align*}
+(\bu,\bw)_{L^2(\Omega)}=0
+\end{align*}
+The only way to make appear a $\curl \bu=0$ is that $\bw=\curl \br $ and that $\bu \cdot \bt =0$ on $\partial \Omega$:
+\begin{align*}
+(\bu,\bw)_{L^2(\Omega)}=
+(\bu,\curl \br)_{L^2(\Omega)}=
+(\bu \cdot \bt, \br)_{L^2(\partial \Omega)}+
+(\curl \bu, \br)_{L^2(\Omega)}=
+0
+\end{align*}
+\subsection{Orthogonal decomposition}
+Let us consider an operator $\mathcal{D}$ and the space:
+\begin{align*}
+H(\mathcal{D},\Omega)=\{ \bu \in L^2(\Omega), \quad \mathcal{D} \bu \in L^2(\Omega)\}
+\end{align*}
+\begin{itemize}
+\item  $\mathcal{D}=\nabla$, $H=H_0^1(\Omega)$, $\mathcal{V}=\text{ Ker}(\mathcal{\nabla})$:
+\begin{align*}
+\mathcal{V}= \{\bu \in L^2(\Omega), \bu =\text{const}=0 \}\qquad H_0^1(\Omega)=\mathcal{V}^{\perp}
+\end{align*}
+\item $\mathcal{D}=\text{div}$, $H=H_{0,div}(\Omega)$, $\mathcal{V}=\text{ Ker}(\mathcal{\text{div}})$:
+\begin{align*}
+\mathcal{V}= \{\bu \in L^2(\Omega), \text{div}\bu =0 \}\neq \{0\} \qquad H_{0,\text{div}}=\{ \bu =\bv+\bw,\quad\bu \in \mathcal{V} ,\quad \bw \in \mathcal{V}^{\perp} \}
+\end{align*}
+\item $\mathcal{D}=\nabla \times $, $H=H_{0,curl}(\Omega)$, $\mathcal{V}=\text{ Ker}(\mathcal{\text{curl}})$:
+\begin{align*}
+\mathcal{V}= \{\bu \in L^2(\Omega), \text{curl}\bu =0 \}\neq \{0\} \qquad H_{0,\text{curl}}=\{ \bu =\bv+\bw,\quad\bu \in \mathcal{V} ,\quad \bw \in \mathcal{V}^{\perp} \}
+\end{align*}
+This suggest an Helmholtz decomposition. For $\bu \in H(\mathcal{D},\Omega)$:
+\begin{align*}
+\bu =\bv +\bw =\nabla \phi + \nabla \times \br
+\end{align*}
+where $ \nabla \times \br / \nabla \phi $ 
+$\in$ $ \mathcal{V}(\text{div})  /\mathcal{V}(\nabla \times)$,
+while $\nabla \phi / \nabla \times \br$ 
+$\in$ $ \mathcal{V}(\text{div}) ^{\perp} /\mathcal{V}(\nabla \times)^{\perp}$.
+\end{itemize}
+
+\subsection{Hdiv and Hcurl}
+Let us consider the following bilinear form:
+\begin{align*}
+a(\bu,\bv)=(\bu,\bv)+(\text{div} \bu, \text{div}\bv)
+\end{align*}
+The eingevalues related to this form are:
+\begin{align*}
+\lambda = \dfrac{a(\bu,\bu)}{(\bu,\bv)}=1 +  \dfrac{(\text{div} \bu, \text{div}\bu)}{(\bu,\bu)}
+\end{align*}
+Since we can say that:
+\begin{align*}
+\begin{cases}
+(a+b+c)^2 \leq 3 (a^2+b^2+c^2) \\
+a=u_x,\:b=v_y,\: c=w_z
+\end{cases}
+\qquad \to \qquad \text{div} \bu ^2 \leq C |\nabla \bu |^2
+\end{align*}
+where $a=u_x$, $b=v_y$ and $c=w_z$, then we have that:
+\begin{itemize}
+\item a function $\bu$ with $\text{div}\bu=0$ can have whatever value of the gradient;
+\item a function $\bu$ with $\text{div}\bu \gg 1$ must have large values of the gradient;
+\end{itemize} 
+By this simple analysis, we discover, without using the Helmoltz decomposition, that for the kernel of the operator $\text{div}$ high eigenvalues do not correspond to high-frequency function. On the other hand, for the complement of the kernel of the operator $\text{div}$, high eigenvalues correspond to high-frequency function.\\
+Nevertheless, in a discrete setting, the eigenvalues that a discrete operator captures are the smallest one. Then, by increasing the mesh and so the size of the problem, we can also reach larger eigenvalues.\\
+On a very coarse mesh we can only capture components of the error associated to small eigenvalues. In this case, anyhow, smalle eigenvalues can have high frequency components (null divergence, high gradients). And it is obvious that such components cannot be well described on a coarse mesh. \\
+By Helmoltz decomposition, $\bu= \nabla \phi + \nabla \times \br$. Then:
+\begin{itemize}
+\item $\bu = \nabla \phi $, using $\Delta \nabla \phi= \nabla \Delta \phi$ and homogeneous BC:
+\begin{align*}
+(\bu,\bv)+(\text{div} \nabla \phi, \text{div}\bv)&=
+(\bu,\bu)-(\nabla \text{div} \nabla \phi,\bv)\\&=
+(\bu,\bv)-( \nabla \Delta  \phi,\bv)\\&=
+(\bu,\bv)-( \Delta  \nabla \phi,\bv)\\&=
+(\bu,\bv)-( \Delta  \bu,\bv)
+\end{align*}
+So that the operator is:
+\begin{align*}
+\mathcal{A}= \bI - \Delta 
+\end{align*}
+\item $\bu = \nabla \times \br $, using $\text{div}\nabla \times \b= 0$:
+\begin{align*}
+(\bu,\bv)+(\text{div} \nabla \times \br, \text{div}\bv)=
+(\bu,\bu)
+\end{align*}
+So the operator is:
+\begin{align*}
+\mathcal{A}= \bI 
+\end{align*}
+\end{itemize}
+Now we consider the following bilinear form:
+\begin{align*}
+a(\bu,\bv)=(\bu,\bv)+(\nabla \times  \bu, \nabla \times \bv)
+\end{align*}
+By Helmoltz decomposition, $\bu= \nabla \phi + \nabla \times \br$. Then:
+\begin{itemize}
+\item $\bu = \nabla \phi $, using $ \nabla \times \nabla\phi= 0$:
+\begin{align*}
+(\bu,\bv)+(\nabla \times \nabla \phi, \nabla \times \bv)&=
+(\bu,\bu)
+\end{align*}
+So that the operator is:
+\begin{align*}
+\mathcal{A}= \bI 
+\end{align*}
+\item $\bu = \nabla \times $, using $\nabla \times \nabla \times \br= \nabla \text{div} -\Delta$, homogeneous BC, the curl-integration by parts formula and $\nabla \times \Delta = \Delta \times \nabla$:
+\begin{align*}
+(\bu,\bv)+(\nabla \times \nabla \times \br, \nabla \times\bv)&=
+(\bu,\bv)+(\nabla \text{div}\br-\Delta \br , \nabla \times\bv)\\&=
+(\bu,\bv)+(\nabla \times\nabla \text{div}\br-\nabla \times\Delta \br , \bv)\\&=
+(\bu,\bv)-(\nabla \times\Delta \br , \bv)\\&=
+(\bu,\bv)-(\Delta \bu , \bv)
+\end{align*}
+So the operator is:
+\begin{align*}
+\mathcal{A}=   \bI - \Delta
+\end{align*}
+\end{itemize}
+\subsection{Commuting diagram}
+For simply connected domains:
+\begin{figure}[htbp!]
+		\centering
+	\includegraphics[width=0.75\textwidth]{img/commuting_diagram}
+		\caption[Commuting diagram]{Commuting diagram.}
+		\label{abb_arc}
+\end{figure}
+where the interpolation operators defined above preserve the kernels of the differential operators:
+\begin{align*}
+\bbx \in \mathcal{N}_d(\mathcal{D},T_h) \cap  \mathcal{D} \bbx =0 \qquad \iff \qquad \exists \by \in \mathcal{N}_d(\tilde{\mathcal{D}},T_h) ,\quad \bbx = \tilde{\mathcal{D}} \by    \\
+\begin{cases}
+H(\textbf{curl} ,\Omega)=\nabla H(\nabla,\Omega)\\
+H(\text{div} ,\Omega)=\textbf{curl} H(\textbf{curl},\Omega)
+\end{cases}
+\end{align*}
+\begin{table}[htbp!]
+\begin{center}
+\begin{tabular}[c]{l ||l |}
+  $\mathcal{D} $ & $\tilde{\mathcal{D}}$ \\ \hline 	
+\textbf{curl}  &$\nabla$ 		\\ \hline
+ div & \textbf{curl}  \\ \hline
+\end{tabular}
+\end{center}
+\caption{Table relating $H(\mathcal{D},\Omega)$ and $H(\tilde{\mathcal{D}},\Omega)$ }
+\label{commuting_diagram}
+ \end{table}\\
+ where $\tilde{\mathcal{D}}$ is the potential operator associated with $\mathcal{D}$ satisfying $\mathcal{D} \tilde{\mathcal{D}}=0$.\\\\
+ If we define $\mathcal{N}(\mathcal{D})=\text{Ker}(\mathcal{D})$, then $\mathcal{N}(\text{div})=\textbf{curl}H(\textbf{curl},\Omega)$ and  $\mathcal{N}(\textbf{curl})=\nabla H(\nabla,\Omega)$, so that generally we can state, \textit{for domains topologically equivalent to a ball}:
+ \begin{align*}
+ \mathcal{N}(\mathcal{D})=\tilde{\mathcal{D}}H(\tilde{\mathcal{D}})
+ \end{align*}
+ Since:
+ \begin{align*}
+ \mathcal{N}(\mathcal{D})=\tilde{\mathcal{D}}H(\tilde{\mathcal{D}})=\tilde{\mathcal{D}}\left( \mathcal{N}(\tilde{\mathcal{D}}) \oplus \mathcal{N}^{\perp}(\tilde{\mathcal{D}})  \right)=\tilde{\mathcal{D}} \mathcal{N}^{\perp}(\tilde{\mathcal{D}})
+ \end{align*}
+ So we can assert that:
+ \begin{align*}
+ H(\mathcal{D},\Omega) = \tilde{\mathcal{D}}\mathcal{N}^{\perp}(\tilde{\mathcal{D}}) \oplus  \mathcal{N}(\mathcal{D})^{\perp}
+ \qquad \to \qquad 
+ \begin{cases}
+ H(\text{div},\Omega) =\textbf{curl} H^{\perp}(\textbf{curl},\Omega) \oplus \mathcal{N}(\text{div})^{\perp}\\
+  H(\textbf{curl},\Omega) =\nabla H^{\perp}(\nabla,\Omega) \oplus \mathcal{N}(\textbf{curl})^{\perp}\\
+ \end{cases}
+ \end{align*}
+ \begin{itemize}
+ \item We can treat the two components separately of $\bu=\bv+\bw$ separately.
+ \item We can move from the continuous to the discretized setting, because, thanks to the above projections operators and the choice of the proper finite elemenet spaces (Raviart-Thomas, Nedelec), a lot of properties are directly inherited.
+ \item In order to define a preconditioner for $\mathcal{N}^{\perp}(\mathcal{D})$ it is sufficient only approximate orthogonality.
+ \item In order to define a preconditioner of $\mathcal{N}(\mathcal{D})$ we need to switch to discrete potentials using the above relations.
+ \end{itemize}
+ \subsection{Smoothing algorithm}
+ We have to decrease the error of both component, $ \tilde{\mathcal{D}}\mathcal{N}^{\perp}(\tilde{\mathcal{D}}) $ and $ \mathcal{N}(\mathcal{D})^{\perp} $. Regarding the $H_{div}$ space, we have to smooth  $\bu=\bv+\bw$, where $\bv \in \textbf{curl} H^{\perp}(\textbf{curl},\Omega) $ and $\bw \in \mathcal{N}(\text{div})^{\perp}$.
+ \begin{itemize}
+ \item The $\bw$ component si referred to an elliptic problem. This means that we can take into consideration the usual smoother. We should describe this component in $\mathcal{N}(\text{div})^{\perp}$. Anyhow, since a representation for $\mathcal{N}(\text{div})^{\perp}$ is not easy to build and since $\mathcal{N}(\text{div})^{\perp} \subset H_{div}$, we can use the whole Raviart-Thomas finite element space to define the orthogonal component $\bw$.
+ \item On the other hand, to level down the $\bv$ we take advantage of the  potential discretization. In this case, the bilinear form is:
+\begin{align*}
+a(\bu,\bv)|_{\mathcal{N}(\text{div})}=
+(\bu,\bv)=( \textbf{curl} \:\br , \textbf{curl}  \: \bs) =
+(f, \textbf{curl} \: \bs) \qquad \forall \bs \in H(\textbf{curl},\Omega)
+\end{align*}
+We see that $\curl \br \in  \curl H(\curl,\Omega)\subset H(\text{div},\Omega)$. 
+ \end{itemize}
+ So basically:
+ \begin{itemize}
+ \item Smooth $A \bu =\bf$ (start with $\bu=0$).
+ \item Compute $\br=\bf-A\bu$.
+ \item Transfer from Raviart-Thomas to Nedelec space, $\bs=T \br$.
+ \item Smoot $B \bsigma =\bs$ (start with $\bsigma=0$).
+ \item Go back to the Raviart-Thomas space, $\br=T^* \bs$.
+ \item Update the solution $\bu=\bu+\br$.
+ \end{itemize}
+ \subsection{Relation between Nedelec and Raviart spaces}
+ We imopse:
+ \begin{align*}
+ &\int_{\Omega} U_{ND} \phi_{RT} = \int_{\Omega} U_{RT} \phi_{RT} 
+ \quad  \quad  \int_{\Omega} U_{RT} \phi_{ND} = \int_{\Omega} U_{ND} \phi_{ND} 
+  \end{align*}
+  And get:
+  \begin{align*}
+&  \sum_j \int_{\Omega}  \phi_{ND,j} U_{ND,j} \phi_{RT,i} = \sum_i \int_{\Omega}  \phi_{RT,j}  U_{RT,j} \phi_{RT,i} 
+   \quad \to \quad
+  M_{RT,ND}  U_{ND}= M_{RT,RT} U_{RT}\\
+  &  \sum_j \int_{\Omega}  \phi_{RT,j} U_{RT,j} \phi_{ND,i} = \sum_i \int_{\Omega}  \phi_{ND,j}  U_{ND,j} \phi_{ND,i} 
+   \quad \to \quad
+  M_{ND,RT}  U_{RT}= M_{ND,ND} U_{ND}\\
+ \end{align*}
+  It SEEMS that we have define the prolongation operator $T: \ND \to \RT$. Anyhow in the algorithm we use $T^*$ to transfer the residual, that does not belong to $H_{div}$ but to its dual, into the $\ND$ space. Nevertheless also this residual should belong to the dual of $\curl H(\curl)$ and not to the space itself.
+  Then we should transfer back the solution $\bxi$ in  $\curl H(\curl)$, so we would need an operator $\mathcal{B}: \curl H(\curl) \to \ND$. SONO CONFUSO.\\
+Furthermore we have $T: \ND \to \RT$. This relation should follow from the embedding $\curl H(\curl)  \subset H_{div}$. But then I should consider  $T: \curl \ND \to \RT$. In this way, $ \curl \ND \subset \RT$. Reasoning in this way, the space $ \curl \ND$ would be reduced to a piecewise constant polynomial space. Indeed the sum of curls of linear functions is a constant on each element. This implies that we can consider, instead of a dof for each edge, only a dof per element. Then we should consider as $L^2$ projection:
+ \begin{align*} 
+ (\bu_{\curl \ND},\nabla \phi_{i,\ND})&= (\bu_{\RT}  , \nabla \phi_{i,\ND} ) \\
+  \sum_j u_{j,\curl \ND} (\nabla \phi_{j,\ND},\nabla \phi_{i,\ND})&=\sum_k \bu_{k,\RT}  (\phi_{j,\RT}  , \nabla \phi_{i,\ND} )
+ \end{align*}
+ Thus:
+  \begin{align*} 
+   &\: \:\bK_{\ND}\:\bu_{\curl \ND} =\bA _{\nabla {\ND} , \RT }\\
+ &  \begin{cases}
+ \bK_{\ND,\:ij } = (\nabla \phi_{i,\ND}, \nabla \phi_{j,\ND})\\
+ \bA _{\nabla {\ND} , \RT, \: ij }= (\phi_{j,\RT}  , \nabla \phi_{i,\ND} )
+ \end{cases}
+ \end{align*}
+ The stiffness matrix $\bK$ is singular, while $\bA$ is, in principle, rectangular. The vector $\bu_{\curl \ND}$ belongs to $\curl \ND \approx Q_0$, where $Q_0$ is the piecewise constant space. This means that the problem that we have to solve is:
+ \begin{align*}
+ \bM_{Q_0} \bu_{\curl \ND}= \bff_{\ND}
+ \end{align*}
+\textbf{ Nell'articolo usa la matrice C per correggere l'errore del nucleo. MA questa coincide con A trasferita sui Nedelec?\\}
+\textbf{NOTA BENE}:\\
+Sia X lo spazio fine con il suo duale X'. Sia Y lo spazio coarse con il suo duale Y'.
+Trasferiamo il residuo fine $r_f=b_f-A_f x_f  \: \in X'$ nel sottospazio, ottenendo un residuo $r_c = R  r_f \: \in Y'$.   Questo e' quanto succede all'andata. Al ritorno invece trasferiamo la soluzione, che non appartiene ai duali, bensi' agli spazi veri e propri. Di conseguenza:
+\begin{align*}
+R: X' \to Y'  \qquad P=R^*: Y -> X\\
+\langle R r_f, y\rangle_{Y',Y} = \langle r_f, R^* y\rangle_{X',X}
+\end{align*}
+\textbf{Quindi, nel momento in cui usiamo la $L^2$ projection, noi vogliamo definire l'operatore di interpolazione $P$ in quanto e' definito tra due spazi le cui basi sono note. \\
+Si potrebbe ugualmente definire l'operazione di restrizione in modo equivalente a partire dagli spazi duali, ma in tal caso dovrei conoscerne la base. Allora e' evidente che cio' ha senso solo per L2.}
+\subsection{Transfer operator}
+The $L^2$ projection does not work between the $\ND$ and the $\RT$ spaces. Let us focus on the reference element $K$. Let us define a a function $f_{\ND} \in \ND(K)$, with coefficients $U_{\ND}=[1,1,1]$. Then consider the operator, defined starting from the $L^2$ projection, $T:\ND \to \RT$:
+\begin{align*}
+T= M_{\RT,\RT} M_{\RT,\ND} =
+\begin{bmatrix}
+\frac{1}{3} &-\frac{2}{3} & \frac{1}{3}\\
+  \frac{2}{3} &  - \frac{1}{3}  &   \frac{1}{3}\\
+    1   & -1&  0\\
+\end{bmatrix}
+\qquad \to \qquad
+u_{\RT}=T u_{\ND}=\frac{2}{3}\begin{bmatrix}
+-1\\1\\0
+\end{bmatrix}
+\end{align*} 
+So that we go from:
+\begin{align*}
+f_{\ND}=\phi_{\ND,1} u_1+ \phi_{\ND,2} u_2 + \phi_{\ND,3} u_3=
+\begin{bmatrix}
+1-y\\x
+\end{bmatrix}+
+\begin{bmatrix}
+-y\\x
+\end{bmatrix}+
+\begin{bmatrix}
+-y\\x-1
+\end{bmatrix}
+=
+\begin{bmatrix}
+1-3y\\3x-1
+\end{bmatrix}
+\end{align*}
+to:
+\begin{align*}
+f_{\RT}=-\frac{2}{3}
+\begin{bmatrix}
+x\\-1+y
+\end{bmatrix}+
+\frac{2}{3}
+\begin{bmatrix}
+x\\y
+\end{bmatrix}+0
+\begin{bmatrix}
+1-x\\y
+\end{bmatrix}
+=
+\begin{bmatrix}
+0\\\frac{2}{3}
+\end{bmatrix}
+\end{align*}
+We see that there is no way to use the $L^2$ projection between these two spaces. Therefore another kind of projection has to be considered. In particular we can see that in 3D, if $\RT_i$ is the value of the function on the $i-$face:
+\begin{align*}
+\RT_i= \int_{F_i} \bff_{\RT} \cdot \bn dF
+\end{align*}
+By focusing on the kernel of the operator $\text{div}$, we can write $\bff_{\RT}=\nabla \times \bff_{\ND}$ and, by using Stokes theorem:
+\begin{align*}
+\RT_i= \int_{F_i}\nabla \times \bff_{\ND} \cdot d\bF=\oint \bff_{\ND} \cdot d \br
+\end{align*}
+where $d\bF = \bn \cdot dF$ and $d \br = \bt  ds$. Thus:
+\begin{align*}
+\RT_i= \sum_{j=1}^3 \int_{e_j} \ND_j \phi_{\ND,j} \cdot \bt ds =\sum_{j=1}^3 \pm  \ND_j =\ND_a+\ND_b -\ND_c \\ 
+\begin{cases}
+\RT_i =\ND_a+\ND_b -\ND_c  & \text{if the face  ordered in counterclockwise direction} \\
+\RT_i =-\ND_a-\ND_b +\ND_c  &\text{if the face ordered in clockwise direction} 
+\end{cases}
+\end{align*}
+where $L_j$ are the lenghts of the edges, whose sign depends on the orientation of the edge. If the edge is oriented counterclockwise, then we have a plus, otherwise a minus.\\
+This means that in 3D the transfer operator $T:\ND\to \RT$ is a matrix $T \in \mathbb{R}^{m \times n}$, with $m=$ number of faces and $n=$ number of edges, and where for each row only thre entries are non trivial.\\
+REMARK: Unlike the usual $L^2$ projection, we have a matrix alread defined, without inverting a mass matrix!!!!\\
+This interesting fact also holds for the Raviart-Thomas intergrid operators. When we prolongate a function from a coarser space to a finer one, we want that the average fluxes through the sides are the same. Then, $\Pi: \RT_{0,C} m\to \RT_{0,F}$:
+\begin{align*}
+\int_{e_i} (\Pi \bv - \bv) \cdot \bn  p_k d \bs =0\qquad \forall e_i \in \mathcal{E}_{F}
+\end{align*}
+The polynomium $p_k=const$, since we are dealing with $\RT_0$. By substituing
+$\bv =\sum_{j=1}^{N_F} \phi_{j}^{\RT_{0,F}} v_{j,F}$ and $\bv =\sum_{k=1}^{N_C} \phi_{k}^{\RT_{0,C}} v_{k,C}$:
+\begin{align*}
+\sum_{j=1}^{N_F} v_{j,F} \int_{e_i}\phi_{j}^{\RT_{0,F}}  \cdot \bn d \bs =
+\sum_{k=1}^{N_C} v_{k,C} \int_{e_i}\phi_{k}^{\RT_{0,C}}  \cdot \bn  d\bs        \qquad \forall e_i \in \mathcal{E}_{F}
+\end{align*}
+where $ \delta_{ij} = \int_{e_i}\phi_{j}^{\RT_{0,F}}  \cdot \bn d \bs$. Thus:
+\begin{align*}
+v_{i,F} =
+\sum_{k=1}^{N_C} v_{k,C} \int_{e_i}\phi_{k}^{\RT_{0,C}}  \cdot \bn  d\bs        \qquad \forall e_i \in \mathcal{E}_{F}
+\end{align*}
+Also in this case, we do not need to invert a mass matrix. \\\\
+In 2D both curl-free and divergence-free fields can be described respectively by gradient potential and their rotation:
+\begin{align*}
+& \curl \bu=0&{}   &\bu=\nabla  \phi \\
+& \tdiv \bu=0&{}   &\bu=\bR \nabla  \phi \qquad 
+\bR=\begin{bmatrix}
+0 &1\\-1 &0
+\end{bmatrix}
+\end{align*}
+\textbf{	NOTA BENE: QUESTA E LA MATRICE CORRETTA: INFATTI, SE NE FACCIO IL TRASPOSTO, MI MAPPA VETTORI NORMALI IN VETTORI TANGENTI, DOVE LA NORMALE E ROTAZIONE ORARIA RISPETTO A T. INFATTI I RT LI ABBIAMO DEFINITI CON QUESTA CONVENZIONE.}
+where $\bR$ is a COUNTERclockwise rotation.\\
+This means that the kernel of both $\ND$ and $\RT$ spaces can be described in the same way, thourgh a scalar potential $\phi$ belonging to P1. Thus:
+\begin{align*}
+\RT_i= \int_{e_i} \bff_{\RT} \cdot \bn d l= \int_{e_i} \bR \nabla  \phi \cdot \bn d l = \int_{e_i} \nabla  \phi \cdot \bR  \bn d l
+= \int_{e_i} \nabla  \phi \cdot \bt d l
+\end{align*}
+For the fundamental theorem of calculus for line integrals:
+\begin{align*}
+\RT_i=  \phi(\bbx_2)-\phi(\bbx_1)
+\end{align*}
+
+
+{\small{
+\begin {center}
+\begin {tikzpicture}[-latex ,auto ,node distance =5.5 cm and 5cm ,on grid ,
+semithick ,
+state/.style ={ circle ,top color =white , bottom color = processblue!0 ,
+draw,processblue , text=blue , minimum width =1 cm}]
+\node[state] (A){$\small{X_L}$};
+\node[state] (D) [above =of A] {$X_L'$};
+\node[state] (C) [above right =of A] {$Y_L'$};
+\node[state] (B) [ right =of A] {$Y_L$};
+\node[state] (A2)[ right =of B] {$X_{L-1}$};
+\node[state] (D2) [above =of A2] {$X_{L-1}'$};
+\node[state] (C2) [above right =of A2] {$Y_{L-1}'$};
+\node[state] (B2) [ right =of A2] {$Y_{L-1}$};
+\path (A) edge [loop left] node[below=0.30cm] {$\tiny{S_{\text{Gauss-Seidel}}}$} (A);
+\path (D) edge [bend left=0]  node[below =0.02 cm]{$T_L':\RT_L \to \ND$} 
+node[above =0.02 cm]{$ \br_{Y_{L}}=T_L' \br_{X_L}$} (C);
+\path (B) edge [bend left=0]  node[above =0.15 cm]{$T_L: \ND_L \to \RT_L$}node[below =0.15 cm]{$\bbx_L=T_L \by_L$} (A);
+\path (C) edge [bend left=0]  node[left =0.15 cm]{\rotatebox{90}{$ \bC_{L} \by_{L} = \br_{Y_{L}}$}} (B);
+\path (A) edge [bend left=0]  node[left =0.15 cm]{\rotatebox{90}{$\br_{X_L}=\textbf{b} - A_L \bbx_L $}} (D);
+
+\path (A2) edge [loop left] node[left] {$S_{\text{Gauss-Seidel}}$} (A2);
+\path (D2) edge [bend left=0]  node[below =0.35 cm]{$T_{L-1}':\RT_{L-1} \to \ND{L-1}$} 
+node[above =0.15 cm]{$\br_{Y_{L-1}}=T_{L-1}' \br_{X_{L-1}}$} (C2);
+\path (B2) edge [bend left=0]  node[above =0.15 cm]{$T_{L-1}: \ND_{L-1} \to \RT_{L-1}$}node[below =0.15 cm]{$\bbx_{L-1}=T_{L-1} \by_
+{L-1}$} (A2);
+\path (C2) edge [bend left=0]  node[left =0.15 cm]{\rotatebox{90}{$ \bC_{L-1} \by_{L-1} = \br_{Y_{L-1}}$}} (B2);
+\path (A2) edge [bend left=0]  node[left =0.15 cm]{\rotatebox{90}{$\br_{X_{L-1}}=\textbf{b} - A_{L-1} \bbx_{L-1} $}} (D2);
+
+\path (D) edge [bend left=30]  node[above =0.15 cm]{$ P_X': X_L' \to X_{L-1}' $} node[below =0.15 cm]{$ \br_{X_{L-1}}=P_X' \br_{X_{L}} $}(D2);
+\path (A2) edge [bend left=30]  node[above =0.15 cm]{$ P_X:  X_{L-1}\to X_L $} 
+node[below =0.15 cm]{$ \bbx_{L}=P_X \bbx_{L-1}$} (A);
+
+\path (C) edge [bend left=30]  node[above =0.15 cm]{$ P_Y
+':  Y_{L}'\to Y_{L-1}' $} (C2);
+\path (B2) edge [bend left=30]  node[above =0.15 cm]{$ P_Y:  Y_{L-1}\to Y_{L} $} (B);
+
+\end{tikzpicture}
+\end{center}
+}}
+PROBLEM:\\
+in staggered version, it does not converge. Guess: If I impose only dirichlet BC on displacement problem, then the stress-problem is boundary-free and cannot converge.
+FROM FINE TO COARSE:
+\begin{align*}
+\begin{bmatrix}
+(P_{\RT_C}^{\RT_F})^T & 0\\
+0 & (P_{P_{1,C}}^{P_{1,F}})^T \\
+\end{bmatrix}
+\begin{bmatrix}
+A_{11} & A_{12}\\
+A_{12}^T & A_{22}\\
+\end{bmatrix}
+\begin{bmatrix}
+P_{\RT_C}^{\RT_F} & 0\\
+0 & P_{P_{1,C}}^{P_{1,F}} \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+(P_{\RT_C}^{\RT_F})^T  A_{11} P_{\RT_C}^{\RT_F}& (P_{\RT_C}^{\RT_F})^T  A_{12}P_{P_{1,C}}^{P_{1,F}}\\
+(P_{P_{1,C}}^{P_{1,F}})^T A_{12}^T P_{\RT_C}^{\RT_F}& (P_{P_{1,C}}^{P_{1,F}})^T A_{22}P_{P_{1,C}}^{P_{1,F}}\\
+\end{bmatrix}
+\end{align*}
+FROM $\RT$+$P_1$ TO $\ND$+$P_1$:
+\begin{align*}
+\begin{bmatrix}
+(P_{\ND}^{\RT})^T & 0\\
+0 & I \\
+\end{bmatrix}
+\begin{bmatrix}
+C_{11} & C_{12}\\
+C_{12}^T & C_{22}\\
+\end{bmatrix}
+\begin{bmatrix}
+P_{\ND}^{\RT} & 0\\
+0 & I\\
+\end{bmatrix}
+=
+\begin{bmatrix}
+(P_{\ND}^{\RT})^T  C_{11} P_{\ND}^{\RT} & (P_{\ND}^{\RT})^T  C_{12}\\
+ C_{12}^T P_{\ND}^{\RT} & C_{22}\\
+\end{bmatrix}
+\end{align*}
+\subsection{Linear Elasticity $\ND \to \RT$ operator}
+If we deal with a block Gauss-Seidel iterative scheme, then the blocks are:
+\begin{align*}
+&A_{11}=\int_{\Omega}\text{div}  \bsigma \cdot \text{div} \btau + \mathcal{A} \bsigma : \mathcal{A} \btau 
+&A_{12}= - \int_{\Omega} \varepsilon(\bu) :  \mathcal{A} \btau \\
+&A_{21}=  -\int_{\Omega} (\mathcal{A} \bsigma-) :  \varepsilon(\bv) 
+&A_{22}=  -\int_{\Omega} \varepsilon(\bu)  :  \varepsilon(\bv) 
+\end{align*}
+Then the pure $H_{\text{div}}$ block is the 11. Inserting in $A_{11}$ divergence-free terms, $\bsigma = \bcurl \phi$ and $\btau = \bcurl \psi$, implies:
+\begin{align*}
+&C_{11}=\int_{\Omega}\text{div}  \bsigma \cdot \text{div} \btau + \mathcal{A} \bsigma : \mathcal{A} \btau =\int_{\Omega}  \mathcal{A} \bcurl \phi : \mathcal{A} \bcurl \psi
+\end{align*}
+In 2D:
+\begin{align*}
+\bR=\begin{bmatrix}
+0 &1 \\
+-1 &0
+\end{bmatrix} \qquad \to \qquad \bcurl \phi= \bR \nabla \phi = \begin{bmatrix}
+\phi_y \\
+-\phi_x
+\end{bmatrix}
+\end{align*}
+Therefore:
+\begin{align*}
+C_{11}=&\int_{\Omega} \left( \beta \begin{bmatrix}
+\phi_y^1  &-\phi_x^1 \\
+\phi_y^2  &-\phi_x^2 \\
+\end{bmatrix} + \alpha (\phi_y^1\phi_x^2)\begin{bmatrix}
+1  &0 \\
+0 &1 \\
+\end{bmatrix} \right) :
+\left( \beta \begin{bmatrix}
+\psi_y^1  &-\psi_x^1 \\
+\psi_y^2  &-\psi_x^2 \\
+\end{bmatrix} + \alpha (\psi_y^1\psi_x^2)\begin{bmatrix}
+1  &0 \\
+0 &1 \\
+\end{bmatrix} \right) =\\&
+\int_{\Omega}  \begin{bmatrix}
+\beta^2 \nabla \phi^1 \cdot \nabla \psi^1 + 2 \alpha(\beta+\alpha)  \phi_y^1\psi_y^1 & 
+-2 \alpha(\beta+\alpha)\phi_x^2  \psi_y^1  \\
+-2 \alpha(\beta+\alpha)\phi_y^1  \psi_x^2 &
+\beta^2 \nabla \phi^2 \cdot \nabla \psi^2 + 2 \alpha(\beta+\alpha)  \phi_x^2\psi_x^2  
+\end{bmatrix} 
+\end{align*}
+
+\begin{align*}
+C_{11}&=\beta^2 \nabla \phi^1 \cdot \nabla \psi^1 + 2 \alpha(\beta+\alpha)  \phi_y^1\psi_y^1 \\
+C_{12}&=-2 \alpha(\beta+\alpha)\phi_x^2  \psi_y^1  \\
+C_{13}&= 0.5 \beta \psi_{1,x} u_{x,y} - \psi_{1,y} u_{x,x}(\alpha + \beta)\\
+C_{14}&=0.5 \beta \psi_{1,x} u_{y,x} - \alpha \psi_{1,y} u_{y,y}\\
+C_{22}&=\beta^2 \nabla \phi^2 \cdot \nabla \psi^2 + 2 \alpha(\beta+\alpha)  \phi_x^2\psi_x^2 \\
+C_{23} &=\alpha \psi_{2,x}u_{x,x} - 0.5 \beta \psi_{2,y} u_{x,y}\\
+C_{24}&=\psi_{2,x} u_{y,y}(\alpha + \beta) - 0.5 \beta \psi_{2,y} u_{y,x}
+\end{align*}
+Idea to solve the system in a monolithic way. We just want to correct the $H_{\text{div}}$ part of the system, since for the $H_1$ is sufficient the projection on coarser spaces. This means that, altought we do not use a Picard iteration, we will not project the whole residual, but only its $H_{\text{div}}$ components.\\
+\begin{itemize}
+\item Do some smoothing steps on the whole system, improving both displacements and stresses
+\item With the given displacement and stresses,  compute only the residual corresponding to the $H_{\text{div}}$ part
+\item project this residual that will be the new rhs
+\item Since we are dealing only with the stresses, we should project only raws of the matrix related to these ones.  But then we would have a rectangular matrix:
+\begin{align*}
+\begin{bmatrix}
+C_{11} &C_{12} &C_{13} &C_{14}\\
+C_{21} &C_{22} &C_{23} &C_{24}\\
+\end{bmatrix}
+\end{align*} 
+Anyhow the blocks on the right ($C_{13} ,C_{14},C_{23} ,C_{24}$) can direclty go to the rhs, since the displacement is now fixed and known. 
+\end{itemize}
+\section{Linear elasticity projected on $\ND$ space}
+When we project the linear elasticity system on the $\ND$ space, we are assuming that:
+\begin{itemize}
+\item The domain is convex (or homotopic to a ball) so that we can use the Helmoltz decomposition. In this way the decomposition is exact and we can use $\bsigma = \bcurl \bphi$, since $\text{Ker}(\text{div},\Omega)=\bcurl H(\bcurl,\Omega)$. Otherwise $\bcurl H(\bcurl,\Omega) \subset \text{Ker}(\text{div},\Omega)$...
+\item Remember that nedelec shape functions are spanned in this way:
+\begin{align*}
+\bphi_{\ND}= (P_0)^3+ (\bbx \wedge (P_0)^3)=
+\begin{bmatrix}
+a\\ b \\ c\\
+\end{bmatrix}+
+\begin{bmatrix}
+f y - e z\\ -f x + d z \\ -d y + e x\\
+\end{bmatrix}
+\end{align*}
+If the dof is on the edge with vertices $p_0$ and $p_1$, then we know that the shape function will be exactly zero on the opposite edge (the edge connecting $p_2$ and $p_3$).
+\item The curl is:
+\begin{align*}
+\begin{bmatrix}
+\bcurl \bphi= -2d\\
+-2 e\\
+-2 f
+\end{bmatrix}
+\end{align*}
+\end{itemize}
+Then ndary condition on the stress becomes:
+\begin{align*}
+\bsigma \bn = \bg \quad \rightarrow \quad  (\bcurl \bphi ) \bn = \bg
+\end{align*}
+We can substitute $\bphi=\sum_i \bphi_{i,\ND} C_i$. Then:
+\begin{align*}
+(\bcurl \sum_i \bphi_{i,\ND} C_i) \bn = \bg  \quad \rightarrow \quad  \sum_i C_i \bcurl  \bphi_{i,\ND} \bn = \bg 
+\end{align*}
+The $\ND$ shape function can be defined on the element in this way. Given an edge $p_2-p_3$, we know that on the opposite edge $p_0-p_1$ the shape functions is identically zero. We can define the shape function:
+\begin{align*}
+\bphi_{\ND}= \pm C \left[(\bbx -\bp_0) \wedge (\bbx -\bp_1)\right]
+\end{align*}
+where the $\pm$ depends on the direction of the tangent vector $\bp_2-\bp_3$ and the constant $C$ must be such that the integral of the shape-function tested against the tangent vector is one.\\
+Observe that each point $\by$ on the edge $\bp_2-\bp_3$ can be written as $\by=\bbx+ (\by-\bbx)$. Then let $\ba$ and $\bb$ be the vertices of the opposite edge. We want to show that the projection on the edge $\bp_2-\bp_3$ of the vector shape function evaluated on each point $\by$ is constant.
+\begin{align*}
+(\bbx -\ba) \times (\bbx -\bb) \cdot (\by-\bbx)
+=(\by-\ba) \times ( \by -\bb) \cdot (\by -\bbx)
+\end{align*}
+We see that:
+\begin{align*}
+&(\by-\ba) \times ( \by -\bb) \cdot (\by -\bbx)=\\
+&(\bbx-\ba+\by-\bbx) \times ( \by -\bb) \cdot (\by -\bbx)=\\
+&(\bbx-\ba) \times ( \by -\bb) \cdot (\by -\bbx) +(\by-\bbx) \times ( \by -\bb) \cdot (\by -\bbx)=\\
+&(\bbx-\ba) \times ( \bbx -\bb + \by -\bbx) \cdot (\by -\bbx) +(\by-\bbx) \times ( \by -\bb) \cdot (\by -\bbx)=\\
+&(\bbx-\ba) \times ( \bbx -\bb )  \cdot (\by -\bbx)  + (\bbx-\ba) \times (\by -\bbx) \cdot (\by -\bbx) +(\by-\bbx) \times ( \by -\bb) \cdot (\by -\bbx)
+\end{align*}
+We now use the two following properties:
+\begin{align*}
+&\ba \times \ba =\textbf{0} \\
+&(\ba \times \bb) \cdot \bc =
+(\bb \times \bc) \cdot \ba=
+ (\bc \times \ba) \cdot \bb
+\end{align*}
+and see that the results hold. This means that the shape functionis:
+\begin{align*}
+\begin{cases}
+\bphi_{\ND, \bp_2-\bp_3}= C (\bbx -\bp_0) \wedge (\bbx -\bp_1)\\
+C= \dfrac{1}{(\bp_2-\bp_0)\times (\bp_2-\bp_1)\cdot (\bp_3-\bp_2)}
+\end{cases}
+\end{align*}
+The direction of the edge is in the term $\bp_3-\bp_2$. Inverting $bp_0$ and $\bp_1$ does not change the formula, since numerator and denominator would contemporarily change their sign.
+It is true that:
+\begin{align*}
+\ba \wedge \bb= ||\ba|| ||\bb|| \sin(\theta) \bn
+\end{align*}
+
+ \subsection{Questions}
+ \begin{enumerate}
+ \item Why Gauss-Seidel smooths the high frequencies components? I understand that high eigenvalues are associated to high gradients. But I do not get why, in general, Gauss-Seidel level down quickly eigenfunctions related to high eigenvalues.
+ \item The Hdiv MG acts upon RT and Nedelec element. Actually on curl(H(curl)) that is a subspace of Hdiv. But in the discrete setting it would be curl(Nedelec) that is not a subspace of RT. Simply the dofs are on the edges in the NEdelec case, on the face for the RT. So can I define the operator T:Nedelec$\to$Raviart with some sort of L2 projction? $\int u_{ND} \phi_{RT}=\int u_{RT} \phi_{RT|}$. Indeed it is not a subspace...
+ \item In a LSFEM approach I have both Hdiv and H1, so do I have to smooth the stress and the displacemenet in a different manner? One with Hdiv multigrid, the other with classic multigrid...?
+ \item I have to solve for the displacement and check the constraints on the boundary, then i solve for the stress. Do i have to check the constraints only on the finer level? Furthermore the hybrid Smoothing is such that I "project" the residual of $\mathcal{N}^{\perp}(\text{div},\Omega)$ onto $\mathcal{N}(\text{div})=\textbf{curl}H(\textbf{curl},\Omega)$. So it is a sort of projection, but on the same fine mesh. \\
+ If this smoothing acts only on the stress component, I do not have to check for the displacement. But it is not so clear to me.
+ \end{enumerate}
+ \section{Saddle Point problem}
+ Let be $V$ and $Q$ two Hilbert spaces with the norms $|| \cdot ||_V$ and $|| \cdot ||_Q$.\\
+ Let $a(u,v)$  be a continuous bilinear form on $V \times V$, not necessarily symmetric, that defines a linear continuous operator $A:V->V'$ by:
+ \begin{align*}
+ \langle A u, v \rangle_{V' \times V} = a(u,v) \qquad \forall v \in V, \: \forall u \in V
+ \end{align*}
+ Let $b(v,q)$ be a continuous bilinear form on $V \times Q$, that defines two linear operators $B:V \to Q'$ and $B^t: Q \to V'$:
+ \begin{align*}
+  \langle B v, q \rangle_{Q' \times Q} =  \langle v, B^t q \rangle_{V \times V'}=b(v,q) \qquad \forall q \in V
+ \end{align*}
+ Let $f \in V'$, $g \in Q'$. We want to find $u \in V$, $p \in Q$ solutions of:
+ \begin{align*}
+ \begin{cases}
+ & a(u,v)+b(v,p)=\langle f, v \rangle_{V' \times V}  \qquad \forall v \in V \\
+ & b(u,q)=\langle g, q \rangle_{q \times Q'} \qquad \forall q \in Q
+ \end{cases}
+ \end{align*}
+ \textbf{Theorem}\\
+ Let $g \in Im(B)$, $a(\cdot,\cdot)$ be coercive on $Ker(B)$:
+ \begin{align*}
+ a(v_0,v_0) \geq \alpha_0 ||v_0||_V^2 \qquad \forall v_0 \in Ker(B)
+\end{align*}  
+Then there exists a unique $u \in V$ solution of:
+\begin{align*}
+a(u,v_o)&=\langle f, v_0 \rangle_{V' \times V} \qquad \forall v_0 \in Ker(B)	\\
+Bu&=g
+\end{align*}
+\textbf{Proof}\\
+Since $g \in Im(B)$, one can find a corresponding $u_g$ such that $B  u_g =g$. Then, by setting $u=u_0+u_g$ and taking $v=v_0 \in Ker(B)$:
+\begin{align*}
+a(u_0,v_0)=-a(u_g,v_0)+\langle f, v_0 \rangle \qquad \forall v_0 \in Ker(B)
+\end{align*}
+Therefore, for Lax-Milgram, a sufficient condition for the existence of $u_0$ is the coercivity of$a(\cdot,\cdot)$ on $Ker(B)$. \\
+We have to show that $u=u_0+u_g$ does not depend on the choice of $u_g$. So if $u_2$ satisfies $B u_2=g$ and $u_1$ satisfies $A u_1=f$, we have $u_1-u_2 in Ker(B)$ and $a(u_1-u_2,v_0)=0 \forall v_0 \in Ker(B)$. So $u_1=u_2$.\\\\
+So if the system has a solution $(u,p)$, then for this theorem $u$ exists and is unique. Moreover:
+\begin{align*}
+||u|| \leq ||u_g|| + \frac{1}{\alpha_0} \left[ ||f||_{V'}+||a|| ||u_g|| \right]
+\end{align*} 
+
+
+PETSc SNES example:
+\begin{equation}
+  F\genfrac{(}{)}{0pt}{}{x_0}{x_1} = \genfrac{(}{)}{0pt}{}{xˆ2_0 + x_0 x_1
+- 3}{x_0 x_1 + xˆ2_1 - 6}
+\end{equation}
+\begin{equation}
+  F\genfrac{(}{)}{0pt}{}{x_0}{x_1} = \genfrac{(}{)}{0pt}{}{\sin(3 x_0) + x_0}{x_1}
+\end{equation}
+\section{Subdifferential}
+In finite dimension
+\begin{align*}
+\partial f (x) = \text{conv} \{\psi:\quad f' (x_i) \to \psi, \quad x_i \to x \}
+\end{align*}
+If the functional f is convex:
+\begin{align*}
+\partial (f+g) = \partial f + \partial g\\
+\partial (f-g) \subset \partial f + \partial g\\
+\end{align*}
+for the second case use $f=g$.
+
+
+
+
+
+
+
+\subsection{Nodal Auxiliary Space Preconditioning}
+\begin{itemize}
+\item Find $u \in V$ such that:
+\begin{align*}
+a(u,v)=f(v) \quad \forall v \in V
+\end{align*}
+\item  We define a fictitious space $\bar{V}$ with inner product $\bar{a}(\cdot,\cdot)$ that induces the respective norm.
+\item  A linear continuous and surjective transfer operator $\Pi:\bar{V} \to V$ such that:
+\begin{align*}
+B= \Pi \:\bar{A}^{-1} \Pi^* : V' \to V
+\end{align*}
+\end{itemize}
+\textbf{Fictitious Space Lemma}\\
+Assume $\Pi$ is surjective. Then:
+\begin{enumerate}
+\item  \begin{align*}
+\exists c_0 >0: \forall v \in V:		\quad \exists \bar{v} \in \bar{V}: \qquad v = \Pi \bar{v} \:\wedge \: ||\bar{v}||_{\bar{A}} \leq c_0 ||v||_A =c_0 ||\Pi \bar{v}||_A	
+\end{align*}
+\item \begin{align*}
+\exists c_1 >0: 	 ||\Pi \bar{v}||_A	 \leq c_1 || \bar{v}||_{\bar{A}} \qquad \forall \bar{v} \in \bar{V}
+\end{align*}
+\end{enumerate}
+Then:\\
+\begin{align*}
+c_0^{-2} ||v||_A^2 \leq a(BAv,v) \leq C_1^2 ||v||_A^2
+\end{align*}
+\textit{Proof}\\
+Look at the paper. That is clear.\\\\
+We can also see that:
+\begin{align*}
+k(B A) = \dfrac{\lambda_{max}(BA)}{\lambda_{min}(BA)}\leq (c_0 c_1)^2
+\end{align*}
+So we want $c_0$ and $c_1$ indipendent on $h$. \textbf{RIGHT}?
+\textbf{Definition of the auxiliary spaces}\\
+We define:
+\begin{align*}
+\bar{V}= V \times W_1 \times \cdot \cdot \cdot \times W_j
+\end{align*}
+with the inner products:
+\begin{itemize}
+\item $s(u,v): V \times V : \to \mathbb{R} $ is the smoother.
+\item $\bar{a}(u,v): W_j \times W_j : \to \mathbb{R}$.
+\end{itemize}
+Then the preconditioner is:
+\begin{align*}
+B= S^{-1} + \sum_{j=1}^J \Pi_j \bar{A_j}^{-1} \Pi_j^*
+\end{align*}
+and we have just to proof that:
+\begin{itemize}
+\item Find bound for the transfer operator:
+\begin{align}
+||\Pi_j w_j||_A \leq c_{1,j} \bar{a}(w_j,w_j)^{1/2} \qquad w_j \in W_j 
+\label{ c1_inequality}
+\end{align} 
+\item Investigate continuity of $S^{-1}$:
+\begin{align}
+\exists c_s >0: \qquad ||v||_A \leq c_s s(v,v)^{-1/2} \qquad \forall v \in V
+\label{ cs_inequality}
+\end{align}
+\item $\forall v\in V$, we can write $v=v_0 +\sum_{j=2}^J \Pi_j w_j$ and:
+\begin{equation}
+\label{ c0_inequality}
+s(v_0,v_0)+\sum_{j=1}^J \bar{a}_j(w_j,w_j) \leq c_0^2 ||v||_A^2
+\end{equation}
+\end{itemize}
+Then the inequality on the condition number becomes:
+\begin{align*}
+k(BA)\leq c_0^2(c_s^2+ c_1^2 + \cdot \cdot \cdot + c_j^2)
+\end{align*}
+\textbf{Stable Lemma decomposition}\\
+\begin{align*}
+\exists R \in L(H((D,\Omega),H^1(\Omega)), \qquad
+\exists Z \in L(H((D,\Omega),H(D^{-},\Omega)), \qquad
+\exists C=C(\Omega) >0
+\end{align*}
+Then:
+\begin{align*}
+\begin{cases}
+ R + D^{-} Z =I  \qquad \qquad \text{on} \quad H(D,\Omega)\\
+||R v||_{H^1} \leq C ||D v||_L^2\\
+||Z v ||_{H(D^{-},\Omega)}\leq C ||v||_{H(D,\Omega)}
+\end{cases}
+\end{align*}
+We want to apply the fictitious space lemma to:
+\begin{align*}
+B= I  (I -\Delta)^{-1} I + D^{-} (I+ (D^{-})^{*} D^{-}) (D^{-})^{*}
+\end{align*}
+So that:
+\begin{itemize}
+\item $\bar{a}(u,v)=(u,v)+(D u, D v)$, $\Pi = D: H(D^{-},\Omega) \to H(D,\Omega) $. We want to show that:
+\begin{align*}
+\dfrac{1}{c_1}  ||D^{-} v ||_{H(D,\Omega)}\leq ||v||_{H(D^{-},\Omega)}\leq c_0 ||D^{-} v||_{H(D,\Omega)}
+\end{align*}
+We can show that $c_1=1$, since:
+\begin{align*}
+||D^{-} v ||_{H(D,\Omega)}=||D D^{-} v||_{L^2} +  || D^{-} v||_{L^2} = || D^{-} v||_{L^2}\leq ||v||_L^2 + ||D^{-} v||_L^2=||v||_{H(D^{-},\Omega)}
+\end{align*}
+For the same reason, we can now simply show that:
+\begin{align*}
+||v||_{H(D^{-},\Omega)}\leq c_0 || D^{-} v||_{L^2}
+\end{align*}
+where this inequality derives from the previous lemma, with $c_0=C(\Omega) \perp h$:
+\begin{align*}
+||Z \bar{v}||_{H(D^{-},\Omega)}\leq ||Z|| \:||\bar{v}||_{H_(D,\Omega)}
+\end{align*}
+This means that $c_1=1$ and $c_0=||Z||$.
+\item $s(u,v)= (u,v)+(\nabla u,\nabla v)$, $\Pi=I: H^1(\Omega) \to H(D,\Omega)$. We want to show that:
+\begin{align*}
+\dfrac{1}{c_1}  ||I v ||_{H(D,\Omega)}\leq ||v||_{H^1(\Omega)}\leq c_0 || I v||_{H(D,\Omega)}
+\end{align*}
+For some reason that are not clear to me:
+\begin{align*}
+  || I v ||_{H(D,\Omega)}\leq ||v||_{H^1(\Omega)} \to c_1=1
+\end{align*}
+Indeed $c_1=2$. For
+\begin{itemize}
+\item $D=\nabla$: $c_1=1$.
+\item $D=\bcurl$: $c=\sqrt{2}$:
+\begin{align*}
+\int \bcurl F  \cdot \bcurl F &= \int (F_{z,y}-F_{y,z})^2+
+ \int (F_{z,x}-F_{y,x})^2+ \int (F_{x,y}-F_{x,z})^2 \\
+ & \leq
+ 2 \int  \left[ F_{z,y}^2F_{y,z}^2+
+F_{z,x}^2+F_{y,x}^2+ F_{x,y}^2+F_{x,z}^2 \right] \\
+&\leq 2 \int \nabla F \cdot \nabla F
+\end{align*}
+\item $D=\text{div}$: $c=\sqrt{3}$:
+\begin{align*}
+\int \text{div} F  \text{div}  F &= \int (F_{x,x}+F_{y,y}+F_{z,z})^2 \\
+ & = \int F_{x,x}^2+F_{y,y}^2+F_{z,z}^2 +2  F_{x,x}  F_{y,y} +2  F_{x,x}  F_{z,z} +2  F_{z,z}  F_{y,y} \\
+ &\leq \int (F_{x,x}+  F_{y,y} ) ^2 +(F_{x,x} + F_{z,z} )^2+(F_{z,z} + F_{y,y})^2 - \left[ F_{x,x}^2+F_{y,y}^2+F_{z,z}^2 \right]\\
+ & \leq 3 \int \nabla F \cdot \nabla F
+\end{align*}
+\end{itemize}
+Then we could define $c_1=\sqrt{3}$. But what is really important is that is not dependent on $\Omega$ and $h$. For the other inequality:
+\begin{align*}
+|| R v||_{H^1(\Omega)} \leq ||R|| ||v||_{H(D,\Omega)}
+\end{align*}
+\end{itemize}
+So globally we would have:
+\begin{align*}
+\lambda(BA) \leq \sqrt{3} \left(||R||^2 + ||Z||^2 \right)
+\end{align*}
+
+\textbf{Helmoltz-Decomposition}\\
+We have created a preconditioner that works in the infinite-dimensional case, but we have to move to the finite one. In particular we want to use the Helmoltz decomposition:
+\begin{align*}
+H(D,\Omega)= H(d0,\Omega) \oplus  H(d0,\Omega)^{\perp}
+\end{align*}
+The $\RT$ and $\ND$ spaces satisfy the exact sequence property as well as their continuous counterpart. This means that for $\Omega$ homotopy equivalent to a ball:
+\begin{align*}
+V_h(D0)={v_h\in V_h(D): D v_h=0}=D^{-} V_h(D^{-})
+\end{align*}
+We can also define nodal interpolation operators $\Pi_h^D: H^1(\Omega) \to V_h(D)$. In general the input space could be something else,but for our purpose (NODAL AUXILIARY SPACE) it is sufficient to define it on $H^1(\Omega)$ (CREDO).
+\begin{align*}
+\begin{cases}
+H_h^{\nabla} \bv = \sum_{n \in  \mathcal{N}_h} \bv(\bbx_{n})  \bb_n \\
+H_h^{\bcurl} \bv = \sum_{e \in  \mathcal{E}_h} \left( \int_e \bv \cdot \bt \:ds \right) \bb_e \\
+H_h^{\text{div}} \bv = \sum_{f \in  \mathcal{F}_h} \left( \int_f \bv \cdot \bn\: ds \right) \bb_f\\
+\end{cases}
+\end{align*}
+The nodal auxiliary space is $\left(P^1,P^1,P^1 \right)=S_h \subset \bH^1(\Omega)$. On the domain of $\Pi_h^D$ it is true that:
+\begin{align*}
+D \Pi_h^D = \Pi_h^{D^+} D
+\end{align*}
+Furthermore since $ D S_h \subset D V_h(D)$:
+\begin{align*}
+D \Pi_h^D \psi_h = \Pi_h^{D^+} D \psi_h = D \psi_h \qquad \psi_h \in S_h
+\end{align*}
+Their discrete counterpart $\Pi_h^D: S_h \to V_h(D)$ can be defined as follows:
+\begin{align*}
+H_h^{\bcurl} \bv_h&= \sum_{e \in \mathcal{E}_h} \left(\int_e \bv_h \cdot \bt \right) \bb_e \\&= 
+\sum_{e \in \mathcal{E}_h}\left(\int_e\sum_{n \in \mathcal{N}_h}  \bV_n   \cdot \bt \right) \bb_e \\&= 
+\sum_{e \in \mathcal{E}_h} \left[\int_e  \left( \bV_{n_1}  + \bV_{n_2}  \right) \cdot \bt \right] \bb_e \\&= 
+\sum_{e \in \mathcal{E}_h} E_e \bb_e 
+\end{align*}
+Since the tangent vector $\bt$ is constant and the vector lagrange shape functions are linear, the result of edge-coefficient becomes:
+\begin{align*}
+E_e = \dfrac{|e|}{2}\left( \bV_{n_1}  + \bV_{n_2}\right) \cdot \bt
+\end{align*}
+A similar path of reasoning can be followed for the other projection operator. This means that:
+\begin{align*}
+H_h^{\text{div}} \bv_h&= \sum_{f \in \mathcal{F}_h} \left(\int_f \bv_h \cdot \bn \right) \bb_f \\&= 
+\sum_{f \in \mathcal{F}_h}\left(\int_f \sum_{n \in \mathcal{N}_h}  \bV_n   \cdot \bn \right) \bb_f \\&= 
+\sum_{f \in \mathcal{F}_h} \left[\int_f  \left( \bV_{n_1}  + \bV_{n_2} +\bV_{n_3} \right) \cdot \bn \right] \bb_f \\&= 
+\sum_{f \in \mathcal{F}_h} F_f \bb_f 
+\end{align*}
+\begin{align*}
+F_f = \dfrac{|F|}{3}\left( \bV_{n_1}  + \bV_{n_2} + \bV_{n_3}\right) \cdot  \bn
+\end{align*}
+\subsection{Curl-Preconditioner}
+The proposed preconditioner for the $\bcurl$-case:
+\begin{align*}
+\bB_{\bcurl,h}&= \bD _A^{-1}+\bP_{\bcurl} (\bL+ \tau \bM)^{-1}\bP_{\bcurl}^T+ \tau^{-1} \bG (-\boldsymbol{\Delta} )^{-1}\bG^T
+\end{align*}
+\begin{itemize}
+\item $W_1=S_h$; $\bar{a}(\bpsi_h,\bpsi_h)=||\bpsi_h||_{H^1}^2+\tau ||\bpsi_h||_{L^2}^2$; $\Pi_1=\Pi_h^{\bcurl}$
+\item $W_2=V_h(D^{-})$; $\bar{a}(p_h,p_h)=\tau |p_h|_{H^1}^2  $; $\Pi_2=D^{-}$
+\end{itemize}
+\begin{center}
+  \begin{tabular}{ | l | l | l |}
+    \hline
+    $W$ & $\bar{a}(\cdot,\cdot) $& $\Pi$ \\ \hline
+    $S_h$ & $ ||\bpsi_h||_{H^1}^2+\tau ||\bpsi_h||_{L^2}^2$ & $\Pi_h^{\bcurl}$ \\ \hline
+    $ V_h(D^{-})$ &$\tau |p_h|_{H^1}^2 $  & $D^{-}$ \\
+    \hline
+  \end{tabular}
+\end{center}
+So we have to check that:
+\begin{align*}
+s(\tilde{\bv},\tilde{\bv})+( \psi_h , \psi_h)_{H^1}+\tau (\bcurl p_h ,\bcurl p_h)_{L^2}\lesssim || v_h||_A^2\\
+\end{align*}
+and this is implied by: 
+\begin{align*}
+\sum_{\bb \in \mathcal{B}(D)} ||\bv_{\bb} ||_A^2 + || \bpsi_h||_{H^1}^2+||D^{-} p_h||_A^2 \lesssim || v_h||_A^2
+\end{align*}
+since $||D^{-}p_h||_A=\tau ||D^{-}p_h||_{L^2}+ ||D D^{-}p_h||_{L^2}
+=\tau ||D^{-}p_h||_{L^2}=\tau (\bcurl p_h ,\bcurl p_h)_{L^2}$. Therefore we have found that $c_0 \perp h$.\\
+Now we have to show that the same holds also for $c_s$, $c_1$, $c_2$. In particular we have to proof that $||\Pi w||_A^2 \leq C ||w||_{\bar{A}}^2$:
+\begin{itemize}
+\item $||D^{-} p_h||_{A}^2=\tau || D^{-} p_h ||_{L^2}^2 + || D D^{-} p_h  ||_{L^2}^2 \leq  \tau || D^{-} p_h  ||_{L^2}^2 +  ||  p_h  ||_{L^2}^2= || p_h  ||_{\bar{A}}^2 $ (so $c_0=1$)
+\item $||\Pi^D \bpsi||_A^2=\tau ||\Pi^D \bpsi||_{L^2}^2 + ||\nabla\Pi^D \bpsi||_{L^2}^2  \lesssim || \nabla \bpsi ||_{L^2}^2+|| \bpsi ||_{L^2}^2= || \bpsi ||_{H^1(\Omega)}^2$ (look at 4.11 of the paper)
+\item For the first term the inequality $||\bv_h||^2\leq c_s s(\bv_,\bv_h)$ follows from 7.2. Note that in the continuum Jacobi smoother means to make the scalar product on each basis.
+\end{itemize}
+\subsection{Div-Preconditioner}
+We have:
+\begin{align*}
+\bv_h=\sum_{\bp \in \mathcal{B}(\text{div})} \bv_{\bb} + \Pi_h^{\text{div}} \bpsi_h + \bcurl p_h=
+\sum_{\bp \in \mathcal{B}(\text{div})}\bv_{\bb}+ 
+\Pi_h^{\text{div}} \bpsi_h + 
+\sum_{\bq \in \mathcal{B}  (\bcurl )  } \bcurl p_{\bq} + \bcurl \bPhi_h
+\end{align*}
+Therefore the preconditioner is:
+\begin{align*}
+\bB_{\text{div}} =\bD_A^{-1} + \bP_{\text{div}} (\bL + \tau \bM)^{-1} \bP_{\text{div}}^T +\bC \bD_{\bcurl}^{-1}\bC^T+\tau^{-1} \bC \bP_{\bcurl}  (\bL + \tau \bM)^{-1} \bP_{\bcurl}^T \bC^T
+\end{align*}
+
+\end{document}  

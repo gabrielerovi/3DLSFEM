@@ -1,0 +1,104 @@
+\begin{thebibliography}{10}
+
+\bibitem{AW97}
+Douglas Arnold, Richard Falk, and Ragnar Winther.
+\newblock Preconditioning in h (div) and applications.
+\newblock {\em Mathematics of Computation of the American Mathematical
+  Society}, 66(219):957--984, 1997.
+
+\bibitem{AFW00}
+Douglas~N Arnold, Richard~S Falk, and Ragnar Winther.
+\newblock Multigrid in h (div) and h (curl).
+\newblock {\em Numerische Mathematik}, 85(2):197--217, 2000.
+
+\bibitem{Arn}
+Ragnar~Winther Arnold~Douglas, Richard S.~Falk.
+\newblock Multigrid preconditioning in h(div) on non-convex polygons.
+
+\bibitem{Bad14}
+Lori Badea.
+\newblock Global convergence rate of a standard multigrid method for
+  variational inequalities.
+\newblock {\em IMA Journal of Numerical Analysis}, 34(1):197--216, 2014.
+
+\bibitem{BMM97}
+Markus Berndt, Thomas~A Manteuffel, and Stephen~F McCormick.
+\newblock Local error estimates and adaptive refinement for first-order system
+  least squares (fosls).
+\newblock {\em Electron. Trans. Numer. Anal}, 6:35--43, 1997.
+
+\bibitem{Boc09}
+Pavel~B Bochev and Max~D Gunzburger.
+\newblock {\em Least-squares finite element methods}, volume 166.
+\newblock Springer Science \& Business Media, 2009.
+
+\bibitem{BF12}
+Franco Brezzi and Michel Fortin.
+\newblock {\em Mixed and hybrid finite element methods}, volume~15.
+\newblock Springer Science \& Business Media, 2012.
+
+\bibitem{CS04}
+Zhiqiang Cai and Gerhard Starke.
+\newblock Least-squares methods for linear elasticity.
+\newblock {\em SIAM Journal on Numerical Analysis}, 42(2):826--842, 2004.
+
+\bibitem{Hip97}
+Ralf Hiptmair.
+\newblock Multigrid method for h (div) in three dimensions.
+\newblock {\em Electron. Trans. Numer. Anal}, 6(1):133--152, 1997.
+
+\bibitem{HX07}
+Ralf Hiptmair and Jinchao Xu.
+\newblock Nodal auxiliary space preconditioning in h (curl) and h (div) spaces.
+\newblock {\em SIAM Journal on Numerical Analysis}, 45(6):2483--2509, 2007.
+
+\bibitem{Kik88}
+Noboru Kikuchi and John~Tinsley Oden.
+\newblock {\em Contact problems in elasticity: a study of variational
+  inequalities and finite element methods}, volume~8.
+\newblock siam, 1988.
+
+\bibitem{Kor94}
+Ralf Kornhuber.
+\newblock Monotone multigrid methods for elliptic variational inequalities i.
+\newblock {\em Numerische Mathematik}, 69(2):167--184, 1994.
+
+\bibitem{KK01}
+Ralf Kornhuber and Rolf Krause.
+\newblock Adaptive multigrid methods for signorini?s problem in linear
+  elasticity.
+\newblock {\em Computing and Visualization in Science}, 4(1):9--20, 2001.
+
+\bibitem{KMS17}
+Rolf Krause, Benjamin M{\"u}ller, and Gerhard Starke.
+\newblock An adaptive least-squares mixed finite element method for the
+  signorini problem.
+\newblock {\em Numerical Methods for Partial Differential Equations},
+  33(1):276--289, 2017.
+
+\bibitem{Sta00}
+Gerhard Starke.
+\newblock Gauss--newton multilevel methods for least-squares finite element
+  computations of variably saturated subsurface flow.
+\newblock {\em Computing}, 64(4):323--338, 2000.
+
+\bibitem{Sta07}
+Gerhard Starke.
+\newblock An adaptive least-squares mixed finite element method for
+  elasto-plasticity.
+\newblock {\em SIAM Journal on Numerical Analysis}, 45(1):371--388, 2007.
+
+\bibitem{XCN09}
+Jinchao Xu, Long Chen, and Ricardo~H Nochetto.
+\newblock Optimal multilevel methods for h (grad), h (curl), and h (div)
+  systems on graded and unstructured grids.
+\newblock In {\em Multiscale, nonlinear and adaptive approximation}, pages
+  599--659. Springer, 2009.
+
+\bibitem{YL97}
+Suh-Yuh Yang and Jinn-Liang Liu.
+\newblock Least-squares finite element methods for the elasticity problem.
+\newblock {\em Journal of computational and applied mathematics}, 87(1):39--60,
+  1997.
+
+\end{thebibliography}

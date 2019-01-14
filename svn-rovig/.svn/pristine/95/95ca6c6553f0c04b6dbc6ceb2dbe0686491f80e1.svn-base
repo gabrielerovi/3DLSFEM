@@ -1,0 +1,112 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyperFirstAtBeginDocument{\AtBeginDocument}
+\HyperFirstAtBeginDocument{\ifx\hyper@anchor\@undefined
+\global\let\oldcontentsline\contentsline
+\gdef\contentsline#1#2#3#4{\oldcontentsline{#1}{#2}{#3}}
+\global\let\oldnewlabel\newlabel
+\gdef\newlabel#1#2{\newlabelxx{#1}#2}
+\gdef\newlabelxx#1#2#3#4#5#6{\oldnewlabel{#1}{{#2}{#3}}}
+\AtEndDocument{\ifx\hyper@anchor\@undefined
+\let\contentsline\oldcontentsline
+\let\newlabel\oldnewlabel
+\fi}
+\fi}
+\global\let\hyper@last\relax 
+\gdef\HyperFirstAtBeginDocument#1{#1}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\citation{CS04}
+\citation{Sta07}
+\citation{CS04}
+\citation{KMS17}
+\citation{KK01}
+\citation{XCN09}
+\citation{Hip97}
+\citation{HX07}
+\citation{Vas12}
+\citation{AW97}
+\citation{AFW00}
+\citation{Arn}
+\citation{Sta00}
+\citation{Kor94}
+\citation{Bad14}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}}
+\citation{Kik88}
+\citation{CS04}
+\citation{BF12}
+\citation{CS04}
+\citation{Boc09}
+\citation{BMM97}
+\citation{YL97}
+\citation{CS04}
+\citation{KMS17}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Definition of the problem }{2}{section.2}}
+\citation{CS04}
+\newlabel{augmentedfunctional}{{1}{3}{Definition of the problem}{equation.2.1}{}}
+\newlabel{MinimizationProblem}{{3}{3}{Definition of the problem}{equation.2.3}{}}
+\newlabel{LScontactVI}{{4}{3}{Definition of the problem}{equation.2.4}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Existence and uniqueness of the solution}{3}{section.3}}
+\citation{Hip97}
+\citation{HX07}
+\citation{AW97}
+\citation{AFW00}
+\citation{Arn}
+\citation{Sta00}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Monotone Multilevel}{5}{section.4}}
+\newlabel{interpolations}{{6}{5}{Monotone Multilevel}{equation.4.6}{}}
+\newlabel{normalinterpolations}{{7}{5}{Monotone Multilevel}{equation.4.7}{}}
+\newlabel{discreteminimizationproblem}{{8}{5}{Monotone Multilevel}{equation.4.8}{}}
+\newlabel{exactlocalproblem}{{9}{6}{Monotone Multilevel}{equation.4.9}{}}
+\newlabel{exactlocalconvexset}{{11}{6}{Monotone Multilevel}{equation.4.11}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Non-linear projection operators and coarse constraints}{7}{section.5}}
+\newlabel{approximateconvexsets}{{12}{7}{Non-linear projection operators and coarse constraints}{equation.5.12}{}}
+\newlabel{approximatelocalproblem}{{14}{7}{Non-linear projection operators and coarse constraints}{equation.5.14}{}}
+\newlabel{coarsegapfunctionconditionP1}{{15}{7}{Non-linear projection operators and coarse constraints}{equation.5.15}{}}
+\citation{Kor94}
+\newlabel{coarsegapfunctionconditionP1LinearInterpolation}{{16}{8}{Non-linear projection operators and coarse constraints}{equation.5.16}{}}
+\newlabel{coarsegapfunctionconditionP1MeanInterpolation}{{17}{8}{Non-linear projection operators and coarse constraints}{equation.5.17}{}}
+\newlabel{coarsegapfunctionconditionP1MinInterpolation}{{18}{8}{Non-linear projection operators and coarse constraints}{equation.5.18}{}}
+\newlabel{nonlinearprojectionun}{{19}{8}{Non-linear projection operators and coarse constraints}{equation.5.19}{}}
+\newlabel{nonlinearprojectionsigman}{{20}{8}{Non-linear projection operators and coarse constraints}{equation.5.20}{}}
+\newlabel{coarseconstraintun}{{21}{8}{Non-linear projection operators and coarse constraints}{equation.5.21}{}}
+\newlabel{coarseconstraintsigman}{{22}{8}{Non-linear projection operators and coarse constraints}{equation.5.22}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Truncated Basis}{8}{section.6}}
+\newlabel{activedofs}{{23}{8}{Truncated Basis}{equation.6.23}{}}
+\newlabel{truncatedbasis}{{24}{9}{Truncated Basis}{equation.6.24}{}}
+\newlabel{nodesorfacesincontactinf}{{25}{9}{Truncated Basis}{equation.6.25}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Numerical Experiments}{9}{section.7}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Square mesh. Compressible material.\relax }}{10}{figure.caption.1}}
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{ResidualRateSquare}{{1}{10}{Square mesh. Compressible material.\relax }{figure.caption.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Square mesh. Compressible material.\relax }}{10}{figure.caption.1}}
+\newlabel{ResidualRateSquare}{{2}{10}{Square mesh. Compressible material.\relax }{figure.caption.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces On the left, contact displacement components. On the right: the contact pressure. First row: uniform mesh for $(mu, \lambda )=(1,1)$. Second row: non uniform mesh for $(mu, \lambda )=(1,1)$. Third row: uniform mesh for $(mu, \lambda )=(1,\infty )$. Fourth row: non uniform mesh for $(mu, \lambda )=(1,\infty )$.\relax }}{11}{figure.caption.2}}
+\newlabel{HertzIncompressibleNonUniform}{{3}{11}{On the left, contact displacement components. On the right: the contact pressure. First row: uniform mesh for $(mu, \lambda )=(1,1)$. Second row: non uniform mesh for $(mu, \lambda )=(1,1)$. Third row: uniform mesh for $(mu, \lambda )=(1,\infty )$. Fourth row: non uniform mesh for $(mu, \lambda )=(1,\infty )$.\relax }{figure.caption.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Uniform mesh.\relax }}{12}{figure.caption.3}}
+\newlabel{ResidualRateUniform}{{4}{12}{Uniform mesh.\relax }{figure.caption.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Non uniform mesh.\relax }}{12}{figure.caption.3}}
+\newlabel{ResidualRateNonUniform}{{5}{12}{Non uniform mesh.\relax }{figure.caption.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Very non uniform mesh (\textbf  {OVVIAMENTE} CAMBIA).\relax }}{12}{figure.caption.3}}
+\newlabel{ResidualRateNonUniform}{{6}{12}{Very non uniform mesh (\textbf {OVVIAMENTE} CAMBIA).\relax }{figure.caption.3}{}}
+\bibstyle{plain}
+\bibdata{biblio}
+\bibcite{AW97}{1}
+\bibcite{AFW00}{2}
+\bibcite{Arn}{3}
+\bibcite{Bad14}{4}
+\bibcite{BMM97}{5}
+\bibcite{Boc09}{6}
+\bibcite{BF12}{7}
+\bibcite{CS04}{8}
+\bibcite{Hip97}{9}
+\bibcite{HX07}{10}
+\bibcite{Kik88}{11}
+\bibcite{Vas12}{12}
+\bibcite{Kor94}{13}
+\bibcite{KK01}{14}
+\bibcite{KMS17}{15}
+\bibcite{Sta00}{16}
+\bibcite{Sta07}{17}
+\bibcite{XCN09}{18}
+\bibcite{YL97}{19}

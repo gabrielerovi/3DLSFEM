@@ -1,0 +1,102 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyperFirstAtBeginDocument{\AtBeginDocument}
+\HyperFirstAtBeginDocument{\ifx\hyper@anchor\@undefined
+\global\let\oldcontentsline\contentsline
+\gdef\contentsline#1#2#3#4{\oldcontentsline{#1}{#2}{#3}}
+\global\let\oldnewlabel\newlabel
+\gdef\newlabel#1#2{\newlabelxx{#1}#2}
+\gdef\newlabelxx#1#2#3#4#5#6{\oldnewlabel{#1}{{#2}{#3}}}
+\AtEndDocument{\ifx\hyper@anchor\@undefined
+\let\contentsline\oldcontentsline
+\let\newlabel\oldnewlabel
+\fi}
+\fi}
+\global\let\hyper@last\relax 
+\gdef\HyperFirstAtBeginDocument#1{#1}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\citation{CS04}
+\citation{Sta07}
+\citation{CS04}
+\citation{KMS17}
+\citation{KK01}
+\citation{XCN09}
+\citation{Hip97}
+\citation{HX07}
+\citation{AW97}
+\citation{AFW00}
+\citation{Arn}
+\citation{Sta00}
+\citation{Kor94}
+\citation{Bad14}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}}
+\citation{Kik88}
+\citation{CS04}
+\citation{BF12}
+\citation{CS04}
+\citation{Boc09}
+\citation{BMM97}
+\citation{YL97}
+\citation{CS04}
+\citation{KMS17}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Definition of the problem }{2}{section.2}}
+\newlabel{augmentedfunctional}{{1}{2}{Definition of the problem}{equation.2.1}{}}
+\citation{CS04}
+\newlabel{MinimizationProblem}{{4}{3}{Definition of the problem}{equation.2.4}{}}
+\newlabel{LScontactVI}{{5}{3}{Definition of the problem}{equation.2.5}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Existence and uniqueness of the solution}{3}{section.3}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Monotone Multilevel}{4}{section.4}}
+\citation{Hip97}
+\citation{HX07}
+\citation{AW97}
+\citation{AFW00}
+\citation{Arn}
+\citation{Sta00}
+\newlabel{interpolations}{{7}{5}{Monotone Multilevel}{equation.4.7}{}}
+\newlabel{normalinterpolations}{{8}{5}{Monotone Multilevel}{equation.4.8}{}}
+\newlabel{discreteminimizationproblem}{{9}{5}{Monotone Multilevel}{equation.4.9}{}}
+\newlabel{exactlocalproblem}{{10}{6}{Monotone Multilevel}{equation.4.10}{}}
+\newlabel{exactlocalconvexset}{{12}{6}{Monotone Multilevel}{equation.4.12}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Non-linear projection operators and coarse constraints}{7}{section.5}}
+\newlabel{approximateconvexsets}{{13}{7}{Non-linear projection operators and coarse constraints}{equation.5.13}{}}
+\newlabel{approximatelocalproblem}{{15}{7}{Non-linear projection operators and coarse constraints}{equation.5.15}{}}
+\newlabel{coarsegapfunctionconditionP1}{{16}{7}{Non-linear projection operators and coarse constraints}{equation.5.16}{}}
+\citation{Kor94}
+\newlabel{coarsegapfunctionconditionP1LinearInterpolation}{{17}{8}{Non-linear projection operators and coarse constraints}{equation.5.17}{}}
+\newlabel{coarsegapfunctionconditionP1MeanInterpolation}{{18}{8}{Non-linear projection operators and coarse constraints}{equation.5.18}{}}
+\newlabel{coarsegapfunctionconditionP1MinInterpolation}{{19}{8}{Non-linear projection operators and coarse constraints}{equation.5.19}{}}
+\newlabel{nonlinearprojectionun}{{20}{8}{Non-linear projection operators and coarse constraints}{equation.5.20}{}}
+\newlabel{nonlinearprojectionsigman}{{21}{8}{Non-linear projection operators and coarse constraints}{equation.5.21}{}}
+\newlabel{coarseconstraintun}{{22}{8}{Non-linear projection operators and coarse constraints}{equation.5.22}{}}
+\newlabel{coarseconstraintsigman}{{23}{8}{Non-linear projection operators and coarse constraints}{equation.5.23}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Truncated Basis}{8}{section.6}}
+\newlabel{activedofs}{{24}{8}{Truncated Basis}{equation.6.24}{}}
+\newlabel{truncatedbasis}{{25}{9}{Truncated Basis}{equation.6.25}{}}
+\newlabel{nodesorfacesincontactinf}{{26}{9}{Truncated Basis}{equation.6.26}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Numerical Experiments}{9}{section.7}}
+\bibstyle{plain}
+\bibdata{biblio}
+\bibcite{AW97}{1}
+\bibcite{AFW00}{2}
+\bibcite{Arn}{3}
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{ResidualRateUniform}{{\caption@xref {ResidualRateUniform}{ on input line 715}}{10}{Numerical Experiments}{figure.caption.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Uniform mesh.\relax }}{10}{figure.caption.1}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Non uniform mesh.\relax }}{10}{figure.caption.1}}
+\newlabel{ResidualRateNonUniform}{{2}{10}{Non uniform mesh.\relax }{figure.caption.1}{}}
+\bibcite{Bad14}{4}
+\bibcite{BMM97}{5}
+\bibcite{Boc09}{6}
+\bibcite{BF12}{7}
+\bibcite{CS04}{8}
+\bibcite{Hip97}{9}
+\bibcite{HX07}{10}
+\bibcite{Kik88}{11}
+\bibcite{Kor94}{12}
+\bibcite{KK01}{13}
+\bibcite{KMS17}{14}
+\bibcite{Sta00}{15}
+\bibcite{Sta07}{16}
+\bibcite{XCN09}{17}
+\bibcite{YL97}{18}

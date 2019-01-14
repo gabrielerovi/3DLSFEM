@@ -1,0 +1,17 @@
+load "medit"
+load "msh3" 
+include "cube.idp"
+load "tetgen" 
+load "mmg3d-v4.0"                                                               
+include "MeshSurface.idp"
+
+int[int]  Nxyz=[1,1,1];
+real [int,int]  Bxyz=[[0.,.1],[0.,.1],[0.,0.1]];
+int [int,int]  Lxyz=[[1,1],[1,1],[1,1]];
+mesh3 Th=Cube(Nxyz,Bxyz,Lxyz);
+
+ Th=Sphere(1,1,1,1); 
+
+plot(Th);
+
+savemesh(Th,"Sphere.mesh");

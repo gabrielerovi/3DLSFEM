@@ -1,0 +1,68 @@
+\BOOKMARK [1][-]{section.1}{Theorem \(Badea, 2013\)}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{Assumption I\)}{section.1}% 2
+\BOOKMARK [3][-]{subsubsection.1.1.1}{Coercivity of the LS functional for homogeneous BC}{subsection.1.1}% 3
+\BOOKMARK [3][-]{subsubsection.1.1.2}{Coercivity}{subsection.1.1}% 4
+\BOOKMARK [3][-]{subsubsection.1.1.3}{Convexity of the LS contact functional}{subsection.1.1}% 5
+\BOOKMARK [3][-]{subsubsection.1.1.4}{Other property}{subsection.1.1}% 6
+\BOOKMARK [2][-]{subsection.1.2}{Assumption II\)}{section.1}% 7
+\BOOKMARK [2][-]{subsection.1.3}{Assumption III\)}{section.1}% 8
+\BOOKMARK [2][-]{subsection.1.4}{Assumption IV\)}{section.1}% 9
+\BOOKMARK [3][-]{subsubsection.1.4.1}{Non-Linear Interpolation Operator RT0}{subsection.1.4}% 10
+\BOOKMARK [3][-]{subsubsection.1.4.2}{Non-Linear interpolation Operator for P1 }{subsection.1.4}% 11
+\BOOKMARK [2][-]{subsection.1.5}{Computations}{section.1}% 12
+\BOOKMARK [1][-]{section.2}{LS contact formulation}{}% 13
+\BOOKMARK [1][-]{section.3}{Normal-tangent Coordinate system}{}% 14
+\BOOKMARK [1][-]{section.4}{Gap function on coarser levels}{}% 15
+\BOOKMARK [2][-]{subsection.4.1}{Interpolation for P1 on C}{section.4}% 16
+\BOOKMARK [2][-]{subsection.4.2}{Interpolation for RT0 on C}{section.4}% 17
+\BOOKMARK [1][-]{section.5}{Truncated Basis}{}% 18
+\BOOKMARK [1][-]{section.6}{Numerical Experiments}{}% 19
+\BOOKMARK [1][-]{section.7}{Idea: Monotone Parallel Gauss-Seidel}{}% 20
+\BOOKMARK [1][-]{section.8}{Monotone Multigrid}{}% 21
+\BOOKMARK [2][-]{subsection.8.1}{Discrete approximation property for RT0}{section.8}% 22
+\BOOKMARK [1][-]{section.9}{Proofs}{}% 23
+\BOOKMARK [1][-]{section.10}{RERELOAD AGAIN}{}% 24
+\BOOKMARK [1][-]{section.11}{RELOAD EVERYTHING}{}% 25
+\BOOKMARK [1][-]{section.12}{Decomposition??????????}{}% 26
+\BOOKMARK [1][-]{section.13}{Bounds for Operators}{}% 27
+\BOOKMARK [1][-]{section.14}{Bound L2 norm with divergence FOR SINGLE QUANTITY}{}% 28
+\BOOKMARK [1][-]{section.15}{Bound L2 norm with divergence}{}% 29
+\BOOKMARK [1][-]{section.16}{Proof for the convergence of the 1-level method}{}% 30
+\BOOKMARK [1][-]{section.17}{Bound 69645069 uji86422285 Hdiv2 \040enum1h69645069 uj86422285 Hdiv }{}% 31
+\BOOKMARK [1][-]{section.18}{Tai}{}% 32
+\BOOKMARK [1][-]{section.19}{Contact boundary}{}% 33
+\BOOKMARK [1][-]{section.20}{Poisson equation}{}% 34
+\BOOKMARK [1][-]{section.21}{Dual Linear Elasticity}{}% 35
+\BOOKMARK [1][-]{section.22}{LSFEM Linear Elasticity}{}% 36
+\BOOKMARK [2][-]{subsection.22.1}{Linear elasticity equations}{section.22}% 37
+\BOOKMARK [1][-]{section.23}{Signorini problem: strong formulation}{}% 38
+\BOOKMARK [1][-]{section.24}{Spaces}{}% 39
+\BOOKMARK [1][-]{section.25}{Least squares functionals}{}% 40
+\BOOKMARK [1][-]{section.26}{Solving the functional}{}% 41
+\BOOKMARK [1][-]{section.27}{A posteriori error estimator}{}% 42
+\BOOKMARK [1][-]{section.28}{The least squares functional as an a posteriori estimator: reliability and efficiency}{}% 43
+\BOOKMARK [2][-]{subsection.28.1}{Reliability}{section.28}% 44
+\BOOKMARK [1][-]{section.29}{Efficiency}{}% 45
+\BOOKMARK [1][-]{section.30}{The augmented functional is convex}{}% 46
+\BOOKMARK [1][-]{section.31}{Discretization}{}% 47
+\BOOKMARK [1][-]{section.32}{Raviart Thomas}{}% 48
+\BOOKMARK [1][-]{section.33}{Mass Matrix}{}% 49
+\BOOKMARK [1][-]{section.34}{Essential Boundary Condition}{}% 50
+\BOOKMARK [1][-]{section.35}{MultiGrid}{}% 51
+\BOOKMARK [1][-]{section.36}{Iterative methods by subspace correction[by Xu Jinchao]}{}% 52
+\BOOKMARK [1][-]{section.37}{Multigrid Hdiv}{}% 53
+\BOOKMARK [2][-]{subsection.37.1}{Orthogonal decomposition}{section.37}% 54
+\BOOKMARK [2][-]{subsection.37.2}{Hdiv and Hcurl}{section.37}% 55
+\BOOKMARK [2][-]{subsection.37.3}{Commuting diagram}{section.37}% 56
+\BOOKMARK [2][-]{subsection.37.4}{Smoothing algorithm}{section.37}% 57
+\BOOKMARK [2][-]{subsection.37.5}{Relation between Nedelec and Raviart spaces}{section.37}% 58
+\BOOKMARK [2][-]{subsection.37.6}{Transfer operator}{section.37}% 59
+\BOOKMARK [2][-]{subsection.37.7}{Linear Elasticity NDRT operator}{section.37}% 60
+\BOOKMARK [1][-]{section.38}{Linear elasticity projected on ND space}{}% 61
+\BOOKMARK [2][-]{subsection.38.1}{Questions}{section.38}% 62
+\BOOKMARK [1][-]{section.39}{Saddle Point problem}{}% 63
+\BOOKMARK [1][-]{section.40}{Subdifferential}{}% 64
+\BOOKMARK [2][-]{subsection.40.1}{Nodal Auxiliary Space Preconditioning}{section.40}% 65
+\BOOKMARK [2][-]{subsection.40.2}{Curl-Preconditioner}{section.40}% 66
+\BOOKMARK [2][-]{subsection.40.3}{Div-Preconditioner}{section.40}% 67
+\BOOKMARK [1][-]{section.41}{COARSE SPACE FOR CONTACT BOUNDARY}{}% 68

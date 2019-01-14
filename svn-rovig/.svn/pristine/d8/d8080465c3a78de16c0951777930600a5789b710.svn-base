@@ -1,0 +1,137 @@
+\documentclass[11pt, a4paper]{article}   	% use "amsart" instead of "article" for AMSLaTeX format
+\usepackage{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   		% ... or a4paper or a5paper or ... 
+%\geometry{landscape}                		% Activate for rotated page geometry
+%\usepackage[parfill]{parskip}    		% Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
+								% TeX will automatically convert eps --> pdf in pdflatex		
+\usepackage{amssymb}
+\usepackage{amsmath}
+
+\usepackage{algpseudocode}
+\usepackage{algorithm}
+
+% ref packages
+\usepackage{nameref}
+% folowing  must be in this order
+\usepackage{varioref}
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+\usepackage{booktabs}
+\usepackage {tikz}
+\usetikzlibrary {positioning}
+\definecolor {processblue}{cmyk}{0.96,0,0,0}
+
+
+
+
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{enumitem}   
+\usepackage{subcaption}
+
+\newcommand{\supp}{\operatorname{supp}}
+\newcommand{\dist}{\operatorname{dist}}
+\newcommand{\divr}{\operatorname{div}}
+\newcommand{\tdiv}{\operatorname{div}}
+\newcommand{\ess}{\operatorname{ess}}
+\newcommand{\rotore}{\operatorname{rot}}
+\newcommand{\curl}{\operatorname{\textbf{curl}}}
+\newcommand{\bcurl}{\operatorname{\textbf{curl}}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\bA}{\textbf{A}}
+\newcommand{\ba}{\textbf{a}}
+\newcommand{\bb}{\textbf{b}}
+\newcommand{\bB}{\textbf{B}}
+\newcommand{\bc}{\textbf{c}}
+\newcommand{\bC}{\textbf{C}}
+\newcommand{\bd}{\textbf{d}}
+\newcommand{\bD}{\textbf{D}}
+\newcommand{\be}{\textbf{e}}
+\newcommand{\bE}{\textbf{E}}
+\newcommand{\bff}{\textbf{f}}
+\newcommand{\bF}{\textbf{F}}
+\newcommand{\bg}{\textbf{g}}
+\newcommand{\bG}{\textbf{G}}
+\newcommand{\bi}{\textbf{i}}
+\newcommand{\bI}{\textbf{I}}
+\newcommand{\bj}{\textbf{j}}
+\newcommand{\bJ}{\textbf{J}}
+\newcommand{\bh}{\textbf{h}}
+\newcommand{\bH}{\textbf{H}}
+\newcommand{\bk}{\textbf{k}}
+\newcommand{\bK}{\textbf{K}}
+\newcommand{\bl}{\textbf{l}}
+\newcommand{\bL}{\textbf{L}}
+\newcommand{\blambda}{\boldsymbol{\lambda}}
+\newcommand{\bLambda}{\boldsymbol{\Lambda}}
+\newcommand{\bm}{\textbf{m}}
+\newcommand{\bM}{\textbf{M}}
+\newcommand{\bn}{\textbf{n}}
+\newcommand{\bN}{\textbf{N}}
+\newcommand{\bp}{\textbf{p}}
+\newcommand{\bP}{\textbf{P}}
+\newcommand{\bpi}{\boldsymbol{\pi}}
+\newcommand{\bPi}{\boldsymbol{\Pi}}
+\newcommand{\bo}{\textbf{o}}
+\newcommand{\bq}{\textbf{q}}
+\newcommand{\bQ}{\textbf{Q}}
+\newcommand{\br}{\textbf{r}}
+\newcommand{\bR}{\textbf{R}}
+\newcommand{\bs}{\textbf{s}}
+\newcommand{\bS}{\textbf{S}}
+\newcommand{\btau}{\boldsymbol{\tau}}
+\newcommand{\bt}{\textbf{t}}
+\newcommand{\bv}{\textbf{v}}
+\newcommand{\bV}{\textbf{V}}
+\newcommand{\bw}{\textbf{w}}
+\newcommand{\bW}{\textbf{W}}
+\newcommand{\bu}{\textbf{u}}
+\newcommand{\bU}{\textbf{U}}
+\newcommand{\by}{\textbf{y}}
+\newcommand{\bY}{\textbf{Y}}
+\newcommand{\bbx}{\textbf{x}}
+\newcommand{\bX}{\textbf{X}}
+\newcommand{\bz}{\textbf{z}}
+\newcommand{\bZ}{\textbf{Z}}
+\newcommand{\beps}{\boldsymbol{\varepsilon}}
+\newcommand{\bphi}{\boldsymbol{\phi}}
+\newcommand{\bPhi}{\boldsymbol{\Phi}}
+\newcommand{\bpsi}{\boldsymbol{\psi}}
+\newcommand{\bPsi}{\boldsymbol{\Psi}}
+\newcommand{\bomega}{\boldsymbol{\omega}}
+\newcommand{\bsigma}{\boldsymbol{\sigma}}
+\newcommand{\bSigma}{\boldsymbol{\Sigma}}
+\newcommand{\bxi}{\boldsymbol{\xi}}
+\newcommand{\aaa}{\`a}
+\newcommand{\eee}{\`e}
+\newcommand{\iii}{\`i}
+\newcommand{\ooo}{\`o}
+\newcommand{\uuu}{\`u}
+\newcommand{\aaaa}{\'a}
+\newcommand{\eeee}{\'e}
+\newcommand{\iiii}{\'i}
+\newcommand{\oooo}{\'o}
+\newcommand{\uuuu}{\'u}
+\newcommand{\AAA}{\`A}
+\newcommand{\EEE}{\`E}
+\newcommand{\III}{\`I}
+\newcommand{\OOO}{\`O}
+\newcommand{\UUU}{\`U}
+\newcommand{\AAAA}{\'A}
+\newcommand{\EEEE}{\'E}
+\newcommand{\IIII}{\'I}
+\newcommand{\OOOO}{\'O}
+\newcommand{\UUUU}{\'U}
+\newcommand{\ND}{\mathcal{ND}}
+\newcommand{\RT}{\mathcal{RT}}
+\begin{document}
+${}$\\
+\textbf{Project for a Master Thesis }\\
+Since no analytical solution is known for the general equations of mechanics, we aim for a proper approximation. This can be achieved by choosing a continuum model which then has to be discretized and whose corresponding algebraic system of equations has to be solved. As a continuum model, we consider the least squares weak formulation whose unknowns are the displacement $\bu$ and the stress $\bsigma$. These two variables respectively belong to the standard Sobolev space $H^1$ and less known $H_{\text{div}}$, whose differences will be assimilated by the student.\\
+The discretisation is carried out by means of finite elements. In particular, in addition to the standard $H^1$-conforming lagrange spaces for the displacement $\bu$, also the $H_{\text{div}}$-conforming Raviart-Thomas space will be properly exploited for $\bsigma$. Furthermore the student will appreciate the property of the least-squares functional as an posteriori error estimator. This feature will be fundamental for an adaptive refinement of the mesh. That means that, in order to properly capture the phenomenon, we are able to know where and how much refine the mesh only by evaluating the functional. As the student will verify, such a peculiarity can be very useful for materials which are composite or non linear.
+\end{document}

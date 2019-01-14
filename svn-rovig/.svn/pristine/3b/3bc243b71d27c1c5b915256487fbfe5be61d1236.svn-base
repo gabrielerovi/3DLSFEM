@@ -1,0 +1,282 @@
+clear all
+close all
+clc
+%echo on
+
+% data
+
+parameters =parameters();
+
+
+[mesh,h]=mesh(parameters);
+
+for ii=1:length(mesh)
+vv{ii}=0;
+end
+print_mesh_L(mesh,vv);
+[M_Normal_Tangent] = MatrixOnGammaCwithNormalTangentComponents(mesh{parameters.L});
+
+[maps,graph]=graph_and_maps(mesh);
+L=length(mesh);
+maps=ArnoldMonotoneConstraint(mesh,maps,parameters);
+
+AArnoldLocal=ArnoldLocalAssembling(L,mesh,maps,parameters);
+
+[A,b,AFine,P,Ant,bnt,Antbc,AFinenobc,AFinenobcnt,bnt_lev,Complementarity]=create_system(parameters,mesh,h);
+
+Pnt=[];
+if(parameters.L>1)
+ Pnt=ArnoldPnt(P,mesh);
+end
+
+
+
+% for ii=1:2
+%  
+%      for jj=1:4
+%           Ant{ii,jj}(mesh{L}.E_remove,:)=0;
+%      end
+% 
+%      for jj=1:4
+%      Ant{ii+2,jj}(mesh{L}.N_remove,:)=0;
+%      end
+%  
+%  
+%      for jj=mesh{L}.E_remove
+%           Ant{ii,ii}(jj,jj)=1;
+%      end
+%  
+%      for jj=mesh{L}.N_remove
+%      Ant{ii+2,ii+2}(jj,jj)=1;
+%      end
+%  
+%  end
+ 
+
+ 
+%  EcontBC=0;
+%  type_of_dof=2;
+%  for ii=mesh{L}.E_remove
+%  U_xy=[0;0];
+%  EcontBC=EcontBC+1;
+%  tmp=add_boundary_bc_elasticity2D(U_xy,type_of_dof,mesh{L}.E_label(EcontBC), 0);
+%  coeff = RT_dirichlet_coeff(mesh{L}.E_remove(EcontBC), mesh{L});
+%  jj1=ii;
+%  jj2=ii+mesh{L}.NE;
+%  b(jj1)=tmp(1)/coeff;
+%  b(jj2)=tmp(2)/coeff;
+%  end
+%  
+%  NcontBC=0;
+%  type_of_dof=1;
+%  for ii=mesh{L}.N_remove
+%  U_xy=[0;0];
+%  NcontBC=NcontBC+1;
+%  tmp=add_boundary_bc_elasticity2D(U_xy,type_of_dof,mesh{L}.N_label(NcontBC), 0);
+%  jj1=ii+2*mesh{L}.NE;
+%  jj2=ii+2*mesh{L}.NE+mesh{L}.N;
+%  b(jj1)=tmp(1);
+%  b(jj2)=tmp(2);
+%  end
+ 
+ 
+ 
+ 
+ 
+Constraint = CheckConstraintsNT(mesh,maps,parameters);
+
+activeset=Constraint.WorkingSetE;
+
+big_value=10^10;
+
+c=big_value*ones(2*mesh{L}.NE+2*mesh{L}.N,1);
+
+
+c(mesh{L}.E_contact)=Constraint.RhsE2;
+c(mesh{L}.N_contact+2*mesh{L}.NE)=Constraint.RhsN2;
+
+A=[Antbc{L,1,1} Antbc{L,1,2} Antbc{L,1,3} Antbc{L,1,4};];
+for ii=2:4
+A=[A;Antbc{L,ii,1} Antbc{L,ii,2} Antbc{L,ii,3} Antbc{L,ii,4};];
+end
+
+for ii=1:4
+    for jj=1:4
+        Aprova{ii,jj}=Antbc{L,ii,jj};
+    end
+end
+
+% [y,activeset]=activesetResidual(A,bnt,c,activeset);
+% sol=M_Normal_Tangent*y;
+% print_displacement_solution(mesh,sol(1+2*mesh{L}.NE:2*mesh{L}.NE+mesh{L}.N)',sol(1+2*mesh{L}.NE+mesh{L}.N:end)');
+% p = ContactPressure(mesh,sol,parameters)
+% resy=bnt-A*y;
+% resy(activeset)=0;
+% resy=norm(resy);
+% resy=ones(100,1)*resy;
+
+B=speye(length(bnt));
+WorkingSet=[];
+A=A+Complementarity{L}.Ant_complementarity;
+% IT IS ALREADY HERE DO NOT ADD IT LATER
+% IT IS ALREADY HERE DO NOT ADD IT LATER
+% IT IS ALREADY HERE DO NOT ADD IT LATER
+% IT IS ALREADY HERE DO NOT ADD IT LATER
+% IT IS ALREADY HERE DO NOT ADD IT LATER
+% IT IS ALREADY HERE DO NOT ADD IT LATER
+bnt=bnt+Complementarity{L}.bnt_complementarity;
+% IT IS ALREADY HERE DO NOT ADD IT LATER
+% IT IS ALREADY HERE DO NOT ADD IT LATER
+% IT IS ALREADY HERE DO NOT ADD IT LATER
+% IT IS ALREADY HERE DO NOT ADD IT LATER
+% IT IS ALREADY HERE DO NOT ADD IT LATER
+% IT IS ALREADY HERE DO NOT ADD IT LATER
+
+% [z,lambda,WorkingSet] = ArnoldActiveset2(A,B,bnt,c,WorkingSet);
+% sol=M_Normal_Tangent*z;
+% p = ContactPressure(mesh,sol,parameters);
+% ContactDisplacement(mesh,sol,parameters)
+
+% resz=bnt-A*z;
+% resz(WorkingSet)=0;
+% resz=norm(resz);
+% resz=ones(100,1)*resz;
+
+% [w,activesetw]=activesetResidual(A,bnt,c,activesetw);
+% sol=M_Normal_Tangent*w;
+% print_displacement_solution(mesh,sol(1+2*mesh{L}.NE:2*mesh{L}.NE+mesh{L}.N)',sol(1+2*mesh{L}.NE+mesh{L}.N:end)');
+% 
+% 
+% B=speye(length(bnt));
+% WorkingSet=[];
+% [y,lambda,WorkingSet] = ArnoldActiveset2(A,B,bnt,c,WorkingSet);
+% resy=bnt-A*y;
+% resy(WorkingSet)=0;
+% resy=norm(resy);
+% resy=ones(100,1)*resy;
+% sol=M_Normal_Tangent*y;
+% print_displacement_solution(mesh,sol(1+2*mesh{L}.NE:2*mesh{L}.NE+mesh{L}.N)',sol(1+2*mesh{L}.NE+mesh{L}.N:end)');
+% p = ContactPressure(mesh,sol,parameters)
+
+
+
+% devi ruotare il sistema di riferimento localeeee
+
+removes=[mesh{L}.E_remove,mesh{L}.E_remove+mesh{L}.NE, 2*mesh{L}.NE + mesh{L}.N_remove,2*mesh{L}.NE + mesh{L}.N + mesh{L}.N_remove];
+x=bnt;
+tmp=1:(mesh{L}.NE*2);
+remove=setdiff(tmp,removes);
+x(remove)=0;
+
+
+is_on_coarser_grid=false;
+top2bottom=1;
+smoothing_steps=5000;
+WorkingSetContact{1}=sparse(mesh{L}.NE*2+mesh{L}.N*2,1);
+[x,WorkingSetContact{1}] = ArnoldNestedIteration(Ant,bnt_lev,c,mesh,maps,Pnt);
+toll=10^(-12);
+
+
+% WorkingSet=activesetw';
+% mesh{L}.RemoveNT=unique([mesh{L}.RemoveNT,WorkingSet']);
+% ConstraintTot=WorkingSet-mesh{L}.NE*2;
+% ConstraintNodes=ConstraintTot(ConstraintTot>0);
+% ConstraintEdge=WorkingSet(WorkingSet<=mesh{L}.NE*2);
+% bnt(ConstraintNodes+mesh{L}.NE*2)=gap_function(mesh{L}.node(ConstraintNodes,1),mesh{L}.node(ConstraintNodes,2));
+% bnt(ConstraintEdge)=0;
+% for lev=L-1:-1:1
+% WorkingSet=WorkingSet(find(WorkingSet<=mesh{lev+1}.NE*2+mesh{lev}.N));
+% WorkingSet=WorkingSet-mesh{lev+1}.NE*2+mesh{lev}.NE*2;
+% mesh{lev}.RemoveNT=unique([mesh{lev}.RemoveNT,WorkingSet']);
+% end
+
+% 
+
+
+% x=z;
+% 
+% 
+% WorkingSetContact{1}=sparse(2*mesh{L}.NE+2*mesh{L}.N,1);
+% WorkingSetContact{1}(WorkingSet)=1;
+
+
+for mm=1:40
+
+ [x,WorkingSetContact{mm+1},residual(mm),corrF(mm)] = ArnoldVcycleContact3(Complementarity{L}.Ant_complementarity,h,AFinenobcnt,bnt,x,c,WorkingSetContact{mm},parameters,mesh,maps,graph,Pnt,L,L);
+
+% [x] = ArnoldVcycle7(AFinenobcnt,bnt,x,parameters,mesh,maps,graph,Pnt,L,L);
+% res=bnt-AFinenobcnt*x;
+% res(mesh{L}.RemoveNT)=0;
+% residual(mm)=norm(res);
+% [y,WorkingSet]=ArnoldSmootherContact7(WorkingSet,A,x,b,c,mesh{L},maps.Patch_Internal_All{L},smoothing_steps,graph{L},top2bottom) 
+%[z,WorkingSet]=ArnoldSmootherContact6(L,WorkingSet,x,bnt,mesh,AFinenobcnt,Aprova,c,smoothing_steps,is_on_coarser_grid,graph,top2bottom,maps);
+
+%[x,WorkingSet,residual(mm)] = ArnoldVcycleContact2(graph,L,L,maps,x,bnt,mesh,Ant,Antbc,Pnt, parameters,c,WorkingSet);
+
+
+% [x,WorkingSet]=ArnoldSmootherContact6(L,WorkingSet,x,bnt,mesh,Aprova,c,smoothing_steps,is_on_coarser_grid,graph,top2bottom,maps);
+% sol=M_Normal_Tangent*x;
+% print_displacement_solution(mesh,sol(1+2*mesh{L}.NE:2*mesh{L}.NE+mesh{L}.N)',sol(1+2*mesh{L}.NE+mesh{L}.N:end)');
+% p = ContactPressure(mesh,sol,parameters)
+mm;
+% norm(y-x);
+energy(mm)=0.5*x'*AFinenobcnt*x-bnt'*x;
+%norma(mm)=norm(x-z);
+norma(mm)=10000;
+[mm,energy(mm),residual(mm),norma(mm)]
+
+if(residual(mm)<toll)
+break
+end
+end
+
+figure
+plot(log10(residual))
+hold on
+plot(log10(resz))
+top2bottom=1;
+lev=L;
+is_on_coarser_grid=0;
+smoothing_steps=10;
+% figure
+%     x=ArnoldSmoother3(graph{lev},top2bottom,maps.EmapGlob2Loc{lev},maps.EmapLoc2Glob{lev},maps.NmapGlob2Loc{lev},maps.NmapLoc2Glob{lev},...
+%     maps.Patch_Boundary_Edge{lev}, maps.Patch_Boundary_Node{lev},maps.Patch_Edge{lev}, maps.Patch_Node{lev},x,b,mesh{lev},...
+%     A{lev,1,1},A{lev,1,2},A{lev,1,3},A{lev,1,4},...
+%     A{lev,2,1},A{lev,2,2},A{lev,2,3},A{lev,2,4},...
+%     A{lev,3,1},A{lev,3,2},A{lev,3,3},A{lev,3,4},...
+%     A{lev,4,1},A{lev,4,2},A{lev,4,3},A{lev,4,4},...
+%     smoothing_steps,is_on_coarser_grid)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%  for mm=1:5
+%      mm
+% x = ArnoldVcycleContact1(graph,L,L,maps,x,bnt,mesh,Antbc,Pnt, parameters);
+%  sol=M_Normal_Tangent*x;
+% print_displacement_solution(mesh,sol(1+2*mesh{L}.NE:2*mesh{L}.NE+mesh{L}.N)',sol(1+2*mesh{L}.NE+mesh{L}.N:end)');
+%  end
+%  end
+%  sol=M_Normal_Tangent*x;
+% print_displacement_solution(mesh,sol(1+2*mesh{L}.NE:2*mesh{L}.NE+mesh{L}.N)',sol(1+2*mesh{L}.NE+mesh{L}.N:end)');
+
+
+% [solnt,Constraint]=ArnoldSmootherContact3(x,bnt,mesh,Ant,Constraint,smoothing_steps,is_on_coarser_grid,graph,top2bottom,maps)
+% sol=M_Normal_Tangent*solnt;
+% print_displacement_solution(mesh,sol(1+2*mesh{L}.NE:2*mesh{L}.NE+mesh{L}.N)',sol(1+2*mesh{L}.NE+mesh{L}.N:end)');
+
+ 

@@ -1,0 +1,543 @@
+\documentclass[11pt, oneside]{article}   	% use "amsart" instead of "article" for AMSLaTeX format
+\usepackage{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   		% ... or a4paper or a5paper or ... 
+%\geometry{landscape}                		% Activate for rotated page geometry
+%\usepackage[parfill]{parskip}    		% Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
+								% TeX will automatically convert eps --> pdf in pdflatex		
+\usepackage{amssymb}
+\usepackage{amsmath}
+
+\usepackage{algpseudocode}
+\usepackage{algorithm}
+
+% ref packages
+\usepackage{nameref}
+% folowing  must be in this order
+\usepackage{varioref}
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+\usepackage{booktabs}
+\usepackage {tikz}
+\usetikzlibrary {positioning}
+\definecolor {processblue}{cmyk}{0.96,0,0,0}
+
+
+
+%SetFonts
+
+%SetFonts
+\newcommand{\supp}{\operatorname{supp}}
+\newcommand{\dist}{\operatorname{dist}}
+\newcommand{\divr}{\operatorname{div}}
+\newcommand{\tdiv}{\operatorname{div}}
+\newcommand{\ess}{\operatorname{ess}}
+\newcommand{\rotore}{\operatorname{rot}}
+\newcommand{\curl}{\operatorname{\textbf{curl}}}
+\newcommand{\bcurl}{\operatorname{\textbf{curl}}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\bA}{\textbf{A}}
+\newcommand{\ba}{\textbf{a}}
+\newcommand{\bb}{\textbf{b}}
+\newcommand{\bB}{\textbf{B}}
+\newcommand{\bc}{\textbf{c}}
+\newcommand{\bC}{\textbf{C}}
+\newcommand{\bd}{\textbf{d}}
+\newcommand{\bD}{\textbf{D}}
+\newcommand{\be}{\textbf{e}}
+\newcommand{\bE}{\textbf{E}}
+\newcommand{\bff}{\textbf{f}}
+\newcommand{\bF}{\textbf{F}}
+\newcommand{\bg}{\textbf{g}}
+\newcommand{\bG}{\textbf{G}}
+\newcommand{\bi}{\textbf{i}}
+\newcommand{\bI}{\textbf{I}}
+\newcommand{\bj}{\textbf{j}}
+\newcommand{\bJ}{\textbf{J}}
+\newcommand{\bh}{\textbf{h}}
+\newcommand{\bH}{\textbf{H}}
+\newcommand{\bk}{\textbf{k}}
+\newcommand{\bK}{\textbf{K}}
+\newcommand{\bl}{\textbf{l}}
+\newcommand{\bL}{\textbf{L}}
+\newcommand{\bm}{\textbf{m}}
+\newcommand{\bM}{\textbf{M}}
+\newcommand{\bn}{\textbf{n}}
+\newcommand{\bN}{\textbf{N}}
+\newcommand{\bp}{\textbf{p}}
+\newcommand{\bP}{\textbf{P}}
+\newcommand{\bo}{\textbf{o}}
+\newcommand{\bq}{\textbf{q}}
+\newcommand{\bQ}{\textbf{Q}}
+\newcommand{\br}{\textbf{r}}
+\newcommand{\bR}{\textbf{R}}
+\newcommand{\bs}{\textbf{s}}
+\newcommand{\bS}{\textbf{S}}
+\newcommand{\btau}{\boldsymbol{\tau}}
+\newcommand{\bt}{\textbf{t}}
+\newcommand{\bv}{\textbf{v}}
+\newcommand{\bV}{\textbf{V}}
+\newcommand{\bw}{\textbf{w}}
+\newcommand{\bW}{\textbf{W}}
+\newcommand{\bu}{\textbf{u}}
+\newcommand{\bU}{\textbf{U}}
+\newcommand{\by}{\textbf{y}}
+\newcommand{\bY}{\textbf{Y}}
+\newcommand{\bbx}{\textbf{x}}
+\newcommand{\bX}{\textbf{X}}
+\newcommand{\beps}{\boldsymbol{\varepsilon}}
+\newcommand{\bphi}{\boldsymbol{\phi}}
+\newcommand{\bPhi}{\boldsymbol{\Phi}}
+\newcommand{\bpsi}{\boldsymbol{\psi}}
+\newcommand{\bomega}{\boldsymbol{\omega}}
+\newcommand{\bsigma}{\boldsymbol{\sigma}}
+\newcommand{\bSigma}{\boldsymbol{\Sigma}}
+\newcommand{\bxi}{\boldsymbol{\xi}}
+\newcommand{\aaa}{\`a}
+\newcommand{\eee}{\`e}
+\newcommand{\iii}{\`i}
+\newcommand{\ooo}{\`o}
+\newcommand{\uuu}{\`u}
+\newcommand{\aaaa}{\'a}
+\newcommand{\eeee}{\'e}
+\newcommand{\iiii}{\'i}
+\newcommand{\oooo}{\'o}
+\newcommand{\uuuu}{\'u}
+\newcommand{\AAA}{\`A}
+\newcommand{\EEE}{\`E}
+\newcommand{\III}{\`I}
+\newcommand{\OOO}{\`O}
+\newcommand{\UUU}{\`U}
+\newcommand{\AAAA}{\'A}
+\newcommand{\EEEE}{\'E}
+\newcommand{\IIII}{\'I}
+\newcommand{\OOOO}{\'O}
+\newcommand{\UUUU}{\'U}
+\newcommand{\ND}{\mathcal{ND}}
+\newcommand{\RT}{\mathcal{RT}}
+
+\title{Signorini problem: adaptive least/squares }
+\author{Gabriele Rovi}
+%\date{}							% Activate to display a given date or no date
+
+
+\begin{document}
+\maketitle 
+\section{Introduction}
+In the following I use the symmetric version of the LS formulation. Indeed I think that monotone multigrid cannot be applied to non symmetric systems. 
+\begin{align*}
+x^T A x = x^T \dfrac{(A+A^T)}{2} x \quad \to \quad  \dfrac{(A+A^T)}{2} x = b \iff A x=b
+\end{align*}
+I also had some problems with bibtex. So the papers that I cite are simply the one by Cai and Starke, 2004 on LS linear elasticity, and the one by you, Starke on LS Contact.
+\section{LS contact formulation}
+The solution of a standard primal formulation problem subject to linear inequality constraints has to fulfill the KKT conditions. The lagrange multipliers represent the dual variables necessary to not violate the constraints. \\
+In the context of a LS formulation, primal and dual variable are both unknowns of the problem. This means that the lagrange multipliers for the primal/dual unknown is a quantity belonging to the dual/primal space, but it is not the dual/primal unknown.\\
+In the case of LS contact, the constraints are expressed in the following way:
+\begin{align*}
+\bu \cdot \bn_{\text{obs}} -g \leq 0\\
+\bn_{\text{obs}}^T \bsigma \bn \leq 0\\
+\left(\bu \cdot \bn_{\text{obs}} -g \right) \left( \bn_{\text{obs}}^T \bsigma \bn \right)  =0
+\end{align*}
+These conditions have to be valid for all $\bbx \in \Gamma_C$. By discretizing the problem, also the above expression have to be discretized.  Let us assume that $g \in P^1$ is linearly interpolated. Then for the lowest order approximation, $P^1$ for the displacement and $\RT_0$ for the stresses,  the impenetrability and the negative pressure conditions can be respectively checked just on the vertices and the face-midpoints of the elements of $\Gamma_C$. \\\\
+The lagrange multipliers represent the dual variables necessary to not violate the constraints. By satisfying the KKT  for the primal/dual formulation, the complementarity condition is then automatically fulfilled.  But, when the lagrange multiplier cannot be interpreted as the corresponding dual/primal variable, then this is not true anymore. \\
+Furthermore, unfortunately complementarity is a non-linear term, so it is difficult to deal with it. For this reason, it is preferrable to add this term to the original functional. In this way, it will be exactly satisfied only in the continuum.
+\section{Coercivity of the LS functional for homogeneous BC}
+The linear elastic LS functional is quadratic and convex. Then exists a unique minimizer of the problem. Ellipticity and continuity have been studied in CS04 for the homogeneous case.
+\begin{align}
+\mathcal{F}(\bu,\bsigma,\bff)=||\text{div} \bsigma+\bff||^2+||\mathcal{A}\bsigma -\boldsymbol{\varepsilon}(\bu)||^2
+\end{align}
+For its generalization to contact, the complementarity has to be considered. Since both stresses and displacements are unknowns of the problem, such a condition is non linear and adding it to the functional is an easier way to deal with it.
+\begin{align}
+\mathcal{J}(\bu,\bsigma,\bff,g)=||\text{div} \bsigma+\bff||^2+||\mathcal{A}\bsigma -\boldsymbol{\varepsilon}(\bu)||^2+\langle \bu \cdot \bn - g, (\bsigma \bn) \cdot \bn \rangle_{\Gamma_C}
+\end{align}
+The complementarity term is not convex, so it is not obvious if the overall functional is convex:
+\begin{align}
+&\langle \bn^T (t\bsigma +(1-t)\btau) \bn, (t \bu +(1-t)\bv))\cdot \bn - (gt +(1-t)g)\rangle =\\
+&  t  \langle \bn^T \bsigma  \bn, \bu \cdot \bn - g \rangle + (1-t)\langle \bn^T \btau  \bn, \bv \cdot \bn - g \rangle +t (t-1) \langle \bn^T (\bsigma  -\btau) \bn, (\bu-\bv) \cdot \bn   \rangle\\
+\end{align}
+Here the computations:
+\begin{align*}
+&\langle \bn^T (t\bsigma +(1-t)\btau) \bn, (t \bu +(1-t)\bv))\cdot \bn - (gt +(1-t)g)\rangle =\\
+& \pm t  \langle \bn^T \bsigma  \bn, \bu \cdot \bn - g \rangle \pm (1-t) \langle \bn^T \btau  \bn, \bv \cdot \bn - g \rangle +\\
+&t^2 \langle \bn^T \bsigma  \bn, \bu \cdot \bn - g \rangle +(1-t)^2 \langle \bn^T \btau  \bn, \bv \cdot \bn - g \rangle+\\
+&t(1-t)  \langle \bn^T \bsigma  \bn, \bv \cdot \bn - g \rangle+t(1-t)  \langle \bn^T \btau  \bn, \bu \cdot \bn - g \rangle=\\
+&  t  \langle \bn^T \bsigma  \bn, \bu \cdot \bn - g \rangle + (1-t)\langle \bn^T \btau  \bn, \bv \cdot \bn - g \rangle +\\
+&t (t-1) \langle \bn^T \bsigma  \bn, \bu \cdot \bn - g \rangle -t(1-t) \langle \bn^T \btau  \bn, \bv \cdot \bn - g \rangle+\\
+&t(1-t)  \langle \bn^T \bsigma  \bn, \bv \cdot \bn - g \rangle+t(1-t)  \langle \bn^T \btau  \bn, \bu \cdot \bn - g \rangle=\\
+&  t  \langle \bn^T \bsigma  \bn, \bu \cdot \bn - g \rangle + (1-t)\langle \bn^T \btau  \bn, \bv \cdot \bn - g \rangle +\\
+&t (t-1) \langle \bn^T \bsigma  \bn, (\bu-\bv) \cdot \bn   \rangle+t(1-t) \langle \bn^T \btau  \bn,(\bu- \bv) \cdot \bn \rangle=\\
+&  t  \langle \bn^T \bsigma  \bn, \bu \cdot \bn - g \rangle + (1-t)\langle \bn^T \btau  \bn, \bv \cdot \bn - g \rangle +t (t-1) \langle \bn^T (\bsigma  -\btau) \bn, (\bu-\bv) \cdot \bn   \rangle\\
+\end{align*}
+The last term $ \langle \bn^T (\bsigma  -\btau) \bn, (\bu-\bv) \cdot \bn   \rangle$ is not necessarily bigger than zero. Indeed the $(\bsigma-\btau, \bu-\bv)$ does not belong to the convex set anymore and it can be whatever. Therefore the complementarity term is, in general, not convex. \\\\
+In the following, it is shown the coercivity of the contact LS-functional for functions with homogeneous boundary conditions, not necessarily belonging to the convex set. Then this result is used to prove the strong convexity, and consequently the coercivity, of the functional.
+\subsection{Coercivity}
+We want to show that exists $C_*$ such that:
+\begin{align}
+M(\bs,\bw) \leq C_* \mathcal{J}(\bw,\bs,0,0) \qquad \forall \:[\bs,\bu] \in \boldsymbol{\Sigma}_0 \times \bU_0
+\end{align}
+where:
+\begin{align}
+&\boldsymbol{\Sigma}_0 =\{\bs \in H_{\text{div}}(\Omega), \bs \bn|_{\Gamma_N}=0 \}\\
+&\bU_0 =\{\bu \in H^1(\Omega), \bu |_{\Gamma_D}=0 \}\\
+&M(\bs,\bw)= \|  \boldsymbol{\varepsilon}(\bw) \|_{L^2} +  \| \btau \|_{H_{div}}^2 =  \|  \boldsymbol{\varepsilon}(\bw) \|_{L^2}^2 +  \| \bs \|_{L^2}^2 +  \| \text{div} \bs \|_{L^2}^2 
+\end{align}
+It is sufficient to bound all the terms in $M$ with the functional. This has already been studied in the linear elastic case in CS04. Here we will consider also the contact boundary and give exactly a value for the constant $C_*$. \\
+Knowing that $\|\mathcal{A}\btau\| \leq \dfrac{1}{2 \mu} \| \btau \|$:
+\begin{align}
+ \| \text{div}\bs\|_{L^2}^2  + \| \boldsymbol{\varepsilon}(\bw) \|^2 \leq  \| \text{div}\bs\|_{L^2}^2 +2 \| \boldsymbol{\varepsilon}(\bw) - \mathcal{A}\bs\|^2 + 2 \| \mathcal{A}\bs\|^2  \leq 2 \mathcal{F}(\bs,\bw,0) +  \dfrac{1}{2 \mu }\| \bs\|^2
+\end{align} 
+Therefore it is now sufficient to bound $\dfrac{2 \mu +1}{2 \mu} \| \bs \|_{L^2} $. We are not going to use the relation   (3.13) in CS04 because I THINK it only holds for homogeneous bc and empty $\Gamma_C$:
+\begin{align}
+\| \text{div} \bs \|_{-1}= \sup_{\|\bv \|_{H^1}=1} \langle   \text{div} \bs , \bv \rangle = \sup_{\|\bv \|_{H^1}=1}  ( \bs, \nabla \bv ) + \int_{\partial \Omega} \bs \bn \cdot \bv \leq \| \bs \|_{H_{div}}  \quad \iff \quad \text{homogeneous bc} + \Gamma_C=\emptyset
+\end{align} 
+Therefore we just exploit:
+\begin{align}
+(\mathcal{A}\bs,\bs )=\dfrac{1}{2 \mu} \left( \| \bs \|^2 -\dfrac{ \lambda }{d \lambda + 2 \mu} \| \text{tr} \bs \|^2 \right) \geq \dfrac{1}{2 \mu}  \| \bs \|^2
+\end{align}
+Now we just have to show that:
+$(2 \mu +1) (\mathcal{A}\bs,\bs ) \leq  C\mathcal{F}(\bw,\bs,0) $:
+\begin{align}
+(\mathcal{A}\bs,\bs ) &= (\mathcal{A}\bs - \boldsymbol{\varepsilon}(\bw),\bs ) + (\boldsymbol{\varepsilon}(\bw),\bs)=  (\mathcal{A}\bs - \boldsymbol{\varepsilon}(\bw),\bs ) + (\bs - \frac{\bs -\bs^T}{2},\nabla \bw)\\
+&=(\mathcal{A}\bs - \boldsymbol{\varepsilon}(\bw),\bs )-(\text{div} \bs,\bw) +\int_{\partial \Omega} \bs \bn \cdot \bw - \left(\bs-\bs^T, \nabla \bw \right)\\ 
+& \leq \|  \mathcal{A}\bs - \boldsymbol{\varepsilon}(\bw) \| \| \bs\| +\|\text{div} \bs\| \| \bw \| +\|\frac{\bs-\bs^T}{2}\| \|\nabla \bw \|+\int_{\partial \Omega} \bs \bn \cdot \bw \\
+& \leq \mu \|  \mathcal{A}\bs - \boldsymbol{\varepsilon}(\bw) \|^2+    \dfrac{1}{4 \mu} \| \bs\|^2
++  \|\boldsymbol{\varepsilon}(\bw) \| \left( \|\text{div} \bs\| + \|\frac{\bs-\bs^T}{2}\|\right)+\int_{\partial \Omega} \bs \bn \cdot \bw 
+\end{align}
+And by using $\| \bs -\bs^T\| \leq 4 \mu \|\mathcal{A}\bs - \boldsymbol{\varepsilon}(\bw) \|$, $\| \bs \|^2 \leq 2 \mu (\mathcal{A} \bs, \bs)$, 
+$\| \mathcal{A}\bs - \boldsymbol{\varepsilon}(\bw)\| \leq  \mathcal{F}(\bs,\bw,0)^{1/2}$, $\| \bs \| \leq  \mathcal{F}(\bs,\bw,0)^{1/2}$, $\| \bs -\bs^T\| \leq 4 \mu \|\mathcal{A}\bs - \boldsymbol{\varepsilon}(\bw) \|$:
+\begin{align}
+(\mathcal{A}\bs,\bs ) & \leq 2 \mu \|  \mathcal{A}\bs - \boldsymbol{\varepsilon}(\bw) \|^2+ 2 \left( 1+ 2 \mu \right) \mathcal{F}(\bs,\bw,0)^{1/2}  \|\boldsymbol{\varepsilon}(\bw) \| 
++\int_{\partial \Omega} \bs \bn \cdot \bw 
+\end{align}
+Now it is exploited again $ \|  \mathcal{A}\bs - \boldsymbol{\varepsilon}(\bw) \|^2\leq \mathcal{F}(\bs,\bw,0) $ and $ \| \boldsymbol{\varepsilon}(\bw) \|  \leq  \mathcal{F}(\bs,\bw,0)^{1/2} + \| \mathcal{A} \bs\| \leq \mathcal{F}(\bs,\bw,0)^{1/2} +  \dfrac{1}{2 \mu }\| \bs\|$, so that:
+\begin{align}
+(\mathcal{A}\bs,\bs ) & \leq (2 +6 \mu)\mathcal{F}(\bs,\bw,0) 
++\dfrac{\left( 1+ 2 \mu \right) }{\mu}\mathcal{F}(\bs,\bw,0)^{1/2}  \| \bs \| 
++2 \int_{\partial \Omega} \bs \bn \cdot \bw 
+\end{align}
+By Young's inequality:
+\begin{align}
+(\mathcal{A}\bs,\bs ) & \leq 2 (2 +6 \mu)\mathcal{F}(\bs,\bw,0) 
++2 \dfrac{ \left( 1+ 2 \mu \right)^2 }{2 \mu^2}\mathcal{F}(\bs,\bw,0)
++4 \int_{\partial \Omega} \bs \bn \cdot \bw 
+\end{align}
+In the end:
+\begin{align}
+(\mathcal{A}\bs,\bs ) & \leq 2 (2 +6 \mu)\mathcal{F}(\bs,\bw,0) 
++2 \dfrac{ \left( 1+ 2 \mu \right)^2 }{2 \mu^2}\mathcal{F}(\bs,\bw,0)
++4 \int_{\partial \Omega} \bs \bn \cdot \bw \\
+& \leq \dfrac{4 \mu^2 + 12 \mu^3 + 1 + 4 \mu^2 + 4 \mu}{\mu^2} \mathcal{F}(\bs,\bw,0) +4 \int_{\partial \Omega} \bs \bn \cdot \bw 
+\end{align}
+By rearranging the terms:
+\begin{align}
+M(\bs,\bw)&=  \|  \boldsymbol{\varepsilon}(\bw) \|_{L^2}^2 +  \| \bs \|_{L^2}^2 +  \| \text{div} \bs \|_{L^2}^2\\
+& \leq 2 \mathcal{F}(\bs,\bw,0) +  \dfrac{4 \mu^2 + 12 \mu^3 + 1 + 4 \mu^2 + 4 \mu}{(1+2 \mu) \mu^2}  \mathcal{F}(\bs,\bw,0)  +4 \int_{\partial \Omega} \bs \bn \cdot \bw \\
+&\leq C_* \left( \mathcal{F}(\bs,\bw,0) + \int_{\partial \Omega} \bs \bn \cdot \bw\right) 
+\end{align} 
+The presence of the boundary integral is, in principle, not trivial. Indeed this term could be bounded thanks to Cauchy-Schwarz and trace inequalities. Nevertheless in this way both the trace constant for $H_{-1/2}$ and $H_{1/2}$ would appear, together with Korn's constant:
+\begin{align}
+\int_{\partial \Omega} \bs \bn \cdot \bw \leq C_S C_W  \| \bs \|_{H_{div}} \|(\bw) \|_{H^1} \leq C_s C_w   \left(  \dfrac{\varepsilon}{2} \|\bs\|_{H_{div}}^2 +  \dfrac{C_K^2}{2 \varepsilon} \|\boldsymbol{\varepsilon}(\bw) \|^2
+\right)
+\end{align}
+By putting this last contribution to the left handside:
+\begin{align}
+ \left(1 - \dfrac{C_* C_S C_W C_K^2 \varepsilon}{2} \right) \|  \boldsymbol{\varepsilon}(\bw) \|^2 +\left(1 - \dfrac{C_* C_S C_W }{2  \varepsilon} \right)   \| \bs \|_{ H_{div}}^2  \leq C_* \mathcal{F}(\bs,\bw,0)
+\end{align}
+the above relation is satisfied for:
+\begin{align}
+\varepsilon \in (\dfrac{C_S C_W C_*}{2}, \dfrac{2}{C_S C_W C_* C_K^2})
+\quad \text{with} \quad 
+C_K< \left( \dfrac{2}{C_S C_W C_*} \right)
+\end{align}
+Unfortunately $C_S$, $C_W$ and $C_K$ are not known, so it is not possible to infere that this condition is fulfilled. \\
+Therefore, in addition to Neumann and Dirichlet boundary conditions on $\Gamma_{N}$ and $\Gamma_{D}$, it is also useful to enforce the frictionless condition on $\Gamma_C$, i.e. $\bsigma_t|_{\Gamma_C}=0$. This means that, on the contact boundary: $\bsigma \bn = \sigma_n \bn_{obst}$, while $\bu  = u_n \bn_{obst} + u_t \bt_{obst} $, where $\bn_{obst}$ and $\bt_{obst}$ represent the normal and tangent vectors of the obstacle.  By taking advantage of orthogonality between normal and tangent components:
+ \begin{align}
+\langle\bs \bn, \bw\rangle_{\Gamma_C} =
+\langle \left( s_n \bn_{obst} + \bt_{obst} s_t \right), \left( w_n \bn_{obst} + \bt_{obst} w_t \right)\rangle_{\Gamma_C} =
+\langle s_n  ,w_n  \rangle_{\Gamma_C} 
+  \end{align} 
+Finally:
+\begin{align}
+\begin{cases}
+M(\bs,\bw)  \leq C_* \mathcal{J}(\bs,\bw,0,0)\\
+C_* =\text{max} \left(4,   \dfrac{  1 + 4 \mu + 10 \mu^2 + 16 \mu^3} {(1+2 \mu) \mu^2} \right) 
+\end{cases}
+\end{align}
+
+\section{Convexity of the LS contact functional}
+However the overall functional could still be convex. Indeed it is strongly convex, i.e:
+\begin{align}
+\mathcal{J}( t \bu + (1-t) \bv, t \bsigma + (1-t) \btau, \bff,g) \leq t \mathcal{J}( \bu ,\bsigma , \bff) + (1-t)\mathcal{J}(  \bv,  \btau, \bff,g)- \dfrac{1}{C_*} \:t (t-1) M(\bsigma-\btau,\bu-\bv)
+\end{align}
+Indeed, by properly rearraging the terms:
+\small
+\begin{align}
+\mathcal{J}( t \bu + (1-t) \bv, t \bsigma + (1-t) \btau, \bff,g)&= t \mathcal{J}( \bu ,\bsigma , \bff,g) + (1-t)\mathcal{J}(  \bv,  \btau, \bff,g)\\
+& +t (t-1) \left[ \| \text{div} (\bsigma - \btau )\|^2 + \|\mathcal{A}(\bsigma-\btau)-\boldsymbol{\varepsilon}(\bu-\bv)\|^2 +  \langle \bn^t (\bsigma -\btau) \bn, (\bu-\bv)\cdot \bn\rangle \right]\\
+&= t \mathcal{J}( \bu ,\bsigma , \bff,g) + (1-t)\mathcal{J}(  \bv,  \btau, \bff,g)+ t(t-1) \mathcal{J}(\bu-\bv,\bsigma-\btau,0,0)\\
+& \leq t \mathcal{J}( \bu ,\bsigma , \bff) + (1-t)\mathcal{J}(  \bv,  \btau, \bff)+ t(t-1)\dfrac{1}{C_*} M(\bu-\bv,\bsigma-\btau)
+\end{align}
+\normalsize
+where the last inequality holds because $\bw=\bu-\bv$ and $\bs=\bsigma-\btau$ satisfy both homogeneous boundary conditions. It is also known the $\mathcal{J}(   t \bu + (1-t) \bv, t \bsigma + (1-t) \btau, \bff,g)\geq0$ $\forall \bsigma, \btau, \bu, \bv$ in the adimissible set. Then, by  fixing $t \in (0,1)$ and chossing $\bv$, $\btau$ as the minimizer of the problem, so that $\mathcal{J}(  \bv,  \btau, \bff,g)=0$:
+\begin{align*}
+\dfrac{C_*}{1-t}  \mathcal{J}( \bu ,\bsigma , \bff)& \geq  M(\bu-\bv,\bsigma-\btau) =\\
+&( \|  \boldsymbol{\varepsilon}(\bu ) \|_{L^2}^2  +  \|  \boldsymbol{\varepsilon}(\bv ) \|_{L^2}^2 -2 \| \boldsymbol{\varepsilon}(\bu )\|_{L^2} \| \boldsymbol{\varepsilon}(\bv )\|_{L^2} +
+  \| \btau \|_{H_{div}}^2+ \| \bsigma \|_{H_{div}}^2 - 2  \| \btau \|_{H_{div}}  \| \bsigma \|_{H_{div}}) \to \infty
+\end{align*}
+The right handside is a quadratic expression in $ \| \bsigma \|_{H_{div}}$ and $\|  \boldsymbol{\varepsilon}(\bu ) \|_{L^2}$. Note that $\bu$ and $\bsigma$ satisfy in general non-homogeneous boundary conditions. Since the functional $ \mathcal{J}( \bu ,\bsigma , \bff)$ is strongly convex and coercive, exists a unique minimizer.
+
+ 
+
+
+\section{Normal-tangent Coordinate system}
+In order to properly describe contact conditions, it is wise to locally change the coordinate system of the contact boundary $\Gamma_C$. In this way, the scalar constraints have to be checked directly on the normal components and not on some linear combinations of the unknown.\\ In the following the contact normal is assumed to be known in all vertices and all midpoints of the faces belonging to $\Gamma_C$.
+Let $\bp$ be a vertex of the tasselation $\emph{T}_h$ that also belongs to $\Gamma_C$ and $\bn$ the obstacle normal in $\bp$. Then consider the vector $ \bu_{\bp} \in \mathbb{R}^d$ that contains the degrees of freedom of the displacement in $\bp$. Define the Householder transformation relative to the ouward normal $\bn_{\bp} $ as:
+\begin{align}
+\bH_{\bp}= \bI- 2\: \bn_{\bp} ^T \bn_{\bp} 
+\end{align}
+and the local displacement in the normal-tangent coordinate system (the first coordinate is the normale one):
+\begin{align*}
+\bu_{\bp,nt}= \bH_{\bp} \bu_{\bp}
+\end{align*}
+A similar argument has to be applied to the stress components. Let $\bp$ be a face-midpoint of the tasselation $\emph{T}_h$ that also belongs to $\Gamma_C$ and $\bn$ the obstacle normal in $\bp$. Then consider the vector $ \bS_{\bp} \in \mathbb{R}^d$ that contains the degrees of freedom of the stress in $\bp$.
+In particular, since the stress components are not of a lagrangian type:
+\begin{align*}
+\bsigma \bn|_{\bp}  =\left( \bphi_{\bp}  \cdot \bn_{\bp}  \right) \bS_{\bp} =
+\text{sgn}\left( \bphi_{\bp}  \cdot \bn_{\bp}  \right) \tilde{\bS}_{\bp} 
+\end{align*}
+it is not convenient to use direclty the HouseHolder transformation, because we have no control on the sign of $\left( \bphi_{\bp}  \cdot \bn_{\bp}  \right)$. In its place, it is preferrable the transformation $\bQ$:
+\begin{align*}
+\bS_{\bp,nt}= \bQ_{\bp}  \tilde{\bS}_{\bp} \qquad \bQ_{\bp} = \left( \bphi_{\bp}  \cdot \bn_{\bp}  \right) \bH_{\bp}
+\end{align*}
+In this way the first component of $\bS_{\bp,nt}$ is actually positive in the direction of the normal $\bn_{\bp}$ and, as $\tilde{\bS}_{\bp} $ has been considered instead of $\bS_{\bp} $, the transformation $\bQ$ is still orthogonal. From now on all the degrees of freedom on the contact boundary will be treated as normal or tangent. 
+\section{Gap function on coarser levels}
+Given the current iterate $(\bsigma_n, \bu_n)$, a necessary and sufficient condition that a correction $(\bc_{\bsigma}, \bc_{\bu})$ has to satisfy to make the new iterate $(\bsigma_n+\bc_{\bsigma}, \bu_n+\bc_{\bu})$ admissible is :
+\begin{align*}
+\begin{cases}
+\bn^T \left(\bsigma_n+\bc_{\bsigma}\right) \bn \leq 0  &\Gamma_C\\
+ \left(\bu_n+\bc_{\bu} \right) \cdot \bn \leq g &\Gamma_C
+ \end{cases}
+\end{align*}
+In a multigrid setting, these conditions have to be fulfilled on the fine mesh, but most of the corrections are computed on the coarser ones. A check relative to a fine mesh would imply a suboptimal complexity. To recover an optimal complexity, instead of the previous requirement, only a sufficient condition can be taken into consideration for coarser levels. This goal can be achievied by using proper interpolation operators for the gap function required on each level.\\
+First of all, there are two gap functions to be analyzed, one belongs to the space $H^{1/2}$, the other one to $H^{-1/2}$. Their discrete representation is also different. On $\Gamma_C$, $H^{1/2}$ functions are piecewise linear on each element, while $H^{-1/2}$ functions are piecewise constant. Therefore also two different interpolation operators have to be defined.\\
+Let $p$ be an element $K$, a node $n$, an edge $e$, or a face $f$ of the mesh $T_h$. Define the element/node/edge/face patch of p as:
+\begin{align*}
+P_{p, \diamond,h} =\{ \diamond \in T_h: \exists K_h \in T_h \: \text{such that} \: p,  \diamond \in K_h \} , \qquad \diamond = K, n,e,f
+\end{align*}
+\subsection{Interpolation for $P_1$ on $\Gamma_C$}
+Given a mesh $T_H$ and its uniform refinement $T_h$, consider a coarse edge $e_H \in T_H \cap \Gamma_C$, which contains two coarse nodes $p_{H,1}$, $p_{H,2}$, on its ends, and a fine midpoint $p_h$. Let $g_h$ and $g_H$ be the gap function on level h and H. Since $g_h$ is linear, a sufficient condition so that $g_H \leq g_h$ is the following:
+\begin{align}
+\label{coarsegapfunctionconditionP1}
+\begin{cases}
+& g_H(p_{H,1}) \leq g_h(p_{H,1})\\
+&  g_H(p_{H,2}) \leq g_h(p_{H,2})\\
+&  \dfrac{1}{2}( g_H(p_{H,1}) + g_H(p_{H,2})) \leq g_h(p_{h})
+\end{cases}
+\end{align}
+It is easy to see that, on $e_H$, the two following values satisfy the three conditions above. We call this kind of i\textbf{nterpolation Linear Monotone Interpolation (just to let you know that I used it for the square case)}.
+\begin{align}
+\label{coarsegapfunctionconditionP1LinearInterpolation}
+\begin{cases}
+g_H({p_{H,1}})= \min( g_h(p_{H,1}),\max( g_h(p_{h}), 2 g_h(p_{h}) - g_h(p_{H,2})) )\\
+g_H({p_{H,2}})=\min( g_h(p_{H,2}),\max( g_h(p_{h}), 2 g_h(p_{h})- g_h(p_{H,1}) ) )
+\end{cases}
+\end{align}
+There are two other ways of defining the gap function and are based on the minimum value on the support of the shape function. Furthermore it is easy to check that both definitions satisfy (\ref{coarsegapfunctionconditionP1}).
+ Since at the moment we are referring to only one edge, this means searching for the minimum of $g_h$, on $e_H$ intersected with the support of the shape function. If the shape function is the coarse one, then $g_H(q)=\min(g_h(p_{H,1}),g_h(p_h),g_h(p_{H,2}))$, with $q=p_{H,1},p_{H,2}$. But this approach is very roguh (I GUESS IT IS THE ONE IN BADEA? IT DEPENDS ON THE DEFINITION OF SUPPORT FOR HIM. IF IT IS THE CLOSURE OR NOT). On the other hand, if the shape function of $p_{H,i}$ is the fine one,  $g_H(p_{H,i})=\min(g_h(p_{H,i}),g_h(p_h))$, for $i=1,2$. This last approach does not differ so much from the first one given, altough in general is still rougher.\\
+Now we want to show that (\ref{coarsegapfunctionconditionP1}) is actually true for (\ref{coarsegapfunctionconditionP1LinearInterpolation}). Let $a=g_h(p_{H,1})$, $b=g_h(p_h)$, $c=g_h(p_{H,2})$. Then:
+\begin{enumerate}
+\item 
+\begin{enumerate}
+\item $ a \geq c \geq b$, $a\geq 2b -c$ ($b \geq 2 b -c$, $ b\geq 2 b -a$):
+\begin{align*}
+\dfrac{1}{2}( g_H(p_{H,1}) + g_H(p_{H,2}))=\dfrac{1}{2} (\min(a,2b -c)+\min(c,b))=\dfrac{1}{2}(2b-c+c) = b
+\end{align*}
+\item  $ a \geq c \geq b$, $a \leq 2 b - c$  ($b \geq 2 b -c$, $ b\geq 2 b -a$):
+\begin{align*}
+\dfrac{1}{2}( g_H(p_{H,1}) + g_H(p_{H,2}))=\dfrac{1}{2} (\min(a,2b -c)+\min(c,b))=\dfrac{1}{2}(a+c) \leq b
+\end{align*}
+\end{enumerate}
+\item $ a \geq c \geq b$ ($b \geq 2 b -c$, $ b\geq 2 b -a$):
+\begin{align*}
+\dfrac{1}{2}( g_H(p_{H,1}) + g_H(p_{H,2}))=\dfrac{1}{2} (\min(a,b)+\min(c,b))=\dfrac{1}{2}(b+b) = b
+\end{align*}
+\item 
+\begin{enumerate}
+\item $ c \geq b \geq a$, $2 b - a \geq c$  ($b \geq 2 b -c$, $ b\leq 2 b -a$):
+\begin{align*}
+\dfrac{1}{2}( g_H(p_{H,1}) + g_H(p_{H,2}))=\dfrac{1}{2} (\min(a,b)+\min(c,2b-a))=\dfrac{1}{2}(a+c) \leq b
+\end{align*}
+\item $ c \geq b \geq a$, $2 b - a \leq c$ ($b \geq 2 b -c$, $ b\leq 2 b -a$):
+\begin{align*}
+\dfrac{1}{2}( g_H(p_{H,1}) + g_H(p_{H,2}))=\dfrac{1}{2} (\min(a,b)+\min(c,2b-a))=\dfrac{1}{2}(a+2b-a) = b
+\end{align*}
+\end{enumerate}
+\item  $ c \geq a \geq b$  ($b \geq 2 b -c$, $ b\geq 2 b -a$):
+\begin{align*}
+\dfrac{1}{2}( g_H(p_{H,1}) + g_H(p_{H,2}))=\dfrac{1}{2} (\min(a,b)+\min(c,b))=\dfrac{1}{2}(b+b) = b
+\end{align*}
+\item $ b \geq a \geq c$ or $b \geq c \geq a$ ($b \leq 2 b -c$, $ b\leq 2 b -a$):
+\begin{align*}
+\dfrac{1}{2}( g_H(p_{H,1}) + g_H(p_{H,2}))=\dfrac{1}{2} (\min(a,b)+\min(c,b))=\dfrac{1}{2}(a+c) \leq b
+\end{align*}
+\end{enumerate}
+This requirement has to be true for all edges $e_H$ belonging to its patch $E_H=\{e_H \in P_{p_H, e,H} \}$.
+It is possible to define a projection operator such that these conditions are fulfilled. Let $p_{H,i}$ be a node of the coarse mesh $T_H$ and $\phi_{H,i}$ the respective coarse basis function. Then:
+\begin{align*}
+\displaystyle
+&g_H(p_{H,1})= \min_{e_H \in E_H} \left[ \min( g_h(p_{H,1}),\max( g_h(p_{h}), 2 g_h(p_{h}) - g_h(p_{H,2})) )  \right]\\
+&g_H=R_{P^{1,H}}^{P^{1,h}} g_h= \sum_{p_{H,i} \in T_H} \phi_{H,i
+} \:g_H(p_{H,i})
+\end{align*}
+Since $g_H$ is a piecewise linear function such that (\ref{coarsegapfunctionconditionP1}) is always fulfilled, it is evident that:
+\begin{align*}
+0 \leq R_{P^{1,H}}^{P^{1,h}} g_h(x)=g_H(x) \leq g_h(x) \quad \text{if} \quad g_h\geq 0
+\end{align*}
+Consequently the function:
+\begin{align*}
+\theta_g(x)= \begin{cases}
+\dfrac{R_{P^{1,H}}^{P^{1,h}} g_h(x)}{g_h(x)} & g_h \neq 0 \\
+0 & g_h =0
+\end{cases}
+\end{align*}
+satisfies $0 \leq \theta_g \leq 1 $.
+\subsection{Interpolation for $\RT_0$ on $\Gamma_C$}
+Given a mesh $T_H$ and its uniform refinement $T_h$, consider a face $f_H \in T_H \cap \Gamma_C$ and all the fine faces belonging to it, i.e. patch $F_{h,H}=\{f_h \in f_H \}$. Then, since a discrete $H^{-1/2}$ function is constant on each face of $\Gamma_C$, it is sufficient to define:
+\begin{align*}
+\displaystyle
+R_{\RT_{0,h}}^{\RT_{0,H}} (v)|_{f_H}= \min_{F_{h,H}} v
+\end{align*} 
+ Let $f_{H,i}$/$f_{h,j}$ be the midpoint of the face $i$/$j$ of the coarse/fine mesh $T_H$/$T_h$. Then let $\phi_{H,i}$ be the respective coarse basis function:
+\begin{align*}
+\displaystyle
+&g_H(f_{H,i})= \min_{f_{h} \in f_{H,i}} g_h(f_h)\\
+&g_H=R_{RT_0^{1,H}}^{RT_0^{1,h}} g_h= \sum_{f_{H,i} \in T_H} \phi_{H,i
+} \:g_H(f_{H,i})
+\end{align*}
+%For both interpolations, $g_h$ on the fine level is defined as:
+%\begin{align*}
+%\begin{cases}
+%\tilde{g}_h := g_h - c_{j,k,\bp} & k=\bu,\bsigma, \bp \in T_{j+1}\\
+%\end{cases}
+%\end{align*}
+
+
+\section{Truncated Basis}
+Whenever a degree of freedom $p_J$ comes into contact, then the corrections should not apply to it. This is guaranteed by the fact that, also on coarser levels, the constraints are always fulfilled. 
+Now, considering the $P^1$ case, let $q=p_{J-1,1}, p_{J-1,2}$ be the coarse points belonging to the same coarse edge $e_{J-1}$, whose midpoint is $p_J$.  Then $g_J(p_J)=0$ implies that all $g_{J-1}(q)=0$. Of course, going deeper and deeper, the number of points in which the coarse gap function is zero increases and the corrections will be smaller and smaller and less effective. For this reason, to accelerate convergence, it is better to remove degrees of freedom which are known to be in contact. Once these are removed, they will not affect the coarse gap function. Practically, this is equivalent to remove the rows of the projection $P_{j-1}^j$ relative to the working set degrees of freedom and to put $g_j(q)=\infty$ in all points $q$ which are in contact, before computing $g_{j-1}$.
+\begin{algorithm}
+\caption{\textbf{[x,WS]=V-CYCLE(A,b,x,g,P,j,J,k)}}
+\begin{algorithmic}
+\State{$\bbx$=solution, $\textbf{WS}$=working set, $\bA$=system matrix, $\bb$=right hand side, $\bg=$ gap}  
+\State{$\bP$=projections, $j$=level, $J$=maximum level, $k$=number of smoothing-steps }  
+\State{TruncatedBasis: remove degrees of freedom belonging to the WorkingSet WS}
+\State{CoarseConstraint: define $\bg_{j-1}$ such that $\bbx_{j}+\bP_{tr}\bbx_{j-1}\leq \bg_j $}
+\State{}
+     \If{  ($j=1$) }\\
+\textbf{[x,WS]=ActiveSet(A,b,x,g)}
+   \Else
+\begin{enumerate}
+\item Do $k$ non-linear smoothing-steps: compute $\bbx$
+\item Compute $ \bP_{tr} =\text{TruncatedBasis}(\bP,j,\textbf{WS}) $
+\item Compute $\br_j=\bb-\bA \bbx$
+\item Compute $\br_{j-1}=\bP_{tr}^T \br_j$
+\item Compute $\textbf{G}_{j}=\bg_j-\bbx$
+\item Compute $\bg_{j-1}=\text{CoarseConstraint}(\textbf{G}_{j})$
+\item Compute $\bA_{j-1}=\bP_{tr}^T \bA_j \bP_{tr}^T$
+\item \textbf{[x,WS]=V-CYCLE($\bA_{j-1},\br_{j-1}, \textbf{0} ,\bg_{j-1},\bP,j-1,J,k$)}
+\item Do $k$ non-linear smoothing-steps
+\end{enumerate}   
+    \EndIf 
+  \end{algorithmic}
+\end{algorithm}
+
+\section{Numerical Experiments}
+The refinement of a mesh that approximates a circle should better approximate the circle. Nevertheless in these experiments, given a coarse mesh, we have a standard uniform refinement. \\
+The results for the Signorini problem are meaningful for 2 levels (we give pictures only of this case in the plot \ref{ContactPressureDisplacement}), but for 3 levels, the fact that the refinement is not a better circle, makes the finest level far from being a circle. Therefore the physical results are not very good. Anyhow, we studied the convergence behaviour for the 3 level case, as well. But physical results refer only to the 2 level case.
+\begin{figure}[htbp!]
+	\includegraphics[width=0.6\textwidth]{img/ContactPressure.eps}
+\quad
+	\includegraphics[width=0.6\textwidth]{img/ContactDisplacement.eps}
+			\label{ContactPressureDisplacement}
+\end{figure}
+
+
+\begin{figure}[htbp!]
+	\includegraphics[width=0.6\textwidth]{img/Square2D2LComparison.eps}
+\:
+	\includegraphics[width=0.6\textwidth]{img/Square2D3LComparison.eps}
+		\caption[Square2D3LComparison]{Square mesh. There are three fixed fine meshes, $F=5,4,3$. Then we have 2 or 3 levels of coarsening ($C=4,3,2$ and $C=3,2,1$). For all cases, the linear interpolation has been used for the gap function.\\
+The rate of convergence is basically linear, but the slop depends on the number of levels.}
+		\label{Square2D3LComparison}
+\end{figure}
+
+
+\begin{figure}[htbp!]
+\centering
+		\includegraphics[width=0.45\textwidth]{img/Signorini2D2LComparison.eps}
+		\quad 
+				\includegraphics[width=0.45\textwidth]{img/Signorini2D3LComparison.eps}
+		\caption[Signorini2D2LComparison]{Signorini problem. \\
+		\textbf{Left}\\
+		For two fixed coarse mesh, we consider one level of refinement: I) and II) represent these two cases. In II) the number of dofs is higher.\\
+For both cases, we consider 3 kinds of interpolation for the gap function from fine to coarse. In blue: on a coarse patch, we take the minimum on the whole coarse patch. In black: we take the minimum on the fine patch.
+In red: we consider the linear monotone interpolation (\ref{coarsegapfunctionconditionP1LinearInterpolation}).
+The green lines represent the residuals for both cases computed by using a direct solver.\\
+It is evident that there is basically no difference between the red and the black ones. Nevertheless the red one requires more topologic informations. Given a coarse node $p_{H,1}$, the corresponding edge $e_H$ that ends in $p_{H,2}$ , it is also necessary to know which is the fine midpoint $p_{h}$. Knowing the fine and the coarse patches, it is possible to find $p_h$, but is more work that, practically, it is not determinant. It suffices to consider the fine patch and take the minimum.\\
+As we can see there are two slops, relative to the case in which we search for contact dofs and the case in which contact dofs are already known. \\
+\textbf{Right}\\
+We see the level dependence of the algorithm. In diamond-shape the 3 level method, while the 2L is characterized by a continuous line. In red: the linear case. In blue: on a coarse patch, we take the minimum on the whole coarse patch.
+}
+		\label{Square2D3LComparison}
+\end{figure}
+
+\section{Idea: Monotone Parallel Gauss-Seidel}
+Let us consider a minimization of a discrete functional written as:
+\begin{align*}
+\displaystyle
+\mathcal{J}_h(\bbx)=\dfrac{1}{2}\bbx^T \bA \bbx - \bb^T \bbx=\dfrac{1}{2}\sum_i \sum_j a_{ij} x_i x_j -\sum_i b_i x_i
+\end{align*}
+The minimization problem is: find $\bbx \in K_h$ such that $\mathcal{J}_h(\bbx) \leq \mathcal{J}_h(\by)$ $\forall \by \in K_h$.\\
+Now let us assume that the matrix $\bA$ is sparse, due to the local support of the basis functions. Therefore let us suppose that $x_m$ and $x_n$ are such that $a_{mn}=a_{nm}=0$. Given an approximation $\by \in K_h$ of $\bbx$, we define:
+\begin{align*}
+\bc_i^{n}=\begin{cases}
+x_n & i=n\\
+0    & i \neq n
+\end{cases}
+\quad
+\bc_i^{m}=\begin{cases}
+x_m & i=m\\
+0    & i \neq m
+\end{cases}
+\quad
+\bc=\bc^{n}+\bc^m
+\end{align*}
+We want to find $\bc$ such that $  \mathcal{J}_h(\by+\bc)\leq   \mathcal{J}_h(\by+\bw)$ $\forall \bw$ defined in the same way as $\bc$.
+\begin{align*}
+\mathcal{J}_h(\by+\bc)=&  \left[ \dfrac{1}{2}\sum_{i\neq m,n} \sum_{j \neq m,n} a_{ij} x_i x_j -\sum_i b_i x_i \right]
++
+\dfrac{1}{2} \sum_{i= m,n} \sum_{j= m,n} a_{ij} x_i x_j -\sum_{i=m,n} b_i x_i
+ \\
+=&\text{const}+
+\dfrac{1}{2} \left[ a_{mm} x_m^2 + a_{nn} x_n^2 + 2 a_{mn} x_n x_m \right] -[  b_m x_m + b_n x_b]\\=&
+\text{const}+
+ \left[\dfrac{1}{2} a_{mm} x_m^2 -  b_m x_m \right] +  \left[\dfrac{1}{2} a_{nn} x_n^2 - b_n x_b\right]
+\end{align*}
+Then $\min_{\bc \in K_h} \mathcal{J}_h(\by+\bc)= \min_{\bc^mm \in K_h} \mathcal{J}_h(\by+\bc^m) +  \min_{\bc^n \in K_h} \mathcal{J}_h(\by+\bc^n)$ 
+This kind of argument is based on the fact that the two subspaces $m$ and $n$ are independent. Also, it is not necessary to solve the local problems $\min_{\bc^mm \in K_h} \mathcal{J}_h(\by+\bc^m) $ and $ \min_{\bc^n \in K_h} \mathcal{J}_h(\by+\bc^n)$. It is sufficient to find a correction that minimizes the functional with respect to $\by$, i.e:
+\begin{align*}
+\mathcal{J}_h(\by+\bc^m) \leq \mathcal{J}_h(\by)  \quad \mathcal{J}_h(\by+\bc^n) \leq \mathcal{J}_h(\by) 
+\end{align*}
+This means that on the subspace $m$ and $n$ instead of using an active set strategy for the exact solution, it is possible to use a non-linear Gauss-Seidel for an approximation of $\bc^n$ and $\bc^m$. \\
+In the figure \ref{meshcoloring}, it is shown how to perform a parallal non-linear Gauss-Seidel that also minimizes energy, under the condition that on each subspace, the energy is minimized. The given mesh and the corresponding subspaces need at least 4 colors. Instead of solving exactly the smallest subspaces, we solve approximately larger subspaces. Also these ones can be colored. Then a Gauss-Seidel step loops on all the colors (this is sequential) and then, for a given color, it solves approximately and in parallel all the subdomains relative to that color. For example, we loop on c=purple, yellow, black, brown. Then for the given color, we find the subspaces $i_c$ which are independent and on each $i_c$ we use a non-linear Gauss-Seidel. We update the solution and move to the next color. And so on.
+\begin{figure}[htbp!]
+		\caption{Left: coloring of the the smallest subspaces; use active set on each of these for the exact correction. Right: coloring of larger subspaces; use non-linear Gauss-Seidel on each of these for an approximate correction.}
+		\label{meshcoloring}
+		\includegraphics[width=0.8\textwidth]{img/meshcoloring.pdf}
+		\end{figure}
+\bibliographystyle{plain} 
+\bibliography{biblio}
+
+		
+		\end{document}

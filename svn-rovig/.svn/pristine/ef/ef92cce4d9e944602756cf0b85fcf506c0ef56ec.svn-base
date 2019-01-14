@@ -1,0 +1,53 @@
+function err=error_displacement(mesh,x,parameters)
+L=size(mesh);
+L=L(1);
+figure
+increase=1;
+cont_elem=1;
+max_err=0;
+node_per_elem=mesh{L}.node_per_elem;
+disp1ex=parameters.disp1;
+disp2ex=parameters.disp2;
+disp3ex=parameters.disp3;
+NF3=mesh{L}.NF*3;
+N=mesh{L}.N;
+disp1=x(1+NF3:NF3+N);
+disp2=x(1+N+NF3:NF3+2*N);
+disp3=x(1+2*N+NF3:NF3+3*N);
+hold on
+
+err1=zeros(N,1);
+err2=zeros(N,1);
+err3=zeros(N,1);
+noderef=[0     0     0;
+      1     0     0;
+      0     1     0;
+      0     0     1];
+  qrule=4;
+[q_point,weights,Volume]=quadrature_points_3D(qrule,noderef);
+maxerr1=0;maxerr2=0;maxerr3=0;
+for nn=1:mesh{L}.N
+    node=mesh{L}.node(nn,1:parameters.dim);
+    
+    err1(nn,1)=(disp1(nn)-disp1ex(node(1),node(2),node(3) ))^2;
+    err2(nn,1)=(disp1(nn)-disp2ex(node(1),node(2),node(3) ))^2;
+    err3(nn,1)=(disp1(nn)-disp3ex(node(1),node(2),node(3) ))^2;
+    
+    maxerr1=max(maxerr1,abs(disp1(nn)-disp1ex(node(1),node(2),node(3) )));
+    maxerr2=max(maxerr2,abs(disp2(nn)-disp2ex(node(1),node(2),node(3) )));
+    maxerr3=max(maxerr3,abs(disp3(nn)-disp3ex(node(1),node(2),node(3) )));
+end
+
+% for tt=1:mesh{L}.NT
+%     elem=mesh{L}.elem(tt,:);
+%     node=mesh{L}.node(elem,1:3);
+%     [J,detJ]=J_and_detJ(node);   
+%     q_point=q_point*J';
+%     
+% 
+% end
+
+err=sqrt(sum(err1)+sum(err2)+sum(err3));
+
+
+end

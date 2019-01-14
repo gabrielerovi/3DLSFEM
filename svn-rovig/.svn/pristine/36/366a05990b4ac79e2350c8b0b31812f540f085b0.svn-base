@@ -1,0 +1,13 @@
+load "medit"
+load "msh3" 
+include "cube.idp"
+int[int]  Nxyz=[1,1,1];
+real [int,int]  Bxyz=[[0.,.1],[0.,.1],[0.,0.1]];
+int [int,int]  Lxyz=[[1,1],[1,1],[1,1]];
+mesh3 Th=Cube(Nxyz,Bxyz,Lxyz);
+
+
+
+plot(Th);
+
+savemesh(Th,"Cube.mesh");

@@ -1,0 +1,14 @@
+#!/bin/bash
+
+#SBATCH --job-name=signorini3d
+
+#SBATCH --output=simulation-m-%j.out
+#SBATCH --error=simulation-m-%j.err
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --time=23:55:00
+#SBATCH --partition=bigMem
+#SBATCH --mem=512000
+module load matlab
+
+matlab -nodisplay < MAINALL11.m

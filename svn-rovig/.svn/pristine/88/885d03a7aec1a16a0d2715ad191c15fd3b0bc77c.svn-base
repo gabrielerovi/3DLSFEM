@@ -1,0 +1,93 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyperFirstAtBeginDocument{\AtBeginDocument}
+\HyperFirstAtBeginDocument{\ifx\hyper@anchor\@undefined
+\global\let\oldcontentsline\contentsline
+\gdef\contentsline#1#2#3#4{\oldcontentsline{#1}{#2}{#3}}
+\global\let\oldnewlabel\newlabel
+\gdef\newlabel#1#2{\newlabelxx{#1}#2}
+\gdef\newlabelxx#1#2#3#4#5#6{\oldnewlabel{#1}{{#2}{#3}}}
+\AtEndDocument{\ifx\hyper@anchor\@undefined
+\let\contentsline\oldcontentsline
+\let\newlabel\oldnewlabel
+\fi}
+\fi}
+\global\let\hyper@last\relax 
+\gdef\HyperFirstAtBeginDocument#1{#1}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\citation{CS04}
+\citation{Sta07}
+\citation{CS04}
+\citation{KMS17}
+\citation{KK01}
+\citation{XCN09}
+\citation{Hip97}
+\citation{HX07}
+\citation{AW97}
+\citation{AFW00}
+\citation{Arn}
+\citation{Sta00}
+\citation{Kor94}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Definition of the problem }{1}{section.2}}
+\citation{Kik88}
+\citation{CS04}
+\citation{BF12}
+\citation{CS04}
+\citation{Boc09}
+\citation{BMM97}
+\citation{YL97}
+\citation{CS04}
+\citation{KMS17}
+\newlabel{MinimizationProblem}{{2}{2}{Definition of the problem}{equation.2.2}{}}
+\citation{CS04}
+\newlabel{LScontactVI}{{3}{3}{Definition of the problem}{equation.2.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Existence and uniqueness of the solution}{3}{section.3}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Monotone Multilevel}{4}{section.4}}
+\citation{Hip97}
+\citation{HX07}
+\citation{AW97}
+\citation{AFW00}
+\citation{Arn}
+\citation{Sta00}
+\newlabel{interpolations}{{5}{5}{Monotone Multilevel}{equation.4.5}{}}
+\newlabel{normalinterpolations}{{6}{5}{Monotone Multilevel}{equation.4.6}{}}
+\newlabel{discreteminimizationproblem}{{7}{5}{Monotone Multilevel}{equation.4.7}{}}
+\newlabel{exactlocalproblem}{{8}{6}{Monotone Multilevel}{equation.4.8}{}}
+\newlabel{exactlocalconvexset}{{10}{6}{Monotone Multilevel}{equation.4.10}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Non-linear projection operators and coarse constraints}{7}{section.5}}
+\newlabel{approximateconvexsets}{{11}{7}{Non-linear projection operators and coarse constraints}{equation.5.11}{}}
+\newlabel{approximatelocalproblem}{{13}{7}{Non-linear projection operators and coarse constraints}{equation.5.13}{}}
+\newlabel{coarsegapfunctionconditionP1}{{14}{7}{Non-linear projection operators and coarse constraints}{equation.5.14}{}}
+\newlabel{coarsegapfunctionconditionP1LinearInterpolation}{{5}{7}{Non-linear projection operators and coarse constraints}{equation.5.14}{}}
+\newlabel{nonlinearprojectionun}{{16}{7}{Non-linear projection operators and coarse constraints}{equation.5.16}{}}
+\newlabel{nonlinearprojectionsigman}{{17}{7}{Non-linear projection operators and coarse constraints}{equation.5.17}{}}
+\citation{Kor94}
+\newlabel{coarseconstraintun}{{18}{8}{Non-linear projection operators and coarse constraints}{equation.5.18}{}}
+\newlabel{coarseconstraintsigman}{{19}{8}{Non-linear projection operators and coarse constraints}{equation.5.19}{}}
+\newlabel{activedofs}{{20}{8}{Non-linear projection operators and coarse constraints}{equation.5.20}{}}
+\newlabel{truncatedbasis}{{21}{8}{Non-linear projection operators and coarse constraints}{equation.5.21}{}}
+\bibstyle{plain}
+\bibdata{biblio}
+\bibcite{AW97}{1}
+\bibcite{AFW00}{2}
+\bibcite{Arn}{3}
+\bibcite{BMM97}{4}
+\bibcite{Boc09}{5}
+\bibcite{BF12}{6}
+\bibcite{CS04}{7}
+\bibcite{Hip97}{8}
+\bibcite{HX07}{9}
+\newlabel{nodesorfacesincontactinf}{{23}{9}{Non-linear projection operators and coarse constraints}{equation.5.23}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}The minimization process}{9}{section.6}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces \textbf  {[x,WS]=NonLinearSmoothing(A,b,x,g,P,j,J,k)}\relax }}{9}{algorithm.1}}
+\bibcite{Kik88}{10}
+\bibcite{Kor94}{11}
+\bibcite{KK01}{12}
+\bibcite{KMS17}{13}
+\bibcite{Sta00}{14}
+\bibcite{Sta07}{15}
+\bibcite{XCN09}{16}
+\bibcite{YL97}{17}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {2}{\ignorespaces \textbf  {[x,WS]=V-CYCLE(A,b,x,g,P,j,J,k)}\relax }}{10}{algorithm.2}}

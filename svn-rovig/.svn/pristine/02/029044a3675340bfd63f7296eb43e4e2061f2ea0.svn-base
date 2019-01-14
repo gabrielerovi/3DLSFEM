@@ -1,0 +1,70 @@
+int n=5.0;
+//mesh Th=square(n,1,flags=1);
+
+real C1=6.8/12 * pi;
+real C2=5.2/12 * pi;
+
+
+//(exp(zzz*(pi-t))-1)/(exp(zzz*(pi-C1))-1 )
+real R=0.5;
+real a,b;
+border e3(t=2*R,0){x = -R+t;         y = R ;           label = 3;}
+
+a=pi;
+b=C1;
+real m=2.5;
+
+border e2(t=pi,C1){x =  R*cos( ( (b-a) *(exp(m*(t-a))-1)/(exp(m*(b-a))-1 ) + a) )  ;         y = (1-sin(( (b-a) *(exp(m*(t-a))-1)/(exp(m*(b-a))-1 ) + a)))*R ;           label = 2;}
+
+
+border e1(t=C1,C2){x = R*cos(t);         y = (1-sin(t))*R ;           label = 1;}
+
+real c=C2;
+real d=0;
+border e4(t=C2,0){x = R*cos((d-c) * (exp(m*(-t+c))-1)/(exp(m*(-d+c))-1 ) + c);         y = (1-sin((d-c) * (exp(m*(-t+c))-1)/(exp(m*(-d+c))-1 ) + c))*R ;           label = 2;}
+
+
+mesh Th=buildmesh( e1(10*n)+e2(6*n)+e3(4*n)+e4(6*n));
+
+
+/*
+real R=0.5;
+border e1(t=0,1){x = t;         y = 0 ;           label = 1;}
+border e2(t=0,1){x = 1;         y = t ;           label = 2;}
+border e3(t=0,1){x = 1-t;         y = 1-t ;           label = 3;}
+
+mesh Th=buildmesh( e1(n)+e2(n)+e3(n));
+*/
+
+
+
+/*
+mesh Th=square(1*n,1*n,[1*x,y],flags=0);
+*/
+
+/*
+real L=1;
+real L1=10;
+real L2=2;
+real L3=1;
+real L4=1;
+real L5=L1-L3;
+real L6=L2-L4;
+
+border e0(t=0,L1-L3){x = t;         y = 0;           label = 1;}
+border e1(t=0,L3){x = t+L1-L3;         y = 0;           label = 1;}
+border e2(t=0,L2){x = L1; y = t ;          label = 2;}
+border e3(t=0,L3){x = L1-t; y = L2 ;          label = 3;}
+border e4(t=0,L4){x = L1-L3; y = L2-t ;          label = 4;}
+border e5(t=0,L5){x = L1-L3-t; y = L2-L4 ;          label = 5;}
+border e6(t=0,L6){x = 0; y = L2-L4-t ;          label = 6;}
+mesh Th=buildmesh( e0(9*n)+e1(4*n)+e2(8*n)+e3(4*n)+e4(4*n)+e5(9*n)+e6(n) );
+
+*/
+
+savemesh(Th,"SemiCircular.msh");
+
+plot(Th);
+
+
+

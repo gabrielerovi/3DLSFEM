@@ -1,0 +1,10 @@
+@article{CS04,
+  title={Least-squares methods for linear elasticity},
+  author={Cai, Zhiqiang and Starke, Gerhard},
+  journal={SIAM Journal on Numerical Analysis},
+  volume={42},
+  number={2},
+  pages={826--842},
+  year={2004},
+  publisher={SIAM}
+}

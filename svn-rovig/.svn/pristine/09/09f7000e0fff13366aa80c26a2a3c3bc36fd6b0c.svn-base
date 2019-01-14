@@ -1,0 +1,90 @@
+function maps=ArnoldMonotoneConstraint(mesh,maps,parameters)
+
+L=length(mesh);
+
+dim=parameters.dim;
+
+toll=10^(-16);
+maps.Patch_Face_Monotone=[];
+maps.Patch_Node_Monotone=[];
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Loop on all the coarse level C and for each level:                        %%%%%%%%%%%%%%
+%%% Loop on al the coarse nodes nC. Find the coarse and fine patches PC,PF    %%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+for lev=1:L-1
+    
+    C=lev;
+    F=lev+1;
+    
+    NC=mesh{C}.N;
+    NFC=mesh{C}.NF;
+    NF=mesh{F}.N;
+    nodeC=mesh{C}.node;
+    nodeF=mesh{F}.node;
+    faceC=mesh{C}.face;
+    faceF=mesh{F}.face;
+    % loop on all coarse nodes
+    for nC=1:NC
+        
+        % define the coarse patch nodes, excluding the actual one nC
+        patchC=setdiff(maps.Patch_Node{C}{nC},nC);
+        
+        patchF_nC=setdiff(maps.Patch_Node{F}{nC},nC);
+        
+        % loop on all the coarse patch nodes
+        cont_patchC=0;
+        for pnC=patchC
+            
+            cont_patchC=cont_patchC+1;
+            
+            % for each coarse patch node, search the fine patch
+            patchF_pnC=setdiff(maps.Patch_Node{F}{pnC},pnC);
+            
+            patchF_intersect=intersect(patchF_nC,patchF_pnC);
+            
+            pointC=0.5 * (nodeC(nC,1:dim)+nodeC(pnC,1:dim));
+            
+            for ii =patchF_intersect
+                
+                pointF=nodeF(ii,1:dim);
+                if(norm(pointC-pointF)<toll)
+                  maps.Patch_Node_Monotone{C}{nC}{cont_patchC}=[pnC;ii];
+                break
+                end
+            end
+            
+        end
+        
+        
+    end
+    
+    
+    % loop on all coarse faces
+    for fC=1:NFC
+        pC=faceC(fC,:);
+        pointC=0.5*(nodeC(pC(1),1:dim)+nodeC(pC(2),1:dim));
+        
+        for ii=1:2
+        patchF_pC=maps.Patch_Face{F}{pC(ii)};
+        
+        for ffF=patchF_pC
+            pF=setdiff(faceF(ffF,:),pC(ii));
+            
+            if(length(pF)<length(faceF(ffF,:)))
+            if(norm(nodeF(pF,1:dim)-pointC)<toll)
+                maps.Patch_Face_MonotoneF_dirichlet{C}{fC}(ii)=ffF;
+            end
+            end
+            
+        end
+        
+        end
+        
+     
+
+        
+    end
+
+
+end

@@ -1,0 +1,12 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{LS contact formulation}{}% 2
+\BOOKMARK [1][-]{section.3}{Coercivity of the LS functional for homogeneous BC}{}% 3
+\BOOKMARK [2][-]{subsection.3.1}{Coercivity}{section.3}% 4
+\BOOKMARK [1][-]{section.4}{Convexity of the LS contact functional}{}% 5
+\BOOKMARK [1][-]{section.5}{Normal-tangent Coordinate system}{}% 6
+\BOOKMARK [1][-]{section.6}{Gap function on coarser levels}{}% 7
+\BOOKMARK [2][-]{subsection.6.1}{Interpolation for P1 on C}{section.6}% 8
+\BOOKMARK [2][-]{subsection.6.2}{Interpolation for RT0 on C}{section.6}% 9
+\BOOKMARK [1][-]{section.7}{Truncated Basis}{}% 10
+\BOOKMARK [1][-]{section.8}{Numerical Experiments}{}% 11
+\BOOKMARK [1][-]{section.9}{Idea: Monotone Parallel Gauss-Seidel}{}% 12

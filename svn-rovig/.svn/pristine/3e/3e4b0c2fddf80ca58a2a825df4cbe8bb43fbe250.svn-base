@@ -1,0 +1,23 @@
+function print_displacement_solution3D(mesh,sol)
+
+L=length(mesh);
+NF=mesh{L}.NF;
+N=mesh{L}.N;
+F_components=mesh{1}.F_components;
+figure
+increase=1;
+cont_elem=1;
+
+disp=sparse(N,3);
+disp(:,1)=sol(F_components*NF+1:F_components*NF+N);
+disp(:,2)=sol(F_components*NF+N+1:F_components*NF+2*N);
+disp(:,3)=sol(F_components*NF+2*N+1:F_components*NF+3*N);
+
+newnode=mesh{L}.node+disp;
+% showmesh3(mesh{L}.node,mesh{L}.elem);
+
+hold on
+
+showmesh3(newnode,mesh{L}.elem);
+
+end

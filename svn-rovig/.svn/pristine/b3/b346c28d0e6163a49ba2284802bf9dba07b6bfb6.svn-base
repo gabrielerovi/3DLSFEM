@@ -1,0 +1,194 @@
+\documentclass[11pt, a4paper]{article}   	% use "amsart" instead of "article" for AMSLaTeX format
+\usepackage{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   		% ... or a4paper or a5paper or ... 
+%\geometry{landscape}                		% Activate for rotated page geometry
+%\usepackage[parfill]{parskip}    		% Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
+								% TeX will automatically convert eps --> pdf in pdflatex		
+\usepackage{amssymb}
+\usepackage{amsmath}
+
+\usepackage{algpseudocode}
+\usepackage{algorithm}
+
+% ref packages
+\usepackage{nameref}
+% folowing  must be in this order
+\usepackage{varioref}
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+\usepackage{booktabs}
+\usepackage {tikz}
+\usetikzlibrary {positioning}
+\definecolor {processblue}{cmyk}{0.96,0,0,0}
+
+
+
+
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{enumitem}   
+\usepackage{subcaption}
+
+
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{authblk}
+
+
+
+\newcommand{\supp}{\operatorname{supp}}
+\newcommand{\dist}{\operatorname{dist}}
+\newcommand{\divr}{\operatorname{div}}
+\newcommand{\tdiv}{\operatorname{div}}
+\newcommand{\ess}{\operatorname{ess}}
+\newcommand{\rotore}{\operatorname{rot}}
+\newcommand{\curl}{\operatorname{\textbf{curl}}}
+\newcommand{\bcurl}{\operatorname{\textbf{curl}}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\bA}{\textbf{A}}
+\newcommand{\ba}{\textbf{a}}
+\newcommand{\bb}{\textbf{b}}
+\newcommand{\bB}{\textbf{B}}
+\newcommand{\bc}{\textbf{c}}
+\newcommand{\bC}{\textbf{C}}
+\newcommand{\bd}{\textbf{d}}
+\newcommand{\bD}{\textbf{D}}
+\newcommand{\be}{\textbf{e}}
+\newcommand{\bE}{\textbf{E}}
+\newcommand{\bff}{\textbf{f}}
+\newcommand{\bF}{\textbf{F}}
+\newcommand{\bg}{\textbf{g}}
+\newcommand{\bG}{\textbf{G}}
+\newcommand{\bi}{\textbf{i}}
+\newcommand{\bI}{\textbf{I}}
+\newcommand{\bj}{\textbf{j}}
+\newcommand{\bJ}{\textbf{J}}
+\newcommand{\bh}{\textbf{h}}
+\newcommand{\bH}{\textbf{H}}
+\newcommand{\bk}{\textbf{k}}
+\newcommand{\bK}{\textbf{K}}
+\newcommand{\bl}{\textbf{l}}
+\newcommand{\bL}{\textbf{L}}
+\newcommand{\blambda}{\boldsymbol{\lambda}}
+\newcommand{\bLambda}{\boldsymbol{\Lambda}}
+\newcommand{\bm}{\textbf{m}}
+\newcommand{\bM}{\textbf{M}}
+\newcommand{\bn}{\textbf{n}}
+\newcommand{\bN}{\textbf{N}}
+\newcommand{\bp}{\textbf{p}}
+\newcommand{\bP}{\textbf{P}}
+\newcommand{\bpi}{\boldsymbol{\pi}}
+\newcommand{\bPi}{\boldsymbol{\Pi}}
+\newcommand{\bo}{\textbf{o}}
+\newcommand{\bq}{\textbf{q}}
+\newcommand{\bQ}{\textbf{Q}}
+\newcommand{\br}{\textbf{r}}
+\newcommand{\bR}{\textbf{R}}
+\newcommand{\bs}{\textbf{s}}
+\newcommand{\bS}{\textbf{S}}
+\newcommand{\btau}{\boldsymbol{\tau}}
+\newcommand{\bt}{\textbf{t}}
+\newcommand{\bv}{\textbf{v}}
+\newcommand{\bV}{\textbf{V}}
+\newcommand{\bw}{\textbf{w}}
+\newcommand{\bW}{\textbf{W}}
+\newcommand{\bu}{\textbf{u}}
+\newcommand{\bU}{\textbf{U}}
+\newcommand{\by}{\textbf{y}}
+\newcommand{\bY}{\textbf{Y}}
+\newcommand{\bbx}{\textbf{x}}
+\newcommand{\bX}{\textbf{X}}
+\newcommand{\bz}{\textbf{z}}
+\newcommand{\bZ}{\textbf{Z}}
+\newcommand{\beps}{\boldsymbol{\varepsilon}}
+\newcommand{\bphi}{\boldsymbol{\phi}}
+\newcommand{\bPhi}{\boldsymbol{\Phi}}
+\newcommand{\bpsi}{\boldsymbol{\psi}}
+\newcommand{\bPsi}{\boldsymbol{\Psi}}
+\newcommand{\bomega}{\boldsymbol{\omega}}
+\newcommand{\bsigma}{\boldsymbol{\sigma}}
+\newcommand{\bSigma}{\boldsymbol{\Sigma}}
+\newcommand{\bxi}{\boldsymbol{\xi}}
+\newcommand{\aaa}{\`a}
+\newcommand{\eee}{\`e}
+\newcommand{\iii}{\`i}
+\newcommand{\ooo}{\`o}
+\newcommand{\uuu}{\`u}
+\newcommand{\aaaa}{\'a}
+\newcommand{\eeee}{\'e}
+\newcommand{\iiii}{\'i}
+\newcommand{\oooo}{\'o}
+\newcommand{\uuuu}{\'u}
+\newcommand{\AAA}{\`A}
+\newcommand{\EEE}{\`E}
+\newcommand{\III}{\`I}
+\newcommand{\OOO}{\`O}
+\newcommand{\UUU}{\`U}
+\newcommand{\AAAA}{\'A}
+\newcommand{\EEEE}{\'E}
+\newcommand{\IIII}{\'I}
+\newcommand{\OOOO}{\'O}
+\newcommand{\UUUU}{\'U}
+\newcommand{\ND}{\mathcal{ND}}
+\newcommand{\RT}{\mathcal{RT}}
+
+%% argmin argmax
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+
+%%% theorems
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem*{remark}{Remark}
+\renewcommand\qedsymbol{$\blacksquare$}
+
+%%% norm and abs
+\newcommand\norm[1]{\left\lVert#1\right\rVert}
+\newcommand\abs[1]{\left\vert#1\right\vert}
+
+%\date{}							% Activate to display a given date or no date
+
+\title{Monotone multilevel for FOSLS linear elastic contact  }
+\author[1]{Gabriele Rovi\thanks{rovig@usi.ch}}
+\author[1]{Rolf Krause\thanks{rolf.krause@usi.ch}}
+\author[2]{Gerhard Starke\thanks{gerhard.starke@uni-due.de}}
+\author[2]{Bernhard Kober\thanks{
+bernhard.kober@uni-due.de}}
+\affil[1]{Institute of Computational Science, Universit{\aaa}  della Svizzera italiana, Via Giuseppe Buffi 13, 6900, Lugano, Switzerland}
+\affil[2]{Fakult\"{a}t  f\"{u}r Mathematik, Universit\"{a}t Duisburg-Essen, Thea-Leymann-Stra{\ss}e 9, 45127 Essen, Germany}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The first order system least-squares for linear ealstic contact problems is examined. The complementarity term is added to the functional, while the local inequality constraints are inserted in the definition of the convex set. A mixed formulation for both displacement and stress, subject to the contact conditions, is consequently obtained.  This holds for both compressible and incompressible materials. The problem is then discretized by continuous piecewise linear functions for the displacement and by the lowest order Raviart-Thomas for the stress. As a solver, a multilevel method is exploited and in particular, due to the local constraints, a monotone multilevel method.  A linear convergence rate in the limit case is finally shown in numerical experiments.
+\end{abstract}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\bibliographystyle{plain} 
+\bibliography{biblio}
+
+		
+		\end{document}

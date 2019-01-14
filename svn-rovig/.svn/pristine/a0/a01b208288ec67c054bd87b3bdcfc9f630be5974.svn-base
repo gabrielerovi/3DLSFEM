@@ -1,0 +1,14 @@
+#!/bin/bash
+
+#SBATCH --job-name=F5lambda1smooth5
+
+#SBATCH --output=simulation-m-%j.out
+#SBATCH --error=simulation-m-%j.err
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --time=23:55:00
+#SBATCH --partition=slim
+#SBATCH --mem=64000
+module load matlab
+
+matlab -nodisplay < MAINALL10_lambda1smoothing5.m

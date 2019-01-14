@@ -1,0 +1,957 @@
+%%% PREAMBLE %%%
+% definition of document 
+%------------------------------------------------------------------------------------------------------------------------------------------
+\documentclass{beamer}
+
+%\documentclass[handout]{beamer}
+%------------------------------------------------------------------------------------------------------------------------------------------
+
+% packages used
+%------------------------------------------------------------------------------------------------------------------------------------------
+\usepackage{amsmath,amsfonts,amssymb,amscd,amsthm,enumerate,mathtools}
+%\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{lmodern} % to enable continuous fontsizes
+%
+\usepackage{color}
+%\usepackage{amsmath}
+\usepackage{lipsum}
+\usepackage{bbding}
+\usepackage{epstopdf}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{pifont}% http://ctan.org/pkg/pifont
+\usepackage{longtable,lscape}
+%\usepackage{array}
+%\usepackage{subfigure}
+%\usepackage{multimedia}
+%\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{eucal}
+\usepackage{amssymb}
+\usepackage{dsfont}
+\usepackage{enumitem} 
+\usepackage{cutwin}
+%\setitemize{leftmargin=*}
+%\usepackage{curves}
+\usepackage{stmaryrd} % for discontinuous jump symbol
+\SetSymbolFont{stmry}{bold}{U}{stmry}{m}{n} % to avoid warnings because of stmaryrd
+%------------------------------------------------------------------------------------------------------------------------------------------
+
+% Makros
+%------------------------------------------------------------------------------------------------------------------------------------------
+\newcommand{\R}{{\rm I\kern-.25em R}}
+\newcommand{\N}{{\rm I\kern-.25em N}}
+\renewcommand{\div}{{\sf div}}
+\renewcommand{\S}{\mathds{S}}
+\newcommand{\spa}{{\rm span}}
+\newcommand{\curl}{{\sf curl}}
+\newcommand{\bcurl}{{\bf curl}}
+\newcommand{\bdev}{{\bf dev}}
+\newcommand{\tr}{{\sf tr}}
+\newcommand{\as}{{\sf \bf as}}
+\renewcommand{\skew}{{\sf skew}}
+\newcommand{\bCof}{{\bf Cof}}
+\newcommand{\Cof}{{\sf Cof}}
+\newcommand{\bAone}{{\bf {A}_{1}}}
+\newcommand{\bAtwo}{{\bf {A}_{2}}}
+\newcommand{\bPhi}{\mbox{\boldmath$\Phi$}}
+\newcommand{\bPsi}{\mbox{\boldmath$\Psi$}}
+\newcommand{\bPi}{\mbox{\boldmath$\Pi$}}
+\newcommand{\blambda}{\mbox{\boldmath$\lambda$}}
+\newcommand{\bgamma}{\mbox{\boldmath$\gamma$}}
+\newcommand{\bdelta}{\mbox{\boldmath$\delta$}}
+\newcommand{\bfeta}{\mbox{\boldmath$\eta$}}
+\newcommand{\bnabla}{\mbox{\boldmath$\nabla$}}
+\newcommand{\brho}{\mbox{\boldmath$\rho$}}
+\newcommand{\bsigma}{\mbox{\boldmath$\sigma$}}
+\newcommand{\btheta}{\mbox{\boldmath$\theta$}}
+\newcommand{\bvtheta}{\mbox{\boldmath$\vartheta$}}
+\newcommand{\bxi}{\mbox{\boldmath$\xi$}}
+\newcommand{\bTheta}{\mbox{\boldmath$\Theta$}}
+\newcommand{\bUpsilon}{\mbox{\boldmath$\Upsilon$}}
+\newcommand{\bXi}{\mbox{\boldmath$\Xi$}}
+\newcommand{\bSigma}{\mbox{\boldmath$\Sigma$}}
+\newcommand{\bLambda}{\mbox{\boldmath$\Lambda$}}
+\newcommand{\btau}{\mbox{\boldmath$\tau$}}
+\newcommand{\bepsilon}{\mbox{\boldmath$\varepsilon$}}
+\newcommand{\bpsi}{\mbox{\boldmath$\psi$}}
+\newcommand{\bzero}{{\bf 0}}
+\newcommand{\bff}{{\bf f}}
+\newcommand{\bA}{{\bf A}}
+\newcommand{\bB}{{\bf B}}
+\newcommand{\bC}{{\bf C}}
+\newcommand{\bE}{{\bf E}}
+\newcommand{\bF}{{\bf F}}
+\newcommand{\bG}{{\bf G}}
+\newcommand{\bJ}{{\bf J}}
+\newcommand{\bP}{{\bf P}}
+\newcommand{\bQ}{{\bf Q}}
+\newcommand{\bR}{{\bf R}}
+\newcommand{\bv}{{\bf v}}
+\newcommand{\bS}{{\bf S}}
+\newcommand{\bU}{{\bf U}}
+\newcommand{\bV}{{\bf V}}
+\newcommand{\bW}{{\bf W}}
+\newcommand{\bZ}{{\bf Z}}
+\newcommand{\bw}{{\bf w}}
+\newcommand{\bz}{{\bf z}}
+\newcommand{\ba}{{\bf a}}
+\newcommand{\bg}{{\bf g}}
+\newcommand{\bI}{{\bf I}}
+\newcommand{\bn}{{\bf n}}
+\newcommand{\bx}{{\bf x}}
+\newcommand{\bX}{{\bf X}}
+\newcommand{\bb}{{\bf b}}
+\newcommand{\be}{{\bf e}}
+\newcommand{\bs}{{\bf s}}
+\newcommand{\bp}{{\bf p}}
+\newcommand{\bq}{{\bf q}}
+\newcommand{\bt}{{\bf t}}
+\newcommand{\bu}{{\bf u}}
+\newcommand{\cA}{{\cal A}}
+\newcommand{\cB}{{\CMcal B}}
+\newcommand{\cC}{{\cal C}}
+\newcommand{\cD}{{\CMcal D}}
+\newcommand{\cT}{{\CMcal T}}
+\newcommand{\cN}{{\CMcal N}}
+\newcommand{\cE}{{\CMcal E}}
+\newcommand{\cF}{{\cal F}}
+\newcommand{\cG}{{\CMcal G}}
+\newcommand{\ccC}{{\CMcal C}}
+\newcommand{\cI}{{\cal I}}
+\newcommand{\cL}{{\cal L}}
+\newcommand{\cP}{{\CMcal P}}
+\newcommand{\cR}{{\CMcal R}}
+\newcommand{\cS}{{\cal S}}
+\newcommand{\cV}{{\cal V}}
+\newcommand{\cW}{{\cal W}}
+\newcommand{\cJ}{{\cal J}}
+\newcommand{\co}{{\cal o}}
+\newcommand{\cO}{{\cal O}}
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+
+
+\newcommand{\supp}{\operatorname{supp}}
+\newcommand{\dist}{\operatorname{dist}}
+\newcommand{\divr}{\operatorname{div}}
+\newcommand{\tdiv}{\operatorname{div}}
+\newcommand{\ess}{\operatorname{ess}}
+\newcommand{\rotore}{\operatorname{rot}}
+\newcommand{\bc}{\textbf{c}}
+\newcommand{\bd}{\textbf{d}}
+\newcommand{\bD}{\textbf{D}}
+
+\newcommand{\bi}{\textbf{i}}
+\newcommand{\bj}{\textbf{j}}
+\newcommand{\bh}{\textbf{h}}
+\newcommand{\bH}{\textbf{H}}
+\newcommand{\bk}{\textbf{k}}
+\newcommand{\bK}{\textbf{K}}
+\newcommand{\bl}{\textbf{l}}
+\newcommand{\bL}{\textbf{L}}
+
+
+\newcommand{\bm}{\textbf{m}}
+\newcommand{\bM}{\textbf{M}}
+\newcommand{\bN}{\textbf{N}}
+
+
+\newcommand{\bpi}{\boldsymbol{\pi}}
+\newcommand{\bo}{\textbf{o}}
+\newcommand{\br}{\textbf{r}}
+
+
+\newcommand{\by}{\textbf{y}}
+\newcommand{\bY}{\textbf{Y}}
+\newcommand{\bbx}{\textbf{x}}
+
+\newcommand{\beps}{\boldsymbol{\varepsilon}}
+\newcommand{\bphi}{\boldsymbol{\phi}}
+\newcommand{\bomega}{\boldsymbol{\omega}}
+
+
+\newcommand{\aaa}{\`a}
+\newcommand{\eee}{\`e}
+\newcommand{\iii}{\`i}
+\newcommand{\ooo}{\`o}
+\newcommand{\uuu}{\`u}
+\newcommand{\aaaa}{\'a}
+\newcommand{\eeee}{\'e}
+\newcommand{\iiii}{\'i}
+\newcommand{\oooo}{\'o}
+\newcommand{\uuuu}{\'u}
+\newcommand{\AAA}{\`A}
+\newcommand{\EEE}{\`E}
+\newcommand{\III}{\`I}
+\newcommand{\OOO}{\`O}
+\newcommand{\UUU}{\`U}
+\newcommand{\AAAA}{\'A}
+\newcommand{\EEEE}{\'E}
+\newcommand{\IIII}{\'I}
+\newcommand{\OOOO}{\'O}
+\newcommand{\UUUU}{\'U}
+\newcommand{\ND}{\mathcal{ND}}
+\newcommand{\RT}{\mathcal{RT}}
+
+%% argmin argmax
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+
+%%% theorems
+\newtheorem*{remark}{Remark}
+\renewcommand\qedsymbol{$\blacksquare$}
+
+%%% norm and abs
+\newcommand\norm[1]{\left\lVert#1\right\rVert}
+\newcommand\abs[1]{\left\vert#1\right\vert}
+%------------------------------------------------------------------------------------------------------------------------------------------
+
+% Colors
+%------------------------------------------------------------------------------------------------------------------------------------------
+\definecolor{bgblue}{rgb}{0.04,0.39,0.53}
+\definecolor{dkgreen}{cmyk}{1,0.58,1,0.33}
+\definecolor{sdgreen}{cmyk}{0.6,0.25,0.53,0.1}
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{bgorange}{cmyk}{0,0.1,0.7,0}
+\definecolor{orange}{cmyk}{0,0.9,0.9,0}
+\definecolor{navyblue}{cmyk}{1,0.7,0.36,0.4}
+\definecolor{brown}{cmyk}{0.62,0.79,0.93,0.22}
+\definecolor{tan}{cmyk}{0.14,0.21,0.47,0}
+\definecolor{dkgrey}{cmyk}{0.62,0.5,0.55,0.15}
+
+\newcommand{\colr}{\color{red}}
+\newcommand{\colb}{\color{blue}}
+\newcommand{\colgg}{\color{mygreen}}
+\newcommand{\colg}{\color{sdgreen}}
+\newcommand{\colo}{\color{orange}}
+\newcommand{\colw}{\color{white}}
+\newcommand{\colt}{\color{tan}}
+\newcommand{\coln}{\color{brown}}
+\newcommand{\colk}{\color{black}}
+\newcommand{\colc}{\color{cyan}}
+\newcommand{\colm}{\color{magenta}}
+\newcommand{\coly}{\color{yellow}}
+%------------------------------------------------------------------------------------------------------------------------------------------
+
+% layout and design settings
+%------------------------------------------------------------------------------------------------------------------------------------------
+
+% turn of navigation bar
+\beamertemplatenavigationsymbolsempty
+
+% date and framenumber settings
+\date{}
+\setcounter{framenumber}{-1}
+
+\setbeamertemplate{footline}
+{
+	\begin{beamercolorbox}[wd=0.60\textwidth,ht=3ex,dp=1.5ex,left,leftskip=.5em]{title in head/foot}
+		\usebeamerfont{title in head/foot}
+		\inserttitle
+	\end{beamercolorbox}
+	\vspace*{-4.5ex}\hspace*{0.60\textwidth}
+	\begin{beamercolorbox}[wd=0.40\textwidth,ht=3ex,dp=1.5ex,leftskip=.5em,rightskip=.5em]{author in head/foot}
+		\usebeamerfont{author in head/foot}
+		\insertauthor\hfill\insertframenumber/\inserttotalframenumber%
+	\end{beamercolorbox}
+}
+%------------------------------------------------------------------------------------------------------------------------------------------
+
+% titlepage definitions
+%------------------------------------------------------------------------------------------------------------------------------------------
+\title{Stress-Based Methods for Variational Inequalities in Solid Mechanics}
+\subtitle{Finite Element Discretization \\ and Solution by Hierarchical Optimization}
+\author{\textcolor{bgblue}{G. Rovi, B. Kober, G. Starke, R. Krause}}
+\institute{Universit\"at Duisburg\,-\,Essen, Germany \\ Universit\aaa~ della Svizzera italiana, Switzerland}
+
+
+%------------------------------------------------------------------------------------------------------------------------------------------
+
+%%% DOCUMENT START %%%
+\begin{document}
+
+
+% Titlepage:
+%------------------------------------------------------------------------------------------------------------------------------------------
+\begin{frame}
+%\includegraphics[scale=0.55]{header.pdf}
+\titlepage
+
+\vspace{-0.5cm}
+
+%\centering{\footnotesize Joint work with Gerhard Starke}
+\includegraphics[scale=0.4]{ude_logo.png}
+\hspace{0.2cm}
+\includegraphics[scale=0.4]{spp_logo.png}
+\hspace{0.2cm}
+\includegraphics[scale=0.5]{usi_logo2.jpeg}
+
+\vspace{1cm}
+{\scriptsize Annual Meeting in Kremmen \hfill 3. October 2018}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%                   SLIDE 1               %%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{\textbf{Outline}}
+\begin{itemize}
+\item $\bullet$ First section: monotone multilevel for frictionless least-squares formulation
+\item 
+\item $\bullet$ Second section: dual stress-based formulation of Contact with Friction
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\centering
+\colb \huge
+Monotone Multilevel \\for frictionless Least-Squares
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%                   SLIDE 2                %%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{\textbf{Signorini's problem: strong formulation}}
+%\begin{flushleft}
+\scriptsize
+\begin{itemize}
+\item  \textbf{Linear Elasticity:}
+\begin{align*}
+\colk
+\footnotesize
+\begin{cases}
+\text{div} \bsigma + \bff=0 & \Omega  \qquad \colk{\text{momentum balance equation}}\\
+\mathcal{A} \bsigma - \boldsymbol{\varepsilon}(\bu)=0 &\Omega \qquad \colk{\text{constitutive law}}\\
+\colb \bu = \bu_D & \colb \Gamma_D\quad \:\:\: \colk{{\text{Dirichlet BC}}}\\
+\colg \bsigma  \bn = \bt_N & \colg \Gamma_N\quad  \:\:\:\colk{{\text{Neumann BC}}}\\
+\end{cases} \\
+\end{align*}
+\item { \textbf{Contact Constraints} }\\
+\colk
+$ \partial \Omega=\Gamma_C \cup  \Gamma_D \cup  \Gamma_N$, $\Gamma_i \cap  \Gamma_j =\emptyset$ for $i,j=D,N,C, i \neq j$
+\end{itemize}
+\begin{align*}\colo
+\footnotesize
+\begin{cases}
+\bu \cdot \bn - g  \leq 0 \quad & \Gamma_C  \:\:  \colk{\text{impenetrability}}\\
+(\bsigma \bn) \cdot \bn \leq 0 \quad & \Gamma_C  \:\:  \colk{\text{direction of the surface pressure}}\\
+ \left(\bu \cdot \bn -g \right) \left( (\bsigma \bn) \cdot \bn \right) =0 &\Gamma_C  \:\:  \colk{\text{complementarity condition}}
+\end{cases}
+\end{align*}
+%\end{flushleft}
+\begin{figure}[htbp!]
+		\centering
+	\includegraphics[width=0.35\textwidth]{img/contactproblem.pdf}\qquad
+	\includegraphics[width=0.35\textwidth]{img/squarecircle.pdf}
+		\label{abb_arc}
+\end{figure}
+%\tiny{Rolf Krause. A nonsmooth multiscale method for solving frictional two-body contact problems in 2d and 3d with multigrid efficiency. SIAM Journal on Scientific Computing, 31(2):1399-1423, 2009.}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%                   SLIDE 3                %%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{\textbf{The Least-Squares Formulation}}
+\footnotesize
+The \textbf{least-squares functional} $\mathcal{J}(\bu,\bsigma)$ and the \textbf{convex set} $K$:
+\begin{align*}
+&\colo\mathcal{J}(\bu,\bsigma)=C_{1} ||\text{div} \bsigma+\bff||_{L^2(\Omega)^d}^2+C_{2}||\mathcal{A}\bsigma -\boldsymbol{\varepsilon}(\bu)||_{L^2(\Omega)^d}^2   +C_{3} \langle \bu \cdot \bn -g, (\bsigma \bn) \cdot \bn \rangle_{\Gamma_c}\\
+& \colo K=\{  \left(\bu,  \bsigma \right)  \in  \left[H_{\Gamma_{d}}^1(\Omega) \right]^d \times \left[ H_{\Gamma_{\text{div},\Gamma_N}}(\Omega) \right]^d    : \quad 
+ \bu \cdot \bn - g  \leq 0, \quad  (\bsigma \bn) \cdot \bn \leq 0 \quad  \Gamma_C
+ \}
+\end{align*}
+Find $(\bu,\bsigma) \in K$, such that:\\
+\scriptsize
+\begin{align*}
+&\bullet \textbf{Minimization problem:} \qquad  {\colo \mathcal{J}(\bu,\bsigma) \leq \mathcal{J}(\bv,\btau ) \qquad \forall (\bv,\btau) \in K}\\\\
+&\bullet \textbf{Variational Inequality:}\qquad {
+\colo
+\begin{cases}
+&
+\left\langle \dfrac{\partial \mathcal{J}(\bu,\bsigma;\bff,g)}{\partial \bu }, \bv-\bu \right\rangle 
+\geq 0 \\\\
+&
+\left\langle \dfrac{\partial \mathcal{J}(\bu,\bsigma;\bff,g)}{\partial \bsigma }, \btau-\bsigma \right\rangle 
+\geq 0 
+\end{cases}
+\qquad \qquad
+\forall (\bv, \btau) \in K}
+\end{align*}
+${}$\\
+${}$\\${}$\\
+\tiny{Rolf Krause, Benjamin M\"{u}ller, and Gerhard Starke. An adaptive least-squares mixed finite element method for the Signorini problem. Numerical Methods for Partial Differential Equations, 33(1):276-289, 2017.}
+
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%                   SLIDE 4                %%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}
+\frametitle{\textbf{Disadvantages and Advantages of the LS formulation}}
+\footnotesize
+ \textbf{Advantages of the Least-Squares Approach}
+\begin{itemize} 
+\item $\bullet$ Direct access to stress $\bsigma$ (friction, plasticity...);
+\item $\bullet$ Dealing with incompressible materials ($\lambda \to \infty$);
+\item $\bullet$ LS functional as an a posteriori error estimator;
+\item $\bullet$ Low order finite element spaces ($\bu \in P^1$, $\bsigma \in \RT_0$)
+\item $\bullet$ Symmetric positive definite system;
+\end{itemize}
+${}$\\
+ \textbf{Disadvantages of the Least-Squares Approach}
+\begin{itemize} 
+\item $\bullet$ The functional is fictitious, not physical;
+\item $\bullet$ The asymmetry of the stress tensor;
+\item $\bullet$ Find proper weights $C_1$, $C_2$, $C_3$;
+\item $\bullet$ Large condition number: need for a \textbf{multilevel method};
+\end{itemize}
+${}$\\
+${}$\\
+${}$\\
+\tiny{Attia, Frank S., Zhiqiang Cai, and Gerhard Starke. "First-order system least squares for the Signorini contact problem in linear elasticity". SIAM Journal on Numerical Analysis 47.4 (2009): 3027-3043.}\\
+
+
+\end{frame}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%                   SLIDE 5                %%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{\textbf{$H^1$ and $H_{\text{div}}$ Multilevel}}
+\footnotesize
+ $\bullet$ A proper smoother must smooth error components related to the large eigenvalues of the system operator; 
+ \begin{figure}[htbp!]
+	\includegraphics[width=0.8\textwidth]{img/errorfrequencydecomposition.eps}
+		\label{abb_arc}
+\end{figure}
+ $\bullet$ Gau{\ss}-Seidel smooths $H^1$, \textbf{but not} $H_{\text{div}}$,  high frequencies of the error;\\
+$\bullet$ The kernel $\text{Ker}(\text{div})  \left\lbrace =\btau \in H_{\text{div}}, \tdiv \btau =0   \right\rbrace $ is too large;\\
+$\bullet$ Extend Gau{\ss}-Seidel to patch-smoother for divergence-free components of the error;
+\end{frame}
+
+
+
+
+
+
+\begin{frame}
+\frametitle{\textbf{Linear Multilevel: nested meshes and patches}}
+\footnotesize
+
+\begin{figure}[htbp!]
+	\includegraphics[width=0.8\textwidth]{img/refinementpatch.pdf}
+		\label{abb_arc}
+\end{figure}
+Exploit $\nu$-patches to smooth the error in $H^1$ and $H_{\text{div}}$ simultaneously.\\
+${}$\\
+\tiny{Ralf Hiptmair. Multigrid method for H(div) in three dimensions. Electron. Trans. Numer. Anal, 6(1):133-152, 1997.}${}$\\
+${}$\\
+\tiny{Douglas N Arnold, Richard S Falk, and Ragnar Winther. Multigrid in H(div) and H(curl). Numerische Mathe-
+matik, 85(2):197-217, 2000.}
+${}$\\
+${}$\\
+\tiny{
+Gerhard Starke. Gauss-Newton multilevel methods for least-squares finite element computations of variably saturated subsurface flow. Computing, 64(4):323-338, 2000.}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\textbf{Exact Monotone Multilevel}}
+\footnotesize
+Define:
+\begin{itemize}
+\item $\bbx_J^k=(\bu_J^k,\bsigma_J^k) \in K_J$  $k$-th iterate
+\item $\bbx_{J,0}=\bbx_{J}^k$
+\item $\bbx_{j,0}=\bbx_{j+1,N_{j+1}}$, for $j=J-1,...,1$
+\end{itemize}
+Compute a sequence of intermediate iterates $\bbx_{j,\nu} =\bbx_{j,\nu-1}+\bc_{j,\nu}$:
+\begin{align*}
+&
+{\colo \mathcal{J}(\bbx_{j,\nu}+\bc_{j,\nu}) \leq \mathcal{J}(\bbx_{j,\nu}+\by) \quad \forall \by \in K_{j,\nu}^{*} }\qquad j=J,...,2, \quad \nu=1,...,N_j\\
+&{\colo \mathcal{J}(\bbx_{2,N_2}+\bc_{1}) \leq \mathcal{J}(\bbx_{2,N_2}+\by) \quad \forall \by \in K_{1}^{*} } \qquad j=1
+\end{align*}
+with the \textbf{exact} local closed convex sets $K_{j,\nu}^*$ and $K_1^*$:
+\begin{align*}
+\begin{aligned}
+& \colo K_{j,\nu}^{*}(\bbx_{j,\nu})\colo=\left\lbrace
+\by \in \text{span}\{\blambda_{j,\nu}\}: \quad \by +\bbx_{j,\nu} \in K_J
+  \right\rbrace  \\
+  & \colo K_{1}^{*}(\bbx_{2,N_2})\colo=\left\lbrace
+\by \in \text{span}\{\blambda_{1}\}: \quad \by +\bbx_{2,N_2} \in K_J
+  \right\rbrace 
+  \end{aligned}
+\end{align*}
+\end{frame}
+
+\begin{frame}
+\frametitle{\textbf{Approximate Monotone Multilevel}}
+\footnotesize
+Define
+\begin{itemize}
+\item $\bc_{j,\nu}=(\tilde{\bu}_{j,\nu},\tilde{\bsigma}_{j,\nu})$ correction at level $j$, patch $\nu$
+\item $ \bc_{J,0}= \bbx_J^k $, $ \bc_{j,0}= \textbf{0} $ for $j=J-1,...,1$
+\item $ \bw_{j,\nu}= \sum_{\mu=0}^{\nu}  \bc_{j,\mu}$ 
+\end{itemize}
+Compute a sequence of intermediate corrections $\bc_{j,\nu} \in K_{j,\nu}(\bw_{j,\nu-1})$  and $  \bc_{1}  \in K_1 $:
+\begin{align*}
+& {\colo \mathcal{J}( \bw_{j,\nu-1}+\bc_{j,\nu}) \leq \mathcal{J}( \bw_{j,\nu-1}+\by) \quad \forall \: \by \in K_{j,\nu}} && j=J,...,2, \: \: \nu=1,...,N_j\\
+&
+{\colo
+  \mathcal{J}( \bc_{1}) \leq \mathcal{J}( \by) \quad   \:   \qquad \qquad \qquad \qquad \:
+  \forall \: \by  \in K_1} \qquad  &&j=1
+\end{align*}
+with the \textbf{coarse convex sets} $K_j$ and the \textbf{approximate} local closed convex sets $K_{j,\nu}$:
+\begin{align*}
+&{\colo K_{j,\nu}(\bw_{j,\nu-1})=\left\lbrace
+\by \in \text{span}\{\lambda_{j,\nu}\}: \: \by +\bw_{j,\nu-1} \in K_j
+  \right\rbrace}\\
+ &{ \colo  K_1 \subset K_2 \subset ... \subset K_{J-1}\subset K_J}
+  \end{align*}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\textbf{Coarse Convex Sets and Constraints}}
+\footnotesize
+{\colb \textbf{Coarse Convex Sets:}}
+\begin{align*}
+\colo
+  K_j&\colo=\left\lbrace
+  \bbx_j=(\bu_j, \bsigma_j) \in X_j: \: \bu_j|_{\Gamma_D}=\bu_D , \:  \bsigma_j|_{\Gamma_N}=\bt_N, \right. \\
+   & \left.\colo
+    \qquad \qquad  
+  \: \bu_j\cdot \bn_j|_{\Gamma_C}\leq g_{j,u_n}, \: \bn^T(\bsigma_j \bn)  \leq g_{j,\sigma_n}, \: \bt_j^T(\bsigma \bn_j) =0
+  \right\rbrace  \qquad j=J\\
+\colo
+  K_j&\colo=\left\lbrace
+  \bbx_j=(\bu_j, \bsigma_j) \in X_j: \: \bu_j|_{\Gamma_D}=\textbf{0} , \:  \bsigma_j|_{\Gamma_N}=\textbf{0}, \right. \\
+   & \left.\colo
+    \qquad \qquad  
+  \: \bu_J\cdot \bn_j|_{\Gamma_C}\leq g_{j,u_n}, \: \bn^T(\bsigma_j \bn)  \leq g_{j,\sigma_n}, \: \bt_j^T(\bsigma \bn_j) =0
+  \right\rbrace  \qquad j=J-1,...,1
+\end{align*}
+{\colb \textbf{Coarse Constraints:}}
+\begin{itemize}
+\item
+$\tilde{\bu}_{j,\nu}$ and $\tilde{\bsigma}_{j,\nu}$ are the components of the correction $\bc_{j,\nu}$.
+ \begin{align*}
+{\colo g_{j,u_n}}&=
+\begin{cases}
+\colo
+g & j=J \\
+\colo
+I_{j+1,u_n}^j \left( g_{j+1,u_n} - \sum_{\nu=1}^{N_{j+1}} \left[ \tilde{\bu}_{j+1,\nu} |_{\Gamma_C} \right]_n\right) & j=J-1,...,1
+\end{cases}\\
+{\colo g_{j,\sigma_n}}&=
+\begin{cases}
+\colo
+0 & j=J \\
+ \colo
+I_{j+1,\sigma_n}^j \left( g_{j+1,\sigma_n} - \sum_{\nu=1}^{N_{j+1}}  \left[ \tilde{\bsigma}_{j+1,\nu} |_{\Gamma_C}\right]_n \right) & j=J-1,...,1
+\end{cases}
+\end{align*}
+\end{itemize}
+{\colb \textbf{Non-Linear Projection Operators:}}\\
+$\colo   I_{j+1,u_n}^j $, $\colo   I_{j+1,\sigma_n}^j $ chosen so that ${ \colo  K_1 \subset K_2 \subset ... \subset K_{J-1}\subset K_J}$.
+\end{frame}
+
+\begin{frame}
+\frametitle{\textbf{Coarse Constraints}}
+\begin{figure}[htbp!]
+		\includegraphics[scale=0.18]{img/coarseconstraintrepresentation.pdf}
+		\includegraphics[scale=0.12]{img/coarseconstraintabc.pdf}
+		\caption{\scriptsize Left: {\coly wrong} and {\colgg correct} coarse constraints. Right: different consistent coarse constraints.}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\textbf{Signorini's problem, halph-circle mesh}}
+\begin{figure}[htbp!]
+	\includegraphics[scale=0.1]{img/ResidualsNonUniform.eps}
+		\includegraphics[scale=0.1]{img/RatesNonUniform.eps}
+	\caption{Mesh with $h_{max}/h_{min}=7.0567$}
+		\label{ResidualRateVeryNonUniform}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\textbf{Signorini's problem, square mesh}}
+\footnotesize
+\begin{figure}[htbp!]
+	\includegraphics[scale=0.08]{img/SquareResidualCompressible.eps}
+	\quad
+		\includegraphics[scale=0.08]{img/SquareRateCompressible.eps}
+	\caption{Square mesh. Compressible material.}
+	\label{ResidualRateSquare}
+	\includegraphics[scale=0.08]{img/SquareResidualIncompressible.eps}
+	\quad
+		\includegraphics[scale=0.08]{img/SquareRateIncompressible.eps}
+	\caption{Square mesh. Incompressible material.}
+	\label{ResidualRateSquare}	
+	\end{figure}
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{frame}
+\centering
+\colb \huge
+Dual stress-based formulation \\of Contact with Friction
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Dual stress-based formulation of Contact with Friction}
+Minimize the energy functional:
+ \begin{align*}\colo
+ \mathcal{J}(\bsigma) :=  \frac{1}{2} \int_\Omega \left( \mathcal{A} \bsigma \right) : \bsigma \: dx  \colo 
+ - \int_{\Gamma_D} \bu_D \cdot (\bsigma \cdot \bn) \: ds - \int_{\Gamma_C} g \: (\bn \cdot (\bsigma \cdot \bn)) \: ds
+\end{align*}
+ %\mbox{ \colk subject to: } \colo \div \; \bsigma + \bff & \colo = \bzero \mbox{ \colk in } \Omega\\[-0.5em] 
+    %                            \colo \as \; \bsigma & \colo = \bzero \mbox{ \colk in } \Omega \\
+    %						   \colo \bsigma \cdot \bn  & \colo =  \bzero \mbox{ \colk on } \Gamma_N
+among all $\colo \bsigma \in \bSigma({\colb \bsigma}) := \{ \btau \in \bSigma: \: \div \; \btau + \bff = \bzero, \:  \as \; \btau = \bzero, $ \\[0.5em] 
+\hspace{2cm} $\colo \bn \cdot (\btau \cdot \bn) \leq 0,  \: | \bn \times (\btau \cdot \bn) | \leq \mu_F \colb | \bn \cdot (\bsigma \cdot \bn) | \: \colo \text{on } \Gamma_C\}$ \\[1em] 
+\begin{center} $\boldsymbol{\Longleftrightarrow}$ \end{center} 
+Determine 
+$\colo \bsigma \in \bSigma({\colb \bsigma})$ such that:
+\begin{align*}
+ \colo \left( \mathcal{A} \bsigma  , \btau-\bsigma \right)_\Omega
+ \geq \left\langle \bu_D, (\btau-\bsigma) \cdot \bn \right\rangle_{\Gamma_D} 
+ +     \left\langle g , \bn \cdot ((\btau-\bsigma) \cdot \bn)  \right\rangle_{\Gamma_C}
+\end{align*}
+holds for all 
+$\colo \btau \in \bSigma({\colb \bsigma})$.
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Coulomb Friction as limit of Tresca Iteration}
+\framesubtitle{for small $\mu_F$}
+Minimize the energy functional:
+ \begin{align*}\colo
+ \mathcal{J}(\bsigma) :=  \frac{1}{2} \int_\Omega \left( \mathcal{A} \bsigma \right) : \bsigma \: dx  \colo 
+ - \int_{\Gamma_D} \bu_D \cdot (\bsigma \cdot \bn) \: ds - \int_{\Gamma_C} g \: (\bn \cdot (\bsigma \cdot \bn)) \: ds
+\end{align*}
+among all $\colb \bsigma^n \colo \in \bSigma({\colb \bsigma^{n-1}}) := \{ \btau \in \bSigma: \: \div \; \btau + \bff = \bzero, \:  \as \; \btau = \bzero,$ \\[0.5em] 
+\hspace{1.5cm} $\colo \bn \cdot (\btau \cdot \bn) \leq 0,  \: | \bn \times (\btau \cdot \bn) | \leq \mu_F \colb | \bn \cdot (\bsigma^{n-1} \cdot \bn) | \: \colo \colo \text{on } \Gamma_C\}$ \\[1em] 
+\begin{center} $\boldsymbol{\Longleftrightarrow}$ \end{center} 
+Determine 
+$\colb \bsigma^n \colo \in \bSigma({\colb \bsigma^{n-1}})$ such that:
+\begin{align*}
+ \colo \left( \mathcal{A} {\colb \bsigma^n}  , \btau-{\colb \bsigma^n} \right)_\Omega
+ \geq \left\langle \bu_D, (\btau-{\colb \bsigma^n}) \cdot \bn \right\rangle_{\Gamma_D} 
+ +     \left\langle g , \bn \cdot ((\btau-{\colb \bsigma^n}) \cdot \bn)  \right\rangle_{\Gamma_C}
+\end{align*}
+holds for all 
+$\colo \btau \in \bSigma({\colb \bsigma^{n-1}})$.
+\end{frame}
+
+\begin{frame}
+  \frametitle{Displacement Reconstruction in $H^1$}
+  %\framesubtitle{}
+  
+  \vspace*{-0.5cm}
+  
+  \[\colo
+    - ( \bu_h , \div \, \btau_h )  = ( \cA \bsigma_h , \btau_h ) + ( \btheta_h , \as \, \btau_h )
+    = ( \cA \bsigma_h + \btheta_h , \btau_h ) =: ( \bz_h , \btau_h )
+  \]
+  $\colo \bz_h$:  discontinuous piecewise polynomial approximation to $\colo \bnabla \bu_h$
+  
+  \vspace*{0.25cm}
+%\pause
+  Gradient Reconstruction Algorithm: \\
+  {\em Step 1.} For each $\colo T \in \cT_h$, determine $\colo \left. \bu_h^\circ \right|_T \in \cP_k (T)^d$
+  \begin{align*} \colo
+    ( \bnabla \bu_h^\circ , \bnabla \bv_h )_{L^2 (T)} & \colo = ( \bz_h , \bnabla \bv_h )_{L^2 (T)} \mbox{ for all } \bv_h \in \cP_k (T)^d \\ \colo
+    ( \bu_h^\circ , \be_i )_{L^2 (T)} & \colo = ( \bu_h , \be_i )_{L^2 (T)} \mbox{ for } 1 \leq i \leq d
+  \end{align*} %\pause
+  {\em Step 2.} Construct $\colo \bu_h^R \in \cP_k (\cT_h)^d \subset H^1 (\Omega)^d$ by averaging:
+  \[ \colo
+    \bu_h^R (\bx) = \frac{1}{\# \{ T : \bx \in T \}} \left( \sum_{T : \bx \in T} \left. \bu_h^\circ \right|_T (\bx) \right)
+  \]
+  {\scriptsize \colg Kim, Appl. Math. Comput. (2012)}\\
+  {\scriptsize \colg Vohral\:\!\!{\'{}}\!\!ik, Math. Comp. (2010)}\\
+  {\scriptsize \colg Stenberg, RAIRO Math. Model. Numer. Anal. (1991)}
+  
+\end{frame}
+
+\begin{frame}
+  \frametitle{Reconstruction-Based A Posteriori Error Estimator}
+  \framesubtitle{}
+ 
+  
+  \vspace*{-0.5cm}
+  
+  \[ \colo
+    \eta (\bsigma_h,\bu_h^R) = \| \cA \bsigma_h - \bepsilon (\bu_h^R) \|_{L^2 (\Omega)}
+    \begin{array}{l}
+      \gtrsim \| \bsigma - \bsigma_h \|_{H (\div,\Omega)} \mbox{ (reliability)} \\
+      \lesssim \| \bsigma - \bsigma_h \|_{H (\div,\Omega)} \mbox{ (efficiency)}
+    \end{array}
+  \]
+  with constants which are independent of $ \colo \lambda \rightarrow \infty$
+  \vspace*{0.25cm}
+  %\pause
+  %Signorini contact conditions:
+  %\begin{align*}
+   % & \colo \left\{
+   % \begin{array}{l l}
+      %\bn \cdot (\bsigma \cdot \bn) & \colo \leq 0 \\ \colo
+      %\bn \cdot \bu - g &  \colo \leq 0
+    %\end{array}
+  %\right\} \mbox{ on } \Gamma_C
+  %\end{align*}
+
+  Add complementarity terms to the error estimator:
+  \begin{align*}   \colo
+    \eta^{CF} (\bsigma_h)^2
+    & \colo = \| \cA \bsigma_h - \bepsilon(\bu_h^R) \|_{L^{2}(\Omega)}^{2}
+    + \langle \bn \cdot \bu_h^R - g , \bn \cdot (\bsigma_h \cdot \bn) \rangle_{\Gamma_{C}}\\
+    & \colo \hspace*{0.4 cm} + \langle \bn \times \bu_h^R , \bn \times (\bsigma_h \cdot \bn) \rangle_{\Gamma_{C}}
+    + \langle | \bn \times \bu_h^R | , \mu_F | \bn \cdot (\bsigma_h \cdot \bn) | \rangle_{\Gamma_{C}}
+  \end{align*}  
+  
+  %\vspace{-0.5cm} %\pause
+
+
+  Reliability (for sufficiently small friction coefficient $\mu_F$):
+  \begin{align*}
+    & \colo \hspace{2cm} \quad \eta^{CF} (\bsigma_h) \gtrsim \| \bsigma^* - \bsigma_h \|_{H (\div,\Omega)} \quad
+    \mbox{ \colk on the constraint set}\\
+    & \hspace{-0.5cm}\colo \left\{ \bn \cdot \bu_h^R - g \leq 0, \: \bn \cdot (\bsigma_h \cdot \bn) \leq 0,\:
+    |\bn \times (\bsigma_h \cdot \bn)| \leq \mu_F |\bn\cdot(\bsigma_h\cdot\bn)|\right\} \text{ on } \Gamma_{C}
+  \end{align*}
+  The use of such a functional for error estimation goes back to \\ (at least) {\colg \scriptsize I. Hlav\'a\v{c}ek, J. Haslinger, J. Ne\v{c}as, J. Lov\'{i}\v{s}ek: Springer, 1988}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Numerical Results}
+\framesubtitle{Hertzian Contact - Setting} \vspace{-0.3cm}
+\centering \includegraphics[scale=0.25]{neuhertzpicC.eps} \\[-1cm]
+\centering $\colb \bu_D = (0,- 0.01)^T\!$, $\colgg \bt = \bzero$, $\colk \bff = \bzero$, $\colo E = 20600$, $\colo \mu_F = 0.4$, \\[0.5em]
+$\colo \bSigma_h = \cR\cT_1(\cT_h)^2$, $\colo \bU_h = \cD\cP_1(\cT_h)^2$, $\colo \bTheta_h = \cP_1(\cT_h)^{2 \times 2, as}$
+%$\colo E = 20600$, $\colo \nu = 0.28$\slash $\colo 0.5 $, $\colo \mu_F = 0.4$, 
+%D\"orfler marking strategy with paramter $\colo \theta = 0.8$
+\end{frame}
+
+
+%\begin{frame}
+%\frametitle{Contact Stress and Displacement }
+%\framesubtitle{Compressible case: $\colo \nu = 0.28$} 
+%\begin{minipage}{5.1cm}
+%\includegraphics[scale=0.23]{img/ComConS.eps} \\[-0.5cm]
+%\small \centering {\colo normal} and {\colb tangential} stress 
+%\end{minipage}
+%\begin{minipage}{5.5cm}
+%\includegraphics[scale=0.23]{img/ComConU.eps} \\[-0.5cm]
+%\small \centering reconstructed displacement
+%\end{minipage}
+%\end{frame}
+
+
+%\begin{frame}
+%\frametitle{Contact Stress and Displacement }
+%\framesubtitle{Incompressible case: $\colo \nu = 0.5$} 
+%\begin{minipage}{5.1cm}
+%\includegraphics[scale=0.23]{img/IncConS.eps} \\[-0.5cm]
+%\small \centering {\colo normal} and {\colb tangential} stress 
+%\end{minipage}
+%\begin{minipage}{5.5cm}
+%\includegraphics[scale=0.23]{img/IncConU.eps} \\[-0.5cm]
+%\small \centering reconstructed displacement
+%\end{minipage}
+%\end{frame}
+
+
+\begin{frame}
+\frametitle{Contact Stress and Displacement}
+\framesubtitle{Compressible case: $\colo \nu = 0.28$} 
+\begin{minipage}{5.1cm}
+\includegraphics[scale=0.23]{img/ComConS.eps} \\[-0.5cm]
+\small \centering {\colo normal} and {\colb tangential} stress 
+\end{minipage}
+\begin{minipage}{5.5cm}
+\includegraphics[scale=0.23]{img/ComConUcorrDir.eps} \\[-0.5cm]
+\small \centering reconstructed displacement
+\end{minipage}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Contact Stress and Displacement}
+\framesubtitle{Incompressible case: $\colo \nu = 0.5$} 
+\begin{minipage}{5.1cm}
+\includegraphics[scale=0.23]{img/IncConS.eps} \\[-0.5cm]
+\small \centering {\colo normal} and {\colb tangential} stress 
+\end{minipage}
+\begin{minipage}{5.5cm}
+\includegraphics[scale=0.23]{img/IncConUcorrDir.eps} \\[-0.5cm]
+\small \centering reconstructed displacement
+\end{minipage}
+\end{frame}
+
+\begin{frame}
+\frametitle{Refinement of Contact zone}
+\framesubtitle{Gridpoints on half of $\Gamma_C$ after 10 refinements} \hspace{-1.5cm}
+\begin{minipage}{10cm}
+\includegraphics[scale=0.24]{img/GridpointsZoom2.eps} %\\[-1cm]
+\end{minipage}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Convergence comparison}
+\framesubtitle{Values of $\eta^{CF}$}
+\vspace{-0.5cm}
+\centering \includegraphics[scale=0.25]{img/ConvergencePlot.eps} \\[-1cm]
+\end{frame}
+
+\begin{frame}
+\centering
+\colb \huge
+Thank you for your attention!
+\end{frame}
+
+\begin{frame}
+\end{frame}
+
+\begin{frame}
+\frametitle{\textbf{Signorini's problem, halph-circle mesh}}
+\begin{figure}[htbp!]
+	\includegraphics[scale=0.05]{img/ResidualsUniform.eps}
+	\quad
+		\includegraphics[scale=0.05]{img/RatesUniform.eps}
+	\caption{Mesh with $h_{max}/h_{min}=3.1688$.}
+	\label{ResidualRateUniform}
+		\includegraphics[scale=0.05]{img/ResidualsNonUniform.eps}
+	\quad
+		\includegraphics[scale=0.05]{img/RatesNonUniform.eps}
+	\caption{Mesh with $h_{max}/h_{min}=7.0567$.}
+		\label{ResidualRateNonUniform}
+				\includegraphics[scale=0.05]{img/ResidualsVeryNonUniform.eps}
+	\quad
+		\includegraphics[scale=0.05]{img/RatesVeryNonUniform.eps}
+	\caption{Mesh with $h_{max}/h_{min}=29.7936$.}
+		\label{ResidualRateVeryNonUniform}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\textbf{Variational Inequality for frictionless LS formulation }}
+\tiny
+\begin{align*}
+\colo
+\begin{cases}
+&
+\left\langle \dfrac{\partial \mathcal{J}(\bu,\bsigma;\bff,g)}{\partial \bu }, \bv-\bu \right\rangle =
+-2 \left(\mathcal{\bsigma}-\boldsymbol{\varepsilon}(\bu), \boldsymbol{\varepsilon}(\bv-\bu) \right)+\langle \bn \cdot \left( \bsigma \bn\right), \bn \cdot (\bv -\bu)\rangle_{\Gamma_C}
+\geq 0 \\\\
+&
+\left\langle \dfrac{\partial \mathcal{J}(\bu,\bsigma;\bff,g)}{\partial \bsigma }, \btau-\bsigma \right\rangle =
+2\left(\text{div}\bsigma +\bff, \tdiv (\btau-\bsigma) \right)
++ 2 \left( 
+\mathcal{\bsigma}-\boldsymbol{\varepsilon}(\bu),\mathcal{\btau-\bsigma}
+\right) +\langle \bn \cdot \bu-g, \bn \cdot 
+\left(\btau- \bsigma \right)\bn \rangle_{\Gamma_C}
+\geq 0 
+\end{cases}\end{align*}
+\end{frame}
+
+%\begin{frame}
+%\frametitle{Deformed Mesh}
+%\framesubtitle{Compressible case - 5 refinements}
+%%\vspace{-0.5cm}
+%%\hspace{-0.5cm}
+%\includegraphics[scale=0.3]{img/Mesh.eps} %\\[-1cm]
+%\end{frame}
+%
+%
+%\begin{frame}
+%\frametitle{Stress distribution}
+%\framesubtitle{Compressible case: $\colo \nu = 0.28$}
+%\vspace{-0.5cm}
+%\hspace{-0.5cm}
+%\includegraphics[scale=0.27]{img/ComStress2.eps} \\[-1cm]
+%\end{frame}
+
+\end{document}
+

@@ -1,0 +1,193 @@
+\documentclass[11pt, a4paper]{article}   	% use "amsart" instead of "article" for AMSLaTeX format
+\usepackage{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   		% ... or a4paper or a5paper or ... 
+%\geometry{landscape}                		% Activate for rotated page geometry
+%\usepackage[parfill]{parskip}    		% Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
+								% TeX will automatically convert eps --> pdf in pdflatex		
+\usepackage{amssymb}
+\usepackage{amsmath}
+
+\usepackage{algpseudocode}
+\usepackage{algorithm}
+
+% ref packages
+\usepackage{nameref}
+% folowing  must be in this order
+\usepackage{varioref}
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+\usepackage{booktabs}
+\usepackage {tikz}
+\usetikzlibrary {positioning}
+\definecolor {processblue}{cmyk}{0.96,0,0,0}
+
+
+
+
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{enumitem}   
+\usepackage{subcaption}
+
+
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{authblk}
+
+
+
+\newcommand{\supp}{\operatorname{supp}}
+\newcommand{\dist}{\operatorname{dist}}
+\newcommand{\divr}{\operatorname{div}}
+\newcommand{\tdiv}{\operatorname{div}}
+\newcommand{\ess}{\operatorname{ess}}
+\newcommand{\rotore}{\operatorname{rot}}
+\newcommand{\curl}{\operatorname{\textbf{curl}}}
+\newcommand{\bcurl}{\operatorname{\textbf{curl}}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\bA}{\textbf{A}}
+\newcommand{\ba}{\textbf{a}}
+\newcommand{\bb}{\textbf{b}}
+\newcommand{\bB}{\textbf{B}}
+\newcommand{\bc}{\textbf{c}}
+\newcommand{\bC}{\textbf{C}}
+\newcommand{\bd}{\textbf{d}}
+\newcommand{\bD}{\textbf{D}}
+\newcommand{\be}{\textbf{e}}
+\newcommand{\bE}{\textbf{E}}
+\newcommand{\bff}{\textbf{f}}
+\newcommand{\bF}{\textbf{F}}
+\newcommand{\bg}{\textbf{g}}
+\newcommand{\bG}{\textbf{G}}
+\newcommand{\bi}{\textbf{i}}
+\newcommand{\bI}{\textbf{I}}
+\newcommand{\bj}{\textbf{j}}
+\newcommand{\bJ}{\textbf{J}}
+\newcommand{\bh}{\textbf{h}}
+\newcommand{\bH}{\textbf{H}}
+\newcommand{\bk}{\textbf{k}}
+\newcommand{\bK}{\textbf{K}}
+\newcommand{\bl}{\textbf{l}}
+\newcommand{\bL}{\textbf{L}}
+\newcommand{\blambda}{\boldsymbol{\lambda}}
+\newcommand{\bLambda}{\boldsymbol{\Lambda}}
+\newcommand{\bm}{\textbf{m}}
+\newcommand{\bM}{\textbf{M}}
+\newcommand{\bn}{\textbf{n}}
+\newcommand{\bN}{\textbf{N}}
+\newcommand{\bp}{\textbf{p}}
+\newcommand{\bP}{\textbf{P}}
+\newcommand{\bpi}{\boldsymbol{\pi}}
+\newcommand{\bPi}{\boldsymbol{\Pi}}
+\newcommand{\bo}{\textbf{o}}
+\newcommand{\bq}{\textbf{q}}
+\newcommand{\bQ}{\textbf{Q}}
+\newcommand{\br}{\textbf{r}}
+\newcommand{\bR}{\textbf{R}}
+\newcommand{\bs}{\textbf{s}}
+\newcommand{\bS}{\textbf{S}}
+\newcommand{\btau}{\boldsymbol{\tau}}
+\newcommand{\bt}{\textbf{t}}
+\newcommand{\bv}{\textbf{v}}
+\newcommand{\bV}{\textbf{V}}
+\newcommand{\bw}{\textbf{w}}
+\newcommand{\bW}{\textbf{W}}
+\newcommand{\bu}{\textbf{u}}
+\newcommand{\bU}{\textbf{U}}
+\newcommand{\by}{\textbf{y}}
+\newcommand{\bY}{\textbf{Y}}
+\newcommand{\bbx}{\textbf{x}}
+\newcommand{\bX}{\textbf{X}}
+\newcommand{\bz}{\textbf{z}}
+\newcommand{\bZ}{\textbf{Z}}
+\newcommand{\beps}{\boldsymbol{\varepsilon}}
+\newcommand{\bphi}{\boldsymbol{\phi}}
+\newcommand{\bPhi}{\boldsymbol{\Phi}}
+\newcommand{\bpsi}{\boldsymbol{\psi}}
+\newcommand{\bPsi}{\boldsymbol{\Psi}}
+\newcommand{\bomega}{\boldsymbol{\omega}}
+\newcommand{\bsigma}{\boldsymbol{\sigma}}
+\newcommand{\bSigma}{\boldsymbol{\Sigma}}
+\newcommand{\bxi}{\boldsymbol{\xi}}
+\newcommand{\aaa}{\`a}
+\newcommand{\eee}{\`e}
+\newcommand{\iii}{\`i}
+\newcommand{\ooo}{\`o}
+\newcommand{\uuu}{\`u}
+\newcommand{\aaaa}{\'a}
+\newcommand{\eeee}{\'e}
+\newcommand{\iiii}{\'i}
+\newcommand{\oooo}{\'o}
+\newcommand{\uuuu}{\'u}
+\newcommand{\AAA}{\`A}
+\newcommand{\EEE}{\`E}
+\newcommand{\III}{\`I}
+\newcommand{\OOO}{\`O}
+\newcommand{\UUU}{\`U}
+\newcommand{\AAAA}{\'A}
+\newcommand{\EEEE}{\'E}
+\newcommand{\IIII}{\'I}
+\newcommand{\OOOO}{\'O}
+\newcommand{\UUUU}{\'U}
+\newcommand{\ND}{\mathcal{ND}}
+\newcommand{\RT}{\mathcal{RT}}
+
+%% argmin argmax
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+
+%%% theorems
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem*{remark}{Remark}
+\renewcommand\qedsymbol{$\blacksquare$}
+
+%%% norm and abs
+\newcommand\norm[1]{\left\lVert#1\right\rVert}
+\newcommand\abs[1]{\left\vert#1\right\vert}
+
+%\date{}							% Activate to display a given date or no date
+
+\title{Monotone multilevel for FOSLS linear elastic contact  }
+\author[1]{Gabriele Rovi\thanks{rovig@usi.ch}}
+\author[2]{Bernhard K\"{o}ber\thanks{
+bernhard.kober@uni-due.de}}
+\author[2]{Gerhard Starke\thanks{gerhard.starke@uni-due.de}}
+\author[1]{Rolf Krause\thanks{rolf.krause@usi.ch}}
+
+\affil[1]{Institute of Computational Science, Universit{\aaa}  della Svizzera italiana, Via Giuseppe Buffi 13, 6900, Lugano, Switzerland}
+\affil[2]{Fakult\"{a}t  f\"{u}r Mathematik, Universit\"{a}t Duisburg-Essen, Thea-Leymann-Stra{\ss}e 9, 45127 Essen, Germany}
+
+\begin{document}
+\maketitle
+
+
+
+
+\section{Introduction}
+In frictional contact problems, the stress and the displacement on the contact boundary are related through a non-linear law. Since in the primal/dual formulation, the stress/displacement is not known, it has to be properly reconstructed. In order to circumvent this drawback, a mixed formulation that considers simultaneously the displacement and the stress can be examined (\ref{BF12}). In particular the first order system least-squares  for linear ealstic contact problems gives rise to a formulation whose displacement and stress respectively belong to $H^1(\Omega)$ and $H(\tdiv,\Omega)$ (\ref{Boc09}, \ref{CS04}, \ref{KMS17},  \ref{CLM+94}, \ref{Mul15}, \ref{BMM97}, \ref{Sta99}, \ref{BMM+05} , \ref{BCY06}).  \\
+The most important difference between $H^1(\Omega)$ and $H(\tdiv,\Omega)$ is given by the kernels of the gradient and of the divergence operators. If the first one consists of constant functions, the second one consists of all divergence-free functions. The kernel of the divergence operator is far larger and such peculiarity also affects the corresponding multigrid methods for $H(\tdiv,\Omega)$. Briefly, it is not possible to directly apply $H^1(\Omega)$ smoothers for  $H(\tdiv,\Omega)$ problems: they would not work. The pioneering work on $H(\tdiv,\Omega)$ multigrid by Arnold, Falk and Winther can be found in \cite{AW97},~\cite{AFW00},~\cite{Arn}. Here, by exploiting the Helmoltz decomposition, it is examined a patch smoother which is able to damp the error related to free-divergence components. In \cite{Hip97} another kind of $H(\tdiv,\Omega)$-smoother for geometric multigrid is proposed as well. In this case, divergence-free and not divergence-free components are tackled separately. A first overview of these methods can be found in \cite{HT00}. Later on a nodal auxiliary space preconditioning for $H(\tdiv,\Omega)$ and $H(\text{curl},\Omega)$ spaces has been developed by Hiptmair and Xu. This tecnique is always based upon the Helmoltz decomposition. However this approach is more general and can be used for both geometric and algebraic multigrids. Further developments in terms of parallelization of the same method are discussed in \ref{KV12}. The latest overview on $H(\tdiv,\Omega)$ multigrid \cite{XCN09}. \\\\\\
+This holds for both compressible and incompressible materials. Due to local non-linearities, a monotone multilevel can be exploited and in particular, due to the local constraints, a monotone multilevel method.  A linear convergence rate in the limit case is finally shown in numerical experiments.\\
+The least-squares system of first order equations (FOSLS) for linear elasticity has been developed in \cite{CS04}, by introducing a functional which is the sum of the squared $L^2$ norms of the residuals of the equilibrium and constitutive equations (\cite{BMM+05}, \cite{Boc09}). are considered as independent,  giving rise to a mixed weak form. With respect to the standard primal displacement formulation, several are the advantages of this approach. First, the stress can be directly accessed, which can make the treatment of the elasto-plasticity (see \cite{Sta07}) and friction cases easier. Second, the Lam{\eeee} parameters are not restricted to a limited range of values: indeed, incompressible solids can be treated with no additional effort. Third, the least-squares functional is a reliable and efficient a posteriori error estimator. All these properties suggested the generalization of  \cite{CS04} to contact, as shown in  \cite{KMS17} for the Signorini's problem. The respective discretization is carried out by conforming finite element spaces: continuouse piecewise linear functions for the displacement and  Raviart-Thomas elements of the lowest order for the stress.\\
+Different tecniques for solving the constrained optimisation problem, which describes the Signorini problem in the displacement formulation, have been proposed. A typical one is the projected Gau{\ss}-Seidel, whose behaviour unfortunately deteriorates by increasing the size of the problem. Therefore multilevel approaches  are preferred. Here we want to extend to the least-squares setting the monotone multilevel exposed in \cite{KK01}, \cite{KKS+08}, \cite{KRS12}, while for the other methods we refer the reader to the citations therein (for example \cite{BH93},  \cite{GM90}, \cite{Man84}). Peculiarly, the monotone multilevel aims to compute the solution of the discrete problem by adding to the current iterate fine and coarse corrections that actually minimize the energy functional. Effectively the framework of the least-squares linear elasticity for contact problem perfectly adapts to this case. Investigating this strategy is actually the main goal  of the present paper. Nevertheless the primal and the dual variables belong to different spaces, i.e $\bu \in H^1(\Omega)$ and $\bsigma \in H(\tdiv,\Omega)$. And since $H^1 \subset H(\tdiv,\Omega)$, schemes applied to the primal case cannot be transferred straightforwardly to the mixed one. \\
+
+In \cite{Hip97} a geometric multigrid has been proposed. Then in \cite{HX07} and \cite{Vas12} a more general framework for dealing algebraic and geometric multigrid has been developed. All these approaches are based on the Helmoltz decomposition, which is a tool used not only in theory but also in the implementation. In particular, the different components in the Helmoltz decomposition can be expressed as functions of certain potentials, which are tackled separately. To this aim, various projections into the potential spaces are needed. However in this paper we take advantage of the work proposed in \cite{AW97},~\cite{AFW00},~\cite{Arn}. In this way, no potential space has to be considered, although a proper patch smoother is required.
+Moreover this smoother can be extended to the least-squares formulation as proposed in \cite{Sta00}. In this way, we tackle all together not only the different components of the Helmoltz decomposition for the stress, but also the displacement. The price to pay is the solution of local problems which can be larger with respect to the standard ones. \\
+So far, to the authors' knowledge, only multilevel methods for linear FOSLS problems have been discussed. Nevertheless the Signorini's problem is non-linear. Of course by exploiting the active set method, for each arising linear problem, a linear multilevel method could be used. However in this way the non-linearities would not appear into the multilevel cycles, but only in the external active set. The main advantage of a monotone multilevel method is that it is able to deal with constraints inside the multilevel cycle itself. In the primal case, it has been shown in \cite{Kor94} that, when the number of iterations $k\to \infty$, all the active degrees of freedom are detected, the inequality constraints become equalities and the overall problem is reduced to a linear one. In such a situation, a linear convergence rate can be shown. Altough this formula is independent of the meshwidth, it depends on the number of levels $J$ of the multilevel method. Some years later (see \cite{Bad02}, \cite{Bad14}, \cite{BK12})  the same kind of behaviour has been prooved for all the iterations, and not only in the limit case. \\
+In this paper the primal case is generalized to the  FOSLS for contact problems and some numerical experiments will be carried out to show that the linear rate is meaningful also in this situation.
+The article is organized in the following way. In the second section, we introduce the problem. In the third one, existence and uniqueness of the solution are shown. In the fourth section a monotone multilevel strategy is proposed, while in the fifth one some non-linear projection operators for the constraints are introduced. In the sixth section, proper truncated multilevel basis are discussed. Finally in the last section some numerical experiments are presented.
+
+\clearpage
+\bibliographystyle{plain} 
+\bibliography{biblio}
+%\end{thebibliography}{9}
+\end{document}
+
