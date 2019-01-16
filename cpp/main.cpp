@@ -684,9 +684,10 @@ if(rank_now==world_rank)
 
 
 MPI_Request request[9];
-MPI_Status status;
-int ricevimi=-1;
-int mandami=world_rank; 
+MPI_Status status[9];
+std::vector<int> ricevimi(9,0);
+std::vector<int> mandami(9,1);
+ 
 if(world_rank==0)
   all_shared_ranks={0,4,5,8};
 if(world_rank==1)
@@ -706,24 +707,51 @@ if(world_rank==7)
 if(world_rank==8)
   all_shared_ranks={0,1,2,3,4,5,6,7,8};
   
-  
+std::string s1,s2,s3,output_name;
+s1="sending_"; s2=std::to_string(world_rank); s3=".txt";
+output_name = s1 + s2 + s3;
+std::ofstream outputFileSend(output_name, std::ofstream::out);
+
+if(world_rank<4)
+for(int ii=0;ii<4;ii++)
+ricevimi[ii]=1;
+
    for(int ii=0;ii<all_shared_ranks.size();ii++)
      {// receive from processes with a lower rank
       if(all_shared_ranks[ii]<world_rank)
-         {
-         MPI_Irecv(&ricevimi,1,MPI_INT,all_shared_ranks[ii],all_shared_ranks[ii], MPI_COMM_WORLD,&request[ii]);
-         if(world_rank==world_size-1)
-           std::cout<<" RICEVO "<<(ricevimi)<<" DA "<<all_shared_ranks[ii]<<std::endl;
+         {MPI_Status status_now;
+         int ricevimi_loc;
+         int tag=world_rank*world_size+all_shared_ranks[ii];
+         MPI_Recv(&ricevimi_loc,1,MPI_INT,MPI_ANY_SOURCE,MPI_ANY_TAG, MPI_COMM_WORLD,&status_now);
+         ricevimi[status_now.MPI_SOURCE]=ricevimi_loc;
+         //MPI_Irecv(&ricevimi[all_shared_ranks[ii]],1,MPI_INT,all_shared_ranks[ii],tag, MPI_COMM_WORLD,&request[all_shared_ranks[ii]]);
+         //MPI_Wait(&request[all_shared_ranks[ii]],NULL);
+         //MPI_Recv(&ricevimi_loc,1,MPI_INT,MPI_ANY_SOURCE,MPI_ANY_TAG, MPI_COMM_WORLD,&status[ii]);
          }
       }
-      
     for(int ii=0;ii<all_shared_ranks.size();ii++)  
       if(all_shared_ranks[ii]<world_rank)
-         MPI_Wait(&request[ii],NULL);
+         {
+          MPI_Wait(&request[all_shared_ranks[ii]],NULL);
+          outputFileSend<<"iter=="<<ii<<", world_rank=="<<", "<<world_rank<<" RICEVO "<<(ricevimi[all_shared_ranks[ii]])<<" DA "<<all_shared_ranks[ii]<<"\n";}
          
          
+    int sum=0;
+      for(int ii=0;ii<all_shared_ranks.size();ii++)
+      {
+      if(world_rank==5)
+       std::cout<<"ricevimi[all_shared_ranks[ii]] "<<ricevimi[all_shared_ranks[ii]]<<std::endl;
+      if(all_shared_ranks[ii]<world_rank)  
+       {
+       sum=sum+ricevimi[all_shared_ranks[ii]];
+       
+       }
+      
+      if(world_rank>3 && all_shared_ranks[ii]>world_rank)
+      mandami[all_shared_ranks[ii]]=sum;  
+      } 
       // coloring
-    for(int ii=0;ii<all_shared_ranks.size();ii++)
+      for(int ii=0;ii<all_shared_ranks.size();ii++)  
       if(all_shared_ranks[ii]==world_rank)
       {
       //std::cout<<"iter=="<<ii<<", world_rank=="<<", "<<world_rank<<", mandami "<<(mandami)<<" ricevimi "<<ricevimi<<std::endl;
@@ -731,13 +759,20 @@ if(world_rank==8)
       //MPI_Wait(&request, MPI_STATUS_IGNORE);
       // send to processes with a lower rank
       
-      
+     // std::cout<<"world_rank=="<<world_rank<<"ricevimi=="<<ricevimi[ii]<<" mandami=="<<mandami<<std::endl;
     for(int ii=0;ii<all_shared_ranks.size();ii++)
       if(all_shared_ranks[ii]>world_rank)
         {
-        mandami=world_rank+1;
-        MPI_Isend(&mandami,1,MPI_INT,all_shared_ranks[ii],all_shared_ranks[ii],MPI_COMM_WORLD,&request[ii]);
-        //std::cout<<"iter=="<<ii<<", world_rank=="<<", "<<world_rank<<", MANDO "<<(ricevimi)<<" A "<<all_shared_ranks[ii]<<std::endl;
+        int tag=world_rank*world_size+all_shared_ranks[ii];
+        //MPI_Isend(&mandami[all_shared_ranks[ii]],1,MPI_INT,all_shared_ranks[ii],tag,MPI_COMM_WORLD,&request[all_shared_ranks[ii]]);
+        //std::cout<<"SEND Da=="<<world_rank<<" A "<<all_shared_ranks[ii]<<std::endl;
+        //MPI_Isend(&mandami[all_shared_ranks[ii]],1,MPI_INT,all_shared_ranks[ii],tag,MPI_COMM_WORLD,&request[all_shared_ranks[ii]]);
+        MPI_Send(&mandami[all_shared_ranks[ii]],1,MPI_INT,all_shared_ranks[ii],tag,MPI_COMM_WORLD);
+        if(world_rank==4)
+         {
+         std::cout<<"SEND=="<<mandami[all_shared_ranks[ii]]<<" A=="<<all_shared_ranks[ii]<<" DA "<<world_rank <<std::endl;
+         }
+        outputFileSend<<"iter=="<<ii<<", world_rank=="<<", "<<world_rank<<", MANDO "<<(mandami[all_shared_ranks[ii]])<<" A "<<all_shared_ranks[ii]<<"\n";
         }
 
 
@@ -803,7 +838,6 @@ if(world_rank==8)
 
 
 
-std::string s1,s2,s3,output_name;
 s1="coloring_"; s2=std::to_string(world_rank); s3=".txt";
 output_name = s1 + s2 + s3;
 std::ofstream outputFile(output_name, std::ofstream::out);
