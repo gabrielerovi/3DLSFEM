@@ -1,139 +1,10 @@
-// Mixed formulation for Poisson equation (C++)
-// ============================================
-// 
-// This demo illustrates how to solve Poisson equation using a mixed
-// (two-field) formulation. In particular, it illustrates how to
-// 
-// * Use mixed and non-continuous finite element spaces
-// * Set essential boundary conditions for subspaces and H(div) spaces
-// * Define a (vector-valued) expression using additional geometry information
-// 
-// 
-// Equation and problem definition
-// -------------------------------
-// 
-// An alternative formulation of Poisson equation can be formulated by
-// introducing an additional (vector) variable, namely the (negative)
-// flux: :math:`\sigma = \nabla u`. The partial differential equations
-// then read
-// 
-// .. math::
-//    \sigma - \nabla u &= 0 \quad {\rm in} \ \Omega, \\
-//    \nabla \cdot \sigma &= - f \quad {\rm in} \ \Omega,
-// 
-// with boundary conditions
-// 
-// .. math::
-//    u = u_0 \quad {\rm on} \ \Gamma_{D},  \\
-//    \sigma \cdot n = g \quad {\rm on} \ \Gamma_{N}.
-// 
-// The same equations arise in connection with flow in porous media, and
-// are also referred to as Darcy flow.
-// 
-// After multiplying by test functions :math:`\tau` and :math:`v`,
-// integrating over the domain, and integrating the gradient term by
-// parts, one obtains the following variational formulation: find
-// :math:`\sigma \in \Sigma` and :math:`v \in V` satisfying
-// 
-// .. math::
-//    \int_{\Omega} (\sigma \cdot \tau + \nabla \cdot \tau \ u) \ {\rm d} x
-//    &= \int_{\Gamma} \tau \cdot n \ u \ {\rm d} s
-//    \quad \forall \ \tau \in \Sigma, \\
-// 
-//    \int_{\Omega} \nabla \cdot \sigma v \ {\rm d} x
-//    &= - \int_{\Omega} f \ v \ {\rm d} x
-//    \quad \forall \ v \in V.
-// 
-// Here :math:`n` denotes the outward pointing normal vector on the
-// boundary. Looking at the variational form, we see that the boundary
-// condition for the flux (:math:`\sigma \cdot n = g`) is now an
-// essential boundary condition (which should be enforced in the function
-// space), while the other boundary condition (:math:`u = u_0`) is a
-// natural boundary condition (which should be applied to the variational
-// form). Inserting the boundary conditions, this variational problem can
-// be phrased in the general form: find :math:`(\sigma, u) \in \Sigma_g
-// \times V` such that
-// 
-// .. math::
-// 
-//    a((\sigma, u), (\tau, v)) = L((\tau, v))
-//    \quad \forall \ (\tau, v) \in \Sigma_0 \times V
-// 
-// where the variational forms :math:`a` and :math:`L` are defined as
-// 
-// .. math::
-// 
-//    a((\sigma, u), (\tau, v)) &=
-//      \int_{\Omega} \sigma \cdot \tau + \nabla \cdot \tau \ u
-//    + \nabla \cdot \sigma \ v \ {\rm d} x \\
-//    L((\tau, v)) &= - \int_{\Omega} f v \ {\rm d} x
-//    + \int_{\Gamma_D} u_0 \tau \cdot n  \ {\rm d} s
-// 
-// and :math:`\Sigma_g = \{ \tau \in H({\rm div}) \text{ such that } \tau \cdot n|_{\Gamma_N} = g \}`
-// and :math:`V = L^2(\Omega)`.
-// 
-// To discretize the above formulation, two discrete function spaces
-// :math:`\Sigma_h \subset \Sigma` and :math:`V_h \subset V` are needed
-// to form a mixed function space :math:`\Sigma_h \times V_h`. A stable
-// choice of finite element spaces is to let :math:`\Sigma_h` be the
-// Brezzi-Douglas-Marini elements of polynomial order :math:`k` and let
-// :math:`V_h` be discontinuous elements of polynomial order :math:`k-1`.
-// 
-// We will use the same definitions of functions and boundaries as in the
-// demo for Poisson's equation. These are:
-// 
-// * :math:`\Omega = [0,1] \times [0,1]` (a unit square)
-// * :math:`\Gamma_{D} = \{(0, y) \cup (1, y) \in \partial \Omega\}`
-// * :math:`\Gamma_{N} = \{(x, 0) \cup (x, 1) \in \partial \Omega\}`
-// * :math:`u_0 = 0`
-// * :math:`g = \sin(5x)`   (flux)
-// * :math:`f = 10\exp(-((x - 0.5)^2 + (y - 0.5)^2) / 0.02)`   (source term)
-// 
-// With the above input the solution for :math:`u` and :math:`\sigma` will look as
-// follows:
-// 
-// .. image:: ../mixed-poisson_u.png
-//     :scale: 75
-//     :align: center
-// 
-// .. image:: ../mixed-poisson_sigma.png
-//     :scale: 75
-//     :align: center
-// 
-// 
-// Implementation
-// --------------
-// 
-// The implementation is split in two files, a form file containing the definition
-// of the variational forms expressed in UFL and the solver which is implemented
-// in a C++ file.
-// 
-// Running this demo requires the files: :download:`main.cpp`,
-// :download:`MixedPoisson.ufl` and :download:`CMakeLists.txt`.
-// 
-// 
-// UFL form file
-// ^^^^^^^^^^^^^
-// 
-// The UFL file is implemented in :download:`MixedPoisson.ufl`, and the
-// explanation of the UFL file can be found at :doc:`here <MixedPoisson.ufl>`.
-// 
-// 
-// C++ program
-// ^^^^^^^^^^^
-// 
-// The solver is implemented in the :download:`main.cpp` file.
-// 
-// At the top we include the DOLFIN header file and the generated header
-// file containing the variational forms.  For convenience we also
-// include the DOLFIN namespace.
-// 
-// .. code-block:: cpp
+
 
 
 #include <dolfin.h>
 #include "MixedPoisson.h"
-
+#include "Prova.h"
+#include <fstream> 
 
 using namespace dolfin;
 
@@ -225,7 +96,7 @@ parameters["ghost_mode"] = "shared_vertex";
 parameters["reorder_vertices_gps"] = true;
 parameters["reorder_cells_gps"] = true;
 
-auto mesh = std::make_shared<UnitSquareMesh>(2,2);
+auto mesh = std::make_shared<UnitSquareMesh>(9,9);
 
 const double Lambda = 1.0;
 const double Mu = 1.0;
@@ -259,7 +130,7 @@ auto dofmap = W->dofmap();
 //constGraph* graph;
 //std::vector<ColorType> boostcolors;
 //BoostGraphColoring->compute_local_vertex_coloring(graph, boostcolors);
-auto colors=mesh->color("vertex");
+//auto colors=mesh->color("vertex");
 
 // if(world_rank==1)
 // {
@@ -600,44 +471,40 @@ PetscFree(patch_is);
 ISDestroy(&all_is);
 PetscFree(all_is);
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////           FIND COMMUNICATING PROCESSES           /////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-std::vector<unsigned int> keys;
-std::vector<unsigned int> shared_rank,all_shared_ranks;
+std::vector<unsigned int> keys; 
+std::vector<unsigned int> shared_rank, all_shared_ranks;
 std::vector<std::set<unsigned int> > vals;
 const int* all_shared_ranks_array;
 unsigned int cont=0;
      
     for (std::map< int, std::set<unsigned int> >::iterator it=shared_vertices.begin(); it!= shared_vertices.end(); ++it)
-       {keys.push_back(it->first);
+      {keys.push_back(it->first);
        vals.push_back(it->second);
        for ( std::set<unsigned int>::iterator setit = vals[cont].begin(); setit != vals[cont].end(); ++setit)
-             shared_rank.push_back(*setit);
+             shared_rank.push_back(*setit); //contains all the communicating processes (multiple times)
        cont++;
        }
 
-
-//for(shared_rank=shared_rank.begin();shared_rank!=shared_rank.end();shared_rank++)
-//    std::cout<<"world_rank=="<<world_rank<<", shared_rank : "<<*shared_rank<<std::endl;
-    
+// now we sort and make unique shared_rank, which contains only the communicating processes
+// while all_shared_ranks contains also the current processor
 std::sort(shared_rank.begin(),shared_rank.end());
 auto shared_rank_tmp = std::unique(shared_rank.begin(), shared_rank.end());
 shared_rank.erase(shared_rank_tmp, shared_rank.end()); 
-
 all_shared_ranks=shared_rank;
 all_shared_ranks.push_back(world_rank);
+std::sort(all_shared_ranks.begin(),all_shared_ranks.end());
 all_shared_ranks_array = (const int*)&all_shared_ranks[0];
 
-//
-MPI_Group MPI_COMM_GROUP,shared_group;
-MPI_Comm_group(MPI_COMM_WORLD, &MPI_COMM_GROUP);
+MPI_Comm MPI_COMM_GHOST;
+MPI_Group MPI_GHOST_GROUP,shared_group;
+MPI_Comm_group(MPI_COMM_WORLD, &MPI_GHOST_GROUP);
 
-MPI_Group_incl(
-	MPI_COMM_GROUP,
-	all_shared_ranks.size(),
-	all_shared_ranks_array,
-	&shared_group);
-
+MPI_Group_incl(MPI_GHOST_GROUP,all_shared_ranks.size(),all_shared_ranks_array,&shared_group);
+MPI_Comm_create(MPI_COMM_WORLD,shared_group,&MPI_COMM_GHOST);
 
 
 for(int ii=0;ii<all_shared_ranks.size();ii++)
@@ -658,7 +525,7 @@ std::map<unsigned int, unsigned int> global_to_local_vertex;
 std::map<unsigned int,unsigned int>::iterator it_global_to_local_vertex = global_to_local_vertex.begin();
 while(it_global_to_local_vertex != global_to_local_vertex.end())
 {
-std::cout<<"world_rank: "<<world_rank<<"it_global_to_local_vertex: "<<it_global_to_local_vertex->first<<" :: "<<global_to_local_vertex[it_global_to_local_vertex->first]<<std::endl;
+//std::cout<<"world_rank: "<<world_rank<<"it_global_to_local_vertex: "<<it_global_to_local_vertex->first<<" :: "<<global_to_local_vertex[it_global_to_local_vertex->first]<<std::endl;
 it_global_to_local_vertex++;
 }
 
@@ -672,33 +539,60 @@ it_global_to_local_vertex++;
 
 std::vector<unsigned int> used_color(1,mesh->num_vertices());
 // we initialize with zero the vector, since 0 is the color related to non-shared (internal) nodes
-std::vector<unsigned int> vertex_shared_color(mesh->num_vertices(),0 );//std::distance(shared_vertices.begin(),shared_vertices.end()),0);  
-for(int ii=0;ii<vertex_shared_color.size();ii++)
-    {
-    auto actual_vertex=Vertex(*mesh, ii);
- 	auto point_vertex=actual_vertex.point();    
-   // std::cout<<"//////////////world_rank: "<<world_rank<<"  point=(" <<point_vertex[0]<<", "<<point_vertex[1]<<") "<<" vertex_shared_color["<<ii<<"]=="<<vertex_shared_color[ii]<<std::endl;
-     }
+unsigned int num_shared_vertices= std::distance(shared_vertices.begin(),shared_vertices.end());
+
+
+std::vector<unsigned int> vertex_color(mesh->num_vertices(),0);//num_shared_vertices,0 );
+std::vector<unsigned int> vertex_global_dof(mesh->num_vertices(),0);//num_shared_vertices,0 ); 
+
+
+// for(int ii=0;ii<vertex_shared_color.size();ii++)
+//     {
+//     auto actual_vertex=Vertex(*mesh, ii);
+//  	auto point_vertex=actual_vertex.point();    
+//    // std::cout<<"//////////////world_rank: "<<world_rank<<"  point=(" <<point_vertex[0]<<", "<<point_vertex[1]<<") "<<" vertex_shared_color["<<ii<<"]=="<<vertex_shared_color[ii]<<std::endl;
+//      }
+     
+     
+     
+     
+     
+     
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////     
+////////////////////////////////////////             COLORING                  ////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////     
+
+
+
 // loop on all the processors of the world_rank processor, communicating through ghost cells
 for(std::vector<unsigned int>::iterator rank_shared_on_this_proc=all_shared_ranks.begin();rank_shared_on_this_proc!=all_shared_ranks.end();rank_shared_on_this_proc++)
 {
+std::vector<unsigned int> vertex_shared_color;
+std::vector<unsigned int> vertex_shared_global_dof;//num_shared_vertices,0 ); 
+unsigned int count_vertex=0;
 // consider the rank=rank_now
 unsigned int rank_now=*rank_shared_on_this_proc;
 // then only the rank_now processor will color the vertices, while all the others will wait (MPI_Barrier) for it to finish
-// then rank_now will sen to all the the shared processor the information regarding the colored vertices
+// then rank_now will send to all the shared processor the information regarding the colored vertices
 // so that each of them can update their color
 if(rank_now==world_rank)
-{
-     // loop on all the shared (ghost) vertices and use the coloring algorithm
+  {
+     // loop on all the shared (ghost) vertices and use the coloring algorithm    
      for (std::map< int, std::set<unsigned int> >::iterator shared_node=shared_vertices.begin(); shared_node!= shared_vertices.end(); ++shared_node)
         {
         std::vector<unsigned int> patch_shared_color;
         unsigned int vertex_index=shared_node->first;
+        auto actual_vertex=Vertex(*mesh, vertex_index);
+        unsigned int global_vertex_index=actual_vertex.global_index();
          // for the first node, use the color=1
          if(used_color.size()==1)
            {
             used_color.push_back(1);
-            vertex_shared_color[vertex_index]=1;
+            vertex_color[vertex_index]=1;
+            vertex_global_dof[vertex_index]=global_vertex_index;
+            vertex_shared_color.push_back(1);
+            vertex_shared_global_dof.push_back(global_vertex_index);
+            count_vertex++;
            }
          else
          {
@@ -708,8 +602,8 @@ if(rank_now==world_rank)
     	    for(int ii=0;ii<N2N.size();ii++)
    	        {
    	          // consider all the colors >1 of the patch
-  	          if(vertex_shared_color[N2N[ii]]>0)
-  	            patch_shared_color.push_back(vertex_shared_color[N2N[ii]]);
+  	          if(vertex_color[N2N[ii]]>0)
+  	            patch_shared_color.push_back(vertex_color[N2N[ii]]);
   	         }
   	     // sort and unique patch_shared_color
  		 std::sort(patch_shared_color.begin(),patch_shared_color.end());
@@ -722,7 +616,11 @@ if(rank_now==world_rank)
     	 if(patch_shared_color.size()==used_color_size-1)   
     	   {
     	    used_color.push_back(1);
-    	    vertex_shared_color[vertex_index]=used_color_size;
+    	    vertex_color[vertex_index]=used_color_size;
+    	    vertex_global_dof[vertex_index]=global_vertex_index;
+    	    vertex_shared_color.push_back(used_color_size);
+            vertex_shared_global_dof.push_back(global_vertex_index);
+            count_vertex++; 
     	   }     
     	 //otherwise we can opt among one of the colors already use
     	 // we discard the ones in patch_shared_color
@@ -738,38 +636,184 @@ if(rank_now==world_rank)
                  unused_colors_range.erase( unused_colors_range.begin() +  patch_shared_color[ii]-ii);
                 }
             
-            if(0==world_rank)
-            for(int ii=0;ii<unused_colors.size();ii++)
-               {}//std::cout<<"world_rank: "<<world_rank<<" unused_colors "<< unused_colors[ii]<<std::endl;
-            vertex_shared_color[vertex_index]=unused_colors_range[std::distance(unused_colors.begin(), std::min_element(unused_colors.begin(), unused_colors.end()))];
+            vertex_color[vertex_index]=unused_colors_range[std::distance(unused_colors.begin(), std::min_element(unused_colors.begin(), unused_colors.end()))];
+            vertex_global_dof[vertex_index]=global_vertex_index;
+    	    vertex_shared_color.push_back(vertex_color[vertex_index]);
+            vertex_shared_global_dof.push_back(global_vertex_index);
+            count_vertex++; 
             }
-         
-         
-         
+                                 
          }
-         if(rank_now==world_rank)
-            {    
-             auto actual_vertex=Vertex(*mesh, vertex_index);
- 			 auto point_vertex=actual_vertex.point(); 
- 			for(int jj=0;jj<patch_shared_color.size();jj++)
- 			   {}//std::cout<<"world_rank: "<<world_rank<<" patch_shared_color "<< patch_shared_color[jj]<<std::endl;
-            std::cout<<"world_rank: "<<world_rank<<" global_index()=="<< actual_vertex.global_index()<<"  point=(" <<point_vertex[0]<<", "<<point_vertex[1]<<") "<<" vertex_shared_color["<<vertex_index<<"]=="<<vertex_shared_color[vertex_index]<<std::endl;
-            }
-        patch_shared_color.clear();  
-        // used_color
+        patch_shared_color.clear();
+        
         }
-}
-        
-     //    if(0==world_rank)
-//         for(int ii=0;ii<vertex_shared_color.size();ii++)
-//             {
-//              auto actual_vertex=Vertex(*mesh, ii);
-//  			 auto point_vertex=actual_vertex.point();    
-//             std::cout<<"world_rank: "<<world_rank<<"  point=(" <<point_vertex[0]<<", "<<point_vertex[1]<<") "<<" vertex_shared_color["<<ii<<"]=="<<vertex_shared_color[ii]<<std::endl;
-//             }
-        
-}
+      }
       
+  //  std::cout<<"PRE world_rank: "<<world_rank<<" vertex_shared_color.size() "<<vertex_shared_color.size()<<std::endl;
+    for(int ii=0;  ii<vertex_shared_color.size();ii++)
+       {}//std::cout<<"PRE world_rank: "<<world_rank<<" vertex_shared_color "<<vertex_shared_color[ii]<<std::endl;
+ //    MPI_Bcast(&vertex_shared_color[0],count_vertex,MPI_UNSIGNED,rank_now,MPI_COMM_GHOST);
+//     MPI_Bcast(&vertex_shared_global_dof[0],count_vertex,MPI_UNSIGNED,rank_now,MPI_COMM_GHOST);
+//     MPI_Bcast(&count_vertex,1,MPI_UNSIGNED,rank_now,MPI_COMM_GHOST);
+//     
+//    MPI_Barrier(MPI_GHOST_GROUP);     
+//    std::cout<<"world_rank=="<<world_rank<<" rank_now=="<< rank_now<<" count_vertex=="<<count_vertex<<std::endl;
+    //std::cout<<"world_rank: "<<world_rank<<" vertex_shared_color "<<vertex_shared_color[0]<<std::endl;
+    if(world_rank!=rank_now)
+    {
+      for(int ii=0;ii<count_vertex;ii++)
+      {
+//        // check whether the global dof from rank_now also belongs to world_rank
+//        // in this case, update the color
+       // {std::cout<<"world_rank: "<<world_rank<<" vertex_shared_global_dof[ii] " << vertex_shared_global_dof[ii]<<std::endl;
+       // if(global_to_local_vertex.count(vertex_shared_global_dof[ii])==1)
+           {}// do nothing
+      //  else
+           {}//vertex_color[global_to_local_vertex[vertex_shared_global_dof[ii]]]=vertex_shared_color[ii];
+           }
+    }
+
+    MPI_Barrier(MPI_GHOST_GROUP);     
+}
+  
+    // MPI_Recv(&vertex_shared_color[0],count_vertex,MPI_INT,world_rank,world_rank,MPI_COMM_WORLD,&status);
+
+    //MPI_Bcast(&mandami,1,MPI_INT,0,MPI_COMM_GHOST);
+ 
+ 
+
+
+MPI_Request request[9];
+MPI_Status status;
+int ricevimi=-1;
+int mandami=world_rank; 
+if(world_rank==0)
+  all_shared_ranks={0,4,5,8};
+if(world_rank==1)
+  all_shared_ranks={1,4,6,8};
+if(world_rank==2)
+  all_shared_ranks={2,6,7,8};
+if(world_rank==3)
+  all_shared_ranks={3,5,7,8};
+if(world_rank==4)
+  all_shared_ranks={0,1,4,5,6,8};  
+if(world_rank==5)
+  all_shared_ranks={0,3,4,5,7,8};
+if(world_rank==6)
+  all_shared_ranks={1,2,4,6,7,8};
+if(world_rank==7)
+  all_shared_ranks={2,3,5,6,7,8};
+if(world_rank==8)
+  all_shared_ranks={0,1,2,3,4,5,6,7,8};
+  
+  
+   for(int ii=0;ii<all_shared_ranks.size();ii++)
+     {// receive from processes with a lower rank
+      if(all_shared_ranks[ii]<world_rank)
+         {
+         MPI_Irecv(&ricevimi,1,MPI_INT,all_shared_ranks[ii],all_shared_ranks[ii], MPI_COMM_WORLD,&request[ii]);
+         if(world_rank==world_size-1)
+           std::cout<<" RICEVO "<<(ricevimi)<<" DA "<<all_shared_ranks[ii]<<std::endl;
+         }
+      }
+      
+    for(int ii=0;ii<all_shared_ranks.size();ii++)  
+      if(all_shared_ranks[ii]<world_rank)
+         MPI_Wait(&request[ii],NULL);
+         
+         
+      // coloring
+    for(int ii=0;ii<all_shared_ranks.size();ii++)
+      if(all_shared_ranks[ii]==world_rank)
+      {
+      //std::cout<<"iter=="<<ii<<", world_rank=="<<", "<<world_rank<<", mandami "<<(mandami)<<" ricevimi "<<ricevimi<<std::endl;
+      }
+      //MPI_Wait(&request, MPI_STATUS_IGNORE);
+      // send to processes with a lower rank
+      
+      
+    for(int ii=0;ii<all_shared_ranks.size();ii++)
+      if(all_shared_ranks[ii]>world_rank)
+        {
+        mandami=world_rank+1;
+        MPI_Isend(&mandami,1,MPI_INT,all_shared_ranks[ii],all_shared_ranks[ii],MPI_COMM_WORLD,&request[ii]);
+        //std::cout<<"iter=="<<ii<<", world_rank=="<<", "<<world_rank<<", MANDO "<<(ricevimi)<<" A "<<all_shared_ranks[ii]<<std::endl;
+        }
+
+
+//    {
+//     if(world_rank==all_shared_ranks[ii])
+//     {
+//     for(int jj=ii+1;jj<all_shared_ranks.size();jj++)
+//        {
+//         MPI_Send(&mandami, 1, MPI_INT, all_shared_ranks[jj], all_shared_ranks[jj], MPI_COMM_WORLD);
+//          std::cout<<"iter=="<<ii<<"--IO "<<", "<<world_rank<<", MANDO "<<mandami<<" A "<<jj<<", "<<  prova(jj)<<std::endl;
+//        }
+//        
+//     for(int jj=0;jj<ii;jj++)
+//        {
+//         MPI_Recv(&ricevimi, 1, MPI_INT,all_shared_ranks[jj], all_shared_ranks[jj], MPI_COMM_WORLD,&status);
+//         std::cout<<"--IO "<<", "<<world_rank<<", MANDO "<<mandami<<" A "<<jj<<", "<<  prova(jj)<<std::endl;
+//        }       
+//        
+//        
+//     }
+// 
+//      MPI_Barrier(MPI_COMM_WORLD); 
+//     }
+    
+    
+    
+    
+    
+    
+       
+//   for(int ii=0;ii<world_size-1;ii++)
+//     {for(int jj=ii+1;jj<world_size;jj++)
+//       if(world_rank==ii)
+//        {
+//         MPI_Send(&mandami, 1, MPI_INT, jj, jj, MPI_COMM_WORLD);
+//          std::cout<<"--IO "<<", "<<world_rank<<", MANDO "<<mandami<<" A "<<jj<<", "<<  prova(jj)<<std::endl;
+//        }
+//     if(world_rank>ii)
+//     {
+//     MPI_Recv(&ricevimi, 1, MPI_INT,ii, world_rank, MPI_COMM_WORLD,&status);
+//     //std::cout<<all_shared_ranks.size()<<", "<<world_size<<"--IO "<<", "<<world_rank<<", RICEVO "<<ricevimi<<" DA "<<all_shared_ranks[ii]<<std::endl;
+//     }
+//     
+//      MPI_Barrier(MPI_COMM_WORLD); 
+//     }
+    
+    
+    
+    
+    
+    
+    
+    
+   //  for(int ii=0;ii<1;ii++)
+//     {
+//      if(ii!=world_rank) 
+//      MPI_Send(&mandami, 1, MPI_INT, world_rank+1, ii, MPI_COMM_WORLD);
+//      else
+//      MPI_Recv(&ricevimi, 1, MPI_INT, world_rank, ii, MPI_COMM_WORLD,&status);
+//          std::cout<<"RICEVO "<<ii<<", "<<world_rank<<", "<<ricevimi<<std::endl;
+//      }
+
+
+
+
+std::string s1,s2,s3,output_name;
+s1="coloring_"; s2=std::to_string(world_rank); s3=".txt";
+output_name = s1 + s2 + s3;
+std::ofstream outputFile(output_name, std::ofstream::out);
+for(int ii=0;ii<mesh->num_vertices();ii++)
+{
+    auto actual_vertex=Vertex(*mesh, ii);
+ 	auto point_vertex=actual_vertex.point(); 
+outputFile << point_vertex[0]<<", "<<point_vertex[1]<<", "<<vertex_color[ii]<<"\n";
+    
+}
 for(int jj=0;jj<world_size;jj++)
      {
       MPI_Barrier(MPI_COMM_WORLD);
