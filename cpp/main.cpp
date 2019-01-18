@@ -8,31 +8,6 @@
 
 using namespace dolfin;
 
-// Then follows the definition of the coefficient functions (for
-// :math:`f` and :math:`G`), which are derived from the DOLFIN
-// :cpp:class:`Expression` class.
-// 
-// .. code-block:: cpp
-
-
-
-//   std::vector<unsigned int> get_keys(std::map<  int,std::set<unsigned int > > &themap )
-//   {
-//     std::vector<unsigned int> keys;
-//     for (std::map<unsigned int, std::set<unsigned int> >::iterator it=themap.begin(); it!= themap.end(); it++)
-//        keys.push_back(it->first);
-//     return keys;
-//   }
-//   
-//   
-//     std::vector<unsigned int> get_vals(std::map<unsigned int,std::set<unsigned int > >& themap , unsigned int i)
-//   {
-//     std::vector<unsigned int> vals;
-//     for (std::set<unsigned int>::iterator it=themap[i].begin(); it!= themap[i].end(); it++)
-//       vals.push_back(*it);
-//     return vals;
-//   } 
-//   
   
 // Source term (right-hand side)
 class Source : public Expression
@@ -66,13 +41,6 @@ private:
 
 };
 
-
-// Then follows the definition of the essential boundary part of the
-// boundary of the domain, which is derived from the
-// :cpp:class:`SubDomain` class.
-// 
-// .. code-block:: cpp
-
 // Sub domain for essential boundary condition
 class EssentialBoundary : public SubDomain
 {
@@ -82,12 +50,7 @@ class EssentialBoundary : public SubDomain
   }
 };
 
-// Inside the ``main()`` function we first create the ``mesh`` and then
-// we define the (mixed) function space for the variational
-// formulation. We also define the bilinear form ``a`` and linear form
-// ``L`` relative to this function space.
-// 
-// .. code-block:: cpp
+
 
 int main()
 {
@@ -96,7 +59,7 @@ parameters["ghost_mode"] = "shared_vertex";
 parameters["reorder_vertices_gps"] = true;
 parameters["reorder_cells_gps"] = true;
 
-auto mesh = std::make_shared<UnitSquareMesh>(9,9);
+auto mesh = std::make_shared<UnitSquareMesh>(20,20);
 
 const double Lambda = 1.0;
 const double Mu = 1.0;
@@ -122,7 +85,7 @@ int world_rank,world_size;
 MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);  
 MPI_Comm_size(MPI_COMM_WORLD, &world_size);
 auto gdim = mesh->geometry().dim();  
-auto dofmap = W->dofmap();
+std::shared_ptr<const dolfin::GenericDofMap> dofmap = W->dofmap();
 
 
 
@@ -158,68 +121,32 @@ auto topology_N2F=mesh->topology()(0,gdim-1);
 // face to node
 mesh->init(gdim-1,0);
 //mesh->topology().init_ghost(gdim-1,0);
-auto topology_F2N=mesh->topology()(gdim-1,0);
+MeshConnectivity topology_F2N=mesh->topology()(gdim-1,0);
 
 // element to node
 mesh->init(gdim,0);
 //mesh->topology().init_ghost(gdim,0);
-auto topology_K2N=mesh->topology()(gdim,0);
+MeshConnectivity topology_K2N=mesh->topology()(gdim,0);
 
 // element to face
 mesh->init(gdim,gdim-1);
 //mesh->topology().init_ghost(gdim,gdim-1);
-auto topology_K2F=mesh->topology()(gdim,gdim-1);
+MeshConnectivity topology_K2F=mesh->topology()(gdim,gdim-1);
 
 // face to element
 mesh->init(gdim-1,gdim);
 //mesh->topology().init_ghost(gdim-1,gdim);
-auto topology_F2K=mesh->topology()(gdim-1,gdim);
+MeshConnectivity topology_F2K=mesh->topology()(gdim-1,gdim);
 
 // node to element
 mesh->init(0,gdim);
 //mesh->topology().init_ghost(0,gdim);
-auto topology_N2K=mesh->topology()(0,gdim);
+MeshConnectivity topology_N2K=mesh->topology()(0,gdim);
 
 
 
 
-
-std::vector<std::vector< int > > topology_N2N(mesh->num_vertices());
-
-for(int rr=0;rr<world_size;rr++)
-{
-if(world_rank==rr)
-{
-for(int nn=0;nn<mesh->num_vertices();nn++)
-{
-auto actual_vertex=Vertex(*mesh, nn);
-auto point_vertex=actual_vertex.point();
-//std::cout<<"world_rank=="<<world_rank<<", point_vertex==("<<point_vertex[0]<<", "<<point_vertex[1]<<")"<<std::endl;
-
-
-  for (MeshEntityIterator ee(  MeshEntity(*mesh, 0, nn),gdim-1 ); !ee.end(); ++ee)
- {
-    auto edge_dof=topology_N2F(nn)[ee.pos()];
-    for(int nn2=0;nn2<gdim;nn2++)
-       if(nn!=topology_F2N(edge_dof)[nn2])
-       {
-        topology_N2N[nn].push_back(topology_F2N(edge_dof)[nn2]);
-        auto patch_vertex=Vertex(*mesh, topology_F2N(edge_dof)[nn2]);
-        auto point_patch=patch_vertex.point();
-       // std::cout<<"world_rank=="<<world_rank<<", point_patch==("<<point_patch[0]<<", "<<point_patch[1]<<")"<<std::endl;
-
-      }            
- }
-}
-
-}
-MPI_Barrier(MPI_COMM_WORLD);
-}
-
-
-
-
-
+std::vector<std::vector< int > > topology_N2N=topologyN2N(mesh, topology_N2F, topology_F2N);
 
 
 auto coor = mesh->coordinates();
@@ -229,7 +156,10 @@ auto vertex=VertexIterator(*mesh);
 
 //std::vector<std::list< int > > Patch(mesh->num_vertices());
 //std::vector<std::list< int > > Patch(mesh->num_vertices());
-std::vector<std::vector< int > > Patch(mesh->num_vertices());
+//std::vector<std::vector< int > > Patch(mesh->num_vertices());
+
+
+
 std::pair<long unsigned int, long unsigned int> ownership_range=dofmap->ownership_range();
 std::vector<std::size_t> local_to_global_map;
  dofmap->tabulate_local_to_global_dofs(local_to_global_map);
@@ -252,80 +182,7 @@ std::map<int, std::set<unsigned int>>::iterator it = shared_cells.begin();
 std::map<int, std::set<unsigned int>>::iterator it_sharedvertex = shared_vertices.begin();
 
 
-
-// loop on all the vertices (not ghost, but the patch will consider also the ghost faces)
-for (; !vertex.end(); ++vertex)
-{
-auto vertex_index=vertex->index();
-std::vector<long unsigned int> vertex_vector(1);
-vertex_vector[0]=vertex_index;
-auto actual_vertex=Vertex(*mesh, vertex_index);
-auto point_vertex=actual_vertex.point();
-
-// add to the patch the dofs related to the node
-auto tmp_node=dofmap->entity_dofs(*mesh, 0,vertex_vector);
-for(int ii=0;ii<tmp_node.size();ii++)
-    Patch[vertex_index].push_back(tmp_node[ii]);
-
-for (MeshEntityIterator ee(  MeshEntity(*mesh, 0, vertex_index),gdim-1 ); !ee.end(); ++ee)
-{
-  auto edge_dof=topology_N2F(vertex_index)[ee.pos()];
-  std::vector<long unsigned int> edge_vector(1);
-  edge_vector[0]=edge_dof;
-  auto actual_edge=Edge(*mesh,edge_dof);
-  auto point_edge=actual_edge.midpoint();
-  // add to the patch the dofs related to the faces connected to the node
-  auto tmp_face=dofmap->entity_dofs(*mesh, 1,edge_vector);
-  for(int ii=0;ii<tmp_face.size();ii++)
-      Patch[vertex_index].push_back(tmp_face[ii]);
-  //std::cout<<"NOT SHARED world_rank: "<<world_rank<<", topology_N2F: " <<vertex_index<<" coord "<<point_vertex[0]<<", "<<point_vertex[1]<< ", edge: "<<edge_dof<<" coord "<< point_edge[0]<<", "<<point_edge[1] <<std::endl;
-}
-}
-
-// loop on all the vertices (also ghost)
-while(it_sharedvertex != shared_vertices.end())
-{
-auto vertex_index=it_sharedvertex->first;
-auto actual_vertex=Vertex(*mesh, vertex_index);
-auto point_vertex=actual_vertex.point();
-
-for (MeshEntityIterator ee(  MeshEntity(*mesh, 0, it_sharedvertex->first),gdim-1 ); !ee.end(); ++ee)
-{
-  auto edge_num=topology_N2F(it_sharedvertex->first)[ee.pos()];
-  auto edge=Edge(*mesh,edge_num);
-  
-  auto edge_dof=topology_N2F(vertex_index)[ee.pos()];
-  auto actual_edge=Edge(*mesh,edge_dof);
-  auto point_edge=actual_edge.midpoint();
- // std::cout<<"SHARED world_rank: "<<world_rank<<", topology_N2F: " <<it_sharedvertex->first<<" coord "<<point_vertex[0]<<", "<<point_vertex[1]<< ", edge: "<<edge_dof<<" coord "<< point_edge[0]<<", "<<point_edge[1] <<std::endl;
-}
-it_sharedvertex++;
-}
-
-
-// loop on the vertices
-for(int nn=0;nn<mesh->num_vertices() ;nn++)
-    {// loop on the dofs of the given vertex
-    auto actual_vertex=Vertex(*mesh, nn);
-    auto point_vertex=actual_vertex.point();
-    for(int ii=0;ii<Patch[nn].size();ii++)
-        {
-        // std::cout<<"NOT SHARED["<<world_rank<<"], vertex="<<nn<<",with coord["<< point_vertex[0]<<", "<<point_vertex[1]<<"], and dof["<<ii<<"]="<<Patch[nn][ii]<<std::endl;
-        }
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
+std::vector<std::vector< int > > Patch=topologyN2PatchDofs( mesh, dofmap, topology_N2F);
 
 
 
@@ -477,6 +334,7 @@ PetscFree(all_is);
 
 std::vector<unsigned int> keys; 
 std::vector<unsigned int> shared_rank, all_shared_ranks;
+std::map<unsigned int, unsigned int> shared_rank_map;
 std::vector<std::set<unsigned int> > vals;
 const int* all_shared_ranks_array;
 unsigned int cont=0;
@@ -537,303 +395,180 @@ it_global_to_local_vertex++;
  
  
 
-std::vector<unsigned int> used_color(1,mesh->num_vertices());
 // we initialize with zero the vector, since 0 is the color related to non-shared (internal) nodes
 unsigned int num_shared_vertices= std::distance(shared_vertices.begin(),shared_vertices.end());
 
-
-std::vector<unsigned int> vertex_color(mesh->num_vertices(),0);//num_shared_vertices,0 );
-std::vector<unsigned int> vertex_global_dof(mesh->num_vertices(),0);//num_shared_vertices,0 ); 
-
-
-// for(int ii=0;ii<vertex_shared_color.size();ii++)
-//     {
-//     auto actual_vertex=Vertex(*mesh, ii);
-//  	auto point_vertex=actual_vertex.point();    
-//    // std::cout<<"//////////////world_rank: "<<world_rank<<"  point=(" <<point_vertex[0]<<", "<<point_vertex[1]<<") "<<" vertex_shared_color["<<ii<<"]=="<<vertex_shared_color[ii]<<std::endl;
-//      }
      
      
-     
-     
-     
-     
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////     
-////////////////////////////////////////             COLORING                  ////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////     
-
-
-
-// loop on all the processors of the world_rank processor, communicating through ghost cells
-for(std::vector<unsigned int>::iterator rank_shared_on_this_proc=all_shared_ranks.begin();rank_shared_on_this_proc!=all_shared_ranks.end();rank_shared_on_this_proc++)
-{
-std::vector<unsigned int> vertex_shared_color;
-std::vector<unsigned int> vertex_shared_global_dof;//num_shared_vertices,0 ); 
-unsigned int count_vertex=0;
-// consider the rank=rank_now
-unsigned int rank_now=*rank_shared_on_this_proc;
-// then only the rank_now processor will color the vertices, while all the others will wait (MPI_Barrier) for it to finish
-// then rank_now will send to all the shared processor the information regarding the colored vertices
-// so that each of them can update their color
-if(rank_now==world_rank)
-  {
-     // loop on all the shared (ghost) vertices and use the coloring algorithm    
-     for (std::map< int, std::set<unsigned int> >::iterator shared_node=shared_vertices.begin(); shared_node!= shared_vertices.end(); ++shared_node)
-        {
-        std::vector<unsigned int> patch_shared_color;
-        unsigned int vertex_index=shared_node->first;
-        auto actual_vertex=Vertex(*mesh, vertex_index);
-        unsigned int global_vertex_index=actual_vertex.global_index();
-         // for the first node, use the color=1
-         if(used_color.size()==1)
-           {
-            used_color.push_back(1);
-            vertex_color[vertex_index]=1;
-            vertex_global_dof[vertex_index]=global_vertex_index;
-            vertex_shared_color.push_back(1);
-            vertex_shared_global_dof.push_back(global_vertex_index);
-            count_vertex++;
-           }
-         else
-         {
-     	   auto N2N=topology_N2N[vertex_index];
-     	   
-    	    // check which color I can use 
-    	    for(int ii=0;ii<N2N.size();ii++)
-   	        {
-   	          // consider all the colors >1 of the patch
-  	          if(vertex_color[N2N[ii]]>0)
-  	            patch_shared_color.push_back(vertex_color[N2N[ii]]);
-  	         }
-  	     // sort and unique patch_shared_color
- 		 std::sort(patch_shared_color.begin(),patch_shared_color.end());
-         auto patch_shared_color_tmp = std::unique(patch_shared_color.begin(), patch_shared_color.end());
-    	 patch_shared_color.erase(patch_shared_color_tmp, patch_shared_color.end());   	
-    	 
-    	 // if the numer of colors up to now used (except the zero) is equal to the ones on the patch
-    	 // then add onother color
-    	 unsigned int used_color_size=used_color.size();
-    	 if(patch_shared_color.size()==used_color_size-1)   
-    	   {
-    	    used_color.push_back(1);
-    	    vertex_color[vertex_index]=used_color_size;
-    	    vertex_global_dof[vertex_index]=global_vertex_index;
-    	    vertex_shared_color.push_back(used_color_size);
-            vertex_shared_global_dof.push_back(global_vertex_index);
-            count_vertex++; 
-    	   }     
-    	 //otherwise we can opt among one of the colors already use
-    	 // we discard the ones in patch_shared_color
-    	 // and of the remaining in used_colors, we take the one which has less vertices
-    	 else
-    	   {
-    	    std::vector<unsigned int> unused_colors(used_color);
-    	    std::vector<int> unused_colors_range(unused_colors.size());
-            std::iota(unused_colors_range.begin(), unused_colors_range.end(), 0);
-            
-    	    for(int ii=0;ii<patch_shared_color.size();ii++)
-                {unused_colors.erase( unused_colors.begin() +  patch_shared_color[ii]-ii);
-                 unused_colors_range.erase( unused_colors_range.begin() +  patch_shared_color[ii]-ii);
-                }
-            
-            vertex_color[vertex_index]=unused_colors_range[std::distance(unused_colors.begin(), std::min_element(unused_colors.begin(), unused_colors.end()))];
-            vertex_global_dof[vertex_index]=global_vertex_index;
-    	    vertex_shared_color.push_back(vertex_color[vertex_index]);
-            vertex_shared_global_dof.push_back(global_vertex_index);
-            count_vertex++; 
-            }
-                                 
-         }
-        patch_shared_color.clear();
-        
-        }
-      }
-      
-  //  std::cout<<"PRE world_rank: "<<world_rank<<" vertex_shared_color.size() "<<vertex_shared_color.size()<<std::endl;
-    for(int ii=0;  ii<vertex_shared_color.size();ii++)
-       {}//std::cout<<"PRE world_rank: "<<world_rank<<" vertex_shared_color "<<vertex_shared_color[ii]<<std::endl;
- //    MPI_Bcast(&vertex_shared_color[0],count_vertex,MPI_UNSIGNED,rank_now,MPI_COMM_GHOST);
-//     MPI_Bcast(&vertex_shared_global_dof[0],count_vertex,MPI_UNSIGNED,rank_now,MPI_COMM_GHOST);
-//     MPI_Bcast(&count_vertex,1,MPI_UNSIGNED,rank_now,MPI_COMM_GHOST);
-//     
-//    MPI_Barrier(MPI_GHOST_GROUP);     
-//    std::cout<<"world_rank=="<<world_rank<<" rank_now=="<< rank_now<<" count_vertex=="<<count_vertex<<std::endl;
-    //std::cout<<"world_rank: "<<world_rank<<" vertex_shared_color "<<vertex_shared_color[0]<<std::endl;
-    if(world_rank!=rank_now)
-    {
-      for(int ii=0;ii<count_vertex;ii++)
-      {
-//        // check whether the global dof from rank_now also belongs to world_rank
-//        // in this case, update the color
-       // {std::cout<<"world_rank: "<<world_rank<<" vertex_shared_global_dof[ii] " << vertex_shared_global_dof[ii]<<std::endl;
-       // if(global_to_local_vertex.count(vertex_shared_global_dof[ii])==1)
-           {}// do nothing
-      //  else
-           {}//vertex_color[global_to_local_vertex[vertex_shared_global_dof[ii]]]=vertex_shared_color[ii];
-           }
-    }
-
-    MPI_Barrier(MPI_GHOST_GROUP);     
-}
   
-    // MPI_Recv(&vertex_shared_color[0],count_vertex,MPI_INT,world_rank,world_rank,MPI_COMM_WORLD,&status);
+std::vector<unsigned int> vertex_shared_color;
+std::vector<unsigned int> vertex_shared_global_dof;
+std::vector<unsigned int> vertex_color(mesh->num_vertices(),0);
+std::vector<unsigned int> vertex_global_dof(mesh->num_vertices(),0);
 
-    //MPI_Bcast(&mandami,1,MPI_INT,0,MPI_COMM_GHOST);
+for(int ii=0;ii<shared_rank.size();ii++)
+   shared_rank_map[shared_rank[ii]]=ii;
+
+std::vector<std::vector<unsigned int> > vertex_shared_global_dof_and_color(shared_rank_map.size());
+//coloring(shared_vertices,mesh,topology_N2N,vertex_color, vertex_global_dof,vertex_shared_color,vertex_shared_global_dof,shared_rank_map,vertex_shared_global_dof_and_color);
+// for(int jj=0;jj<shared_rank.size();jj++)
+// for(int ii=0;ii<vertex_shared_global_dof_and_color[jj].size();ii=ii+2)
+//       std::cout<<"SHARED world_rank: "<<world_rank<<" related to "<<shared_rank[jj]<<"-- "<<vertex_shared_global_dof_and_color[jj][ii]<<", " <<vertex_shared_global_dof_and_color[jj][ii+1]<<std::endl;
+
+     
+
+std::vector<MPI_Request> request;
+std::vector<MPI_Status> status;
+std::vector<int> ricevimi(world_size,0);
+std::vector<int> mandami(world_size,0);
  
  
-
-
-MPI_Request request[9];
-MPI_Status status[9];
-std::vector<int> ricevimi(9,0);
-std::vector<int> mandami(9,1);
  
-if(world_rank==0)
-  all_shared_ranks={0,4,5,8};
-if(world_rank==1)
-  all_shared_ranks={1,4,6,8};
-if(world_rank==2)
-  all_shared_ranks={2,6,7,8};
-if(world_rank==3)
-  all_shared_ranks={3,5,7,8};
-if(world_rank==4)
-  all_shared_ranks={0,1,4,5,6,8};  
-if(world_rank==5)
-  all_shared_ranks={0,3,4,5,7,8};
-if(world_rank==6)
-  all_shared_ranks={1,2,4,6,7,8};
-if(world_rank==7)
-  all_shared_ranks={2,3,5,6,7,8};
-if(world_rank==8)
-  all_shared_ranks={0,1,2,3,4,5,6,7,8};
+ 
+ 
   
 std::string s1,s2,s3,output_name;
 s1="sending_"; s2=std::to_string(world_rank); s3=".txt";
 output_name = s1 + s2 + s3;
 std::ofstream outputFileSend(output_name, std::ofstream::out);
 
-if(world_rank<4)
-for(int ii=0;ii<4;ii++)
-ricevimi[ii]=1;
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+MPI_Barrier(MPI_COMM_WORLD);
+std::vector<unsigned int> used_color(1,mesh->num_vertices());
+
+
+
+
+
+
+   
+   // RECEIVE 
    for(int ii=0;ii<all_shared_ranks.size();ii++)
      {// receive from processes with a lower rank
       if(all_shared_ranks[ii]<world_rank)
          {MPI_Status status_now;
-         int ricevimi_loc;
-         int tag=world_rank*world_size+all_shared_ranks[ii];
-         MPI_Recv(&ricevimi_loc,1,MPI_INT,MPI_ANY_SOURCE,MPI_ANY_TAG, MPI_COMM_WORLD,&status_now);
-         ricevimi[status_now.MPI_SOURCE]=ricevimi_loc;
-         //MPI_Irecv(&ricevimi[all_shared_ranks[ii]],1,MPI_INT,all_shared_ranks[ii],tag, MPI_COMM_WORLD,&request[all_shared_ranks[ii]]);
-         //MPI_Wait(&request[all_shared_ranks[ii]],NULL);
-         //MPI_Recv(&ricevimi_loc,1,MPI_INT,MPI_ANY_SOURCE,MPI_ANY_TAG, MPI_COMM_WORLD,&status[ii]);
-         }
-      }
-    for(int ii=0;ii<all_shared_ranks.size();ii++)  
-      if(all_shared_ranks[ii]<world_rank)
-         {
-          MPI_Wait(&request[all_shared_ranks[ii]],NULL);
-          outputFileSend<<"iter=="<<ii<<", world_rank=="<<", "<<world_rank<<" RICEVO "<<(ricevimi[all_shared_ranks[ii]])<<" DA "<<all_shared_ranks[ii]<<"\n";}
+         int count_recv;
+         unsigned int* buffer;
+         MPI_Probe(MPI_ANY_SOURCE, MPI_ANY_TAG, MPI_COMM_WORLD, &status_now);
+         MPI_Get_count(&status_now, MPI_UNSIGNED, &count_recv); 
+         buffer=(unsigned int*)malloc(sizeof(unsigned int)*count_recv);
+         std::cout<<"world_rank=="<<world_rank<<" PRE RECV, source=="<<status_now.MPI_SOURCE<<" , tag=="<<status_now.MPI_TAG<<std::endl;
+         MPI_Recv(buffer, count_recv, MPI_UNSIGNED, status_now.MPI_SOURCE, status_now.MPI_TAG,MPI_COMM_WORLD,MPI_STATUS_IGNORE);// &status_now); 
+         std::cout<<"world_rank=="<<world_rank<<" POST RECV, source=="<<status_now.MPI_SOURCE<<" , tag=="<<status_now.MPI_TAG<<std::endl;
          
-         
-    int sum=0;
-      for(int ii=0;ii<all_shared_ranks.size();ii++)
-      {
-      if(world_rank==5)
-       std::cout<<"ricevimi[all_shared_ranks[ii]] "<<ricevimi[all_shared_ranks[ii]]<<std::endl;
-      if(all_shared_ranks[ii]<world_rank)  
-       {
-       sum=sum+ricevimi[all_shared_ranks[ii]];
-       
-       }
-      
-      if(world_rank>3 && all_shared_ranks[ii]>world_rank)
-      mandami[all_shared_ranks[ii]]=sum;  
-      } 
-      // coloring
-      for(int ii=0;ii<all_shared_ranks.size();ii++)  
-      if(all_shared_ranks[ii]==world_rank)
-      {
-      //std::cout<<"iter=="<<ii<<", world_rank=="<<", "<<world_rank<<", mandami "<<(mandami)<<" ricevimi "<<ricevimi<<std::endl;
+          for(int jj=0;jj<count_recv;jj=jj+2)
+               {vertex_color[global_to_local_vertex[buffer[jj]]]=buffer[jj+1];
+               //std::cout<<" RICEVO world_rank: "<<world_rank<<" count_recv   "<<count_recv<<", "<<jj<<", ("<<global_to_local_vertex[buffer[jj]]<<", "<<buffer[jj]<<", "<<buffer[jj+1]<<")"<<std::endl;
+               if(used_color.size()-1<buffer[jj])
+                 while(used_color.size()<buffer[jj])
+                      used_color.push_back(0);
+                used_color[ buffer[jj] ] ++; 
+               }
+         //free (buffer);
+          }
       }
-      //MPI_Wait(&request, MPI_STATUS_IGNORE);
-      // send to processes with a lower rank
-      
-     // std::cout<<"world_rank=="<<world_rank<<"ricevimi=="<<ricevimi[ii]<<" mandami=="<<mandami<<std::endl;
+        
+   coloring(shared_vertices,mesh,topology_N2N,vertex_color, vertex_global_dof,vertex_shared_color,vertex_shared_global_dof,shared_rank_map,vertex_shared_global_dof_and_color,used_color);
+std::cout<<"world_rank=="<<world_rank<<" post coloring out "<<std::endl;
+
     for(int ii=0;ii<all_shared_ranks.size();ii++)
+      {
+      std::cout<<"world_rank=="<<world_rank<<" ii "<<ii<<"/"<<all_shared_ranks.size()<<std::endl;
       if(all_shared_ranks[ii]>world_rank)
-        {
+        {unsigned int* buffer;
         int tag=world_rank*world_size+all_shared_ranks[ii];
-        //MPI_Isend(&mandami[all_shared_ranks[ii]],1,MPI_INT,all_shared_ranks[ii],tag,MPI_COMM_WORLD,&request[all_shared_ranks[ii]]);
-        //std::cout<<"SEND Da=="<<world_rank<<" A "<<all_shared_ranks[ii]<<std::endl;
-        //MPI_Isend(&mandami[all_shared_ranks[ii]],1,MPI_INT,all_shared_ranks[ii],tag,MPI_COMM_WORLD,&request[all_shared_ranks[ii]]);
-        MPI_Send(&mandami[all_shared_ranks[ii]],1,MPI_INT,all_shared_ranks[ii],tag,MPI_COMM_WORLD);
-        if(world_rank==4)
-         {
-         std::cout<<"SEND=="<<mandami[all_shared_ranks[ii]]<<" A=="<<all_shared_ranks[ii]<<" DA "<<world_rank <<std::endl;
-         }
-        outputFileSend<<"iter=="<<ii<<", world_rank=="<<", "<<world_rank<<", MANDO "<<(mandami[all_shared_ranks[ii]])<<" A "<<all_shared_ranks[ii]<<"\n";
+        int rank2send=shared_rank_map[ii];
+        int recv_rank=all_shared_ranks[ii];
+        int recv_size=vertex_shared_global_dof_and_color[rank2send].size();
+        //=&vertex_shared_global_dof_and_color[rank2send][0];
+        buffer=(unsigned int*)malloc(sizeof(unsigned int)*recv_size);
+        for(int ii=0;ii<recv_size;ii++)
+	      buffer[ii]=vertex_shared_global_dof_and_color[rank2send][ii];
+	      
+	    std::cout<<"world_rank=="<<world_rank<<" PRE SEND, source=="<<recv_rank<<" , tag=="<<tag<<" all_shared_ranks"<<all_shared_ranks[ii]<<std::endl;
+        MPI_Send(buffer,recv_size,MPI_UNSIGNED,recv_rank,tag,MPI_COMM_WORLD);
+        std::cout<<"world_rank=="<<world_rank<<" POST SEND, source=="<<recv_rank<<" , tag=="<<" all_shared_ranks"<<all_shared_ranks[ii]<<tag<<std::endl;
+
+    //     for(int jj=0;jj<recv_size;jj++)
+//         std::cout<<"MANDA world_rank: "<<world_rank<<" to "<<all_shared_ranks[ii]<<" tag=="<<tag<<". dimensione  "<<vertex_shared_global_dof_and_color[rank2send].size()<<", "<<vertex_shared_global_dof_and_color[rank2send][jj]<<", buffer "<<buffer[jj]<<std::endl;
+        }
         }
 
 
-//    {
-//     if(world_rank==all_shared_ranks[ii])
-//     {
-//     for(int jj=ii+1;jj<all_shared_ranks.size();jj++)
-//        {
-//         MPI_Send(&mandami, 1, MPI_INT, all_shared_ranks[jj], all_shared_ranks[jj], MPI_COMM_WORLD);
-//          std::cout<<"iter=="<<ii<<"--IO "<<", "<<world_rank<<", MANDO "<<mandami<<" A "<<jj<<", "<<  prova(jj)<<std::endl;
-//        }
-//        
-//     for(int jj=0;jj<ii;jj++)
-//        {
-//         MPI_Recv(&ricevimi, 1, MPI_INT,all_shared_ranks[jj], all_shared_ranks[jj], MPI_COMM_WORLD,&status);
-//         std::cout<<"--IO "<<", "<<world_rank<<", MANDO "<<mandami<<" A "<<jj<<", "<<  prova(jj)<<std::endl;
-//        }       
-//        
-//        
-//     }
+
+
+
+
+MPI_Barrier(MPI_COMM_WORLD);
 // 
-//      MPI_Barrier(MPI_COMM_WORLD); 
-//     }
-    
-    
-    
-    
-    
-    
-       
-//   for(int ii=0;ii<world_size-1;ii++)
-//     {for(int jj=ii+1;jj<world_size;jj++)
-//       if(world_rank==ii)
-//        {
-//         MPI_Send(&mandami, 1, MPI_INT, jj, jj, MPI_COMM_WORLD);
-//          std::cout<<"--IO "<<", "<<world_rank<<", MANDO "<<mandami<<" A "<<jj<<", "<<  prova(jj)<<std::endl;
-//        }
-//     if(world_rank>ii)
-//     {
-//     MPI_Recv(&ricevimi, 1, MPI_INT,ii, world_rank, MPI_COMM_WORLD,&status);
-//     //std::cout<<all_shared_ranks.size()<<", "<<world_size<<"--IO "<<", "<<world_rank<<", RICEVO "<<ricevimi<<" DA "<<all_shared_ranks[ii]<<std::endl;
-//     }
+// int rank2send=shared_rank_map[1];
+// int recv_rank=all_shared_ranks[1];
+// int MAX_NUMBERS = vertex_shared_global_dof_and_color[rank2send].size();
+// unsigned int* numbers;
+// int number_amount;
+// 
+// if (world_rank == 0) {
+//     // Pick a random amount of integers to send to process one
+//     srand(time(NULL));
+//     number_amount = MAX_NUMBERS ;
+//     numbers=(unsigned int *)malloc(MAX_NUMBERS *sizeof(unsigned int));
+// 
+//     for(int ii=0;ii<MAX_NUMBERS;ii++)
+//      numbers[ii]=vertex_shared_global_dof_and_color[rank2send][ii];
+//     MPI_Send(numbers, number_amount, MPI_UNSIGNED, 1, 0, MPI_COMM_WORLD);
+// } else if (world_rank == 1) {
+//     MPI_Status status;
 //     
-//      MPI_Barrier(MPI_COMM_WORLD); 
-//     }
-    
-    
-    
-    
-    
-    
-    
-    
-   //  for(int ii=0;ii<1;ii++)
-//     {
-//      if(ii!=world_rank) 
-//      MPI_Send(&mandami, 1, MPI_INT, world_rank+1, ii, MPI_COMM_WORLD);
-//      else
-//      MPI_Recv(&ricevimi, 1, MPI_INT, world_rank, ii, MPI_COMM_WORLD,&status);
-//          std::cout<<"RICEVO "<<ii<<", "<<world_rank<<", "<<ricevimi<<std::endl;
-//      }
+//     MPI_Probe(MPI_ANY_SOURCE, MPI_ANY_TAG, MPI_COMM_WORLD, &status);
+//     MPI_Get_count(&status, MPI_UNSIGNED, &number_amount); 
+//     numbers=(unsigned int *)malloc(number_amount *sizeof(unsigned int));
+//     MPI_Recv(numbers, number_amount, MPI_UNSIGNED, status.MPI_SOURCE, status.MPI_TAG, MPI_COMM_WORLD,MPI_STATUS_IGNORE);
+//     for(int ii=0;ii<number_amount;ii++)
+//      std::cout<<" recv num "<<numbers[ii]<<std::endl;
+//            
+// }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -845,7 +580,7 @@ for(int ii=0;ii<mesh->num_vertices();ii++)
 {
     auto actual_vertex=Vertex(*mesh, ii);
  	auto point_vertex=actual_vertex.point(); 
-outputFile << point_vertex[0]<<", "<<point_vertex[1]<<", "<<vertex_color[ii]<<"\n";
+outputFile << point_vertex[0]<<", "<<point_vertex[1]<<", "<<vertex_color[ii]<<", "<<actual_vertex.global_index()<<"\n";
     
 }
 for(int jj=0;jj<world_size;jj++)
