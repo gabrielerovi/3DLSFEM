@@ -58,9 +58,27 @@ int main()
 parameters["ghost_mode"] = "shared_vertex";
 parameters["reorder_vertices_gps"] = true;
 parameters["reorder_cells_gps"] = true;
+parameters["linear_algebra_backend"] = "PETSc";
 
-auto mesh = std::make_shared<UnitSquareMesh>(20,20);
 
+  
+  
+auto mesh = std::make_shared<UnitSquareMesh>(10,10);
+int world_rank,world_size;
+MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);  
+MPI_Comm_size(MPI_COMM_WORLD, &world_size);
+
+
+std::ofstream myfile;
+std::string  Amatfiletxt="Amatfile.txt",resfile="resfile",resfiletxt=resfile+".txt";
+std::string Alocfile="Alocfile",resfileloc="resfileloc", Apatchfile="Apatchfile";
+std::string txt=".txt";
+std::string stringrank=std::to_string(world_rank);
+Alocfile=Alocfile+stringrank;
+Apatchfile=Apatchfile+stringrank+"_";
+resfileloc=resfileloc+stringrank;
+
+  
 const double Lambda = 1.0;
 const double Mu = 1.0;
 const double Beta = 1.0/(2*Mu);
@@ -71,8 +89,8 @@ auto beta=std::make_shared<Constant>(1.0/(2*Mu));
 auto alpha=std::make_shared<Constant>(((-Beta) * Lambda /(2*Lambda +2*Mu)));
 
   // Construct function space
-  auto W = std::make_shared<MixedPoisson::FunctionSpace>(mesh);
-  
+auto W = std::make_shared<MixedPoisson::FunctionSpace>(mesh);
+PetscInt W_dim=W->dim();  
   MixedPoisson::BilinearForm a(W, W);
   MixedPoisson::LinearForm L(W);
 
@@ -81,35 +99,12 @@ auto alpha=std::make_shared<Constant>(((-Beta) * Lambda /(2*Lambda +2*Mu)));
 
 
 
-int world_rank,world_size;
-MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);  
-MPI_Comm_size(MPI_COMM_WORLD, &world_size);
 auto gdim = mesh->geometry().dim();  
 std::shared_ptr<const dolfin::GenericDofMap> dofmap = W->dofmap();
 
 
 
 
-//constGraph* graph;
-//std::vector<ColorType> boostcolors;
-//BoostGraphColoring->compute_local_vertex_coloring(graph, boostcolors);
-//auto colors=mesh->color("vertex");
-
-// if(world_rank==1)
-// {
-// for(int ii=0;ii<colors.size();ii++)
-// {auto cell=Cell(*mesh,ii);
-// std::vector<double> cell_coor;
-// cell.get_vertex_coordinates(cell_coor);
-// for(int jj=0;jj<0.5*cell_coor.size();jj++)
-// {
-// //std::cout<<"world_rank["<<world_rank<<"]: "<<"colors["<<ii<<"]: "<<colors[ii]<<" cell "<< cell_coor[2*jj]<<", "<< cell_coor[2*jj+1]<< std::endl;
-// }
-// 
-// }
-// 
-// 
-// }
  
 // TOPOLOGICAL INFORMATION
  // node to edge 
@@ -176,15 +171,13 @@ std::vector<std::size_t> local_to_global_map;
 auto shared_vertices=mesh->topology().shared_entities(0);
 auto shared_cells = mesh->topology().shared_entities(mesh->topology().dim());
 auto num_regular_vertices = mesh->topology().ghost_offset(0);
-
+unsigned int num_shared_vertices= std::distance(shared_vertices.begin(),shared_vertices.end());
 //std::cout<<" shared_cells index "<<shared_cells<<std::endl;
 std::map<int, std::set<unsigned int>>::iterator it = shared_cells.begin();
 std::map<int, std::set<unsigned int>>::iterator it_sharedvertex = shared_vertices.begin();
 
 
-std::vector<std::vector< int > > Patch=topologyN2PatchDofs( mesh, dofmap, topology_N2F);
-
-
+std::vector<std::vector< unsigned int > > Patch=topologyN2PatchDofs( mesh, dofmap, topology_N2F);
 
 
  
@@ -197,69 +190,215 @@ auto f = std::make_shared<Source>();
 L.f = f;
 L.C_equilibrium=C_equilibrium;
 
+// Define boundary condition
+auto G = std::make_shared<BoundarySource>(*mesh);
+auto boundary = std::make_shared<EssentialBoundary>();
+DirichletBC bc(W->sub(1), G, boundary);
 
-//PETScVector b ; 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////           FIND COMMUNICATING PROCESSES           /////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+std::vector<unsigned int> keys; 
+std::vector<unsigned int> shared_rank, all_shared_ranks;
+std::map<unsigned int, unsigned int> shared_rank_map;
+std::vector<std::set<unsigned int> > vals;
+unsigned int cont=0;
+
+
+ 
+find_communicating_processes(shared_rank,all_shared_ranks, shared_vertices,shared_rank_map);
+ 
+ 
+//global2local_vertex(std::shared_ptr<dolfin::Mesh> mesh, const std::map<int, std::set<unsigned int> >& shared_vertices) 
+ 
+std::map<unsigned int, unsigned int> global_to_local_vertex=global2local_vertex(mesh,shared_vertices) ;
+//  for (std::map< int, std::set<unsigned int> >::const_iterator shared_node=shared_vertices.begin(); shared_node!= shared_vertices.end(); ++shared_node)
+//  {
+//    auto vertex_index=shared_node->first;
+//    auto actual_vertex=Vertex(*mesh, vertex_index);
+//    global_to_local_vertex[actual_vertex.global_index()] = vertex_index;
+//     
+//  }
+// we initialize with zero the vector, since 0 is the color related to non-shared (internal) nodes
+
+
+     
+     
+  
+std::vector<unsigned int> vertex_shared_color;
+std::vector<unsigned int> vertex_color(mesh->num_vertices(),0);
+std::vector<unsigned int> vertex_global_dof(mesh->num_vertices(),0);
+std::vector<unsigned int> used_color(1,mesh->num_vertices());
+
+
+std::string s1,s2,s3,output_name;
+s1="sending_"; s2=std::to_string(world_rank); s3=".txt";
+output_name = s1 + s2 + s3;
+std::ofstream outputFileSend(output_name, std::ofstream::out);
+
+ unsigned int max_num_colors;    
+ std::vector< std::vector< unsigned int> > color_2_vertex=color2vertex(mesh,shared_rank,all_shared_ranks,
+                                                       shared_rank_map,global_to_local_vertex,
+                                                       topology_N2N,shared_vertices,max_num_colors);
+
+   
+    
+s1="coloring_"; s2=std::to_string(world_rank); s3=".txt";
+output_name = s1 + s2 + s3;
+std::ofstream outputFile(output_name, std::ofstream::out);
+for(int ii=0;ii<mesh->num_vertices();ii++)
+{
+    auto actual_vertex=Vertex(*mesh, ii);
+ 	auto point_vertex=actual_vertex.point(); 
+outputFile << point_vertex[0]<<", "<<point_vertex[1]<<", "<<vertex_color[ii]<<", "<<actual_vertex.global_index()<<"\n";
+    
+}
+
+
+
+
+
+
+
 PetscErrorCode ierr; 
-PETScMatrix A;
-PETScVector b;
-
+PETScMatrix A; // define parallel matrix A
+PETScVector b; // define parallel vector b
 
 assemble(A,a);
 assemble(b,L);
-Mat Amat=A.mat();
+
+bc.apply(A,b);
+Mat Amat=A.mat(); 
 Vec bvec=b.vec();
-Vec Ax,res,x;
+
+
+//ierr=VecView(bvec, PETSC_VIEWER_STDOUT_SELF);CHKERRQ(ierr); // view the subvector
+//ierr=MatView(Amat, PETSC_VIEWER_STDOUT_SELF);CHKERRQ(ierr); // view the diagonal submatrix
 
 
 
 
-PetscInt first_row;
-PetscInt last_row;
+
+//assemble_system(A, b, a, L, bc);
+
+
+
+
+//Mat Amat=A.mat(); // initialize parallel matrix A, splitted into rows
+//Vec bvec=b.vec(); // initialize parallel vector b
+PetscInt globalsize;
+VecGetSize(bvec,&globalsize);
+Vec Ax,res,x; // Ax=A*x, res=b-A*x, x solution, which we initialize to b so that it satisfies bc
+
+VecDuplicate(bvec,&res);
+VecDuplicate(bvec,&x);
+
+std::unordered_map<long unsigned int, double> boundary_values;
+bc.get_boundary_values(boundary_values);
+
+
+std::cout << "rank="<<world_rank<<"boundary_values size="<<boundary_values.size() << std::endl;
+
+for(std::pair<long unsigned int, double> element : boundary_values)
+{
+{}//std::cout << "rank="<<world_rank<<"boundary_values="<<element.first << ", " << element.second << std::endl;
+}
+
+//auto ke=boundary_values->keys();
+
+// Create(PETSC_COMM_WORLD,&res);
+// VecSetSizes(res,PETSC_DECIDE, globalsize);
+// VecSetUp(res);
+
+// VecCreate(PETSC_COMM_WORLD,&x);
+// VecSetSizes(x,PETSC_DECIDE, globalsize);
+// VecSetUp(x);
+
+
+// this processor owns from first_row to last_row rows of the matrix A
+// this processor owns from first_component to last_component rows of the vector b 
+PetscScalar minusone=-1;
+PetscReal norm_res;
+PetscInt first_row; 
+PetscInt last_row; 
 PetscInt first_component;
 PetscInt last_component;
-PetscScalar *v;
-PetscScalar *z;
-PetscInt *indices;
-PetscInt n_loc=4;
-//indices=(PetscInt *)malloc(n_loc*n_loc*sizeof(PetscInt)); 
-PetscMalloc1(n_loc,&indices);
-PetscMalloc1(n_loc*n_loc,&v);
-PetscMalloc1(n_loc,&z);
 
 
 MatAssemblyBegin(Amat,MAT_FINAL_ASSEMBLY);
 MatAssemblyEnd(Amat,MAT_FINAL_ASSEMBLY);
 //ierr=MatView(Amat, PETSC_VIEWER_STDOUT_SELF);CHKERRQ(ierr);
+//ierr=VecView(bvec, PETSC_VIEWER_STDOUT_SELF);CHKERRQ(ierr);
 
 
-MatCreateVecs(Amat,&x,&Ax);
-MatMult(Amat,bvec,Ax);
+
 ierr=MatGetOwnershipRange(Amat,&first_row,&last_row);CHKERRQ(ierr);
-ierr=VecGetOwnershipRange(bvec,&first_component,&last_component);CHKERRQ(ierr);
+ierr=VecGetOwnershipRange(res,&first_component,&last_component);CHKERRQ(ierr);
 
 
-
-
-
-
-
-
-
-//for(int ii=0;ii<n_loc;ii++)
-//   indices[ii]=ii+first_row;
-PetscInt W_dim=W->dim();
+PetscInt localsize=last_row-first_row-1;
 PetscInt L2G_dim=local_to_global_map.size();
-PetscInt * all_indices;
+PetscInt nghost=L2G_dim-localsize;
 
-all_indices=(PetscInt *)malloc(sizeof(all_indices)*L2G_dim);
+PetscInt* one_to_L2G_dim_vec=(PetscInt *)malloc(sizeof(PetscInt)*L2G_dim);;
+PetscInt * all_indices=(PetscInt *)malloc(sizeof(PetscInt)*L2G_dim);
+PetscInt * ghost_indices=(PetscInt *)malloc(sizeof(PetscInt)*nghost);
+PetscScalar * ghost_scalars=(PetscScalar *)malloc(sizeof(PetscScalar)*nghost);
+cont=0;
 for(int ii=0;ii<L2G_dim;ii++)
-   {all_indices[ii]=local_to_global_map[ii];
+   {
+   all_indices[ii]=local_to_global_map[ii];
+   if(all_indices[ii]<first_row || all_indices[ii]>=last_row)
+      {ghost_indices[cont]=local_to_global_map[ii];
+      ghost_scalars[cont]=1.0;
+      cont++;
+      }
+   one_to_L2G_dim_vec[ii]=ii;
    //std::cout<<"all_indices["<<ii<<"]="<<all_indices[ii]<<std::endl;
    }
-indices[0]=0;//+first_row;
-indices[1]=1;//+first_row;
-indices[2]=2;//+first_row;
-indices[3]=3;//+first_row;
+
+
+for(int jj=0;jj<world_size;jj++)
+{
+if(world_rank==jj)
+for(int ii=0;ii<nghost;ii++)
+std::cout<<ghost_indices[ii]<<std::endl;
+    //std::cout<<"world_rank="<<world_rank<<", ghost_indices=="<<ghost_indices[ii]<<std::endl;
+     std::cout<<std::endl;
+MPI_Barrier(MPI_COMM_WORLD);    
+}
+MPI_Barrier(MPI_COMM_WORLD); 
+
+ 
+
+
+//std::cout<<"rank=="<<world_rank<<"first_row="<<first_row<<", last_row="<<last_row<<", localsize="<<localsize<<" ,L2G_dim="<<L2G_dim<<" nghost"<<nghost<<std::endl;
+//std::cout<<"rank=="<<world_rank<<"first_component="<<first_component<<", last_component="<<last_component<<", localsize="<<localsize<<" ,L2G_dim="<<L2G_dim<<" nghost"<<nghost<<std::endl;
+//for(int ii=0;ii<n_loc;ii++)
+//   indices[ii]=ii+first_row;
+
+
 //std::cout<<"idx "<<idx[ii]<<std::endl;
 //MatGetValues(Amat,n_loc,indices,n_loc,indices,v);
 //VecGetValues(bvec,n_loc,indices,z);
@@ -272,379 +411,250 @@ indices[3]=3;//+first_row;
 //ierr=MatAssemblyEnd(submat2,MAT_FINAL_ASSEMBLY);CHKERRQ(ierr);
 
 Mat* Aloc; // the diagonal submatrix related to all dofs belonging to world_rank + ghost dofs
-Vec xloc,bloc;  // the subvector related to all dofs belonging to world_rank + ghost dofs
-VecCreate(PETSC_COMM_SELF,&xloc);
-VecCreateSeq(PETSC_COMM_SELF ,L2G_dim,&xloc);
-VecZeroEntries(xloc);
+Vec corrloc,resloc,Acorrloc;  // the subvector related to all dofs belonging to world_rank + ghost dofs
+PetscScalar* corrtmp=(PetscScalar *)malloc(sizeof(PetscScalar)*L2G_dim);
+VecCreate(PETSC_COMM_SELF,&corrloc);
+VecCreateSeq(PETSC_COMM_SELF ,L2G_dim,&corrloc);
+VecDuplicate(corrloc,&Acorrloc);
 
-IS all_is, patch_is; // IS related to all dofs belonging to world_rank + ghost dofs and IS related to the patch
-ierr=ISCreateGeneral(PETSC_COMM_SELF,n_loc,indices,PETSC_COPY_VALUES,&patch_is);CHKERRQ(ierr);
+IS all_is, patch_is,patch_local_is,all_local_is; // all_is=IS related to all dofs belonging to world_rank + ghost dofs and patch_is=IS related to the patch
 ierr=ISCreateGeneral(PETSC_COMM_SELF,L2G_dim,all_indices,PETSC_COPY_VALUES,&all_is);CHKERRQ(ierr);
-//ierr=ISView(is,PETSC_VIEWER_STDOUT_SELF);CHKERRQ(ierr);
+ierr=ISCreateGeneral(PETSC_COMM_SELF,L2G_dim,one_to_L2G_dim_vec,PETSC_COPY_VALUES,&all_local_is);CHKERRQ(ierr);
 
 
-ierr=VecGetSubVector(bvec,all_is,&bloc);CHKERRQ(ierr); // the subvector
-//ierr=VecView(bloc, PETSC_VIEWER_STDOUT_SELF);CHKERRQ(ierr); // view the subvector
-//ierr=VecRestoreSubVector(bvec,is,&bloc);CHKERRQ(ierr);
+ierr=ISView(all_is,PETSC_VIEWER_STDOUT_SELF);CHKERRQ(ierr);
+
+
+
+//ierr=VecView(resloc, PETSC_VIEWER_STDOUT_SELF);CHKERRQ(ierr); // view the subvector
+//ierr=VecRestoreSubVector(bvec,is,&resloc);CHKERRQ(ierr);
 
 ierr=MatCreateSubMatrices(Amat,1,&all_is,&all_is, MAT_INITIAL_MATRIX,&Aloc);CHKERRQ(ierr); // the diagonal submatrix
-//ierr=MatView(*Aloc, PETSC_VIEWER_STDOUT_SELF);CHKERRQ(ierr); // view the diagonal submatrix
+VecScatter scatter;
+//ierr=VecZeroEntries(x);CHKERRQ(ierr); 
+//PetscScalar 
+//ierr=VecSet(corrloc,(1+world_rank));CHKERRQ(ierr); 
+ierr=VecScatterCreate(corrloc,NULL,x,all_is,&scatter);CHKERRQ(ierr); 
+//ierr=VecScatterBegin(scatter,corrloc,x, ADD_VALUES,SCATTER_FORWARD);CHKERRQ(ierr); 
+//ierr=VecScatterEnd(scatter,corrloc,x, ADD_VALUES,SCATTER_FORWARD);CHKERRQ(ierr); 
+
+//ierr=VecView(x, PETSC_VIEWER_STDOUT_SELF);CHKERRQ(ierr); // view the subvector
+  
+// VecNorm(res, NORM_2,&norm_res);
+// if(world_rank==0)
+// std::cout<<"smoothing_step=="<<", ---- norm_res=="<<norm_res<<std::endl;
+// VecNorm(bvec, NORM_2,&norm_res);
+// if(world_rank==0)
+// std::cout<<"smoothing_step=="<<", ---- bvec=="<<norm_res<<std::endl;
+// VecNorm(x, NORM_2,&norm_res);
+// if(world_rank==0)
+// std::cout<<"smoothing_step=="<<", ---- x=="<<norm_res<<std::endl;
+
+//////////////// IN THI CASE BECAUSE I HAVE HOMOGENEOUS BC
+
+MatCreateVecs(Amat,&x,&Ax);
+VecZeroEntries(x);
+MatMult(Amat,x,Ax);
+VecWAXPY(res,minusone,Ax,bvec);
+
+std::string matrixname="Amat";
+WriteMatrixToFile(Amatfiletxt,matrixname,W_dim,W_dim,Amat,(world_rank==0));
+WriteVectorToFile(resfiletxt,resfile,W_dim,res,(world_rank==0));
+
+WriteMatrixToFile(Alocfile+txt,Alocfile,L2G_dim,L2G_dim,*Aloc,1);
+
+ierr=VecGetSubVector(res,all_is,&resloc);CHKERRQ(ierr);
+WriteVectorToFile(resfileloc+txt,resfileloc,L2G_dim,resloc,1);
+// loop on all the colors (atm only 1) 
+// loop on all the vertices of the given color
+unsigned int smoothing_steps=3;
+for(int ss=0;ss<smoothing_steps;ss++)
+for(int cc=1;cc<max_num_colors;cc++)
+{
+// extract the local residual and set to zero the local correction
+ierr=VecGetSubVector(res,all_is,&resloc);CHKERRQ(ierr); // the subvector
+VecZeroEntries(corrloc);
+//loop on internal nodes
+for(std::vector<unsigned int>::iterator iter_c=color_2_vertex[0].begin();iter_c!=color_2_vertex[0].end();iter_c++)
+   {
+   int ii=*iter_c;
+   Mat Apatch,Apatchall; // submatrix related to the patch dofs of Aloc
+   Vec respatch,xpatch,corrpatch; // vectors related to the patch dofs of res,x and the correction
+   PetscInt sizepatch=Patch[ii].size();
+   PetscInt* indices=(PetscInt*)malloc(sizepatch*sizeof(PetscInt));
+   PetscInt* patch_local_indices=(PetscInt*)malloc(sizepatch*sizeof(PetscInt));
+     for(int jj=0;jj<sizepatch;jj++)
+        {
+        indices[jj]=Patch[ii][jj];
+        patch_local_indices[jj]=jj;
+        }
+   ierr=ISCreateGeneral(PETSC_COMM_SELF,sizepatch,indices,PETSC_COPY_VALUES,&patch_is);CHKERRQ(ierr);
+   ierr=ISCreateGeneral(PETSC_COMM_SELF,sizepatch,patch_local_indices,PETSC_COPY_VALUES,&patch_local_is);CHKERRQ(ierr);
+   
+   ierr=MatCreateSubMatrix(*Aloc,patch_is,patch_is, MAT_INITIAL_MATRIX,&Apatch);CHKERRQ(ierr); // the patch submatrix, dim=sizepatch x sizepatch
+   ierr=MatCreateSubMatrix(*Aloc,patch_is,all_local_is, MAT_INITIAL_MATRIX,&Apatchall);CHKERRQ(ierr); // the patch submatrix, dim=sizepatch x L2G_dim
+   ierr=VecGetSubVector(resloc,patch_is,&respatch);CHKERRQ(ierr); // the subvector
+   
+   MatMult(Apatchall,corrloc,Acorrloc);
+   VecAXPY(respatch,minusone,Acorrloc);
+   
+   WriteMatrixToFile(Apatchfile+std::to_string(ii)+txt,Alocfile+std::to_string(ii),sizepatch,sizepatch,Apatch,1);
+
+   //respatch=
+   
+   //ierr=MatView(Apatch, PETSC_VIEWER_STDOUT_SELF);CHKERRQ(ierr); // view the patch submatrix
+   //ierr=VecView(respatch, PETSC_VIEWER_STDOUT_SELF);CHKERRQ(ierr); // view the patch residual
+   //VecGetSize(respatch,&sizepatch);
+   VecCreate(PETSC_COMM_SELF,&corrpatch);
+   VecSetSizes(corrpatch,PETSC_DECIDE, sizepatch);
+   VecSetType(corrpatch,VECSEQ);
+   // solve patch problem
+   KSP ksp_loc;
+   KSPCreate(PETSC_COMM_SELF,&ksp_loc);
+   KSPSetOperators(ksp_loc,Apatch,Apatch);
+   KSPSolve(ksp_loc,respatch,corrpatch);
+   //VecView(corrpatch, PETSC_VIEWER_STDOUT_SELF);
+   KSPDestroy(&ksp_loc);
+   
+    
+   PetscScalar* correpatchtmp;
+   correpatchtmp=(PetscScalar *)malloc(sizeof(PetscScalar)*sizepatch);
+   ierr=VecGetValues(corrpatch,sizepatch,patch_local_indices,correpatchtmp);CHKERRQ(ierr);
+   ierr=VecSetValues(corrloc,sizepatch,indices,correpatchtmp, ADD_VALUES);CHKERRQ(ierr);
+   PetscFree(indices);
+   ISDestroy(&patch_is);
+   PetscFree(patch_is);
+   
+}
 
 
-
-Mat Apatch;
-Vec respatch,xpatch,corrpatch;
-PetscInt patchsize;
-ierr=MatCreateSubMatrix(*Aloc,patch_is,patch_is, MAT_INITIAL_MATRIX,&Apatch);CHKERRQ(ierr); // the patch submatrix
-//ierr=MatView(Apatch, PETSC_VIEWER_STDOUT_SELF);CHKERRQ(ierr); // view the patch submatrix
-ierr=VecGetSubVector(bloc,patch_is,&respatch);CHKERRQ(ierr); // the subvector
-//ierr=VecView(respatch, PETSC_VIEWER_STDOUT_SELF);CHKERRQ(ierr); // view the patch residual
+//loop on boundary nodes (colored)
+for(std::vector<unsigned int>::iterator iter_c=color_2_vertex[cc].begin();iter_c!=color_2_vertex[cc].end();iter_c++)
+   {
  
- 
-VecGetSize(respatch,&patchsize);
-VecCreate(PETSC_COMM_SELF,&corrpatch);
-VecSetSizes(corrpatch,PETSC_DECIDE, patchsize);
-VecSetType(corrpatch,VECSEQ);
+   int ii=*iter_c;
+   Mat Apatch,Apatchall; // submatrix related to the patch dofs of Aloc
+   Vec respatch,xpatch,corrpatch; // vectors related to the patch dofs of res,x and the correction
+   PetscInt sizepatch=Patch[ii].size();
+   PetscInt* indices=(PetscInt*)malloc(sizepatch*sizeof(PetscInt));
+   PetscInt* patch_local_indices=(PetscInt*)malloc(sizepatch*sizeof(PetscInt));
+     for(int jj=0;jj<sizepatch;jj++)
+        {
+        indices[jj]=Patch[ii][jj];
+        patch_local_indices[jj]=jj;
+        }
+   ierr=ISCreateGeneral(PETSC_COMM_SELF,sizepatch,indices,PETSC_COPY_VALUES,&patch_is);CHKERRQ(ierr);
+   ierr=ISCreateGeneral(PETSC_COMM_SELF,sizepatch,patch_local_indices,PETSC_COPY_VALUES,&patch_local_is);CHKERRQ(ierr);
+   
+   ierr=MatCreateSubMatrix(*Aloc,patch_is,patch_is, MAT_INITIAL_MATRIX,&Apatch);CHKERRQ(ierr); // the patch submatrix, dim=sizepatch x sizepatch
+   ierr=MatCreateSubMatrix(*Aloc,patch_is,all_local_is, MAT_INITIAL_MATRIX,&Apatchall);CHKERRQ(ierr); // the patch submatrix, dim=sizepatch x L2G_dim
+   ierr=VecGetSubVector(resloc,patch_is,&respatch);CHKERRQ(ierr); // the subvector
+   
+   MatMult(Apatchall,corrloc,Acorrloc);
+   VecAXPY(respatch,minusone,Acorrloc);
+   
+   WriteMatrixToFile(Apatchfile+std::to_string(ii)+txt,Alocfile+std::to_string(ii),sizepatch,sizepatch,Apatch,1);
 
-KSP ksp_loc;
-KSPCreate(PETSC_COMM_SELF,&ksp_loc);
-KSPSetOperators(ksp_loc,Apatch,Apatch);
-KSPSolve(ksp_loc,respatch,corrpatch);
-//VecView(corrpatch, PETSC_VIEWER_STDOUT_SELF);
-KSPDestroy(&ksp_loc);
+   //respatch=
+   
+   //ierr=MatView(Apatch, PETSC_VIEWER_STDOUT_SELF);CHKERRQ(ierr); // view the patch submatrix
+   //ierr=VecView(respatch, PETSC_VIEWER_STDOUT_SELF);CHKERRQ(ierr); // view the patch residual
+   //VecGetSize(respatch,&sizepatch);
+   VecCreate(PETSC_COMM_SELF,&corrpatch);
+   VecSetSizes(corrpatch,PETSC_DECIDE, sizepatch);
+   VecSetType(corrpatch,VECSEQ);
+   // solve patch problem
+   KSP ksp_loc;
+   KSPCreate(PETSC_COMM_SELF,&ksp_loc);
+   KSPSetOperators(ksp_loc,Apatch,Apatch);
+   KSPSolve(ksp_loc,respatch,corrpatch);
+   //VecView(corrpatch, PETSC_VIEWER_STDOUT_SELF);
+   KSPDestroy(&ksp_loc);
+   
+    
+   PetscScalar* correpatchtmp;
+   correpatchtmp=(PetscScalar *)malloc(sizeof(PetscScalar)*sizepatch);
+   ierr=VecGetValues(corrpatch,sizepatch,patch_local_indices,correpatchtmp);CHKERRQ(ierr);
+   ierr=VecSetValues(corrloc,sizepatch,indices,correpatchtmp, ADD_VALUES);CHKERRQ(ierr);
+   PetscFree(indices);
+   ISDestroy(&patch_is);
+   PetscFree(patch_is);
+   
+
+}
+MPI_Barrier(MPI_COMM_WORLD);
+//ierr=VecGetValues(corrloc,L2G_dim,one_to_L2G_dim_vec,corrtmp);CHKERRQ(ierr);
+ // view the subvector
+
+VecNorm(corrloc, NORM_2,&norm_res);
+//std::cout<<"smoothing_step=="<<ss<<", color="<<cc<<", norm_corrloc=="<<norm_res<<std::endl;
+VecScatterBegin(scatter,corrloc,x, ADD_VALUES,SCATTER_FORWARD);
+VecScatterEnd(scatter,corrloc,x, ADD_VALUES,SCATTER_FORWARD);
+
+//ierr=VecSetValues(x,L2G_dim,all_indices,corrtmp,ADD_VALUES);CHKERRQ(ierr);
+MatMult(Amat,x,Ax);
+VecWAXPY(res,minusone,Ax,bvec);
+VecNorm(res, NORM_2,&norm_res);
+if(world_rank==0)
+std::cout<<"smoothing_step=="<<ss<<", color="<<cc<<", norm_res=="<<norm_res<<std::endl;
+VecNorm(x, NORM_2,&norm_res);
+if(world_rank==0)
+{}//std::cout<<"smoothing_step=="<<ss<<", color="<<cc<<", norm_x=="<<norm_res<<std::endl;
+}
 
 
-PetscScalar* correpatchtmp;
-correpatchtmp=(PetscScalar *)malloc(sizeof(PetscScalar)*patchsize);
-ierr=VecGetValues(corrpatch,patchsize,indices,correpatchtmp);CHKERRQ(ierr);
-ierr=VecSetValues(xloc,patchsize,indices,correpatchtmp, ADD_VALUES);CHKERRQ(ierr);
-//ierr=VecView(xloc, PETSC_VIEWER_STDOUT_SELF);CHKERRQ(ierr); // view the patch residual
+//savemat("x.mat", x);//dict(x=x->array(x)));
+//PetscViewer  PETSC_VIEWER_MATLAB_(	PETSC_VIEWER_ASCII_MATLAB);
+//ierr=VecView(x, PETSC_VIEWER_MATLAB_(PETSC_COMM_WORLD));CHKERRQ(ierr);
+//ierr=VecScatterDestroy(&scatter);CHKERRQ(ierr); 
 
 
-PetscFree(indices);
+
+
+
+
+
+  
+	//std::cout<<"rank=="<<world_rank<<" ss="<<jj<<" cc=="<<cc<<"/"<<used_color.size()<<std::endl;
+	//MPI_Barrier(MPI_COMM_WORLD);
+	//PetscScalar one=1;
+	 //VecAXPY(x,one,Vec x);
+	//}
+
 PetscFree(all_indices);
-ISDestroy(&patch_is);
-PetscFree(patch_is);
 ISDestroy(&all_is);
 PetscFree(all_is);
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////           FIND COMMUNICATING PROCESSES           /////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////
-
-std::vector<unsigned int> keys; 
-std::vector<unsigned int> shared_rank, all_shared_ranks;
-std::map<unsigned int, unsigned int> shared_rank_map;
-std::vector<std::set<unsigned int> > vals;
-const int* all_shared_ranks_array;
-unsigned int cont=0;
-     
-    for (std::map< int, std::set<unsigned int> >::iterator it=shared_vertices.begin(); it!= shared_vertices.end(); ++it)
-      {keys.push_back(it->first);
-       vals.push_back(it->second);
-       for ( std::set<unsigned int>::iterator setit = vals[cont].begin(); setit != vals[cont].end(); ++setit)
-             shared_rank.push_back(*setit); //contains all the communicating processes (multiple times)
-       cont++;
-       }
 
-// now we sort and make unique shared_rank, which contains only the communicating processes
-// while all_shared_ranks contains also the current processor
-std::sort(shared_rank.begin(),shared_rank.end());
-auto shared_rank_tmp = std::unique(shared_rank.begin(), shared_rank.end());
-shared_rank.erase(shared_rank_tmp, shared_rank.end()); 
-all_shared_ranks=shared_rank;
-all_shared_ranks.push_back(world_rank);
-std::sort(all_shared_ranks.begin(),all_shared_ranks.end());
-all_shared_ranks_array = (const int*)&all_shared_ranks[0];
 
-MPI_Comm MPI_COMM_GHOST;
-MPI_Group MPI_GHOST_GROUP,shared_group;
-MPI_Comm_group(MPI_COMM_WORLD, &MPI_GHOST_GROUP);
 
-MPI_Group_incl(MPI_GHOST_GROUP,all_shared_ranks.size(),all_shared_ranks_array,&shared_group);
-MPI_Comm_create(MPI_COMM_WORLD,shared_group,&MPI_COMM_GHOST);
 
 
-for(int ii=0;ii<all_shared_ranks.size();ii++)
-   {
-   //std::cout<<"world_rank=="<<world_rank<<", shared_rank : "<<shared_rank[ii]<<std::endl;
-   }
 
-//// Create Map Global to Local for vertices. It is important because the global indices are fixed and we use them for coloring
-std::map<unsigned int, unsigned int> global_to_local_vertex;   
- for (std::map< int, std::set<unsigned int> >::iterator shared_node=shared_vertices.begin(); shared_node!= shared_vertices.end(); ++shared_node)
- {
-   auto vertex_index=shared_node->first;
-   auto actual_vertex=Vertex(*mesh, vertex_index);
-   global_to_local_vertex[actual_vertex.global_index()] = vertex_index;
-    
- }
 
-std::map<unsigned int,unsigned int>::iterator it_global_to_local_vertex = global_to_local_vertex.begin();
-while(it_global_to_local_vertex != global_to_local_vertex.end())
-{
-//std::cout<<"world_rank: "<<world_rank<<"it_global_to_local_vertex: "<<it_global_to_local_vertex->first<<" :: "<<global_to_local_vertex[it_global_to_local_vertex->first]<<std::endl;
-it_global_to_local_vertex++;
-}
 
- 
- 
- 
- 
- 
- 
- 
 
-// we initialize with zero the vector, since 0 is the color related to non-shared (internal) nodes
-unsigned int num_shared_vertices= std::distance(shared_vertices.begin(),shared_vertices.end());
 
-     
-     
-  
-std::vector<unsigned int> vertex_shared_color;
-std::vector<unsigned int> vertex_shared_global_dof;
-std::vector<unsigned int> vertex_color(mesh->num_vertices(),0);
-std::vector<unsigned int> vertex_global_dof(mesh->num_vertices(),0);
 
-for(int ii=0;ii<shared_rank.size();ii++)
-   shared_rank_map[shared_rank[ii]]=ii;
 
-std::vector<std::vector<unsigned int> > vertex_shared_global_dof_and_color(shared_rank_map.size());
-//coloring(shared_vertices,mesh,topology_N2N,vertex_color, vertex_global_dof,vertex_shared_color,vertex_shared_global_dof,shared_rank_map,vertex_shared_global_dof_and_color);
-// for(int jj=0;jj<shared_rank.size();jj++)
-// for(int ii=0;ii<vertex_shared_global_dof_and_color[jj].size();ii=ii+2)
-//       std::cout<<"SHARED world_rank: "<<world_rank<<" related to "<<shared_rank[jj]<<"-- "<<vertex_shared_global_dof_and_color[jj][ii]<<", " <<vertex_shared_global_dof_and_color[jj][ii+1]<<std::endl;
 
-     
 
-std::vector<MPI_Request> request;
-std::vector<MPI_Status> status;
-std::vector<int> ricevimi(world_size,0);
-std::vector<int> mandami(world_size,0);
- 
- 
- 
- 
- 
-  
-std::string s1,s2,s3,output_name;
-s1="sending_"; s2=std::to_string(world_rank); s3=".txt";
-output_name = s1 + s2 + s3;
-std::ofstream outputFileSend(output_name, std::ofstream::out);
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-MPI_Barrier(MPI_COMM_WORLD);
-std::vector<unsigned int> used_color(1,mesh->num_vertices());
-
-
-
-
-
-
-   
-   // RECEIVE 
-   for(int ii=0;ii<all_shared_ranks.size();ii++)
-     {// receive from processes with a lower rank
-      if(all_shared_ranks[ii]<world_rank)
-         {MPI_Status status_now;
-         int count_recv;
-         unsigned int* buffer;
-         MPI_Probe(MPI_ANY_SOURCE, MPI_ANY_TAG, MPI_COMM_WORLD, &status_now);
-         MPI_Get_count(&status_now, MPI_UNSIGNED, &count_recv); 
-         buffer=(unsigned int*)malloc(sizeof(unsigned int)*count_recv);
-         std::cout<<"world_rank=="<<world_rank<<" PRE RECV, source=="<<status_now.MPI_SOURCE<<" , tag=="<<status_now.MPI_TAG<<std::endl;
-         MPI_Recv(buffer, count_recv, MPI_UNSIGNED, status_now.MPI_SOURCE, status_now.MPI_TAG,MPI_COMM_WORLD,MPI_STATUS_IGNORE);// &status_now); 
-         std::cout<<"world_rank=="<<world_rank<<" POST RECV, source=="<<status_now.MPI_SOURCE<<" , tag=="<<status_now.MPI_TAG<<std::endl;
-         
-          for(int jj=0;jj<count_recv;jj=jj+2)
-               {vertex_color[global_to_local_vertex[buffer[jj]]]=buffer[jj+1];
-               //std::cout<<" RICEVO world_rank: "<<world_rank<<" count_recv   "<<count_recv<<", "<<jj<<", ("<<global_to_local_vertex[buffer[jj]]<<", "<<buffer[jj]<<", "<<buffer[jj+1]<<")"<<std::endl;
-               if(used_color.size()-1<buffer[jj])
-                 while(used_color.size()<buffer[jj])
-                      used_color.push_back(0);
-                used_color[ buffer[jj] ] ++; 
-               }
-         //free (buffer);
-          }
-      }
-        
-   coloring(shared_vertices,mesh,topology_N2N,vertex_color, vertex_global_dof,vertex_shared_color,vertex_shared_global_dof,shared_rank_map,vertex_shared_global_dof_and_color,used_color);
-std::cout<<"world_rank=="<<world_rank<<" post coloring out "<<std::endl;
-
-    for(int ii=0;ii<all_shared_ranks.size();ii++)
-      {
-      std::cout<<"world_rank=="<<world_rank<<" ii "<<ii<<"/"<<all_shared_ranks.size()<<std::endl;
-      if(all_shared_ranks[ii]>world_rank)
-        {unsigned int* buffer;
-        int tag=world_rank*world_size+all_shared_ranks[ii];
-        int rank2send=shared_rank_map[ii];
-        int recv_rank=all_shared_ranks[ii];
-        int recv_size=vertex_shared_global_dof_and_color[rank2send].size();
-        //=&vertex_shared_global_dof_and_color[rank2send][0];
-        buffer=(unsigned int*)malloc(sizeof(unsigned int)*recv_size);
-        for(int ii=0;ii<recv_size;ii++)
-	      buffer[ii]=vertex_shared_global_dof_and_color[rank2send][ii];
-	      
-	    std::cout<<"world_rank=="<<world_rank<<" PRE SEND, source=="<<recv_rank<<" , tag=="<<tag<<" all_shared_ranks"<<all_shared_ranks[ii]<<std::endl;
-        MPI_Send(buffer,recv_size,MPI_UNSIGNED,recv_rank,tag,MPI_COMM_WORLD);
-        std::cout<<"world_rank=="<<world_rank<<" POST SEND, source=="<<recv_rank<<" , tag=="<<" all_shared_ranks"<<all_shared_ranks[ii]<<tag<<std::endl;
-
-    //     for(int jj=0;jj<recv_size;jj++)
-//         std::cout<<"MANDA world_rank: "<<world_rank<<" to "<<all_shared_ranks[ii]<<" tag=="<<tag<<". dimensione  "<<vertex_shared_global_dof_and_color[rank2send].size()<<", "<<vertex_shared_global_dof_and_color[rank2send][jj]<<", buffer "<<buffer[jj]<<std::endl;
-        }
-        }
-
-
-
-
-
-
-MPI_Barrier(MPI_COMM_WORLD);
-// 
-// int rank2send=shared_rank_map[1];
-// int recv_rank=all_shared_ranks[1];
-// int MAX_NUMBERS = vertex_shared_global_dof_and_color[rank2send].size();
-// unsigned int* numbers;
-// int number_amount;
-// 
-// if (world_rank == 0) {
-//     // Pick a random amount of integers to send to process one
-//     srand(time(NULL));
-//     number_amount = MAX_NUMBERS ;
-//     numbers=(unsigned int *)malloc(MAX_NUMBERS *sizeof(unsigned int));
-// 
-//     for(int ii=0;ii<MAX_NUMBERS;ii++)
-//      numbers[ii]=vertex_shared_global_dof_and_color[rank2send][ii];
-//     MPI_Send(numbers, number_amount, MPI_UNSIGNED, 1, 0, MPI_COMM_WORLD);
-// } else if (world_rank == 1) {
-//     MPI_Status status;
-//     
-//     MPI_Probe(MPI_ANY_SOURCE, MPI_ANY_TAG, MPI_COMM_WORLD, &status);
-//     MPI_Get_count(&status, MPI_UNSIGNED, &number_amount); 
-//     numbers=(unsigned int *)malloc(number_amount *sizeof(unsigned int));
-//     MPI_Recv(numbers, number_amount, MPI_UNSIGNED, status.MPI_SOURCE, status.MPI_TAG, MPI_COMM_WORLD,MPI_STATUS_IGNORE);
-//     for(int ii=0;ii<number_amount;ii++)
-//      std::cout<<" recv num "<<numbers[ii]<<std::endl;
-//            
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-s1="coloring_"; s2=std::to_string(world_rank); s3=".txt";
-output_name = s1 + s2 + s3;
-std::ofstream outputFile(output_name, std::ofstream::out);
-for(int ii=0;ii<mesh->num_vertices();ii++)
-{
-    auto actual_vertex=Vertex(*mesh, ii);
- 	auto point_vertex=actual_vertex.point(); 
-outputFile << point_vertex[0]<<", "<<point_vertex[1]<<", "<<vertex_color[ii]<<", "<<actual_vertex.global_index()<<"\n";
-    
-}
-for(int jj=0;jj<world_size;jj++)
-     {
-      MPI_Barrier(MPI_COMM_WORLD);
-     if(world_rank==jj)
-          {
-          for(int ii=0;ii<keys.size();ii++)
-			{
- 			// std::cout<<"KEYS NUMBER: "<<ii<<std::endl;
- 			 auto vertex_index=keys[ii];
- 			 auto actual_vertex=Vertex(*mesh, vertex_index);
- 			 auto point_vertex=actual_vertex.point();
-
- 	       //std::cout<<"world_rank: "<<world_rank<<"keys "<<keys[ii]<<"  point=(" <<point_vertex[0]<<", "<<point_vertex[1]<<") "<<std::endl;
-        	for ( std::set<unsigned int>::iterator setit = vals[ii].begin(); setit != vals[ii].end(); ++setit)
-        	     {
-        	     }
-             //std::cout<<"--- "<<*setit<<std::endl; 
-             } 
-             }
-	  }
-	 
-
-
-  for(int jj=0;jj<world_size;jj++)
-     {
-     MPI_Barrier(MPI_COMM_WORLD);
-     if(world_rank==jj)
-while(it != shared_cells.end())
-{
-auto nodes=topology_K2N(it->first);
-//std::cout<<"world_rank: "<<world_rank<<", cell "<<it->first<<", nodes "<< nodes[0]<<", "<<nodes[1]<<", "<<nodes[2]<<std::endl;
-for(int ii=0;ii<3;ii++)
-{
-auto actual_vertex=Vertex(*mesh, nodes[ii]);
-auto point_vertex=actual_vertex.point();
-//std::cout<<point_vertex[0]<<", "<<point_vertex[1]<<std::endl;
-}
-it++;
-}
-}
-
-
-// MatView(submat, PETSC_VIEWER_STDOUT_WORLD);
-
-//assemble(b,L);
-
-
-// Define boundary condition
-auto G = std::make_shared<BoundarySource>(*mesh);
-auto boundary = std::make_shared<EssentialBoundary>();
-DirichletBC bc(W->sub(1), G, boundary);
 
 
   // Compute solution
-  Function w(W);
-  solve(a == L, w, bc);
+Function w(W);//,x);
+ // copyx);
+ // solve(a == L, w, bc);
 
 // Now, the separate components ``sigma`` and ``u`` of the solution can
 // be extracted by taking components. These can then be written to XDMF
 // files.
 // 
-// .. code-block:: cpp
+// .. code-reslock:: cpp
 
   // Extract sub functions (function views)
    Function& sigma = w[0];
@@ -901,3 +911,168 @@ DirichletBC bc(W->sub(1), G, boundary);
 
 //std::cout<<std::endl<<"world_rank: "<<world_rank<<" num_regular_vertices "<<num_regular_vertices<<std::endl;
 
+
+
+
+/* 
+for(int jj=0;jj<world_size;jj++)
+     {
+      MPI_Barrier(MPI_COMM_WORLD);
+     if(world_rank==jj)
+          {
+          for(int ii=0;ii<keys.size();ii++)
+			{
+ 			// std::cout<<"KEYS NUMBER: "<<ii<<std::endl;
+ 			 auto vertex_index=keys[ii];
+ 			 auto actual_vertex=Vertex(*mesh, vertex_index);
+ 			 auto point_vertex=actual_vertex.point();
+
+ 	       //std::cout<<"world_rank: "<<world_rank<<"keys "<<keys[ii]<<"  point=(" <<point_vertex[0]<<", "<<point_vertex[1]<<") "<<std::endl;
+        	for ( std::set<unsigned int>::iterator setit = vals[ii].begin(); setit != vals[ii].end(); ++setit)
+        	     {
+        	     }
+             //std::cout<<"--- "<<*setit<<std::endl; 
+             } 
+             }
+	  }
+	 
+
+ */
+
+//   for(int jj=0;jj<world_size;jj++)
+//      {
+//      MPI_Barrier(MPI_COMM_WORLD);
+//      if(world_rank==jj)
+// while(it != shared_cells.end())
+// {
+// auto nodes=topology_K2N(it->first);
+// //std::cout<<"world_rank: "<<world_rank<<", cell "<<it->first<<", nodes "<< nodes[0]<<", "<<nodes[1]<<", "<<nodes[2]<<std::endl;
+// for(int ii=0;ii<3;ii++)
+// {
+// auto actual_vertex=Vertex(*mesh, nodes[ii]);
+// auto point_vertex=actual_vertex.point();
+// //std::cout<<point_vertex[0]<<", "<<point_vertex[1]<<std::endl;
+// }
+// it++;
+// }
+// }
+
+
+// MatView(submat, PETSC_VIEWER_STDOUT_WORLD);
+
+//assemble(b,L);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//constGraph* graph;
+//std::vector<ColorType> boostcolors;
+//BoostGraphColoring->compute_local_vertex_coloring(graph, boostcolors);
+//auto colors=mesh->color("vertex");
+
+// if(world_rank==1)
+// {
+// for(int ii=0;ii<colors.size();ii++)
+// {auto cell=Cell(*mesh,ii);
+// std::vector<double> cell_coor;
+// cell.get_vertex_coordinates(cell_coor);
+// for(int jj=0;jj<0.5*cell_coor.size();jj++)
+// {
+// //std::cout<<"world_rank["<<world_rank<<"]: "<<"colors["<<ii<<"]: "<<colors[ii]<<" cell "<< cell_coor[2*jj]<<", "<< cell_coor[2*jj+1]<< std::endl;
+// }
+// 
+// }
+// 
+// 
+// }
+//constGraph* graph;
+//std::vector<ColorType> boostcolors;
+//BoostGraphColoring->compute_local_vertex_coloring(graph, boostcolors);
+//auto colors=mesh->color("vertex");
+
+// if(world_rank==1)
+// {
+// for(int ii=0;ii<colors.size();ii++)
+// {auto cell=Cell(*mesh,ii);
+// std::vector<double> cell_coor;
+// cell.get_vertex_coordinates(cell_coor);
+// for(int jj=0;jj<0.5*cell_coor.size();jj++)
+// {
+// //std::cout<<"world_rank["<<world_rank<<"]: "<<"colors["<<ii<<"]: "<<colors[ii]<<" cell "<< cell_coor[2*jj]<<", "<< cell_coor[2*jj+1]<< std::endl;
+// }
+// 
+// }
+// 
+// 
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Vec vecghost;
+// VecCreateGhost(PETSC_COMM_WORLD,localsize,globalsize,nghost,ghost_indices,&vecghost);
+// ierr=VecSetValues(vecghost,nghost,ghost_indices,ghost_scalars,ADD_VALUES);CHKERRQ(ierr);
+// VecGhostUpdateBegin(vecghost,ADD_VALUES,SCATTER_REVERSE);
+// VecGhostUpdateEnd(vecghost,ADD_VALUES,SCATTER_REVERSE);
+// VecGhostUpdateBegin(vecghost,INSERT_VALUES,SCATTER_FORWARD);
+// VecGhostUpdateEnd(vecghost,INSERT_VALUES,SCATTER_FORWARD);
+// VecAssemblyBegin(vecghost);
+// VecAssemblyEnd(vecghost);
+
+
+// VecGhostUpdateBegin(vecghost, ADD_VALUES, SCATTER_FORWARD);
+// VecGhostUpdateEnd(vecghost, ADD_VALUES, SCATTER_FORWARD);
+//
+// 
+// //VecCopy(bvec,vecghost);
+//ierr=VecView(vecghost, PETSC_VIEWER_STDOUT_SELF);CHKERRQ(ierr); // view the subvector
+
+
+
+//PetscScalar *v;
+//PetscScalar *z;
+//PetscInt *indices;
+//PetscInt n_loc=4;
+//indices=(PetscInt *)malloc(n_loc*n_loc*sizeof(PetscInt)); 
+//PetscMalloc1(n_loc,&indices); //allocate the space for vector 
+//PetscMalloc1(n_loc*n_loc,&v); //allocate the space for matrix 
+//PetscMalloc1(n_loc,&z); //allocate the space for vector 
