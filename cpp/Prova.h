@@ -4,6 +4,24 @@
 using namespace dolfin;
 
 
+void WritePatchToFile(const std::string &filename,const std::vector<std::vector< unsigned int > > &Patch, const unsigned int rank)
+{
+std::ofstream myfile;
+std::string outputname=filename+std::to_string(rank);
+myfile.open (outputname);
+for(int ii=0;ii<Patch.size();ii++)
+   {myfile <<"Patch{";myfile<<std::to_string(ii+1);myfile<<"}=[";
+    for(int jj=0;jj<Patch[ii].size();jj ++)
+       {myfile << std::to_string(Patch[ii][jj]+1);myfile <<" ";}
+    myfile <<"];\n";
+       }
+myfile <<" \n\n";
+myfile.close();
+
+}
+
+
+
 
 void WriteMatrixToFile(const std::string &filename,const std::string &matrixname,const PetscInt &M,const PetscInt &N, const Mat &Amat, const int right_rank)
 {
@@ -215,27 +233,123 @@ MPI_Comm_size(MPI_COMM_WORLD, &world_size);
 
 }   
 
+std::map<unsigned int, unsigned int> global2local_vertex(std::shared_ptr<dolfin::Mesh> mesh, const std::map<int, std::set<unsigned int> >& shared_vertices)
+{ 
+std::map<unsigned int, unsigned int> global_to_local_vertex;   
+ for (std::map< int, std::set<unsigned int> >::const_iterator shared_node=shared_vertices.begin(); shared_node!= shared_vertices.end(); ++shared_node)
+ {
+   auto vertex_index=shared_node->first;
+   auto actual_vertex=Vertex(*mesh, vertex_index);
+   global_to_local_vertex[actual_vertex.global_index()] = vertex_index;
+    
+ }
+ return global_to_local_vertex;
+}
 
 
+void find_communicating_processes(std::vector<unsigned int> &shared_rank, 
+                                  std::vector<unsigned int> &all_shared_ranks, 
+                                  const std::map<int, std::set<unsigned int> >& shared_vertices, 
+                                  std::map<unsigned int, unsigned int> &shared_rank_map)
+{
+int world_rank,world_size;
+MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);  
+MPI_Comm_size(MPI_COMM_WORLD, &world_size);
+
+//std::vector<unsigned int> keys; 
+std::vector<std::set<unsigned int> > vals;
+
+unsigned int cont=0;
+     
+    for (std::map< int, std::set<unsigned int> >::const_iterator it=shared_vertices.begin(); it!= shared_vertices.end(); ++it)
+      {
+       //keys.push_back(it->first);
+       vals.push_back(it->second);
+       for ( std::set<unsigned int>::iterator setit = vals[cont].begin(); setit != vals[cont].end(); ++setit)
+             shared_rank.push_back(*setit); //contains all the communicating processes (multiple times)
+       cont++;
+       }
+
+// now we sort and make unique shared_rank, which contains only the communicating processes
+// while all_shared_ranks contains also the current processor
+std::sort(shared_rank.begin(),shared_rank.end());
+auto shared_rank_tmp = std::unique(shared_rank.begin(), shared_rank.end());
+shared_rank.erase(shared_rank_tmp, shared_rank.end()); 
+all_shared_ranks=shared_rank;
+all_shared_ranks.push_back(world_rank);
+std::sort(all_shared_ranks.begin(),all_shared_ranks.end());
 
 
+for(int ii=0;ii<shared_rank.size();ii++)
+   shared_rank_map[shared_rank[ii]]=ii;
+//const int* all_shared_ranks_array;
+//all_shared_ranks_array = (const int*)&all_shared_ranks[0];
+// MPI_Comm MPI_COMM_GHOST;
+// MPI_Group MPI_GHOST_GROUP,shared_group;
+// MPI_Comm_group(MPI_COMM_WORLD, &MPI_GHOST_GROUP);
+// 
+// MPI_Group_incl(MPI_GHOST_GROUP,all_shared_ranks.size(),all_shared_ranks_array,&shared_group);
+// MPI_Comm_create(MPI_COMM_WORLD,shared_group,&MPI_COMM_GHOST);
 
-std::vector< std::vector< unsigned int> > color2vertex(std::shared_ptr<dolfin::Mesh> mesh,const std::vector<unsigned int> &shared_rank,const std::vector<unsigned int> &all_shared_ranks,
-                                                       const std::map<unsigned int, unsigned int> &shared_rank_map, const std::map<unsigned int, unsigned int> &global_to_local_vertex,
-                                                       const std::vector<std::vector< int > > &topology_N2N,const std::map<int, std::set<unsigned int> >& shared_vertices,
-                                                        unsigned int &max_num_colors)
+}
+
+
+void WriteColorToFile(std::shared_ptr<dolfin::Mesh> mesh, const std::vector<unsigned int> &vertex_color)
+{
+int world_rank;
+MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);  
+
+std::string s1,s2,s3,output_name;
+s1="coloring_"; s2=std::to_string(world_rank); s3=".txt";
+output_name = s1 + s2 + s3;
+std::ofstream outputFile(output_name, std::ofstream::out);
+for(int ii=0;ii<mesh->num_vertices();ii++)
+{
+    auto actual_vertex=Vertex(*mesh, ii);
+ 	auto point_vertex=actual_vertex.point(); 
+outputFile << point_vertex[0]<<", "<<point_vertex[1]<<", "<<vertex_color[ii]<<", "<<actual_vertex.global_index()<<"\n";
+    
+}
+
+}
+
+
+std::vector< std::vector< unsigned int> > color2vertex(std::shared_ptr<dolfin::Mesh> mesh,
+                                                       const std::vector<std::vector< int > > &topology_N2N,
+                                                       const std::map<int, std::set<unsigned int> >& shared_vertices,
+                                                       unsigned int &max_num_colors)
 {
 
 int world_rank,world_size;
 MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);  
 MPI_Comm_size(MPI_COMM_WORLD, &world_size);
+std::vector< std::vector< unsigned int> > color_2_vertex;
+if(world_size==1)
+{
+max_num_colors=2;
+std::vector< std::vector< unsigned int> > color_2_vertex(max_num_colors);
+int num_vertices=mesh->num_vertices();
+color_2_vertex[0].push_back(0);
+for(unsigned int ii=1;ii<num_vertices;ii++)
+    color_2_vertex[1].push_back(ii);
 
+return color_2_vertex;
+}
+else
+{
 std::vector<unsigned int> vertex_shared_global_dof;
 std::vector<unsigned int> vertex_color(mesh->num_vertices(),0);
 
-std::vector<std::vector<unsigned int> > vertex_shared_global_dof_and_color(shared_rank_map.size());
-std::vector<unsigned int> used_color(1,mesh->num_vertices());
 
+std::vector<unsigned int> used_color(1,mesh->num_vertices());
+std::vector<unsigned int> keys; 
+std::vector<unsigned int> shared_rank, all_shared_ranks;
+std::map<unsigned int, unsigned int> shared_rank_map;
+std::vector<std::set<unsigned int> > vals;
+
+find_communicating_processes(shared_rank,all_shared_ranks, shared_vertices,shared_rank_map);
+std::map<unsigned int, unsigned int> global_to_local_vertex=global2local_vertex(mesh,shared_vertices) ;
+std::vector<std::vector<unsigned int> > vertex_shared_global_dof_and_color(shared_rank_map.size());
 
 
 
@@ -298,71 +412,17 @@ std::vector< std::vector< unsigned int> > color_2_vertex(max_num_colors);
 for(unsigned int ii=0;ii<mesh->num_vertices();ii++)
     color_2_vertex[vertex_color[ii]].push_back(ii);
     
+WriteColorToFile(mesh,vertex_color);
+
 return color_2_vertex;
-
 }
-
-
-std::map<unsigned int, unsigned int> global2local_vertex(std::shared_ptr<dolfin::Mesh> mesh, const std::map<int, std::set<unsigned int> >& shared_vertices)
-{ 
-std::map<unsigned int, unsigned int> global_to_local_vertex;   
- for (std::map< int, std::set<unsigned int> >::const_iterator shared_node=shared_vertices.begin(); shared_node!= shared_vertices.end(); ++shared_node)
- {
-   auto vertex_index=shared_node->first;
-   auto actual_vertex=Vertex(*mesh, vertex_index);
-   global_to_local_vertex[actual_vertex.global_index()] = vertex_index;
-    
- }
- return global_to_local_vertex;
 }
 
 
 
-void find_communicating_processes(std::vector<unsigned int> &shared_rank, 
-                                  std::vector<unsigned int> &all_shared_ranks, 
-                                  const std::map<int, std::set<unsigned int> >& shared_vertices, 
-                                  std::map<unsigned int, unsigned int> &shared_rank_map)
-{
-int world_rank,world_size;
-MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);  
-MPI_Comm_size(MPI_COMM_WORLD, &world_size);
-
-//std::vector<unsigned int> keys; 
-std::vector<std::set<unsigned int> > vals;
-
-unsigned int cont=0;
-     
-    for (std::map< int, std::set<unsigned int> >::const_iterator it=shared_vertices.begin(); it!= shared_vertices.end(); ++it)
-      {
-       //keys.push_back(it->first);
-       vals.push_back(it->second);
-       for ( std::set<unsigned int>::iterator setit = vals[cont].begin(); setit != vals[cont].end(); ++setit)
-             shared_rank.push_back(*setit); //contains all the communicating processes (multiple times)
-       cont++;
-       }
-
-// now we sort and make unique shared_rank, which contains only the communicating processes
-// while all_shared_ranks contains also the current processor
-std::sort(shared_rank.begin(),shared_rank.end());
-auto shared_rank_tmp = std::unique(shared_rank.begin(), shared_rank.end());
-shared_rank.erase(shared_rank_tmp, shared_rank.end()); 
-all_shared_ranks=shared_rank;
-all_shared_ranks.push_back(world_rank);
-std::sort(all_shared_ranks.begin(),all_shared_ranks.end());
 
 
-for(int ii=0;ii<shared_rank.size();ii++)
-   shared_rank_map[shared_rank[ii]]=ii;
-//const int* all_shared_ranks_array;
-//all_shared_ranks_array = (const int*)&all_shared_ranks[0];
-// MPI_Comm MPI_COMM_GHOST;
-// MPI_Group MPI_GHOST_GROUP,shared_group;
-// MPI_Comm_group(MPI_COMM_WORLD, &MPI_GHOST_GROUP);
-// 
-// MPI_Group_incl(MPI_GHOST_GROUP,all_shared_ranks.size(),all_shared_ranks_array,&shared_group);
-// MPI_Comm_create(MPI_COMM_WORLD,shared_group,&MPI_COMM_GHOST);
 
-}
 
 
 
