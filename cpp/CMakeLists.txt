@@ -34,6 +34,13 @@ endif()
 # Executable
 add_executable(${PROJECT_NAME} main.cpp)
 
+SET(TARGET_H
+Prova.hpp 
+    )
+SET(TARGET_SRC
+Prova.cpp 
+    )
+
 # Target libraries
 target_link_libraries(${PROJECT_NAME} dolfin)
 
