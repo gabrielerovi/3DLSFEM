@@ -124,7 +124,7 @@ MPI_Comm_size(MPI_COMM_WORLD, &world_size);
 
 
 
-tentativo();
+
     
     
     std::vector<unsigned int> shared_rank, all_shared_ranks;
@@ -133,92 +133,22 @@ tentativo();
     find_communicating_processes(shared_rank,all_shared_ranks, shared_vertices,shared_rank_map);
     std::map<unsigned int, unsigned int> global_to_local_vertex=global2local_vertex(mesh,shared_vertices) ;
 
-// you must do a scatter of all num_domain_vertices
-    for(int ii=0;ii<shared_rank.size();ii++)
-    {// receive from processes with a lower rank
-        {MPI_Status status_now;
-            int count_recv;
-            unsigned int* buffer;
-            MPI_Probe(MPI_ANY_SOURCE, MPI_ANY_TAG, MPI_COMM_WORLD, &status_now);
-            MPI_Get_count(&status_now, MPI_UNSIGNED, &count_recv);
-            buffer=(unsigned int*)malloc(sizeof(unsigned int)*count_recv);
-            MPI_Recv(buffer, count_recv, MPI_UNSIGNED, status_now.MPI_SOURCE, status_now.MPI_TAG,MPI_COMM_WORLD,MPI_STATUS_IGNORE);// &status_now);
-            
-            for(int jj=0;jj<count_recv;jj=jj+2)
-            {
-                vertex_color[global_to_local_vertex.at(buffer[jj])]=buffer[jj+1];
-                if(used_color.size()-1<buffer[jj])
-                    while(used_color.size()<buffer[jj])
-                        used_color.push_back(0);
-                used_color[ buffer[jj] ] ++;
-            }
-            //free (buffer);
-        }
-    }
-    
+  
+  std::vector<bool> use_vertex_color=divide_nodes_among_processes(mesh,shared_vertices,shared_rank,all_shared_ranks, shared_rank_map,global_to_local_vertex);
 
-    
-    for(int ii=0;ii<shared_rank.size();ii++)
-    {
-        {unsigned int* buffer;
-            int tag=world_rank*world_size+all_shared_ranks[ii];
-            int rank2send=shared_rank_map.at(all_shared_ranks[ii]);
-            int recv_rank=all_shared_ranks[ii];
-            int recv_size=vertex_shared_global_dof_and_color[rank2send].size();
-            buffer=(unsigned int*)malloc(sizeof(unsigned int)*recv_size);
-            for(int ii=0;ii<recv_size;ii++)
-                buffer[ii]=vertex_shared_global_dof_and_color[rank2send][ii];
-            MPI_Send(buffer,recv_size,MPI_UNSIGNED,recv_rank,tag,MPI_COMM_WORLD);
-        }
-    }
 
-    
-    
-    
-    
-    
-std::vector<bool> to_color(num_all_vertices,true);
-
+   
     for(int jj=0;jj<world_size;jj++)
     {
-    if(jj==world_rank)
-    {for (std::map< int, std::set<unsigned int> >::const_iterator it=shared_vertices.begin(); it!= shared_vertices.end(); ++it)
-      {
-      auto vertex_index=it->first;
-      //if(vertex_index>=num_domain_vertices)
-      //to_color[vertex_index]=false;
-      
-       auto vals=it->second;
-       for ( std::set<unsigned int>::iterator setit = vals.begin(); setit != vals.end(); ++setit)
-          {if( world_rank<*setit  && vertex_index<num_domain_vertices)
-             to_color[vertex_index]=true;
-             else
-             {to_color[vertex_index]=false;
-             break;
-             }
-             
-             if(world_rank==1&&vertex_index==0)
-             std::cout<<"world_rank<*setit="<<*setit <<",num_domain_vertices="<<num_domain_vertices<<", to_color[vertex_index]="<<to_color[vertex_index]<<std::endl;
-             }
-       }
-       MPI_Barrier(MPI_COMM_WORLD);
-       }
-       std::cout<<std::endl;std::cout<<std::endl;
-       MPI_Barrier(MPI_COMM_WORLD);
-       }
-       
-       
-      for(int jj=0;jj<world_size;jj++)
+    if(world_rank==jj)
     {
-    if(jj==world_rank)
-    {for (int ii=0; ii<to_color.size();ii++)
-       std::cout<<"rank="<<world_rank<<", to_color["<<ii<<"]="<<to_color[ii]<<std::endl;
+        for(int mm=0;mm<use_vertex_color.size();mm++)
+        std::cout<<" rank=="<<world_rank<<", use_vertex_color["<<mm<<"]="<<use_vertex_color[mm]<<std::endl;
+    }
+        std::cout<<std::endl;
        MPI_Barrier(MPI_COMM_WORLD);
        }
-       std::cout<<std::endl;std::cout<<std::endl;
-       MPI_Barrier(MPI_COMM_WORLD);
-       }     
-
+    
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -520,7 +450,7 @@ ierr=VecGetSubVector(res,all_is,&resloc);CHKERRQ(ierr);
 PetscFree(all_indices_scalar);
 PetscFree(one_to_L2G_dim_vec);
 PetscFree(all_indices);
-unsigned int smoothing_steps=5;
+unsigned int smoothing_steps=500;
 for(int ss=0;ss<smoothing_steps;ss++)
 for(int cc=1;cc<max_num_colors;cc++)
 {

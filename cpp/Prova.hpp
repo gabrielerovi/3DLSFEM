@@ -130,8 +130,8 @@ myfile.close();
               const std::vector<std::vector< int > >& topology_N2N,std::vector<unsigned int>& vertex_color,
               //std::vector<unsigned int>& vertex_global_dof,std::vector<unsigned int>& vertex_shared_color,
               std::vector<unsigned int>& vertex_shared_global_dof,const std::map<unsigned int, unsigned int>& shared_rank_map, 
-              std::vector<std::vector<unsigned int> >& vertex_shared_global_dof_and_color,std::vector<unsigned int>& used_color,
-              std::vector<bool> &use_vertex_color)
+              std::vector<std::vector<unsigned int> >& vertex_shared_global_dof_and_color,std::vector<unsigned int>& used_color)
+             // std::vector<bool> &use_vertex_color)
  {
 
 
@@ -243,10 +243,7 @@ MPI_Comm_size(MPI_COMM_WORLD, &world_size);
                                  
           }
           }
-          else
-          {
-           use_vertex_color[vertex_index]=false;
-          }
+
          patch_shared_color.clear();
      }    
 
@@ -331,6 +328,111 @@ outputFile << point_vertex[0]<<", "<<point_vertex[1]<<", "<<vertex_color[ii]<<",
 }
 
 
+
+
+
+
+
+
+
+std::vector<bool>  divide_nodes_among_processes(std::shared_ptr<dolfin::Mesh> mesh,const std::map<int, std::set<unsigned int> >& shared_vertices,
+                                  const std::vector<unsigned int> &shared_rank,const std::vector<unsigned int> &all_shared_ranks, 
+                                  const std::map<unsigned int, unsigned int> &shared_rank_map, const std::map<unsigned int, unsigned int> &global_to_local_vertex)
+{
+int world_rank,world_size;
+MPI_Comm_rank(MPI_COMM_WORLD, &world_rank); 
+MPI_Comm_size(MPI_COMM_WORLD, &world_size);  
+unsigned int num_domain_vertices=mesh->topology().ghost_offset(0);
+unsigned int num_all_vertices=mesh->num_vertices();
+std::vector<bool> use_vertex_color(num_all_vertices,false);
+
+  std::vector<std::vector<unsigned int> > buffer_vector(shared_rank.size());
+    
+    for (std::map< int, std::set<unsigned int> >::const_iterator vertex_it=shared_vertices.begin(); vertex_it!= shared_vertices.end(); ++vertex_it)
+      {
+       unsigned int vertex_index=vertex_it->first;
+       auto actual_vertex=Vertex(*mesh, vertex_index);
+       unsigned int global_vertex_index=actual_vertex.global_index();
+       auto vertex_processes=vertex_it->second;
+       for ( std::set<unsigned int>::iterator comm_procs_it = vertex_processes.begin(); comm_procs_it != vertex_processes.end(); ++comm_procs_it)
+             {
+             unsigned int rank_to_send=*comm_procs_it;
+             buffer_vector[shared_rank_map.at(rank_to_send)].push_back(global_vertex_index);
+             // 0 if it belongs to world_rank domain AND if world_rank procs is smaller than the one receiving
+             // in this case, the receving proc will not consider this node as its
+             if(vertex_index<num_domain_vertices && world_rank<rank_to_send)
+             buffer_vector[shared_rank_map.at(rank_to_send)].push_back( 0 ); 
+             // otherwise if it outside the domain or if the receiving procs has a lower rank than world_rank, it will own this node 
+             else
+             buffer_vector[shared_rank_map.at(rank_to_send)].push_back( 1 ); // it does not belong to the other process
+             }
+
+       }
+
+for(int ii=0;ii<num_domain_vertices;ii++)
+use_vertex_color[ii]=true;
+    
+    for(int ii=0;ii<shared_rank.size();ii++)
+    {
+        {
+        MPI_Request request;
+        unsigned int* buffer;
+            int tag=world_rank*world_size+shared_rank[ii];
+            int rank2send=shared_rank_map.at(shared_rank[ii]);
+            int send_rank=shared_rank[ii];
+            int send_size=buffer_vector[ii].size();
+            ///std::cout<<"send rank=="<<world_rank<<", to="<<shared_rank[ii]<<std::endl;
+            buffer=(unsigned int*)malloc(sizeof(unsigned int)*buffer_vector[ii].size());
+            for(int jj=0;jj<send_size;jj++)
+                buffer[jj]=buffer_vector[ii][jj];
+            MPI_Isend(buffer,send_size,MPI_UNSIGNED,send_rank,tag,MPI_COMM_WORLD,&request);
+        }
+    }
+
+ // you must do a scatter of all num_domain_vertices
+    for(int ii=0;ii<shared_rank.size();ii++)
+    {// receive from processes with a lower rank
+        MPI_Status status_now;
+            int recv_size;
+            unsigned int* buffer_recv;
+            //std::cout<<"recv rank=="<<world_rank<<", from="<<shared_rank[ii]<<std::endl;
+            MPI_Probe(MPI_ANY_SOURCE, MPI_ANY_TAG, MPI_COMM_WORLD, &status_now);
+            MPI_Get_count(&status_now, MPI_UNSIGNED, &recv_size);
+            buffer_recv=(unsigned int*)malloc(sizeof(unsigned int)*recv_size);
+            MPI_Recv(buffer_recv, recv_size, MPI_UNSIGNED, status_now.MPI_SOURCE, status_now.MPI_TAG,MPI_COMM_WORLD,MPI_STATUS_IGNORE);// &status_now);
+            
+            for(int jj=0;jj<recv_size;jj=jj+2)    
+            {
+            
+            unsigned int local_index=global_to_local_vertex.at(buffer_recv[jj]);
+            if( (use_vertex_color[local_index]==true&&buffer_recv[jj+1]==0) || local_index>=num_domain_vertices)
+            use_vertex_color[local_index]=false;
+            //if(world_rank==1)
+            //   std::cout<<"-------------world_rank="<<world_rank<<", recv_size="<<recv_size<<", use_vertex_color["<<local_index<<"]="<<use_vertex_color[local_index]<<std::endl;
+           
+            }
+
+        
+    }
+return use_vertex_color;
+}
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 std::vector< std::vector< unsigned int> > color2vertex(std::shared_ptr<dolfin::Mesh> mesh,
                                                        const std::vector<std::vector< int > > &topology_N2N,
                                                        const std::map<int, std::set<unsigned int> >& shared_vertices,
@@ -363,7 +465,6 @@ else
 {
 std::vector<unsigned int> vertex_shared_global_dof;
 std::vector<unsigned int> vertex_color(mesh->num_vertices(),0);
-std::vector<bool> use_vertex_color(mesh->num_vertices(),true);
 
 std::vector<unsigned int> used_color(1,mesh->num_vertices());
 std::vector<unsigned int> keys; 
@@ -406,7 +507,7 @@ std::vector<std::vector<unsigned int> > vertex_shared_global_dof_and_color(share
  
  
         
-   coloring(shared_vertices,mesh,topology_N2N,vertex_color,vertex_shared_global_dof,shared_rank_map,vertex_shared_global_dof_and_color,used_color,use_vertex_color);
+   coloring(shared_vertices,mesh,topology_N2N,vertex_color,vertex_shared_global_dof,shared_rank_map,vertex_shared_global_dof_and_color,used_color);
 
     for(int ii=0;ii<all_shared_ranks.size();ii++)
       {
@@ -417,8 +518,8 @@ std::vector<std::vector<unsigned int> > vertex_shared_global_dof_and_color(share
         int recv_rank=all_shared_ranks[ii];
         int recv_size=vertex_shared_global_dof_and_color[rank2send].size();
         buffer=(unsigned int*)malloc(sizeof(unsigned int)*recv_size);
-        for(int ii=0;ii<recv_size;ii++)
-        buffer[ii]=vertex_shared_global_dof_and_color[rank2send][ii];
+        for(int jj=0;jj<recv_size;jj++)
+        buffer[jj]=vertex_shared_global_dof_and_color[rank2send][jj];
         MPI_Send(buffer,recv_size,MPI_UNSIGNED,recv_rank,tag,MPI_COMM_WORLD);
         }
       }
@@ -435,22 +536,15 @@ std::vector< std::vector< unsigned int> > color_2_vertex(max_num_colors);
 
 
 
+ std::vector<bool> use_vertex_color=divide_nodes_among_processes(mesh,shared_vertices,shared_rank,all_shared_ranks, shared_rank_map,global_to_local_vertex);
 
-
-
-
-
-
-
-
-
-unsigned int num_domain_vertices=mesh->topology().ghost_offset(0);
-unsigned int num_all_vertices=mesh->num_vertices();
-//for(unsigned int ii=0;ii<mesh->num_vertices();ii++)
 
 // --Loop on all the vertices belonging to the domain
-//   Then add a vertex to the color_2_vertex map if and only if the current process has the smallest rank
-//   among all the processors to which this vertex belong
+//   Then add a vertex to the color_2_vertex map if and only if:
+//   the current process has the smallest rank
+//   among all the processors to which this vertex belong 
+// -- If the vertex belongs only to this processor, then for sure it will be added
+unsigned int num_domain_vertices=mesh->topology().ghost_offset(0);
 for(unsigned int ii=0;ii<num_domain_vertices;ii++)
     {
     if(use_vertex_color[ii]==true)
