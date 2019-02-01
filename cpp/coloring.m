@@ -26,7 +26,7 @@ for ii=1:n
 center=[A(ii,1),A(ii,2)];
 % if(jj==0)
 txt = strcat(num2str(A(ii,5)),', ',num2str(A(ii,4)),',use=',num2str(A(ii,6)));
-%if(A(ii,5)<A(ii,7))
+if(A(ii,5)<A(ii,7))
     text(center(1),center(2),txt)
         if(A(ii,3)==0)
         plot(center(1),center(2),'o','MarkerSize', 20,'MarkerEdgeColor','y','LineWidth',2);
@@ -57,7 +57,7 @@ txt = strcat(num2str(A(ii,5)),', ',num2str(A(ii,4)),',use=',num2str(A(ii,6)));
         elseif(A(ii,3)==13)
         plot(center(1),center(2),'o','MarkerSize', 20,'MarkerEdgeColor','m','LineWidth',4);
         end
-%end
+end
 end
 end
 
