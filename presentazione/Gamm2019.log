@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  4 FEB 2019 13:18
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  4 FEB 2019 16:55
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1159,10 +1159,7 @@ LaTeX Warning: Label `abb_arc' multiply defined.
 LaTeX Warning: Label `abb_arc' multiply defined.
 
 
-LaTeX Warning: Label `abb_arc' multiply defined.
-
-
-LaTeX Warning: Label `abb_arc' multiply defined.
+LaTeX Warning: Label `ResidualRateSquare' multiply defined.
 
 )
 \openout1 = `Gamm2019.aux'.
@@ -1464,14 +1461,14 @@ Package pdftex.def Info: img/logo_ics.jpg used on input line 268.
  <./img/contactproblem.pdf> <./img/squarecircle.pdf>]
 File: img/logo_ics.jpg Graphic file (type jpg)
  <use img/logo_ics.jpg>
-Package pdftex.def Info: img/logo_ics.jpg used on input line 320.
+Package pdftex.def Info: img/logo_ics.jpg used on input line 318.
 (pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
  [4
 
 ]
 File: img/logo_ics.jpg Graphic file (type jpg)
  <use img/logo_ics.jpg>
-Package pdftex.def Info: img/logo_ics.jpg used on input line 351.
+Package pdftex.def Info: img/logo_ics.jpg used on input line 349.
 (pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
  [5
 
@@ -1485,7 +1482,7 @@ ted-to.pdf>
 (epstopdf)                    size: 12629 bytes
 (epstopdf)             Command: <repstopdf --outfile=img/errorfrequencydecompos
 ition-eps-converted-to.pdf img/errorfrequencydecomposition.eps>
-(epstopdf)             \includegraphics on input line 372.
+(epstopdf)             \includegraphics on input line 370.
 Package epstopdf Info: Output file is already uptodate.
 
 <img/errorfrequencydecomposition-eps-converted-to.pdf, id=234, 1686.3pt x 892.3
@@ -1494,17 +1491,17 @@ File: img/errorfrequencydecomposition-eps-converted-to.pdf Graphic file (type p
 df)
  <use img/errorfrequencydecomposition-eps-converted-to.pdf>
 Package pdftex.def Info: img/errorfrequencydecomposition-eps-converted-to.pdf u
-sed on input line 372.
+sed on input line 370.
 (pdftex.def)             Requested size: 244.59503pt x 129.41911pt.
 pdfTeX warning (ext4): destination with the same identifier (name{abb_arc}) has
  been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.372 \end{frame}
+l.370 \end{frame}
                  
 File: img/logo_ics.jpg Graphic file (type jpg)
  <use img/logo_ics.jpg>
-Package pdftex.def Info: img/logo_ics.jpg used on input line 372.
+Package pdftex.def Info: img/logo_ics.jpg used on input line 370.
 (pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
  [6
 
@@ -1513,45 +1510,286 @@ Package pdftex.def Info: img/logo_ics.jpg used on input line 372.
 File: img/refinementpatch.pdf Graphic file (type pdf)
 
 <use img/refinementpatch.pdf>
-Package pdftex.def Info: img/refinementpatch.pdf used on input line 400.
+Package pdftex.def Info: img/refinementpatch.pdf used on input line 398.
 (pdftex.def)             Requested size: 244.59503pt x 137.58183pt.
 pdfTeX warning (ext4): destination with the same identifier (name{abb_arc}) has
  been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.400 \end{frame}
+l.398 \end{frame}
                  
 File: img/logo_ics.jpg Graphic file (type jpg)
  <use img/logo_ics.jpg>
-Package pdftex.def Info: img/logo_ics.jpg used on input line 400.
+Package pdftex.def Info: img/logo_ics.jpg used on input line 398.
 (pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
  [7
 
- <./img/refinementpatch.pdf>])
-Runaway argument?
-\titlecolor {{Exact Monotone Multilevel} Define: \begin {itemize} \item \ETC.
-! File ended while scanning use of \frame.
-<inserted text> 
-                \par 
-<*> Gamm2019.tex
-                
-I suspect you have forgotten a `}', causing me
-to read past where you wanted me to stop.
-I'll try to recover; but if the error is serious,
-you'd better type `E' or `X' now and fix your file.
+ <./img/refinementpatch.pdf>]
+File: img/logo_ics.jpg Graphic file (type jpg)
 
-! Emergency stop.
-<*> Gamm2019.tex
-                
-*** (job aborted, no legal \end found)
+<use img/logo_ics.jpg>
+Package pdftex.def Info: img/logo_ics.jpg used on input line 448.
+(pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
+ [8
 
- 
+]
+File: img/logo_ics.jpg Graphic file (type jpg)
+ <use img/logo_ics.jpg>
+Package pdftex.def Info: img/logo_ics.jpg used on input line 478.
+(pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
+ [9
+
+]
+File: img/logo_ics.jpg Graphic file (type jpg)
+ <use img/logo_ics.jpg>
+Package pdftex.def Info: img/logo_ics.jpg used on input line 521.
+(pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
+
+[10
+
+] <img/coarseconstraintrepresentation.pdf, id=402, 963.6pt x 542.025pt>
+File: img/coarseconstraintrepresentation.pdf Graphic file (type pdf)
+
+<use img/coarseconstraintrepresentation.pdf>
+Package pdftex.def Info: img/coarseconstraintrepresentation.pdf used on input l
+ine 544.
+(pdftex.def)             Requested size: 144.53375pt x 81.30023pt.
+
+<img/coarseconstraintabc.pdf, id=403, 963.6pt x 542.025pt>
+File: img/coarseconstraintabc.pdf Graphic file (type pdf)
+
+<use img/coarseconstraintabc.pdf>
+Package pdftex.def Info: img/coarseconstraintabc.pdf used on input line 544.
+(pdftex.def)             Requested size: 105.99632pt x 59.62292pt.
+File: img/logo_ics.jpg Graphic file (type jpg)
+ <use img/logo_ics.jpg>
+Package pdftex.def Info: img/logo_ics.jpg used on input line 544.
+(pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
+ [11
+
+ <./img/coarseconstraintrepresentation.pdf> <./img/coarseconstraintabc.pdf>]
+Package epstopdf Info: Source file: <img/neuhertzpicC.eps>
+(epstopdf)                    date: 2018-03-21 12:09:18
+(epstopdf)                    size: 35165 bytes
+(epstopdf)             Output file: <img/neuhertzpicC-eps-converted-to.pdf>
+(epstopdf)                    date: 2019-02-04 16:42:05
+(epstopdf)                    size: 12582 bytes
+(epstopdf)             Command: <repstopdf --outfile=img/neuhertzpicC-eps-conve
+rted-to.pdf img/neuhertzpicC.eps>
+(epstopdf)             \includegraphics on input line 557.
+Package epstopdf Info: Output file is already uptodate.
+
+<img/neuhertzpicC-eps-converted-to.pdf, id=478, 1205.50375pt x 785.93625pt>
+File: img/neuhertzpicC-eps-converted-to.pdf Graphic file (type pdf)
+
+<use img/neuhertzpicC-eps-converted-to.pdf>
+Package pdftex.def Info: img/neuhertzpicC-eps-converted-to.pdf used on input li
+ne 557.
+(pdftex.def)             Requested size: 301.3752pt x 196.48358pt.
+File: img/logo_ics.jpg Graphic file (type jpg)
+ <use img/logo_ics.jpg>
+Package pdftex.def Info: img/logo_ics.jpg used on input line 557.
+(pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
+ [12
+
+ <./img/neuhertzpicC-eps-converted-to.pdf>]
+Package epstopdf Info: Source file: <img/ResidualsNonUniform.eps>
+(epstopdf)                    date: 2018-09-21 12:00:30
+(epstopdf)                    size: 55150 bytes
+(epstopdf)             Output file: <img/ResidualsNonUniform-eps-converted-to.p
+df>
+(epstopdf)                    date: 2019-02-04 16:51:10
+(epstopdf)                    size: 27597 bytes
+(epstopdf)             Command: <repstopdf --outfile=img/ResidualsNonUniform-ep
+s-converted-to.pdf img/ResidualsNonUniform.eps>
+(epstopdf)             \includegraphics on input line 576.
+Package epstopdf Info: Output file is already uptodate.
+
+<img/ResidualsNonUniform-eps-converted-to.pdf, id=508, 1686.3pt x 1002.74625pt>
+File: img/ResidualsNonUniform-eps-converted-to.pdf Graphic file (type pdf)
+<use img/ResidualsNonUniform-eps-converted-to.pdf>
+Package pdftex.def Info: img/ResidualsNonUniform-eps-converted-to.pdf used on i
+nput line 576.
+(pdftex.def)             Requested size: 134.90675pt x 80.22133pt.
+Package epstopdf Info: Source file: <img/RatesNonUniform.eps>
+(epstopdf)                    date: 2018-09-21 12:00:18
+(epstopdf)                    size: 53735 bytes
+(epstopdf)             Output file: <img/RatesNonUniform-eps-converted-to.pdf>
+(epstopdf)                    date: 2019-02-04 16:51:11
+(epstopdf)                    size: 26119 bytes
+(epstopdf)             Command: <repstopdf --outfile=img/RatesNonUniform-eps-co
+nverted-to.pdf img/RatesNonUniform.eps>
+(epstopdf)             \includegraphics on input line 576.
+Package epstopdf Info: Output file is already uptodate.
+
+<img/RatesNonUniform-eps-converted-to.pdf, id=509, 1686.3pt x 1002.74625pt>
+File: img/RatesNonUniform-eps-converted-to.pdf Graphic file (type pdf)
+
+<use img/RatesNonUniform-eps-converted-to.pdf>
+Package pdftex.def Info: img/RatesNonUniform-eps-converted-to.pdf used on input
+ line 576.
+(pdftex.def)             Requested size: 134.90675pt x 80.22133pt.
+File: img/logo_ics.jpg Graphic file (type jpg)
+ <use img/logo_ics.jpg>
+Package pdftex.def Info: img/logo_ics.jpg used on input line 576.
+(pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
+ [13
+
+ <./img/ResidualsNonUniform-eps-converted-to.pdf> <./img/RatesNonUniform-eps-co
+nverted-to.pdf>]
+Package epstopdf Info: Source file: <img/SquareResidualCompressible.eps>
+(epstopdf)                    date: 2018-09-09 14:32:54
+(epstopdf)                    size: 21265 bytes
+(epstopdf)             Output file: <img/SquareResidualCompressible-eps-convert
+ed-to.pdf>
+(epstopdf)                    date: 2019-02-04 16:52:08
+(epstopdf)                    size: 11699 bytes
+(epstopdf)             Command: <repstopdf --outfile=img/SquareResidualCompress
+ible-eps-converted-to.pdf img/SquareResidualCompressible.eps>
+(epstopdf)             \includegraphics on input line 599.
+Package epstopdf Info: Output file is already uptodate.
+
+<img/SquareResidualCompressible-eps-converted-to.pdf, id=553, 1686.3pt x 1002.7
+4625pt>
+File: img/SquareResidualCompressible-eps-converted-to.pdf Graphic file (type pd
+f)
+ <use img/SquareResidualCompressible-eps-converted-to.pdf>
+Package pdftex.def Info: img/SquareResidualCompressible-eps-converted-to.pdf us
+ed on input line 599.
+(pdftex.def)             Requested size: 134.90675pt x 80.22133pt.
+Package epstopdf Info: Source file: <img/SquareRateCompressible.eps>
+(epstopdf)                    date: 2018-09-10 11:53:10
+(epstopdf)                    size: 18685 bytes
+(epstopdf)             Output file: <img/SquareRateCompressible-eps-converted-t
+o.pdf>
+(epstopdf)                    date: 2019-02-04 16:53:06
+(epstopdf)                    size: 10085 bytes
+(epstopdf)             Command: <repstopdf --outfile=img/SquareRateCompressible
+-eps-converted-to.pdf img/SquareRateCompressible.eps>
+(epstopdf)             \includegraphics on input line 599.
+Package epstopdf Info: Output file is already uptodate.
+
+<img/SquareRateCompressible-eps-converted-to.pdf, id=554, 1686.3pt x 1002.74625
+pt>
+File: img/SquareRateCompressible-eps-converted-to.pdf Graphic file (type pdf)
+ <use img/SquareRateCompressible-eps-converted-to.pdf>
+Package pdftex.def Info: img/SquareRateCompressible-eps-converted-to.pdf used o
+n input line 599.
+(pdftex.def)             Requested size: 134.90675pt x 80.22133pt.
+Package epstopdf Info: Source file: <img/SquareResidualIncompressible.eps>
+(epstopdf)                    date: 2018-09-12 08:50:28
+(epstopdf)                    size: 22021 bytes
+(epstopdf)             Output file: <img/SquareResidualIncompressible-eps-conve
+rted-to.pdf>
+(epstopdf)                    date: 2019-02-04 16:52:46
+(epstopdf)                    size: 11973 bytes
+(epstopdf)             Command: <repstopdf --outfile=img/SquareResidualIncompre
+ssible-eps-converted-to.pdf img/SquareResidualIncompressible.eps>
+(epstopdf)             \includegraphics on input line 599.
+Package epstopdf Info: Output file is already uptodate.
+
+<img/SquareResidualIncompressible-eps-converted-to.pdf, id=555, 1686.3pt x 1002
+.74625pt>
+File: img/SquareResidualIncompressible-eps-converted-to.pdf Graphic file (type 
+pdf)
+ <use img/SquareResidualIncompressible-eps-converted-to.pdf>
+Package pdftex.def Info: img/SquareResidualIncompressible-eps-converted-to.pdf 
+used on input line 599.
+(pdftex.def)             Requested size: 134.90675pt x 80.22133pt.
+Package epstopdf Info: Source file: <img/SquareRateIncompressible.eps>
+(epstopdf)                    date: 2018-09-12 08:49:59
+(epstopdf)                    size: 21582 bytes
+(epstopdf)             Output file: <img/SquareRateIncompressible-eps-converted
+-to.pdf>
+(epstopdf)                    date: 2019-02-04 16:52:09
+(epstopdf)                    size: 11331 bytes
+(epstopdf)             Command: <repstopdf --outfile=img/SquareRateIncompressib
+le-eps-converted-to.pdf img/SquareRateIncompressible.eps>
+(epstopdf)             \includegraphics on input line 599.
+Package epstopdf Info: Output file is already uptodate.
+
+<img/SquareRateIncompressible-eps-converted-to.pdf, id=556, 1686.3pt x 1002.746
+25pt>
+File: img/SquareRateIncompressible-eps-converted-to.pdf Graphic file (type pdf)
+
+ <use img/SquareRateIncompressible-eps-converted-to.pdf>
+Package pdftex.def Info: img/SquareRateIncompressible-eps-converted-to.pdf used
+ on input line 599.
+(pdftex.def)             Requested size: 134.90675pt x 80.22133pt.
+File: img/logo_ics.jpg Graphic file (type jpg)
+
+<use img/logo_ics.jpg>
+Package pdftex.def Info: img/logo_ics.jpg used on input line 599.
+(pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
+ [14
+
+pdfTeX warning (ext4): destination with the same identifier (name{ResidualRateS
+quare}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.599 \end{frame}
+                  <./img/SquareResidualCompressible-eps-converted-to.pdf> <./im
+g/SquareRateCompressible-eps-converted-to.pdf> <./img/SquareResidualIncompressi
+ble-eps-converted-to.pdf> <./img/SquareRateIncompressible-eps-converted-to.pdf>
+]
+\tf@nav=\write6
+\openout6 = `Gamm2019.nav'.
+
+\tf@toc=\write7
+\openout7 = `Gamm2019.toc'.
+
+\tf@snm=\write8
+\openout8 = `Gamm2019.snm'.
+
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1180.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1180.
+ (./Gamm2019.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1180.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1180.
+
+Package rerunfilecheck Info: File `Gamm2019.out' has not changed.
+(rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
+
+
+LaTeX Font Warning: Size substitutions with differences
+(Font)              up to 1.0pt have occurred.
+
+
+LaTeX Warning: There were multiply-defined labels.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1180.
+ ) 
 Here is how much of TeX's memory you used:
- 20434 strings out of 493014
- 403074 string characters out of 6133351
- 483302 words of memory out of 5000000
- 23459 multiletter control sequences out of 15000+600000
+ 20473 strings out of 493014
+ 405375 string characters out of 6133351
+ 477113 words of memory out of 5000000
+ 23471 multiletter control sequences out of 15000+600000
  19282 words of font info for 63 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  56i,23n,59p,490b,555s stack positions out of 5000i,500n,10000p,200000b,80000s
-!  ==> Fatal error occurred, no output PDF file produced!
+</usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex7
+.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cmextra/cm
+ex8.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi
+5.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.
+pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pf
+b></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb>
+</usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib6.
+pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmm
+ib7.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cmextra
+/cmmib8.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmss8.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+ssbx10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mssi10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mssi8.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+sy5.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
+6.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.
+pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pf
+b>
+Output written on Gamm2019.pdf (14 pages, 1695556 bytes).
+PDF statistics:
+ 678 PDF objects out of 1000 (max. 8388607)
+ 569 compressed objects within 6 object streams
+ 32 named destinations out of 1000 (max. 500000)
+ 157 words of extra memory for PDF output out of 10000 (max. 10000000)
+
