@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  4 FEB 2019 16:55
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  6 FEB 2019 08:37
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1156,28 +1156,25 @@ LaTeX Warning: Label `abb_arc' multiply defined.
 LaTeX Warning: Label `abb_arc' multiply defined.
 
 
-LaTeX Warning: Label `abb_arc' multiply defined.
-
-
 LaTeX Warning: Label `ResidualRateSquare' multiply defined.
 
 )
 \openout1 = `Gamm2019.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 182.
-LaTeX Font Info:    ... okay on input line 182.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 182.
-LaTeX Font Info:    ... okay on input line 182.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 182.
-LaTeX Font Info:    ... okay on input line 182.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 182.
-LaTeX Font Info:    ... okay on input line 182.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 182.
-LaTeX Font Info:    ... okay on input line 182.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 182.
-LaTeX Font Info:    ... okay on input line 182.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 182.
-LaTeX Font Info:    ... okay on input line 182.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 194.
+LaTeX Font Info:    ... okay on input line 194.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 194.
+LaTeX Font Info:    ... okay on input line 194.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 194.
+LaTeX Font Info:    ... okay on input line 194.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 194.
+LaTeX Font Info:    ... okay on input line 194.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 194.
+LaTeX Font Info:    ... okay on input line 194.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 194.
+LaTeX Font Info:    ... okay on input line 194.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 194.
+LaTeX Font Info:    ... okay on input line 194.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -1243,7 +1240,7 @@ e
 ))
 ABD: EveryShipout initializing macros
 \AtBeginShipoutBox=\box60
-Package hyperref Info: Link coloring OFF on input line 182.
+Package hyperref Info: Link coloring OFF on input line 194.
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
@@ -1253,66 +1250,66 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count168
 )
-LaTeX Info: Redefining \ref on input line 182.
-LaTeX Info: Redefining \pageref on input line 182.
-LaTeX Info: Redefining \nameref on input line 182.
+LaTeX Info: Redefining \ref on input line 194.
+LaTeX Info: Redefining \pageref on input line 194.
+LaTeX Info: Redefining \nameref on input line 194.
 
 (./Gamm2019.out) (./Gamm2019.out)
 \@outlinefile=\write5
 \openout5 = `Gamm2019.out'.
 
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/cmr/m/n --> OT1/cmss/m/n on input line 182.
+(Font)                  OT1/cmr/m/n --> OT1/cmss/m/n on input line 194.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/cmr/bx/n --> OT1/cmss/bx/n on input line 182.
+(Font)                  OT1/cmr/bx/n --> OT1/cmss/bx/n on input line 194.
 \symnumbers=\mathgroup6
 \sympureletters=\mathgroup7
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `normal'
-(Font)                  OT1/cmss/m/n --> OT1/cmr/m/n on input line 182.
-LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 182.
+(Font)                  OT1/cmss/m/n --> OT1/cmr/m/n on input line 194.
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 194.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
-(Font)                  OT1/cmr/bx/n --> OT1/cmss/bx/n on input line 182.
+(Font)                  OT1/cmr/bx/n --> OT1/cmss/bx/n on input line 194.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  OT1/cmr/bx/n --> OT1/cmss/bx/n on input line 182.
-LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 182.
+(Font)                  OT1/cmr/bx/n --> OT1/cmss/bx/n on input line 194.
+LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 194.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/cmss/m/n --> OT1/cmss/m/n on input line 182.
+(Font)                  OT1/cmss/m/n --> OT1/cmss/m/n on input line 194.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/cmss/bx/n --> OT1/cmss/m/n on input line 182.
-LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 182.
+(Font)                  OT1/cmss/bx/n --> OT1/cmss/m/n on input line 194.
+LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 194.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/cmr/m/it --> OT1/cmss/m/it on input line 182.
+(Font)                  OT1/cmr/m/it --> OT1/cmss/m/it on input line 194.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/cmr/bx/it --> OT1/cmss/m/it on input line 182.
-LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 182.
+(Font)                  OT1/cmr/bx/it --> OT1/cmss/m/it on input line 194.
+LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 194.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 182.
+(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 194.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 182.
+(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 194.
 LaTeX Font Info:    Overwriting symbol font `numbers' in version `bold'
-(Font)                  OT1/cmss/m/n --> OT1/cmss/bx/n on input line 182.
+(Font)                  OT1/cmss/m/n --> OT1/cmss/bx/n on input line 194.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
-(Font)                  OT1/cmss/m/it --> OT1/cmss/bx/it on input line 182.
+(Font)                  OT1/cmss/m/it --> OT1/cmss/bx/it on input line 194.
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `bold'
-(Font)                  OT1/cmss/bx/n --> OT1/cmr/bx/n on input line 182.
+(Font)                  OT1/cmss/bx/n --> OT1/cmr/bx/n on input line 194.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  OT1/cmss/bx/n --> OT1/cmss/bx/n on input line 182.
+(Font)                  OT1/cmss/bx/n --> OT1/cmss/bx/n on input line 194.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/cmss/m/n --> OT1/cmss/bx/n on input line 182.
+(Font)                  OT1/cmss/m/n --> OT1/cmss/bx/n on input line 194.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/cmss/m/it --> OT1/cmss/bx/it on input line 182.
+(Font)                  OT1/cmss/m/it --> OT1/cmss/bx/it on input line 194.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtt/m/n --> OT1/cmtt/bx/n on input line 182.
-LaTeX Font Info:    Redeclaring symbol font `pureletters' on input line 182.
+(Font)                  OT1/cmtt/m/n --> OT1/cmtt/bx/n on input line 194.
+LaTeX Font Info:    Redeclaring symbol font `pureletters' on input line 194.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `normal'
 (Font)                  OT1/cmss/m/it --> OT1/mathkerncmss/m/sl on input line 1
-82.
+94.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
 (Font)                  OT1/cmss/bx/it --> OT1/mathkerncmss/m/sl on input line 
-182.
+194.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
 (Font)                  OT1/mathkerncmss/m/sl --> OT1/mathkerncmss/bx/sl on inp
-ut line 182.
+ut line 194.
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/beamer/translator/dicts/translato
 r-basic-dictionary/translator-basic-dictionary-English.dict
@@ -1338,53 +1335,53 @@ Dictionary: translator-numbers-dictionary, Language: English
 r-theorem-dictionary/translator-theorem-dictionary-English.dict
 Dictionary: translator-theorem-dictionary, Language: English 
 )
-LaTeX Info: Redefining \includegraphics on input line 182.
+LaTeX Info: Redefining \includegraphics on input line 194.
 
-(./Gamm2019.nav) <img/logo_ics.jpg, id=19, 184.64986pt x 85.39905pt>
+(./Gamm2019.nav) <img/logo_ics.jpg, id=39, 184.64986pt x 85.39905pt>
 File: img/logo_ics.jpg Graphic file (type jpg)
 
 <use img/logo_ics.jpg>
-Package pdftex.def Info: img/logo_ics.jpg used on input line 190.
+Package pdftex.def Info: img/logo_ics.jpg used on input line 202.
 (pdftex.def)             Requested size: 129.254pt x 59.77892pt.
- <img/essenlogo.png, id=20, 501.875pt x 192.72pt>
+ <img/essenlogo.png, id=40, 501.875pt x 192.72pt>
 File: img/essenlogo.png Graphic file (type png)
 
 <use img/essenlogo.png>
-Package pdftex.def Info: img/essenlogo.png used on input line 190.
+Package pdftex.def Info: img/essenlogo.png used on input line 202.
 (pdftex.def)             Requested size: 150.56366pt x 57.81644pt.
 
 
 LaTeX Font Warning: Font shape `OT1/cmss/m/n' in size <4> not available
-(Font)              size <5> substituted on input line 190.
+(Font)              size <5> substituted on input line 202.
 
 File: img/logo_ics.jpg Graphic file (type jpg)
 <use img/logo_ics.jpg>
-Package pdftex.def Info: img/logo_ics.jpg used on input line 190.
+Package pdftex.def Info: img/logo_ics.jpg used on input line 202.
 (pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
  [1{/usr/local/texlive/2016/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
  <./img/logo_ics.jpg> <./img/essenlogo.png>]
-<img/walking.jpg, id=54, 1608.0075pt x 1072.005pt>
+<img/walking.jpg, id=74, 1608.0075pt x 1072.005pt>
 File: img/walking.jpg Graphic file (type jpg)
  <use img/walking.jpg>
-Package pdftex.def Info: img/walking.jpg used on input line 223.
+Package pdftex.def Info: img/walking.jpg used on input line 235.
 (pdftex.def)             Requested size: 107.01178pt x 71.33487pt.
 
-<img/aorticvalve.jpg, id=55, 542.025pt x 353.32pt>
+<img/aorticvalve.jpg, id=75, 542.025pt x 353.32pt>
 File: img/aorticvalve.jpg Graphic file (type jpg)
  <use img/aorticvalve.jpg>
-Package pdftex.def Info: img/aorticvalve.jpg used on input line 223.
+Package pdftex.def Info: img/aorticvalve.jpg used on input line 235.
 (pdftex.def)             Requested size: 107.01178pt x 69.75163pt.
 
-<img/foundation.jpg, id=56, 883.3pt x 471.7625pt>
+<img/foundation.jpg, id=76, 883.3pt x 471.7625pt>
 File: img/foundation.jpg Graphic file (type jpg)
  <use img/foundation.jpg>
-Package pdftex.def Info: img/foundation.jpg used on input line 223.
+Package pdftex.def Info: img/foundation.jpg used on input line 235.
 (pdftex.def)             Requested size: 122.29518pt x 65.31204pt.
 File: img/logo_ics.jpg Graphic file (type jpg)
 
 <use img/logo_ics.jpg>
-Package pdftex.def Info: img/logo_ics.jpg used on input line 223.
+Package pdftex.def Info: img/logo_ics.jpg used on input line 235.
 (pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
  [2
 
@@ -1393,206 +1390,228 @@ pdfTeX warning (ext4): destination with the same identifier (name{abb_arc}) has
 
 \@EveryShipout@Output ...@Org@Shipout \box \@cclv 
                                                   
-l.223 \end{frame}
+l.235 \end{frame}
                  pdfTeX warning (ext4): destination with the same identifier (n
 ame{abb_arc}) has been already used, duplicate ignored
 
 \@EveryShipout@Output ...@Org@Shipout \box \@cclv 
                                                   
-l.223 \end{frame}
+l.235 \end{frame}
                   <./img/walking.jpg> <./img/aorticvalve.jpg> <./img/foundation
 .jpg>]
-LaTeX Font Info:    Try loading font information for U+msa on input line 268.
+LaTeX Font Info:    Try loading font information for U+msa on input line 281.
  (/usr/local/texlive/2016/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 268.
+LaTeX Font Info:    Try loading font information for U+msb on input line 281.
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Try loading font information for OT1+mathkerncmss on input 
-line 268.
+line 281.
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/sansmathaccent/ot1mathkerncmss.fd
 File: ot1mathkerncmss.fd 2013/03/27 Fontinst v1.933 font definitions for OT1/ma
 thkerncmss.
 )
 
-LaTeX Font Warning: Command \footnotesize invalid in math mode on input line 26
-8.
+LaTeX Font Warning: Command \footnotesize invalid in math mode on input line 28
+1.
 
 
-LaTeX Font Warning: Command \footnotesize invalid in math mode on input line 26
-8.
+LaTeX Font Warning: Command \footnotesize invalid in math mode on input line 28
+1.
 
 
-LaTeX Font Warning: Command \footnotesize invalid in math mode on input line 26
-8.
+LaTeX Font Warning: Command \footnotesize invalid in math mode on input line 28
+1.
 
 
-LaTeX Font Warning: Command \footnotesize invalid in math mode on input line 26
-8.
+LaTeX Font Warning: Command \footnotesize invalid in math mode on input line 28
+1.
 
-<img/contactproblem.pdf, id=86, 963.6pt x 542.025pt>
+<img/contactproblem.pdf, id=106, 963.6pt x 542.025pt>
 File: img/contactproblem.pdf Graphic file (type pdf)
 
 <use img/contactproblem.pdf>
-Package pdftex.def Info: img/contactproblem.pdf used on input line 268.
+Package pdftex.def Info: img/contactproblem.pdf used on input line 281.
 (pdftex.def)             Requested size: 107.01178pt x 60.1936pt.
 
-<img/squarecircle.pdf, id=87, 963.6pt x 542.025pt>
+<img/squarecircle.pdf, id=107, 963.6pt x 542.025pt>
 File: img/squarecircle.pdf Graphic file (type pdf)
  <use img/squarecircle.pdf>
-Package pdftex.def Info: img/squarecircle.pdf used on input line 268.
+Package pdftex.def Info: img/squarecircle.pdf used on input line 281.
 (pdftex.def)             Requested size: 107.01178pt x 60.1936pt.
 pdfTeX warning (ext4): destination with the same identifier (name{abb_arc}) has
  been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.268 \end{frame}
+l.281 \end{frame}
                  
 File: img/logo_ics.jpg Graphic file (type jpg)
  <use img/logo_ics.jpg>
-Package pdftex.def Info: img/logo_ics.jpg used on input line 268.
+Package pdftex.def Info: img/logo_ics.jpg used on input line 281.
 (pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
  [3
 
  <./img/contactproblem.pdf> <./img/squarecircle.pdf>]
 File: img/logo_ics.jpg Graphic file (type jpg)
  <use img/logo_ics.jpg>
-Package pdftex.def Info: img/logo_ics.jpg used on input line 318.
+Package pdftex.def Info: img/logo_ics.jpg used on input line 331.
 (pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
  [4
 
 ]
 File: img/logo_ics.jpg Graphic file (type jpg)
  <use img/logo_ics.jpg>
-Package pdftex.def Info: img/logo_ics.jpg used on input line 349.
+Package pdftex.def Info: img/logo_ics.jpg used on input line 361.
 (pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
  [5
 
 ]
-Package epstopdf Info: Source file: <img/errorfrequencydecomposition.eps>
-(epstopdf)                    date: 2018-09-24 10:23:06
-(epstopdf)                    size: 44259 bytes
-(epstopdf)             Output file: <img/errorfrequencydecomposition-eps-conver
-ted-to.pdf>
-(epstopdf)                    date: 2019-02-04 10:51:36
-(epstopdf)                    size: 12629 bytes
-(epstopdf)             Command: <repstopdf --outfile=img/errorfrequencydecompos
-ition-eps-converted-to.pdf img/errorfrequencydecomposition.eps>
-(epstopdf)             \includegraphics on input line 370.
-Package epstopdf Info: Output file is already uptodate.
-
-<img/errorfrequencydecomposition-eps-converted-to.pdf, id=234, 1686.3pt x 892.3
-3376pt>
-File: img/errorfrequencydecomposition-eps-converted-to.pdf Graphic file (type p
-df)
- <use img/errorfrequencydecomposition-eps-converted-to.pdf>
-Package pdftex.def Info: img/errorfrequencydecomposition-eps-converted-to.pdf u
-sed on input line 370.
-(pdftex.def)             Requested size: 244.59503pt x 129.41911pt.
-pdfTeX warning (ext4): destination with the same identifier (name{abb_arc}) has
- been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.370 \end{frame}
-                 
 File: img/logo_ics.jpg Graphic file (type jpg)
- <use img/logo_ics.jpg>
-Package pdftex.def Info: img/logo_ics.jpg used on input line 370.
+
+<use img/logo_ics.jpg>
+Package pdftex.def Info: img/logo_ics.jpg used on input line 397.
 (pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
  [6
 
- <./img/errorfrequencydecomposition-eps-converted-to.pdf>] <img/refinementpatch
-.pdf, id=272, 963.6pt x 542.025pt>
-File: img/refinementpatch.pdf Graphic file (type pdf)
+]
+File: img/logo_ics.jpg Graphic file (type jpg)
+ <use img/logo_ics.jpg>
+Package pdftex.def Info: img/logo_ics.jpg used on input line 413.
+(pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
+ [7
 
-<use img/refinementpatch.pdf>
-Package pdftex.def Info: img/refinementpatch.pdf used on input line 398.
+]
+<img/multigridexplained1.pdf, id=300, 963.6pt x 542.025pt>
+File: img/multigridexplained1.pdf Graphic file (type pdf)
+
+<use img/multigridexplained1.pdf>
+Package pdftex.def Info: img/multigridexplained1.pdf used on input line 424.
+(pdftex.def)             Requested size: 305.74263pt x 171.97937pt.
+File: img/logo_ics.jpg Graphic file (type jpg)
+ <use img/logo_ics.jpg>
+Package pdftex.def Info: img/logo_ics.jpg used on input line 424.
+(pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
+ [8
+
+ <./img/multigridexplained1.pdf>] <img/multigridexplained2.pdf, id=343, 963.6pt
+ x 542.025pt>
+File: img/multigridexplained2.pdf Graphic file (type pdf)
+
+<use img/multigridexplained2.pdf>
+Package pdftex.def Info: img/multigridexplained2.pdf used on input line 433.
+(pdftex.def)             Requested size: 305.74263pt x 171.97937pt.
+File: img/logo_ics.jpg Graphic file (type jpg)
+ <use img/logo_ics.jpg>
+Package pdftex.def Info: img/logo_ics.jpg used on input line 433.
+(pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
+ [9
+
+ <./img/multigridexplained2.pdf>] <img/multigridexplained3.pdf, id=386, 963.6pt
+ x 542.025pt>
+File: img/multigridexplained3.pdf Graphic file (type pdf)
+
+<use img/multigridexplained3.pdf>
+Package pdftex.def Info: img/multigridexplained3.pdf used on input line 442.
+(pdftex.def)             Requested size: 305.74263pt x 171.97937pt.
+File: img/logo_ics.jpg Graphic file (type jpg)
+ <use img/logo_ics.jpg>
+Package pdftex.def Info: img/logo_ics.jpg used on input line 442.
+(pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
+ [10
+
+ <./img/multigridexplained3.pdf>] <img/multigridexplained4.pdf, id=430, 963.6pt
+ x 542.025pt>
+File: img/multigridexplained4.pdf Graphic file (type pdf)
+
+<use img/multigridexplained4.pdf>
+Package pdftex.def Info: img/multigridexplained4.pdf used on input line 450.
+(pdftex.def)             Requested size: 305.74263pt x 171.97937pt.
+File: img/logo_ics.jpg Graphic file (type jpg)
+ <use img/logo_ics.jpg>
+Package pdftex.def Info: img/logo_ics.jpg used on input line 450.
+(pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
+ [11
+
+ <./img/multigridexplained4.pdf>]
+File: img/logo_ics.jpg Graphic file (type jpg)
+ <use img/logo_ics.jpg>
+Package pdftex.def Info: img/logo_ics.jpg used on input line 468.
+(pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
+ [12
+
+]
+File: img/logo_ics.jpg Graphic file (type jpg)
+ <use img/logo_ics.jpg>
+Package pdftex.def Info: img/logo_ics.jpg used on input line 484.
+(pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
+ [13
+
+]
+<img/patchsmoother.pdf, id=527, 963.6pt x 542.025pt>
+File: img/patchsmoother.pdf Graphic file (type pdf)
+
+<use img/patchsmoother.pdf>
+Package pdftex.def Info: img/patchsmoother.pdf used on input line 521.
 (pdftex.def)             Requested size: 244.59503pt x 137.58183pt.
 pdfTeX warning (ext4): destination with the same identifier (name{abb_arc}) has
  been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.398 \end{frame}
+l.521 \end{frame}
                  
-File: img/logo_ics.jpg Graphic file (type jpg)
- <use img/logo_ics.jpg>
-Package pdftex.def Info: img/logo_ics.jpg used on input line 398.
-(pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
- [7
-
- <./img/refinementpatch.pdf>]
-File: img/logo_ics.jpg Graphic file (type jpg)
-
-<use img/logo_ics.jpg>
-Package pdftex.def Info: img/logo_ics.jpg used on input line 448.
-(pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
- [8
-
-]
-File: img/logo_ics.jpg Graphic file (type jpg)
- <use img/logo_ics.jpg>
-Package pdftex.def Info: img/logo_ics.jpg used on input line 478.
-(pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
- [9
-
-]
 File: img/logo_ics.jpg Graphic file (type jpg)
  <use img/logo_ics.jpg>
 Package pdftex.def Info: img/logo_ics.jpg used on input line 521.
 (pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
+ [14
 
-[10
+ <./img/patchsmoother.pdf>]
+File: img/logo_ics.jpg Graphic file (type jpg)
 
-] <img/coarseconstraintrepresentation.pdf, id=402, 963.6pt x 542.025pt>
+<use img/logo_ics.jpg>
+Package pdftex.def Info: img/logo_ics.jpg used on input line 546.
+(pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
+ [15
+
+]
+<img/coarseconstraintrepresentation.pdf, id=598, 963.6pt x 542.025pt>
 File: img/coarseconstraintrepresentation.pdf Graphic file (type pdf)
 
 <use img/coarseconstraintrepresentation.pdf>
 Package pdftex.def Info: img/coarseconstraintrepresentation.pdf used on input l
-ine 544.
+ine 572.
 (pdftex.def)             Requested size: 144.53375pt x 81.30023pt.
 
-<img/coarseconstraintabc.pdf, id=403, 963.6pt x 542.025pt>
+<img/coarseconstraintabc.pdf, id=599, 963.6pt x 542.025pt>
 File: img/coarseconstraintabc.pdf Graphic file (type pdf)
 
 <use img/coarseconstraintabc.pdf>
-Package pdftex.def Info: img/coarseconstraintabc.pdf used on input line 544.
+Package pdftex.def Info: img/coarseconstraintabc.pdf used on input line 572.
 (pdftex.def)             Requested size: 105.99632pt x 59.62292pt.
 File: img/logo_ics.jpg Graphic file (type jpg)
  <use img/logo_ics.jpg>
-Package pdftex.def Info: img/logo_ics.jpg used on input line 544.
+Package pdftex.def Info: img/logo_ics.jpg used on input line 572.
 (pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
- [11
+ [16
 
  <./img/coarseconstraintrepresentation.pdf> <./img/coarseconstraintabc.pdf>]
-Package epstopdf Info: Source file: <img/neuhertzpicC.eps>
-(epstopdf)                    date: 2018-03-21 12:09:18
-(epstopdf)                    size: 35165 bytes
-(epstopdf)             Output file: <img/neuhertzpicC-eps-converted-to.pdf>
-(epstopdf)                    date: 2019-02-04 16:42:05
-(epstopdf)                    size: 12582 bytes
-(epstopdf)             Command: <repstopdf --outfile=img/neuhertzpicC-eps-conve
-rted-to.pdf img/neuhertzpicC.eps>
-(epstopdf)             \includegraphics on input line 557.
-Package epstopdf Info: Output file is already uptodate.
+<img/signorinicircle.pdf, id=675, 963.6pt x 542.025pt>
+File: img/signorinicircle.pdf Graphic file (type pdf)
 
-<img/neuhertzpicC-eps-converted-to.pdf, id=478, 1205.50375pt x 785.93625pt>
-File: img/neuhertzpicC-eps-converted-to.pdf Graphic file (type pdf)
-
-<use img/neuhertzpicC-eps-converted-to.pdf>
-Package pdftex.def Info: img/neuhertzpicC-eps-converted-to.pdf used on input li
-ne 557.
-(pdftex.def)             Requested size: 301.3752pt x 196.48358pt.
+<use img/signorinicircle.pdf>
+Package pdftex.def Info: img/signorinicircle.pdf used on input line 584.
+(pdftex.def)             Requested size: 192.71658pt x 108.40308pt.
 File: img/logo_ics.jpg Graphic file (type jpg)
  <use img/logo_ics.jpg>
-Package pdftex.def Info: img/logo_ics.jpg used on input line 557.
+Package pdftex.def Info: img/logo_ics.jpg used on input line 584.
 (pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
- [12
+ [17
 
- <./img/neuhertzpicC-eps-converted-to.pdf>]
+ <./img/signorinicircle.pdf>]
 Package epstopdf Info: Source file: <img/ResidualsNonUniform.eps>
 (epstopdf)                    date: 2018-09-21 12:00:30
 (epstopdf)                    size: 55150 bytes
@@ -1602,14 +1621,14 @@ df>
 (epstopdf)                    size: 27597 bytes
 (epstopdf)             Command: <repstopdf --outfile=img/ResidualsNonUniform-ep
 s-converted-to.pdf img/ResidualsNonUniform.eps>
-(epstopdf)             \includegraphics on input line 576.
+(epstopdf)             \includegraphics on input line 603.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/ResidualsNonUniform-eps-converted-to.pdf, id=508, 1686.3pt x 1002.74625pt>
+<img/ResidualsNonUniform-eps-converted-to.pdf, id=724, 1686.3pt x 1002.74625pt>
 File: img/ResidualsNonUniform-eps-converted-to.pdf Graphic file (type pdf)
 <use img/ResidualsNonUniform-eps-converted-to.pdf>
 Package pdftex.def Info: img/ResidualsNonUniform-eps-converted-to.pdf used on i
-nput line 576.
+nput line 603.
 (pdftex.def)             Requested size: 134.90675pt x 80.22133pt.
 Package epstopdf Info: Source file: <img/RatesNonUniform.eps>
 (epstopdf)                    date: 2018-09-21 12:00:18
@@ -1619,24 +1638,36 @@ Package epstopdf Info: Source file: <img/RatesNonUniform.eps>
 (epstopdf)                    size: 26119 bytes
 (epstopdf)             Command: <repstopdf --outfile=img/RatesNonUniform-eps-co
 nverted-to.pdf img/RatesNonUniform.eps>
-(epstopdf)             \includegraphics on input line 576.
+(epstopdf)             \includegraphics on input line 603.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/RatesNonUniform-eps-converted-to.pdf, id=509, 1686.3pt x 1002.74625pt>
+<img/RatesNonUniform-eps-converted-to.pdf, id=725, 1686.3pt x 1002.74625pt>
 File: img/RatesNonUniform-eps-converted-to.pdf Graphic file (type pdf)
 
 <use img/RatesNonUniform-eps-converted-to.pdf>
 Package pdftex.def Info: img/RatesNonUniform-eps-converted-to.pdf used on input
- line 576.
+ line 603.
 (pdftex.def)             Requested size: 134.90675pt x 80.22133pt.
 File: img/logo_ics.jpg Graphic file (type jpg)
  <use img/logo_ics.jpg>
-Package pdftex.def Info: img/logo_ics.jpg used on input line 576.
+Package pdftex.def Info: img/logo_ics.jpg used on input line 603.
 (pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
- [13
+ [18
 
  <./img/ResidualsNonUniform-eps-converted-to.pdf> <./img/RatesNonUniform-eps-co
-nverted-to.pdf>]
+nverted-to.pdf>] <img/signorinisquare.pdf, id=770, 963.6pt x 542.025pt>
+File: img/signorinisquare.pdf Graphic file (type pdf)
+
+<use img/signorinisquare.pdf>
+Package pdftex.def Info: img/signorinisquare.pdf used on input line 615.
+(pdftex.def)             Requested size: 192.71658pt x 108.40308pt.
+File: img/logo_ics.jpg Graphic file (type jpg)
+ <use img/logo_ics.jpg>
+Package pdftex.def Info: img/logo_ics.jpg used on input line 615.
+(pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
+ [19
+
+ <./img/signorinisquare.pdf>]
 Package epstopdf Info: Source file: <img/SquareResidualCompressible.eps>
 (epstopdf)                    date: 2018-09-09 14:32:54
 (epstopdf)                    size: 21265 bytes
@@ -1646,16 +1677,16 @@ ed-to.pdf>
 (epstopdf)                    size: 11699 bytes
 (epstopdf)             Command: <repstopdf --outfile=img/SquareResidualCompress
 ible-eps-converted-to.pdf img/SquareResidualCompressible.eps>
-(epstopdf)             \includegraphics on input line 599.
+(epstopdf)             \includegraphics on input line 633.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/SquareResidualCompressible-eps-converted-to.pdf, id=553, 1686.3pt x 1002.7
+<img/SquareResidualCompressible-eps-converted-to.pdf, id=820, 1686.3pt x 1002.7
 4625pt>
 File: img/SquareResidualCompressible-eps-converted-to.pdf Graphic file (type pd
 f)
  <use img/SquareResidualCompressible-eps-converted-to.pdf>
 Package pdftex.def Info: img/SquareResidualCompressible-eps-converted-to.pdf us
-ed on input line 599.
+ed on input line 633.
 (pdftex.def)             Requested size: 134.90675pt x 80.22133pt.
 Package epstopdf Info: Source file: <img/SquareRateCompressible.eps>
 (epstopdf)                    date: 2018-09-10 11:53:10
@@ -1666,15 +1697,15 @@ o.pdf>
 (epstopdf)                    size: 10085 bytes
 (epstopdf)             Command: <repstopdf --outfile=img/SquareRateCompressible
 -eps-converted-to.pdf img/SquareRateCompressible.eps>
-(epstopdf)             \includegraphics on input line 599.
+(epstopdf)             \includegraphics on input line 633.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/SquareRateCompressible-eps-converted-to.pdf, id=554, 1686.3pt x 1002.74625
+<img/SquareRateCompressible-eps-converted-to.pdf, id=821, 1686.3pt x 1002.74625
 pt>
 File: img/SquareRateCompressible-eps-converted-to.pdf Graphic file (type pdf)
  <use img/SquareRateCompressible-eps-converted-to.pdf>
 Package pdftex.def Info: img/SquareRateCompressible-eps-converted-to.pdf used o
-n input line 599.
+n input line 633.
 (pdftex.def)             Requested size: 134.90675pt x 80.22133pt.
 Package epstopdf Info: Source file: <img/SquareResidualIncompressible.eps>
 (epstopdf)                    date: 2018-09-12 08:50:28
@@ -1685,16 +1716,16 @@ rted-to.pdf>
 (epstopdf)                    size: 11973 bytes
 (epstopdf)             Command: <repstopdf --outfile=img/SquareResidualIncompre
 ssible-eps-converted-to.pdf img/SquareResidualIncompressible.eps>
-(epstopdf)             \includegraphics on input line 599.
+(epstopdf)             \includegraphics on input line 633.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/SquareResidualIncompressible-eps-converted-to.pdf, id=555, 1686.3pt x 1002
+<img/SquareResidualIncompressible-eps-converted-to.pdf, id=822, 1686.3pt x 1002
 .74625pt>
 File: img/SquareResidualIncompressible-eps-converted-to.pdf Graphic file (type 
 pdf)
  <use img/SquareResidualIncompressible-eps-converted-to.pdf>
 Package pdftex.def Info: img/SquareResidualIncompressible-eps-converted-to.pdf 
-used on input line 599.
+used on input line 633.
 (pdftex.def)             Requested size: 134.90675pt x 80.22133pt.
 Package epstopdf Info: Source file: <img/SquareRateIncompressible.eps>
 (epstopdf)                    date: 2018-09-12 08:49:59
@@ -1705,33 +1736,107 @@ Package epstopdf Info: Source file: <img/SquareRateIncompressible.eps>
 (epstopdf)                    size: 11331 bytes
 (epstopdf)             Command: <repstopdf --outfile=img/SquareRateIncompressib
 le-eps-converted-to.pdf img/SquareRateIncompressible.eps>
-(epstopdf)             \includegraphics on input line 599.
+(epstopdf)             \includegraphics on input line 633.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/SquareRateIncompressible-eps-converted-to.pdf, id=556, 1686.3pt x 1002.746
+<img/SquareRateIncompressible-eps-converted-to.pdf, id=823, 1686.3pt x 1002.746
 25pt>
 File: img/SquareRateIncompressible-eps-converted-to.pdf Graphic file (type pdf)
 
  <use img/SquareRateIncompressible-eps-converted-to.pdf>
 Package pdftex.def Info: img/SquareRateIncompressible-eps-converted-to.pdf used
- on input line 599.
+ on input line 633.
 (pdftex.def)             Requested size: 134.90675pt x 80.22133pt.
 File: img/logo_ics.jpg Graphic file (type jpg)
 
 <use img/logo_ics.jpg>
-Package pdftex.def Info: img/logo_ics.jpg used on input line 599.
+Package pdftex.def Info: img/logo_ics.jpg used on input line 633.
 (pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
- [14
+ [20
 
 pdfTeX warning (ext4): destination with the same identifier (name{ResidualRateS
 quare}) has been already used, duplicate ignored
 
 \@EveryShipout@Output ...@Org@Shipout \box \@cclv 
                                                   
-l.599 \end{frame}
+l.633 \end{frame}
                   <./img/SquareResidualCompressible-eps-converted-to.pdf> <./im
 g/SquareRateCompressible-eps-converted-to.pdf> <./img/SquareResidualIncompressi
 ble-eps-converted-to.pdf> <./img/SquareRateIncompressible-eps-converted-to.pdf>
+]
+File: img/logo_ics.jpg Graphic file (type jpg)
+ <use img/logo_ics.jpg>
+Package pdftex.def Info: img/logo_ics.jpg used on input line 651.
+(pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
+ [21
+
+]
+File: img/logo_ics.jpg Graphic file (type jpg)
+ <use img/logo_ics.jpg>
+Package pdftex.def Info: img/logo_ics.jpg used on input line 663.
+(pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
+ [22
+
+]
+File: img/logo_ics.jpg Graphic file (type jpg)
+
+<use img/logo_ics.jpg>
+Package pdftex.def Info: img/logo_ics.jpg used on input line 666.
+(pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
+ [23
+
+]
+File: img/logo_ics.jpg Graphic file (type jpg)
+ <use img/logo_ics.jpg>
+Package pdftex.def Info: img/logo_ics.jpg used on input line 668.
+(pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
+ [24
+
+]
+File: img/logo_ics.jpg Graphic file (type jpg)
+ <use img/logo_ics.jpg>
+Package pdftex.def Info: img/logo_ics.jpg used on input line 708.
+(pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
+
+[25
+
+]
+File: img/logo_ics.jpg Graphic file (type jpg)
+ <use img/logo_ics.jpg>
+Package pdftex.def Info: img/logo_ics.jpg used on input line 738.
+(pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
+ [26
+
+]
+File: img/logo_ics.jpg Graphic file (type jpg)
+ <use img/logo_ics.jpg>
+Package pdftex.def Info: img/logo_ics.jpg used on input line 781.
+(pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
+ [27
+
+]
+File: img/logo_ics.jpg Graphic file (type jpg)
+
+<use img/logo_ics.jpg>
+Package pdftex.def Info: img/logo_ics.jpg used on input line 818.
+(pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
+ [28
+
+]
+File: img/logo_ics.jpg Graphic file (type jpg)
+ <use img/logo_ics.jpg>
+Package pdftex.def Info: img/logo_ics.jpg used on input line 836.
+(pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
+ [29
+
+]
+File: img/logo_ics.jpg Graphic file (type jpg)
+ <use img/logo_ics.jpg>
+Package pdftex.def Info: img/logo_ics.jpg used on input line 859.
+(pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
+
+[30
+
 ]
 \tf@nav=\write6
 \openout6 = `Gamm2019.nav'.
@@ -1742,12 +1847,11 @@ ble-eps-converted-to.pdf> <./img/SquareRateIncompressible-eps-converted-to.pdf>
 \tf@snm=\write8
 \openout8 = `Gamm2019.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1180.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1180.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 865.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 865.
  (./Gamm2019.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1180.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1180.
-
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 865.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 865.
 Package rerunfilecheck Info: File `Gamm2019.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
 
@@ -1758,38 +1862,42 @@ LaTeX Font Warning: Size substitutions with differences
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1180.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 865.
  ) 
 Here is how much of TeX's memory you used:
- 20473 strings out of 493014
- 405375 string characters out of 6133351
- 477113 words of memory out of 5000000
- 23471 multiletter control sequences out of 15000+600000
- 19282 words of font info for 63 fonts, out of 8000000 for 9000
+ 20560 strings out of 493014
+ 406353 string characters out of 6133351
+ 477276 words of memory out of 5000000
+ 23521 multiletter control sequences out of 15000+600000
+ 17941 words of font info for 58 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 56i,23n,59p,490b,555s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex7
-.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cmextra/cm
-ex8.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi
-5.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.
-pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pf
-b></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb>
-</usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib6.
+ 56i,23n,59p,490b,538s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmbsy
+5.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cmextra/c
+mex7.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cmextr
+a/cmex8.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmmi5.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+mi6.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi
+7.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.
 pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmm
-ib7.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cmextra
-/cmmib8.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/
-cmss8.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-ssbx10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/c
-mssi10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/c
-mssi8.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-sy5.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
-6.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.
-pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pf
-b>
-Output written on Gamm2019.pdf (14 pages, 1695556 bytes).
+ib5.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cmextra
+/cmmib6.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cme
+xtra/cmmib7.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts
+/cmextra/cmmib8.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmss10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmss12.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmss8.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmssbx10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmssi8.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmsy5.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmsy6.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmsy7.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+sy8.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/symbols
+/msbm10.pfb>
+Output written on Gamm2019.pdf (30 pages, 1851552 bytes).
 PDF statistics:
- 678 PDF objects out of 1000 (max. 8388607)
- 569 compressed objects within 6 object streams
- 32 named destinations out of 1000 (max. 500000)
- 157 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1230 PDF objects out of 1440 (max. 8388607)
+ 1060 compressed objects within 11 object streams
+ 65 named destinations out of 1000 (max. 500000)
+ 177 words of extra memory for PDF output out of 10000 (max. 10000000)
 
