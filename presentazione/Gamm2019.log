@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  6 FEB 2019 08:37
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  6 FEB 2019 16:45
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1399,17 +1399,17 @@ ame{abb_arc}) has been already used, duplicate ignored
 l.235 \end{frame}
                   <./img/walking.jpg> <./img/aorticvalve.jpg> <./img/foundation
 .jpg>]
-LaTeX Font Info:    Try loading font information for U+msa on input line 281.
+LaTeX Font Info:    Try loading font information for U+msa on input line 285.
  (/usr/local/texlive/2016/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 281.
+LaTeX Font Info:    Try loading font information for U+msb on input line 285.
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Try loading font information for OT1+mathkerncmss on input 
-line 281.
+line 285.
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/sansmathaccent/ot1mathkerncmss.fd
 File: ot1mathkerncmss.fd 2013/03/27 Fontinst v1.933 font definitions for OT1/ma
@@ -1417,199 +1417,542 @@ thkerncmss.
 )
 
 LaTeX Font Warning: Command \footnotesize invalid in math mode on input line 28
-1.
+5.
 
 
 LaTeX Font Warning: Command \footnotesize invalid in math mode on input line 28
-1.
+5.
 
 
 LaTeX Font Warning: Command \footnotesize invalid in math mode on input line 28
-1.
+5.
 
 
 LaTeX Font Warning: Command \footnotesize invalid in math mode on input line 28
-1.
+5.
 
 <img/contactproblem.pdf, id=106, 963.6pt x 542.025pt>
 File: img/contactproblem.pdf Graphic file (type pdf)
 
 <use img/contactproblem.pdf>
-Package pdftex.def Info: img/contactproblem.pdf used on input line 281.
+Package pdftex.def Info: img/contactproblem.pdf used on input line 285.
 (pdftex.def)             Requested size: 107.01178pt x 60.1936pt.
 
 <img/squarecircle.pdf, id=107, 963.6pt x 542.025pt>
 File: img/squarecircle.pdf Graphic file (type pdf)
  <use img/squarecircle.pdf>
-Package pdftex.def Info: img/squarecircle.pdf used on input line 281.
+Package pdftex.def Info: img/squarecircle.pdf used on input line 285.
 (pdftex.def)             Requested size: 107.01178pt x 60.1936pt.
 pdfTeX warning (ext4): destination with the same identifier (name{abb_arc}) has
  been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.281 \end{frame}
+l.285 \end{frame}
                  
 File: img/logo_ics.jpg Graphic file (type jpg)
  <use img/logo_ics.jpg>
-Package pdftex.def Info: img/logo_ics.jpg used on input line 281.
+Package pdftex.def Info: img/logo_ics.jpg used on input line 285.
 (pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
  [3
 
  <./img/contactproblem.pdf> <./img/squarecircle.pdf>]
+
+LaTeX Font Warning: Command \footnotesize invalid in math mode on input line 28
+5.
+
+
+LaTeX Font Warning: Command \footnotesize invalid in math mode on input line 28
+5.
+
+
+LaTeX Font Warning: Command \footnotesize invalid in math mode on input line 28
+5.
+
+
+LaTeX Font Warning: Command \footnotesize invalid in math mode on input line 28
+5.
+
+File: img/contactproblem.pdf Graphic file (type pdf)
+<use img/contactproblem.pdf>
+Package pdftex.def Info: img/contactproblem.pdf used on input line 285.
+(pdftex.def)             Requested size: 107.01178pt x 60.1936pt.
+File: img/squarecircle.pdf Graphic file (type pdf)
+ <use img/squarecircle.pdf>
+Package pdftex.def Info: img/squarecircle.pdf used on input line 285.
+(pdftex.def)             Requested size: 107.01178pt x 60.1936pt.
 File: img/logo_ics.jpg Graphic file (type jpg)
  <use img/logo_ics.jpg>
-Package pdftex.def Info: img/logo_ics.jpg used on input line 331.
+Package pdftex.def Info: img/logo_ics.jpg used on input line 285.
 (pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
- [4
+
+[4
 
 ]
 File: img/logo_ics.jpg Graphic file (type jpg)
  <use img/logo_ics.jpg>
-Package pdftex.def Info: img/logo_ics.jpg used on input line 361.
+Package pdftex.def Info: img/logo_ics.jpg used on input line 339.
 (pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
  [5
 
 ]
 File: img/logo_ics.jpg Graphic file (type jpg)
-
-<use img/logo_ics.jpg>
-Package pdftex.def Info: img/logo_ics.jpg used on input line 397.
+ <use img/logo_ics.jpg>
+Package pdftex.def Info: img/logo_ics.jpg used on input line 339.
 (pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
  [6
 
 ]
 File: img/logo_ics.jpg Graphic file (type jpg)
- <use img/logo_ics.jpg>
-Package pdftex.def Info: img/logo_ics.jpg used on input line 413.
+
+<use img/logo_ics.jpg>
+Package pdftex.def Info: img/logo_ics.jpg used on input line 339.
 (pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
  [7
 
 ]
-<img/multigridexplained1.pdf, id=300, 963.6pt x 542.025pt>
-File: img/multigridexplained1.pdf Graphic file (type pdf)
-
-<use img/multigridexplained1.pdf>
-Package pdftex.def Info: img/multigridexplained1.pdf used on input line 424.
-(pdftex.def)             Requested size: 305.74263pt x 171.97937pt.
 File: img/logo_ics.jpg Graphic file (type jpg)
  <use img/logo_ics.jpg>
-Package pdftex.def Info: img/logo_ics.jpg used on input line 424.
+Package pdftex.def Info: img/logo_ics.jpg used on input line 376.
 (pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
  [8
 
- <./img/multigridexplained1.pdf>] <img/multigridexplained2.pdf, id=343, 963.6pt
- x 542.025pt>
-File: img/multigridexplained2.pdf Graphic file (type pdf)
-
-<use img/multigridexplained2.pdf>
-Package pdftex.def Info: img/multigridexplained2.pdf used on input line 433.
-(pdftex.def)             Requested size: 305.74263pt x 171.97937pt.
+]
 File: img/logo_ics.jpg Graphic file (type jpg)
  <use img/logo_ics.jpg>
-Package pdftex.def Info: img/logo_ics.jpg used on input line 433.
+Package pdftex.def Info: img/logo_ics.jpg used on input line 376.
 (pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
- [9
 
- <./img/multigridexplained2.pdf>] <img/multigridexplained3.pdf, id=386, 963.6pt
- x 542.025pt>
-File: img/multigridexplained3.pdf Graphic file (type pdf)
+[9
 
-<use img/multigridexplained3.pdf>
-Package pdftex.def Info: img/multigridexplained3.pdf used on input line 442.
-(pdftex.def)             Requested size: 305.74263pt x 171.97937pt.
+]
 File: img/logo_ics.jpg Graphic file (type jpg)
  <use img/logo_ics.jpg>
-Package pdftex.def Info: img/logo_ics.jpg used on input line 442.
+Package pdftex.def Info: img/logo_ics.jpg used on input line 376.
 (pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
  [10
 
- <./img/multigridexplained3.pdf>] <img/multigridexplained4.pdf, id=430, 963.6pt
- x 542.025pt>
-File: img/multigridexplained4.pdf Graphic file (type pdf)
-
-<use img/multigridexplained4.pdf>
-Package pdftex.def Info: img/multigridexplained4.pdf used on input line 450.
-(pdftex.def)             Requested size: 305.74263pt x 171.97937pt.
+]
 File: img/logo_ics.jpg Graphic file (type jpg)
  <use img/logo_ics.jpg>
-Package pdftex.def Info: img/logo_ics.jpg used on input line 450.
+Package pdftex.def Info: img/logo_ics.jpg used on input line 376.
 (pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
  [11
 
- <./img/multigridexplained4.pdf>]
+]
 File: img/logo_ics.jpg Graphic file (type jpg)
- <use img/logo_ics.jpg>
-Package pdftex.def Info: img/logo_ics.jpg used on input line 468.
+
+<use img/logo_ics.jpg>
+Package pdftex.def Info: img/logo_ics.jpg used on input line 376.
 (pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
  [12
 
 ]
 File: img/logo_ics.jpg Graphic file (type jpg)
  <use img/logo_ics.jpg>
-Package pdftex.def Info: img/logo_ics.jpg used on input line 484.
+Package pdftex.def Info: img/logo_ics.jpg used on input line 376.
 (pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
  [13
 
 ]
-<img/patchsmoother.pdf, id=527, 963.6pt x 542.025pt>
+File: img/logo_ics.jpg Graphic file (type jpg)
+ <use img/logo_ics.jpg>
+Package pdftex.def Info: img/logo_ics.jpg used on input line 420.
+(pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
+
+[14
+
+]
+File: img/logo_ics.jpg Graphic file (type jpg)
+ <use img/logo_ics.jpg>
+Package pdftex.def Info: img/logo_ics.jpg used on input line 420.
+(pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
+ [15
+
+]
+File: img/logo_ics.jpg Graphic file (type jpg)
+ <use img/logo_ics.jpg>
+Package pdftex.def Info: img/logo_ics.jpg used on input line 420.
+(pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
+ [16
+
+]
+File: img/logo_ics.jpg Graphic file (type jpg)
+
+<use img/logo_ics.jpg>
+Package pdftex.def Info: img/logo_ics.jpg used on input line 438.
+(pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
+ [17
+
+]
+<img/multigridexplained1.pdf, id=563, 963.6pt x 542.025pt>
+File: img/multigridexplained1.pdf Graphic file (type pdf)
+
+<use img/multigridexplained1.pdf>
+Package pdftex.def Info: img/multigridexplained1.pdf used on input line 450.
+(pdftex.def)             Requested size: 305.74263pt x 171.97937pt.
+File: img/logo_ics.jpg Graphic file (type jpg)
+ <use img/logo_ics.jpg>
+Package pdftex.def Info: img/logo_ics.jpg used on input line 450.
+(pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
+ [18
+
+ <./img/multigridexplained1.pdf>] <img/multigridexplained2.pdf, id=607, 963.6pt
+ x 542.025pt>
+File: img/multigridexplained2.pdf Graphic file (type pdf)
+
+<use img/multigridexplained2.pdf>
+Package pdftex.def Info: img/multigridexplained2.pdf used on input line 459.
+(pdftex.def)             Requested size: 305.74263pt x 171.97937pt.
+File: img/logo_ics.jpg Graphic file (type jpg)
+ <use img/logo_ics.jpg>
+Package pdftex.def Info: img/logo_ics.jpg used on input line 459.
+(pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
+ [19
+
+ <./img/multigridexplained2.pdf>] <img/multigridexplained3.pdf, id=651, 963.6pt
+ x 542.025pt>
+File: img/multigridexplained3.pdf Graphic file (type pdf)
+
+<use img/multigridexplained3.pdf>
+Package pdftex.def Info: img/multigridexplained3.pdf used on input line 468.
+(pdftex.def)             Requested size: 305.74263pt x 171.97937pt.
+File: img/logo_ics.jpg Graphic file (type jpg)
+ <use img/logo_ics.jpg>
+Package pdftex.def Info: img/logo_ics.jpg used on input line 468.
+(pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
+ [20
+
+ <./img/multigridexplained3.pdf>] <img/multigridexplained4.pdf, id=694, 963.6pt
+ x 542.025pt>
+File: img/multigridexplained4.pdf Graphic file (type pdf)
+
+<use img/multigridexplained4.pdf>
+Package pdftex.def Info: img/multigridexplained4.pdf used on input line 476.
+(pdftex.def)             Requested size: 305.74263pt x 171.97937pt.
+File: img/logo_ics.jpg Graphic file (type jpg)
+ <use img/logo_ics.jpg>
+Package pdftex.def Info: img/logo_ics.jpg used on input line 476.
+(pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
+ [21
+
+ <./img/multigridexplained4.pdf>]
+File: img/logo_ics.jpg Graphic file (type jpg)
+ <use img/logo_ics.jpg>
+Package pdftex.def Info: img/logo_ics.jpg used on input line 494.
+(pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
+ [22
+
+]
+File: img/logo_ics.jpg Graphic file (type jpg)
+ <use img/logo_ics.jpg>
+Package pdftex.def Info: img/logo_ics.jpg used on input line 510.
+(pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
+ [23
+
+]
+<img/patchsmoother.pdf, id=790, 963.6pt x 542.025pt>
 File: img/patchsmoother.pdf Graphic file (type pdf)
 
 <use img/patchsmoother.pdf>
-Package pdftex.def Info: img/patchsmoother.pdf used on input line 521.
+Package pdftex.def Info: img/patchsmoother.pdf used on input line 547.
 (pdftex.def)             Requested size: 244.59503pt x 137.58183pt.
 pdfTeX warning (ext4): destination with the same identifier (name{abb_arc}) has
  been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.521 \end{frame}
+l.547 \end{frame}
                  
+Overfull \vbox (1.6158pt too high) detected at line 547
+ []
+
 File: img/logo_ics.jpg Graphic file (type jpg)
- <use img/logo_ics.jpg>
-Package pdftex.def Info: img/logo_ics.jpg used on input line 521.
+<use img/logo_ics.jpg>
+Package pdftex.def Info: img/logo_ics.jpg used on input line 547.
 (pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
- [14
+ [24
 
  <./img/patchsmoother.pdf>]
-File: img/logo_ics.jpg Graphic file (type jpg)
-
-<use img/logo_ics.jpg>
-Package pdftex.def Info: img/logo_ics.jpg used on input line 546.
-(pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
- [15
-
-]
-<img/coarseconstraintrepresentation.pdf, id=598, 963.6pt x 542.025pt>
-File: img/coarseconstraintrepresentation.pdf Graphic file (type pdf)
-
-<use img/coarseconstraintrepresentation.pdf>
-Package pdftex.def Info: img/coarseconstraintrepresentation.pdf used on input l
-ine 572.
-(pdftex.def)             Requested size: 144.53375pt x 81.30023pt.
-
-<img/coarseconstraintabc.pdf, id=599, 963.6pt x 542.025pt>
-File: img/coarseconstraintabc.pdf Graphic file (type pdf)
-
-<use img/coarseconstraintabc.pdf>
-Package pdftex.def Info: img/coarseconstraintabc.pdf used on input line 572.
-(pdftex.def)             Requested size: 105.99632pt x 59.62292pt.
 File: img/logo_ics.jpg Graphic file (type jpg)
  <use img/logo_ics.jpg>
 Package pdftex.def Info: img/logo_ics.jpg used on input line 572.
 (pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
- [16
 
- <./img/coarseconstraintrepresentation.pdf> <./img/coarseconstraintabc.pdf>]
-<img/signorinicircle.pdf, id=675, 963.6pt x 542.025pt>
+[25
+
+] <img/coarseconstraintrepresentation1.pdf, id=875, 963.6pt x 542.025pt>
+File: img/coarseconstraintrepresentation1.pdf Graphic file (type pdf)
+
+<use img/coarseconstraintrepresentation1.pdf>
+Package pdftex.def Info: img/coarseconstraintrepresentation1.pdf used on input 
+line 622.
+(pdftex.def)             Requested size: 144.53375pt x 81.30023pt.
+
+<img/coarseconstraintrepresentation2.pdf, id=876, 963.6pt x 542.025pt>
+File: img/coarseconstraintrepresentation2.pdf Graphic file (type pdf)
+
+<use img/coarseconstraintrepresentation2.pdf>
+Package pdftex.def Info: img/coarseconstraintrepresentation2.pdf used on input 
+line 622.
+(pdftex.def)             Requested size: 144.53375pt x 81.30023pt.
+
+<img/coarseconstraintrepresentation3.pdf, id=877, 963.6pt x 542.025pt>
+File: img/coarseconstraintrepresentation3.pdf Graphic file (type pdf)
+
+<use img/coarseconstraintrepresentation3.pdf>
+Package pdftex.def Info: img/coarseconstraintrepresentation3.pdf used on input 
+line 622.
+(pdftex.def)             Requested size: 144.53375pt x 81.30023pt.
+
+<img/coarseconstraintrepresentation4.pdf, id=878, 963.6pt x 542.025pt>
+File: img/coarseconstraintrepresentation4.pdf Graphic file (type pdf)
+
+<use img/coarseconstraintrepresentation4.pdf>
+Package pdftex.def Info: img/coarseconstraintrepresentation4.pdf used on input 
+line 622.
+(pdftex.def)             Requested size: 144.53375pt x 81.30023pt.
+
+<img/coarseconstraintexactapprox.pdf, id=879, 963.6pt x 542.025pt>
+File: img/coarseconstraintexactapprox.pdf Graphic file (type pdf)
+
+<use img/coarseconstraintexactapprox.pdf>
+Package pdftex.def Info: img/coarseconstraintexactapprox.pdf used on input line
+ 622.
+(pdftex.def)             Requested size: 105.99632pt x 59.62292pt.
+
+<img/coarseconstraintabc.pdf, id=880, 963.6pt x 542.025pt>
+File: img/coarseconstraintabc.pdf Graphic file (type pdf)
+
+<use img/coarseconstraintabc.pdf>
+Package pdftex.def Info: img/coarseconstraintabc.pdf used on input line 622.
+(pdftex.def)             Requested size: 105.99632pt x 59.62292pt.
+File: img/logo_ics.jpg Graphic file (type jpg)
+ <use img/logo_ics.jpg>
+Package pdftex.def Info: img/logo_ics.jpg used on input line 622.
+(pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
+ [26
+
+ <./img/coarseconstraintexactapprox.pdf> <./img/coarseconstraintabc.pdf>]
+File: img/coarseconstraintrepresentation1.pdf Graphic file (type pdf)
+
+<use img/coarseconstraintrepresentation1.pdf>
+Package pdftex.def Info: img/coarseconstraintrepresentation1.pdf used on input 
+line 622.
+(pdftex.def)             Requested size: 144.53375pt x 81.30023pt.
+File: img/coarseconstraintrepresentation2.pdf Graphic file (type pdf)
+
+<use img/coarseconstraintrepresentation2.pdf>
+Package pdftex.def Info: img/coarseconstraintrepresentation2.pdf used on input 
+line 622.
+(pdftex.def)             Requested size: 144.53375pt x 81.30023pt.
+File: img/coarseconstraintrepresentation3.pdf Graphic file (type pdf)
+
+<use img/coarseconstraintrepresentation3.pdf>
+Package pdftex.def Info: img/coarseconstraintrepresentation3.pdf used on input 
+line 622.
+(pdftex.def)             Requested size: 144.53375pt x 81.30023pt.
+File: img/coarseconstraintrepresentation4.pdf Graphic file (type pdf)
+
+<use img/coarseconstraintrepresentation4.pdf>
+Package pdftex.def Info: img/coarseconstraintrepresentation4.pdf used on input 
+line 622.
+(pdftex.def)             Requested size: 144.53375pt x 81.30023pt.
+File: img/coarseconstraintexactapprox.pdf Graphic file (type pdf)
+
+<use img/coarseconstraintexactapprox.pdf>
+Package pdftex.def Info: img/coarseconstraintexactapprox.pdf used on input line
+ 622.
+(pdftex.def)             Requested size: 105.99632pt x 59.62292pt.
+File: img/coarseconstraintabc.pdf Graphic file (type pdf)
+ <use img/coarseconstraintabc.pdf>
+Package pdftex.def Info: img/coarseconstraintabc.pdf used on input line 622.
+(pdftex.def)             Requested size: 105.99632pt x 59.62292pt.
+File: img/logo_ics.jpg Graphic file (type jpg)
+
+<use img/logo_ics.jpg>
+Package pdftex.def Info: img/logo_ics.jpg used on input line 622.
+(pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
+ [27
+
+ <./img/coarseconstraintrepresentation1.pdf>]
+File: img/coarseconstraintrepresentation1.pdf Graphic file (type pdf)
+
+<use img/coarseconstraintrepresentation1.pdf>
+Package pdftex.def Info: img/coarseconstraintrepresentation1.pdf used on input 
+line 622.
+(pdftex.def)             Requested size: 144.53375pt x 81.30023pt.
+File: img/coarseconstraintrepresentation2.pdf Graphic file (type pdf)
+
+<use img/coarseconstraintrepresentation2.pdf>
+Package pdftex.def Info: img/coarseconstraintrepresentation2.pdf used on input 
+line 622.
+(pdftex.def)             Requested size: 144.53375pt x 81.30023pt.
+File: img/coarseconstraintrepresentation3.pdf Graphic file (type pdf)
+
+<use img/coarseconstraintrepresentation3.pdf>
+Package pdftex.def Info: img/coarseconstraintrepresentation3.pdf used on input 
+line 622.
+(pdftex.def)             Requested size: 144.53375pt x 81.30023pt.
+File: img/coarseconstraintrepresentation4.pdf Graphic file (type pdf)
+
+<use img/coarseconstraintrepresentation4.pdf>
+Package pdftex.def Info: img/coarseconstraintrepresentation4.pdf used on input 
+line 622.
+(pdftex.def)             Requested size: 144.53375pt x 81.30023pt.
+File: img/coarseconstraintexactapprox.pdf Graphic file (type pdf)
+
+<use img/coarseconstraintexactapprox.pdf>
+Package pdftex.def Info: img/coarseconstraintexactapprox.pdf used on input line
+ 622.
+(pdftex.def)             Requested size: 105.99632pt x 59.62292pt.
+File: img/coarseconstraintabc.pdf Graphic file (type pdf)
+ <use img/coarseconstraintabc.pdf>
+Package pdftex.def Info: img/coarseconstraintabc.pdf used on input line 622.
+(pdftex.def)             Requested size: 105.99632pt x 59.62292pt.
+File: img/logo_ics.jpg Graphic file (type jpg)
+
+<use img/logo_ics.jpg>
+Package pdftex.def Info: img/logo_ics.jpg used on input line 622.
+(pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
+ [28
+
+ <./img/coarseconstraintrepresentation2.pdf>]
+File: img/coarseconstraintrepresentation1.pdf Graphic file (type pdf)
+
+<use img/coarseconstraintrepresentation1.pdf>
+Package pdftex.def Info: img/coarseconstraintrepresentation1.pdf used on input 
+line 622.
+(pdftex.def)             Requested size: 144.53375pt x 81.30023pt.
+File: img/coarseconstraintrepresentation2.pdf Graphic file (type pdf)
+
+<use img/coarseconstraintrepresentation2.pdf>
+Package pdftex.def Info: img/coarseconstraintrepresentation2.pdf used on input 
+line 622.
+(pdftex.def)             Requested size: 144.53375pt x 81.30023pt.
+File: img/coarseconstraintrepresentation3.pdf Graphic file (type pdf)
+
+<use img/coarseconstraintrepresentation3.pdf>
+Package pdftex.def Info: img/coarseconstraintrepresentation3.pdf used on input 
+line 622.
+(pdftex.def)             Requested size: 144.53375pt x 81.30023pt.
+File: img/coarseconstraintrepresentation4.pdf Graphic file (type pdf)
+
+<use img/coarseconstraintrepresentation4.pdf>
+Package pdftex.def Info: img/coarseconstraintrepresentation4.pdf used on input 
+line 622.
+(pdftex.def)             Requested size: 144.53375pt x 81.30023pt.
+File: img/coarseconstraintexactapprox.pdf Graphic file (type pdf)
+
+<use img/coarseconstraintexactapprox.pdf>
+Package pdftex.def Info: img/coarseconstraintexactapprox.pdf used on input line
+ 622.
+(pdftex.def)             Requested size: 105.99632pt x 59.62292pt.
+File: img/coarseconstraintabc.pdf Graphic file (type pdf)
+ <use img/coarseconstraintabc.pdf>
+Package pdftex.def Info: img/coarseconstraintabc.pdf used on input line 622.
+(pdftex.def)             Requested size: 105.99632pt x 59.62292pt.
+File: img/logo_ics.jpg Graphic file (type jpg)
+
+<use img/logo_ics.jpg>
+Package pdftex.def Info: img/logo_ics.jpg used on input line 622.
+(pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
+ [29
+
+ <./img/coarseconstraintrepresentation3.pdf>]
+File: img/coarseconstraintrepresentation1.pdf Graphic file (type pdf)
+
+<use img/coarseconstraintrepresentation1.pdf>
+Package pdftex.def Info: img/coarseconstraintrepresentation1.pdf used on input 
+line 622.
+(pdftex.def)             Requested size: 144.53375pt x 81.30023pt.
+File: img/coarseconstraintrepresentation2.pdf Graphic file (type pdf)
+
+<use img/coarseconstraintrepresentation2.pdf>
+Package pdftex.def Info: img/coarseconstraintrepresentation2.pdf used on input 
+line 622.
+(pdftex.def)             Requested size: 144.53375pt x 81.30023pt.
+File: img/coarseconstraintrepresentation3.pdf Graphic file (type pdf)
+
+<use img/coarseconstraintrepresentation3.pdf>
+Package pdftex.def Info: img/coarseconstraintrepresentation3.pdf used on input 
+line 622.
+(pdftex.def)             Requested size: 144.53375pt x 81.30023pt.
+File: img/coarseconstraintrepresentation4.pdf Graphic file (type pdf)
+
+<use img/coarseconstraintrepresentation4.pdf>
+Package pdftex.def Info: img/coarseconstraintrepresentation4.pdf used on input 
+line 622.
+(pdftex.def)             Requested size: 144.53375pt x 81.30023pt.
+File: img/coarseconstraintexactapprox.pdf Graphic file (type pdf)
+
+<use img/coarseconstraintexactapprox.pdf>
+Package pdftex.def Info: img/coarseconstraintexactapprox.pdf used on input line
+ 622.
+(pdftex.def)             Requested size: 105.99632pt x 59.62292pt.
+File: img/coarseconstraintabc.pdf Graphic file (type pdf)
+ <use img/coarseconstraintabc.pdf>
+Package pdftex.def Info: img/coarseconstraintabc.pdf used on input line 622.
+(pdftex.def)             Requested size: 105.99632pt x 59.62292pt.
+File: img/logo_ics.jpg Graphic file (type jpg)
+
+<use img/logo_ics.jpg>
+Package pdftex.def Info: img/logo_ics.jpg used on input line 622.
+(pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
+ [30
+
+ <./img/coarseconstraintrepresentation4.pdf>]
+File: img/coarseconstraintrepresentation1.pdf Graphic file (type pdf)
+
+<use img/coarseconstraintrepresentation1.pdf>
+Package pdftex.def Info: img/coarseconstraintrepresentation1.pdf used on input 
+line 622.
+(pdftex.def)             Requested size: 144.53375pt x 81.30023pt.
+File: img/coarseconstraintrepresentation2.pdf Graphic file (type pdf)
+
+<use img/coarseconstraintrepresentation2.pdf>
+Package pdftex.def Info: img/coarseconstraintrepresentation2.pdf used on input 
+line 622.
+(pdftex.def)             Requested size: 144.53375pt x 81.30023pt.
+File: img/coarseconstraintrepresentation3.pdf Graphic file (type pdf)
+
+<use img/coarseconstraintrepresentation3.pdf>
+Package pdftex.def Info: img/coarseconstraintrepresentation3.pdf used on input 
+line 622.
+(pdftex.def)             Requested size: 144.53375pt x 81.30023pt.
+File: img/coarseconstraintrepresentation4.pdf Graphic file (type pdf)
+
+<use img/coarseconstraintrepresentation4.pdf>
+Package pdftex.def Info: img/coarseconstraintrepresentation4.pdf used on input 
+line 622.
+(pdftex.def)             Requested size: 144.53375pt x 81.30023pt.
+File: img/coarseconstraintexactapprox.pdf Graphic file (type pdf)
+
+<use img/coarseconstraintexactapprox.pdf>
+Package pdftex.def Info: img/coarseconstraintexactapprox.pdf used on input line
+ 622.
+(pdftex.def)             Requested size: 105.99632pt x 59.62292pt.
+File: img/coarseconstraintabc.pdf Graphic file (type pdf)
+ <use img/coarseconstraintabc.pdf>
+Package pdftex.def Info: img/coarseconstraintabc.pdf used on input line 622.
+(pdftex.def)             Requested size: 105.99632pt x 59.62292pt.
+File: img/logo_ics.jpg Graphic file (type jpg)
+
+<use img/logo_ics.jpg>
+Package pdftex.def Info: img/logo_ics.jpg used on input line 622.
+(pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
+ [31
+
+]
+<img/signorinicircle.pdf, id=1189, 963.6pt x 542.025pt>
 File: img/signorinicircle.pdf Graphic file (type pdf)
 
 <use img/signorinicircle.pdf>
-Package pdftex.def Info: img/signorinicircle.pdf used on input line 584.
+Package pdftex.def Info: img/signorinicircle.pdf used on input line 636.
 (pdftex.def)             Requested size: 192.71658pt x 108.40308pt.
 File: img/logo_ics.jpg Graphic file (type jpg)
  <use img/logo_ics.jpg>
-Package pdftex.def Info: img/logo_ics.jpg used on input line 584.
+Package pdftex.def Info: img/logo_ics.jpg used on input line 636.
 (pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
- [17
+ [32
 
  <./img/signorinicircle.pdf>]
 Package epstopdf Info: Source file: <img/ResidualsNonUniform.eps>
@@ -1621,14 +1964,15 @@ df>
 (epstopdf)                    size: 27597 bytes
 (epstopdf)             Command: <repstopdf --outfile=img/ResidualsNonUniform-ep
 s-converted-to.pdf img/ResidualsNonUniform.eps>
-(epstopdf)             \includegraphics on input line 603.
+(epstopdf)             \includegraphics on input line 656.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/ResidualsNonUniform-eps-converted-to.pdf, id=724, 1686.3pt x 1002.74625pt>
+<img/ResidualsNonUniform-eps-converted-to.pdf, id=1238, 1686.3pt x 1002.74625pt
+>
 File: img/ResidualsNonUniform-eps-converted-to.pdf Graphic file (type pdf)
-<use img/ResidualsNonUniform-eps-converted-to.pdf>
+ <use img/ResidualsNonUniform-eps-converted-to.pdf>
 Package pdftex.def Info: img/ResidualsNonUniform-eps-converted-to.pdf used on i
-nput line 603.
+nput line 656.
 (pdftex.def)             Requested size: 134.90675pt x 80.22133pt.
 Package epstopdf Info: Source file: <img/RatesNonUniform.eps>
 (epstopdf)                    date: 2018-09-21 12:00:18
@@ -1638,34 +1982,40 @@ Package epstopdf Info: Source file: <img/RatesNonUniform.eps>
 (epstopdf)                    size: 26119 bytes
 (epstopdf)             Command: <repstopdf --outfile=img/RatesNonUniform-eps-co
 nverted-to.pdf img/RatesNonUniform.eps>
-(epstopdf)             \includegraphics on input line 603.
+(epstopdf)             \includegraphics on input line 656.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/RatesNonUniform-eps-converted-to.pdf, id=725, 1686.3pt x 1002.74625pt>
+<img/RatesNonUniform-eps-converted-to.pdf, id=1239, 1686.3pt x 1002.74625pt>
 File: img/RatesNonUniform-eps-converted-to.pdf Graphic file (type pdf)
 
 <use img/RatesNonUniform-eps-converted-to.pdf>
 Package pdftex.def Info: img/RatesNonUniform-eps-converted-to.pdf used on input
- line 603.
+ line 656.
 (pdftex.def)             Requested size: 134.90675pt x 80.22133pt.
+File: img/coarseconstraintabc.pdf Graphic file (type pdf)
+
+<use img/coarseconstraintabc.pdf>
+Package pdftex.def Info: img/coarseconstraintabc.pdf used on input line 656.
+(pdftex.def)             Requested size: 68.4146pt x 38.48322pt.
 File: img/logo_ics.jpg Graphic file (type jpg)
  <use img/logo_ics.jpg>
-Package pdftex.def Info: img/logo_ics.jpg used on input line 603.
+Package pdftex.def Info: img/logo_ics.jpg used on input line 656.
 (pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
- [18
+ [33
 
  <./img/ResidualsNonUniform-eps-converted-to.pdf> <./img/RatesNonUniform-eps-co
-nverted-to.pdf>] <img/signorinisquare.pdf, id=770, 963.6pt x 542.025pt>
+nverted-to.pdf>]
+<img/signorinisquare.pdf, id=1283, 963.6pt x 542.025pt>
 File: img/signorinisquare.pdf Graphic file (type pdf)
 
 <use img/signorinisquare.pdf>
-Package pdftex.def Info: img/signorinisquare.pdf used on input line 615.
+Package pdftex.def Info: img/signorinisquare.pdf used on input line 668.
 (pdftex.def)             Requested size: 192.71658pt x 108.40308pt.
 File: img/logo_ics.jpg Graphic file (type jpg)
  <use img/logo_ics.jpg>
-Package pdftex.def Info: img/logo_ics.jpg used on input line 615.
+Package pdftex.def Info: img/logo_ics.jpg used on input line 668.
 (pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
- [19
+ [34
 
  <./img/signorinisquare.pdf>]
 Package epstopdf Info: Source file: <img/SquareResidualCompressible.eps>
@@ -1677,16 +2027,16 @@ ed-to.pdf>
 (epstopdf)                    size: 11699 bytes
 (epstopdf)             Command: <repstopdf --outfile=img/SquareResidualCompress
 ible-eps-converted-to.pdf img/SquareResidualCompressible.eps>
-(epstopdf)             \includegraphics on input line 633.
+(epstopdf)             \includegraphics on input line 686.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/SquareResidualCompressible-eps-converted-to.pdf, id=820, 1686.3pt x 1002.7
-4625pt>
+<img/SquareResidualCompressible-eps-converted-to.pdf, id=1333, 1686.3pt x 1002.
+74625pt>
 File: img/SquareResidualCompressible-eps-converted-to.pdf Graphic file (type pd
 f)
  <use img/SquareResidualCompressible-eps-converted-to.pdf>
 Package pdftex.def Info: img/SquareResidualCompressible-eps-converted-to.pdf us
-ed on input line 633.
+ed on input line 686.
 (pdftex.def)             Requested size: 134.90675pt x 80.22133pt.
 Package epstopdf Info: Source file: <img/SquareRateCompressible.eps>
 (epstopdf)                    date: 2018-09-10 11:53:10
@@ -1697,15 +2047,15 @@ o.pdf>
 (epstopdf)                    size: 10085 bytes
 (epstopdf)             Command: <repstopdf --outfile=img/SquareRateCompressible
 -eps-converted-to.pdf img/SquareRateCompressible.eps>
-(epstopdf)             \includegraphics on input line 633.
+(epstopdf)             \includegraphics on input line 686.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/SquareRateCompressible-eps-converted-to.pdf, id=821, 1686.3pt x 1002.74625
-pt>
+<img/SquareRateCompressible-eps-converted-to.pdf, id=1334, 1686.3pt x 1002.7462
+5pt>
 File: img/SquareRateCompressible-eps-converted-to.pdf Graphic file (type pdf)
  <use img/SquareRateCompressible-eps-converted-to.pdf>
 Package pdftex.def Info: img/SquareRateCompressible-eps-converted-to.pdf used o
-n input line 633.
+n input line 686.
 (pdftex.def)             Requested size: 134.90675pt x 80.22133pt.
 Package epstopdf Info: Source file: <img/SquareResidualIncompressible.eps>
 (epstopdf)                    date: 2018-09-12 08:50:28
@@ -1716,16 +2066,16 @@ rted-to.pdf>
 (epstopdf)                    size: 11973 bytes
 (epstopdf)             Command: <repstopdf --outfile=img/SquareResidualIncompre
 ssible-eps-converted-to.pdf img/SquareResidualIncompressible.eps>
-(epstopdf)             \includegraphics on input line 633.
+(epstopdf)             \includegraphics on input line 686.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/SquareResidualIncompressible-eps-converted-to.pdf, id=822, 1686.3pt x 1002
-.74625pt>
+<img/SquareResidualIncompressible-eps-converted-to.pdf, id=1335, 1686.3pt x 100
+2.74625pt>
 File: img/SquareResidualIncompressible-eps-converted-to.pdf Graphic file (type 
 pdf)
  <use img/SquareResidualIncompressible-eps-converted-to.pdf>
 Package pdftex.def Info: img/SquareResidualIncompressible-eps-converted-to.pdf 
-used on input line 633.
+used on input line 686.
 (pdftex.def)             Requested size: 134.90675pt x 80.22133pt.
 Package epstopdf Info: Source file: <img/SquareRateIncompressible.eps>
 (epstopdf)                    date: 2018-09-12 08:49:59
@@ -1736,106 +2086,106 @@ Package epstopdf Info: Source file: <img/SquareRateIncompressible.eps>
 (epstopdf)                    size: 11331 bytes
 (epstopdf)             Command: <repstopdf --outfile=img/SquareRateIncompressib
 le-eps-converted-to.pdf img/SquareRateIncompressible.eps>
-(epstopdf)             \includegraphics on input line 633.
+(epstopdf)             \includegraphics on input line 686.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/SquareRateIncompressible-eps-converted-to.pdf, id=823, 1686.3pt x 1002.746
-25pt>
+<img/SquareRateIncompressible-eps-converted-to.pdf, id=1336, 1686.3pt x 1002.74
+625pt>
 File: img/SquareRateIncompressible-eps-converted-to.pdf Graphic file (type pdf)
 
  <use img/SquareRateIncompressible-eps-converted-to.pdf>
 Package pdftex.def Info: img/SquareRateIncompressible-eps-converted-to.pdf used
- on input line 633.
+ on input line 686.
 (pdftex.def)             Requested size: 134.90675pt x 80.22133pt.
 File: img/logo_ics.jpg Graphic file (type jpg)
 
 <use img/logo_ics.jpg>
-Package pdftex.def Info: img/logo_ics.jpg used on input line 633.
+Package pdftex.def Info: img/logo_ics.jpg used on input line 686.
 (pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
- [20
+ [35
 
 pdfTeX warning (ext4): destination with the same identifier (name{ResidualRateS
 quare}) has been already used, duplicate ignored
 
 \@EveryShipout@Output ...@Org@Shipout \box \@cclv 
                                                   
-l.633 \end{frame}
+l.686 \end{frame}
                   <./img/SquareResidualCompressible-eps-converted-to.pdf> <./im
 g/SquareRateCompressible-eps-converted-to.pdf> <./img/SquareResidualIncompressi
 ble-eps-converted-to.pdf> <./img/SquareRateIncompressible-eps-converted-to.pdf>
 ]
 File: img/logo_ics.jpg Graphic file (type jpg)
  <use img/logo_ics.jpg>
-Package pdftex.def Info: img/logo_ics.jpg used on input line 651.
+Package pdftex.def Info: img/logo_ics.jpg used on input line 704.
 (pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
- [21
+ [36
 
 ]
 File: img/logo_ics.jpg Graphic file (type jpg)
  <use img/logo_ics.jpg>
-Package pdftex.def Info: img/logo_ics.jpg used on input line 663.
+Package pdftex.def Info: img/logo_ics.jpg used on input line 716.
 (pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
- [22
+ [37
 
 ]
 File: img/logo_ics.jpg Graphic file (type jpg)
 
 <use img/logo_ics.jpg>
-Package pdftex.def Info: img/logo_ics.jpg used on input line 666.
+Package pdftex.def Info: img/logo_ics.jpg used on input line 719.
 (pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
- [23
+ [38
 
 ]
 File: img/logo_ics.jpg Graphic file (type jpg)
  <use img/logo_ics.jpg>
-Package pdftex.def Info: img/logo_ics.jpg used on input line 668.
+Package pdftex.def Info: img/logo_ics.jpg used on input line 721.
 (pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
- [24
+ [39
 
 ]
 File: img/logo_ics.jpg Graphic file (type jpg)
  <use img/logo_ics.jpg>
-Package pdftex.def Info: img/logo_ics.jpg used on input line 708.
+Package pdftex.def Info: img/logo_ics.jpg used on input line 761.
 (pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
 
-[25
-
-]
-File: img/logo_ics.jpg Graphic file (type jpg)
- <use img/logo_ics.jpg>
-Package pdftex.def Info: img/logo_ics.jpg used on input line 738.
-(pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
- [26
+[40
 
 ]
 File: img/logo_ics.jpg Graphic file (type jpg)
  <use img/logo_ics.jpg>
-Package pdftex.def Info: img/logo_ics.jpg used on input line 781.
+Package pdftex.def Info: img/logo_ics.jpg used on input line 791.
 (pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
- [27
+ [41
+
+]
+File: img/logo_ics.jpg Graphic file (type jpg)
+ <use img/logo_ics.jpg>
+Package pdftex.def Info: img/logo_ics.jpg used on input line 834.
+(pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
+ [42
 
 ]
 File: img/logo_ics.jpg Graphic file (type jpg)
 
 <use img/logo_ics.jpg>
-Package pdftex.def Info: img/logo_ics.jpg used on input line 818.
+Package pdftex.def Info: img/logo_ics.jpg used on input line 871.
 (pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
- [28
+ [43
 
 ]
 File: img/logo_ics.jpg Graphic file (type jpg)
  <use img/logo_ics.jpg>
-Package pdftex.def Info: img/logo_ics.jpg used on input line 836.
+Package pdftex.def Info: img/logo_ics.jpg used on input line 889.
 (pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
- [29
+ [44
 
 ]
 File: img/logo_ics.jpg Graphic file (type jpg)
  <use img/logo_ics.jpg>
-Package pdftex.def Info: img/logo_ics.jpg used on input line 859.
+Package pdftex.def Info: img/logo_ics.jpg used on input line 912.
 (pdftex.def)             Requested size: 71.13188pt x 32.89761pt.
 
-[30
+[45
 
 ]
 \tf@nav=\write6
@@ -1847,11 +2197,11 @@ Package pdftex.def Info: img/logo_ics.jpg used on input line 859.
 \tf@snm=\write8
 \openout8 = `Gamm2019.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 865.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 865.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 918.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 918.
  (./Gamm2019.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 865.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 865.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 918.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 918.
 Package rerunfilecheck Info: File `Gamm2019.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
 
@@ -1862,16 +2212,16 @@ LaTeX Font Warning: Size substitutions with differences
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 865.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 918.
  ) 
 Here is how much of TeX's memory you used:
- 20560 strings out of 493014
- 406353 string characters out of 6133351
- 477276 words of memory out of 5000000
- 23521 multiletter control sequences out of 15000+600000
+ 20612 strings out of 493014
+ 407491 string characters out of 6133351
+ 479332 words of memory out of 5000000
+ 23539 multiletter control sequences out of 15000+600000
  17941 words of font info for 58 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 56i,23n,59p,490b,538s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 56i,23n,59p,490b,562s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmbsy
 5.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cmextra/c
 mex7.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cmextr
@@ -1894,10 +2244,10 @@ m/cmsy6.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/
 cmsy7.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cm
 sy8.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/symbols
 /msbm10.pfb>
-Output written on Gamm2019.pdf (30 pages, 1851552 bytes).
+Output written on Gamm2019.pdf (45 pages, 1984550 bytes).
 PDF statistics:
- 1230 PDF objects out of 1440 (max. 8388607)
- 1060 compressed objects within 11 object streams
- 65 named destinations out of 1000 (max. 500000)
- 177 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1752 PDF objects out of 2073 (max. 8388607)
+ 1530 compressed objects within 16 object streams
+ 95 named destinations out of 1000 (max. 500000)
+ 197 words of extra memory for PDF output out of 10000 (max. 10000000)
 

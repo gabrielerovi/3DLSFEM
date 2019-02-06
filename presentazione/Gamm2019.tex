@@ -143,10 +143,10 @@
 \definecolor{dkgrey}{cmyk}{0.72,0.7,0.75,0.15}
 \definecolor{blueviolet}{rgb}{0.5412    0.1686    0.8863}
 \definecolor{gold}{rgb}{0.9    0.6431         0}
-
+\definecolor{myblue}{rgb}{0.04,0.49,1}
 
 \newcommand{\colr}{\color{red}}
-\newcommand{\colb}{\color{blue}}
+\newcommand{\colb}{\color{myblue}}
 \newcommand{\colg}{\color{mygreen}}
 \newcommand{\colo}{\color{orange}}
 \newcommand{\colw}{\color{white}}
@@ -242,7 +242,8 @@
 \titlecolor{Signorini's problem: strong formulation}
 
 \begin{itemize}
-\item  \textbf{First Order System Linear Elasticity:}
+\uncover<1->{\item  \textbf{First Order System Linear Elasticity}\\
+Given displacement $\bu$, stress $\bsigma$, body $\Omega$:
 \begin{align*}
 \colk
 \footnotesize
@@ -254,13 +255,14 @@
 \end{cases} 
 \end{align*}
 \scriptsize
-where  $\boldsymbol{\varepsilon}(\bu)= \dfrac{1}{2} (\nabla \bu+\nabla \bu^T)$, $\boldsymbol{\mathcal{A}}=\dfrac{1}{2 \mu} \left(\bsigma-\dfrac{\lambda}{d \lambda + 2 \mu } \text{tr} \bsigma \bI\right)$ and $\mu$, $\lambda$ are the Lam\eeee  ${}$ parameters
+where  $\boldsymbol{\varepsilon}(\bu)= \dfrac{1}{2} (\nabla \bu+\nabla \bu^T)$, $\boldsymbol{\mathcal{A}}\bsigma =\dfrac{1}{2 \mu} \left(\bsigma-\dfrac{\lambda}{d \lambda + 2 \mu } \text{tr} \bsigma \bI\right)$ and $\mu$, $\lambda$ are the Lam\eeee  ${}$ parameters
+}
 \normalsize
-\item { \textbf{Contact Constraints:} }\\
+\uncover<2->{\item { \textbf{Contact Constraints} }\\
 \colk
+Given the {\colp gap function g}, the {\colgold normal and tangent vectors $\bn$ and $\bt$ }: 
+%$ \partial \Omega=\Gamma_C \cup  \Gamma_D \cup  \Gamma_N$, $\Gamma_i \cap  \Gamma_j =\emptyset$ for $i,j=D,N,C, i \neq j$
 \small
-$ \partial \Omega=\Gamma_C \cup  \Gamma_D \cup  \Gamma_N$, $\Gamma_i \cap  \Gamma_j =\emptyset$ for $i,j=D,N,C, i \neq j$
-\end{itemize}
 \begin{align*}\colo
 \footnotesize
 \begin{cases}
@@ -270,13 +272,15 @@ $ \partial \Omega=\Gamma_C \cup  \Gamma_D \cup  \Gamma_N$, $\Gamma_i \cap  \Gamm
 \colgold \bt_i^T \colo(\bsigma \colgold \bn \colo) =0  \quad & \Gamma_C  \:\: \colk{\text{frictionless condition}}
 \end{cases}
 \end{align*}
-%\end{flushleft}
 \begin{figure}[htbp!]
 		\centering
 	\includegraphics[width=0.35\textwidth]{img/contactproblem.pdf}\qquad
 	\includegraphics[width=0.35\textwidth]{img/squarecircle.pdf}
 		\label{abb_arc}
 \end{figure}
+}
+\end{itemize}
+%\end{flushleft}
 %\tiny{Rolf Krause. A nonsmooth multiscale method for solving frictional two-body contact problems in 2d and 3d with multigrid efficiency. SIAM Journal on Scientific Computing, 31(2):1399-1423, 2009.}
 \end{frame}
 
@@ -288,14 +292,15 @@ $ \partial \Omega=\Gamma_C \cup  \Gamma_D \cup  \Gamma_N$, $\Gamma_i \cap  \Gamm
 \begin{frame}
 \titlecolor{The Least-Squares Formulation}
 \begin{itemize}
-\item \textbf{First Order System Least-Squares (FOSLS) Functional}
+\uncover<1->{\item \textbf{First Order System Least-Squares (FOSLS) Functional}
 \small
 \begin{align*}
 & C_1, \:C_2, \: C_3>0 \\
 &\mathcal{J}(\bu,\bsigma)=C_{1} \norm{\text{div} \bsigma+\bff}_{L^2(\Omega)^d}^2+C_{2} \norm{\mathcal{A}\bsigma -\boldsymbol{\varepsilon}(\bu)}_{L^2(\Omega)^d}^2   +C_{3} \langle \bu \cdot \bn -g, (\bsigma \bn) \cdot \bn \rangle_{\Gamma_c}
 \end{align*} 
 ${}$\\
-\item  
+}
+\uncover<2->{\item
 \normalsize
 \textbf{Convex Set} $K$
 \small
@@ -305,7 +310,8 @@ ${}$\\
  \}
 \end{align*}
 ${}$\\
-\item \normalsize 
+}
+\uncover<3->{\item \normalsize 
 Find $(\bu,\bsigma) \in K$, such that:
 \small
 \begin{align*}
@@ -323,11 +329,13 @@ Find $(\bu,\bsigma) \in K$, such that:
 \qquad \qquad
 \forall (\bv, \btau) \in K}
 \end{align*}
+}
 \end{itemize}
+
 \normalsize
 ${}$\\
 ${}$\\${}$\\
-\tiny{Rolf Krause, Benjamin M\"{u}ller, and Gerhard Starke. An adaptive least-squares mixed finite element method for the Signorini problem. Numerical Methods for Partial Differential Equations, 33(1):276-289, 2017.}
+\tiny{$\bullet$ Rolf Krause, Benjamin M\"{u}ller, and Gerhard Starke. An adaptive least-squares mixed finite element method for the Signorini problem. Numerical Methods for Partial Differential Equations, 33(1):276-289, 2017.}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -338,25 +346,32 @@ ${}$\\${}$\\
 \begin{frame}
 \titlecolor{Discretization}
 \begin{itemize}
-\item \textbf{Discretized domain} $\Omega_J$
-\item \textbf{FEM space} $ X_J=P_{\Gamma_D}^1(\Omega_J) \times  \RT_{0,\Gamma_N}(\Omega_J)
-$ with $\bbx_J= \left(\bu_J,\bsigma_J \right)  \in X_J$
-\item $\bff_J$, $\bu_{D,J}$, $\bt_{N,J}$, $g_J$ FE representations of $\bff$, $\bu_D$, $\bt_N$, $g$
-\item \textbf{Discrete FOSLS Functional}
+\uncover<1->{\item \textbf{Discretized domain} $\Omega_L$}
+\uncover<2->{\item \textbf{FE space} $ X_L=P_{\Gamma_D}^1(\Omega_L) \times  \RT_{0,\Gamma_N}(\Omega_L)
+$ with $\bbx_L= \left(\bu_L,\bsigma_L \right)  \in X_L$
+}
+\uncover<3->{\item $\bff_L$, $\bu_{D,L}$, $\bt_{N,L}$, $g_L$ FE representations of $\bff$, $\bu_D$, $\bt_N$, $g$
+}
+\uncover<4->{\item \textbf{Discrete FOSLS Functional}
 \begin{align*}
-&\mathcal{J}(\bbx_J;\bff_J)=\dfrac{1}{2} \bbx_J^T \bA_J \bbx_J - \bbx_J^T \bff_J
+&\mathcal{J}(\bbx_L;\bff_L)=\dfrac{1}{2} \bbx_L^T \bA_L \bbx_L - \bbx_L^T \bff_L
 \end{align*} 
-\item  
-\textbf{Convex Set} $K_J$ (in general $K_J \nsubseteq  K$)
+}
+\uncover<5->{\item
+\textbf{Convex Set} $K_L$ (in general $K_L \nsubseteq  K$)
 \begin{align*}
-& K_J=\{ \bbx \in  X      : \: 
- \bu_J \cdot \bn_J - g_J  \leq 0, \:  (\bsigma_J \bn_J) \cdot \bn_J \leq 0,  \: \bt_i^T(\bsigma \bn) =0 \quad  \Gamma_C
- \}
+ & \bbx_L \in K_L \qquad \iff \qquad \bB_L \bbx_L \leq \bg_L
 \end{align*}
-\item \textbf{Minimization problem:}\\
-Find $\bbx_J \in K_J$, such that $
-\mathcal{J}(\bbx_J;\bff_J) \leq \mathcal{J}(\by_J;\bff_J ) \qquad \forall \by_J \in K_J
-$
+}
+\uncover<6->{\item 
+\textbf{Minimization problem:}\\
+Find $\bbx_L \in K_L$
+\begin{align*}
+\text{argmin}\mathcal{J}(\bbx_L;\bff_L)&=\dfrac{1}{2} \bbx_L^T \bA_L \bbx_L -\bbx_L^T \bff_L\\
+%\text{such } & \text{that}\\
+\bB_L \bbx_L &\leq \bg_L
+\end{align*}
+}
 \end{itemize}
 \end{frame}
 
@@ -367,15 +382,18 @@ $
 
 \begin{frame}
 \titlecolor{Disadvantages and Advantages of the FOSLS}
+\visible<1->{
  \textbf{Pros}
 \begin{itemize} 
 \item Direct access to stress $\bsigma$ (friction, plasticity...)
 \item Dealing with incompressible materials ($\lambda \to \infty$)
 \item FOSLS functional as an a posteriori error estimator
-\item Flexible choice of finite element spaces (\textbf{low order}: $\bu_J \in P^1$, $\bsigma_J \in \RT_0$)
+\item Flexible choice of finite element spaces (\textbf{low order}: $\bu_L \in P^1$, $\bsigma_L \in \RT_0$)
 \item Symmetric positive definite system
 \end{itemize}
 ${}$\\
+}
+\visible<2->{
  \textbf{Cons}
 \begin{itemize} 
 \item The functional is fictitious, not physical
@@ -383,6 +401,9 @@ ${}$\\
 \item Find proper weights $C_1$, $C_2$, $C_3$
 \item Large condition number:  \colo \textbf{need for a preconditioner}
 \end{itemize}
+}
+\visible<3->
+{
 \begin{align*}
 \begin{cases}
  \colo \textbf{Functional to be minimized }\\
@@ -390,10 +411,12 @@ ${}$\\
  \colo \textbf{Need for a preconditioner}
 \end{cases}
 \quad \Rightarrow \quad \colo \textbf{Monotone Multilevel}
-\end{align*}${}$\\
+\end{align*}
+}
 ${}$\\
 ${}$\\
-\tiny{Attia, Frank S., Zhiqiang Cai, and Gerhard Starke. "First-order system least squares for the Signorini contact problem in linear elasticity". SIAM Journal on Numerical Analysis 47.4 (2009): 3027-3043.}\\
+${}$\\
+\tiny{$\bullet$ Attia, Frank S., Zhiqiang Cai, and Gerhard Starke. "First-order system least squares for the Signorini contact problem in linear elasticity". SIAM Journal on Numerical Analysis 47.4 (2009): 3027-3043.}\\
 \end{frame}
 
 
@@ -404,6 +427,8 @@ ${}$\\
 \titlecolor{Monotone Multilevel strategy}
 \begin{itemize}
 \item Successive energy minimization by means of local corrections
+\\${}$\\
+\item No correction can increase energy
 \\${}$\\
 \item Fine space corrections on fine grid (non-linear Gau{\ss}-Seidel) $\Rightarrow$ global convergence
 \\${}$\\
@@ -417,6 +442,7 @@ ${}$\\
 
 \begin{frame}
 \titlecolor{Monotone Multilevel by energy minimization}
+${}$
 \begin{figure}[htbp!]
 		\centering
 	\includegraphics[width=1\textwidth]{img/multigridexplained1.pdf}
@@ -425,7 +451,7 @@ ${}$\\
 
 \begin{frame}
 \titlecolor{Monotone Multilevel by energy minimization}
-$R_{i}^{i-1}$ restriction operator ($ i=J,...,2 $)
+$R_{i}^{i-1}$ restriction operator ($ i=L,...,2 $)
 \begin{figure}[htbp!]
 		\centering
 	\includegraphics[width=1\textwidth]{img/multigridexplained2.pdf}
@@ -434,7 +460,7 @@ $R_{i}^{i-1}$ restriction operator ($ i=J,...,2 $)
 
 \begin{frame}
 \titlecolor{Monotone Multilevel by energy minimization}
-$R_{i}^{i-1}$ restriction operator ($ i=J,...,2 $)
+$R_{i}^{i-1}$ restriction operator ($ i=L,...,2 $)
 \begin{figure}[htbp!]
 		\centering
 	\includegraphics[width=1\textwidth]{img/multigridexplained3.pdf}
@@ -442,7 +468,7 @@ $R_{i}^{i-1}$ restriction operator ($ i=J,...,2 $)
 \end{frame}
 \begin{frame}
 \titlecolor{Monotone Multilevel by energy minimization}
-$R_{i}^{i-1}$ restriction operator, $I_{i-1}^{i}$ interpolation operator ($ i=J,...,2 $)
+$R_{i}^{i-1}$ restriction operator, $I_{i-1}^{i}$ interpolation operator ($ i=L,...,2 $)
 \begin{figure}[htbp!]
 		\centering
 	\includegraphics[width=1\textwidth]{img/multigridexplained4.pdf}
@@ -500,22 +526,22 @@ ${}$\\${}$\\
 
 \begin{frame}
 \titlecolor{LS Patch smoother}
-\footnotesize
-
+\begin{itemize}
+\item Mesh level $j=1,...,L$, vertex $\nu=1,...,N_j$ 
+\item Patch$_{j,\nu}$= dofs of node $\nu$ and surrounding edges/faces (2D/3D)
+\item {\colo $K_{j,\nu}$= local closed convex set} spanned by basis functions in Patch$_{j,\nu}$
+\item Minimization of $\mathcal{J}$ on $K_{j,\nu}$ 
+\item  Error smoothed in $H^1$ and $H_{\text{div}}$ simultaneously
+\end{itemize}
 \begin{figure}[htbp!]
 	\includegraphics[width=0.8\textwidth]{img/patchsmoother.pdf}
 		\label{abb_arc}
 \end{figure}
-$\bullet$ Minimization of $\mathcal{J}(\bu,\bsigma)$ on $\text{span}(\lambda_{j,\nu})$\\
-$\bullet$ Exploit $\nu$-patches to smooth the error in $H^1$ and $H_{\text{div}}$ simultaneously\\
-${}$\\
-\tiny{Ralf Hiptmair. Multigrid method for H(div) in three dimensions. Electron. Trans. Numer. Anal, 6(1):133-152, 1997.}${}$\\
-${}$\\
-\tiny{Douglas N Arnold, Richard S Falk, and Ragnar Winther. Multigrid in H(div) and H(curl). Numerische Mathe-
+\tiny{$\bullet$ Ralf Hiptmair. Multigrid method for H(div) in three dimensions. Electron. Trans. Numer. Anal, 6(1):133-152, 1997.}${}$\\
+\tiny{$\bullet$ Douglas N Arnold, Richard S Falk, and Ragnar Winther. Multigrid in H(div) and H(curl). Numerische Mathe-
 matik, 85(2):197-217, 2000.}
 ${}$\\
-${}$\\
-\tiny{
+\tiny{$\bullet$
 Gerhard Starke. Gauss-Newton multilevel methods for least-squares finite element computations of variably saturated subsurface flow. Computing, 64(4):323-338, 2000.}
 
 \end{frame}
@@ -559,17 +585,43 @@ ${}$\\${}$\\
 
 \begin{frame}
 \titlecolor{Non-Linear Projections for Coarse Constraints}
+
 \begin{itemize}
-\item {\colgold Wrong} and {\colg correct} coarse constraints
+\uncover<1->{\item  \textbf{Exact monotone multilevel}\\
+Comparison of coarse function  $\bc_j $ with \textbf{fine constraint} $\Rightarrow$ \textbf{suboptimal complexity}
+%\begin{itemize}
+%\item  $K_{j,\nu}(\bbx)=\{\bc_j \in  \text{span(Patch}_{j,\nu})| \: \bbx_J+\bc_j \in K_J \}$
+%\item Comparison of coarse function  $\bc_j $ with \textbf{fine constraint} $\Rightarrow$ \textbf{suboptimal complexity}
+%\end{itemize}
+}
+\uncover<1->{\item \textbf{Approximate monotone multilevel}\\
+Comparison of coarse function  $\bc_j $ with \textbf{coarse constraint} $\Rightarrow$ \textbf{optimal complexity}
+%\begin{itemize}
+%\item $K_{j,\nu}(\bbx)=\{\bc_j \in  \text{span(Patch}_{j,\nu}) | \: \bbx_J+\bc_j \in K_j \}$, where $K_j \subset K$ for $j=1,..,J-1$
+%\item  Comparison of coarse function  $\bc_j $ with \textbf{coarse constraint} $\Rightarrow$ \textbf{optimal complexity}
+%\end{itemize}
+}
+\uncover<2->{\item  
+%{\colgold Wrong} and {\colg correct} coarse constraints
 \begin{figure}[htbp!]
-		\includegraphics[scale=0.15]{img/coarseconstraintrepresentation.pdf}
+\begin{overprint}
+    \onslide<2> \centering \includegraphics[scale=0.15]{img/coarseconstraintrepresentation1.pdf}
+    \onslide<3>\centering \includegraphics[scale=0.15]{img/coarseconstraintrepresentation2.pdf}
+    \onslide<4>\centering \includegraphics[scale=0.15]{img/coarseconstraintrepresentation3.pdf}
+    \onslide<5->\centering \includegraphics[scale=0.15]{img/coarseconstraintrepresentation4.pdf}
+    \end{overprint}
 \end{figure}
-\item Different consistent coarse constraints
+}
+\uncover<6->{\item  Different consistent coarse constraints
 \begin{figure}[htbp!]
+\includegraphics[scale=0.11]{img/coarseconstraintexactapprox.pdf}
 		\includegraphics[scale=0.11]{img/coarseconstraintabc.pdf}
 \end{figure}
+}
 \end{itemize}
 \end{frame}
+
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -591,7 +643,8 @@ $ \mu = 1$, $ \lambda = 1, \infty$ (compressible and \textbf{incompressible})
 \titlecolor{Hertzian Contact, two-level problem}
 \begin{figure}[htbp!]
 	\includegraphics[scale=0.08]{img/ResidualsNonUniform.eps}
-		\includegraphics[scale=0.08]{img/RatesNonUniform.eps}
+		\includegraphics[scale=0.08]{img/RatesNonUniform.eps}\\
+		\includegraphics[scale=0.071]{img/coarseconstraintabc.pdf}
 	\caption{Mesh with $h_{max}/h_{min}=7.0567$}
 		\label{ResidualRateVeryNonUniform}
 \end{figure}
@@ -629,7 +682,7 @@ $ \mu = 1$, $ \lambda = 1, \infty$ (compressible and \textbf{incompressible})
 	\caption{Square mesh. Incompressible material.}
 	\label{ResidualRateSquare}	
 	\end{figure}
-	$\bullet$ Purely linear problem: $h-$ and $J-$ independency
+	$\bullet$ Purely linear problem: $h-$ and $L-$ independency
 \end{frame}
 
 
@@ -644,7 +697,7 @@ $ \mu = 1$, $ \lambda = 1, \infty$ (compressible and \textbf{incompressible})
 \begin{itemize}
 \item Monotone multilevel for FOSLS linear elastic contact 
 ${}$\\${}$\\
-\item Limite case: $h$-- and $J$-- independency
+\item Limite case: $h$-- and $L$-- independency
 ${}$\\${}$\\
 \item Similar behaviour of compressible and incompressible cases
 \end{itemize}
