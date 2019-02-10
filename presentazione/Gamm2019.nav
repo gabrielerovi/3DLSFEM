@@ -43,24 +43,31 @@
 \headcommand {\beamer@framepages {36}{36}}
 \headcommand {\slideentry {0}{0}{22}{37/37}{}{0}}
 \headcommand {\beamer@framepages {37}{37}}
-\headcommand {\slideentry {0}{0}{23}{38/38}{}{0}}
+\headcommand {\partentry {\translate {Appendix}}{1}}
+\headcommand {\beamer@partpages {1}{37}}
+\headcommand {\beamer@sectionpages {1}{37}}
+\headcommand {\beamer@subsectionpages {1}{37}}
+\headcommand {\beamer@appendixpages {38}}
+\headcommand {\slideentry {0}{0}{23}{38/38}{}{1}}
 \headcommand {\beamer@framepages {38}{38}}
-\headcommand {\slideentry {0}{0}{24}{39/39}{}{0}}
+\headcommand {\slideentry {0}{0}{24}{39/39}{}{1}}
 \headcommand {\beamer@framepages {39}{39}}
-\headcommand {\slideentry {0}{0}{25}{40/40}{}{0}}
+\headcommand {\slideentry {0}{0}{25}{40/40}{}{1}}
 \headcommand {\beamer@framepages {40}{40}}
-\headcommand {\slideentry {0}{0}{26}{41/41}{}{0}}
+\headcommand {\slideentry {0}{0}{26}{41/41}{}{1}}
 \headcommand {\beamer@framepages {41}{41}}
-\headcommand {\slideentry {0}{0}{27}{42/42}{}{0}}
+\headcommand {\slideentry {0}{0}{27}{42/42}{}{1}}
 \headcommand {\beamer@framepages {42}{42}}
-\headcommand {\slideentry {0}{0}{28}{43/43}{}{0}}
+\headcommand {\slideentry {0}{0}{28}{43/43}{}{1}}
 \headcommand {\beamer@framepages {43}{43}}
-\headcommand {\slideentry {0}{0}{29}{44/44}{}{0}}
+\headcommand {\slideentry {0}{0}{29}{44/44}{}{1}}
 \headcommand {\beamer@framepages {44}{44}}
-\headcommand {\slideentry {0}{0}{30}{45/45}{}{0}}
+\headcommand {\slideentry {0}{0}{30}{45/45}{}{1}}
 \headcommand {\beamer@framepages {45}{45}}
-\headcommand {\beamer@partpages {1}{45}}
-\headcommand {\beamer@subsectionpages {1}{45}}
-\headcommand {\beamer@sectionpages {1}{45}}
+\headcommand {\beamer@partpages {38}{45}}
+\headcommand {\beamer@subsectionpages {38}{45}}
+\headcommand {\beamer@sectionpages {38}{45}}
 \headcommand {\beamer@documentpages {45}}
-\headcommand {\def \inserttotalframenumber {30}}
+\headcommand {\def \inserttotalframenumber {8}}
+\headcommand {\def \inserttotalframenumber {22}}
+\headcommand {\def \appendixtotalframenumber {8}}

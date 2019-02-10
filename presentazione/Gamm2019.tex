@@ -10,6 +10,9 @@
 \usepackage{textpos} % package for the positioning
 \usepackage{eso-pic}
 
+\usepackage{lipsum} % to have backup slides 
+\usepackage{appendixnumberbeamer}% to have backup slides 
+
 
 \usepackage {tikz}
 \usetikzlibrary {positioning}
@@ -182,8 +185,9 @@
   
   
 \title{ \textcolor{dkgrey}{  \textbf{Monotone multilevel for FOSLS linear elastic contact} }}
-\author{\textcolor{dkgrey}{\textbf{G. Rovi}, B. Kober, G. Starke, R. Krause}}
-\institute{Universit\"at Duisburg\,-\,Essen, Germany \\ Universit\aaa~della Svizzera italiana, Switzerland}
+\author{\textcolor{dkgrey}{\textbf{G. Rovi}$^\bigtriangleup$, B. Kober$^\circ$, G. Starke$^\circ$, R. Krause$^\bigtriangleup$}}
+ \institute{$\circ$: Universit\"at Duisburg\,-\,Essen, Germany \\ 
+$\bigtriangleup$: Universit\aaa~della Svizzera italiana, Switzerland}
 
 
 
@@ -192,6 +196,9 @@
 \hfill\usebeamertemplate***{navigation symbols}
 \hspace{1cm}\insertframenumber{}/\inserttotalframenumber}
 \begin{document}
+
+
+
  \begin{frame}
 \titlepage
 \begin{figure}[htbp!]
@@ -703,7 +710,6 @@ ${}$\\${}$\\
 \end{itemize}
 \end{frame}
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%               THANK YOU          %%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -715,10 +721,13 @@ ${}$\\${}$\\
 Thank you for your attention!
 \end{frame}
 
+\appendix
+
 \begin{frame}
 \end{frame}
 \begin{frame}
 \end{frame}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%       LIFESAVING SLIDES       %%%%%%%%%%%%%%%
