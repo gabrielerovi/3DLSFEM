@@ -3,9 +3,8 @@
 #include "writetofile.hpp"
 using namespace dolfin;
 
-
  void coloring(const std::map<int, std::set<unsigned int> >& shared_vertices,  std::shared_ptr<dolfin::Mesh> mesh, 
-              const std::vector<std::vector< int > >& topology_N2N,std::vector<unsigned int>& vertex_color,
+              const MeshConnectivity & topology_N2N,std::vector<unsigned int>& vertex_color,
               //std::vector<unsigned int>& vertex_global_dof,std::vector<unsigned int>& vertex_shared_color,
               std::vector<unsigned int>& vertex_shared_global_dof,const std::map<unsigned int, unsigned int>& shared_rank_map, 
               std::vector<std::vector<unsigned int> >& vertex_shared_global_dof_and_color,std::vector<unsigned int>& used_color)
@@ -48,19 +47,13 @@ MPI_Comm_size(MPI_COMM_WORLD, &world_size);
             count_vertex++;
            }
          else
-         {
-           
-           
-      	   auto N2N=topology_N2N[vertex_index];
-     	   
-    	    // check which color I can use 
-    	    for(int ii=0;ii<N2N.size();ii++)
-   	        {
-   	          // consider all the colors >1 of the patch
-  	          if(vertex_color[N2N[ii]]>0)
-  	            patch_shared_color.push_back(vertex_color[N2N[ii]]);
-  	         }
-  	         
+         {           
+      	   auto N2N=topology_N2N(vertex_index);
+     	   // check which color I can use 
+     	   for (MeshEntityIterator edge(  MeshEntity(*mesh, 0, vertex_index),1 ); !edge.end(); ++edge)
+	            if(vertex_color[N2N[edge.pos()]]>0)
+  	               patch_shared_color.push_back(vertex_color[N2N[edge.pos()]]);
+
   	     // sort and unique patch_shared_color
  		 std::sort(patch_shared_color.begin(),patch_shared_color.end());
          auto patch_shared_color_tmp = std::unique(patch_shared_color.begin(), patch_shared_color.end());
@@ -115,6 +108,29 @@ MPI_Comm_size(MPI_COMM_WORLD, &world_size);
 
 }   
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 std::map<unsigned int, unsigned int> global2local_vertex(std::shared_ptr<dolfin::Mesh> mesh, const std::map<int, std::set<unsigned int> >& shared_vertices)
 { 
 std::map<unsigned int, unsigned int> global_to_local_vertex;   
@@ -127,6 +143,17 @@ std::map<unsigned int, unsigned int> global_to_local_vertex;
  }
  return global_to_local_vertex;
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 void find_communicating_processes(std::vector<unsigned int> &shared_rank, 
@@ -275,9 +302,8 @@ return use_vertex_color;
  
  
  
- 
-std::vector< std::vector< unsigned int> > color2vertex(std::shared_ptr<dolfin::Mesh> mesh,
-                                                       const std::vector<std::vector< int > > &topology_N2N,
+ std::vector< std::vector< unsigned int> > color2vertex(std::shared_ptr<dolfin::Mesh> mesh,
+                                                       const MeshConnectivity &topology_N2N,
                                                        const std::map<int, std::set<unsigned int> >& shared_vertices,
                                                        unsigned int &max_num_colors)
 {
@@ -408,6 +434,11 @@ return color_2_vertex;
 
 
 
+
+
+
+
+
 std::vector<std::vector< int > > topologyN2N( std::shared_ptr<dolfin::Mesh> mesh, dolfin::MeshConnectivity &topology_N2F, dolfin::MeshConnectivity &topology_F2N)
 {
 
@@ -491,64 +522,6 @@ return Patch;
 
 
 
-void WritetopologyN2PatchDofs( std::shared_ptr<dolfin::Mesh> mesh,std::shared_ptr<const dolfin::GenericDofMap> dofmap, 
-                               dolfin::MeshConnectivity &topology_N2F, unsigned int rank, 
-                               const std::map<int, std::set<unsigned int> >& shared_vertices, PetscScalar * all_indices_scalar)
-{
-std::ofstream myfile;
-std::string outputname="../output/patchdof"+std::to_string(rank)+".txt";
-myfile.open (outputname);
-//myfile <<"patchdof"+std::to_string(rank)+"=[";
-
-
-
-
-	std::vector<std::vector< unsigned int > > Patch(mesh->num_vertices());
-    unsigned int gdim = mesh->geometry().dim();  
-    VertexIterator vertex=VertexIterator(*mesh);
-    
-	for (; !vertex.end(); ++vertex)
-	{
-	auto vertex_index=vertex->index();
-	std::vector<long unsigned int> vertex_vector(1);
-	vertex_vector[0]=vertex_index;
-	auto actual_vertex=Vertex(*mesh, vertex_index);
-	auto point_vertex=actual_vertex.point();
-
-    myfile<<std::to_string(point_vertex[0])<<" "<<std::to_string(point_vertex[1])<<" ";
-	// add to the patch the dofs related to the node
-	auto tmp_node=dofmap->entity_dofs(*mesh, 0,vertex_vector);
-	for(int ii=0;ii<tmp_node.size();ii++)
-		{
-		myfile << std::to_string(all_indices_scalar[tmp_node[ii]]);myfile <<" ";
-		}
-     myfile <<";\n";
-	for (MeshEntityIterator ee(  MeshEntity(*mesh, 0, vertex_index),gdim-1 ); !ee.end(); ++ee)
-	{
-	  auto edge_dof=topology_N2F(vertex_index)[ee.pos()];
-	  std::vector<long unsigned int> edge_vector(1);
-	  edge_vector[0]=edge_dof;
-	  auto actual_edge=Edge(*mesh,edge_dof);
-	  auto point_edge=actual_edge.midpoint();
-	  // add to the patch the dofs related to the faces connected to the node
-	  auto tmp_face=dofmap->entity_dofs(*mesh, 1,edge_vector);
-	  
-	  
-	  myfile<<std::to_string(point_edge[0])<<" "<<std::to_string(point_edge[1])<<", ";
-	  for(int ii=0;ii<tmp_face.size();ii++)
-		  {
-		  myfile << std::to_string(all_indices_scalar[tmp_face[ii]]);myfile <<" ";
-		  }
-	myfile <<";\n";
-	}
-	}
-std::map<int, std::set<unsigned int>>::const_iterator it_sharedvertex= shared_vertices.begin();
-	// loop on all the vertices (also ghost)
-
-
-
-myfile.close();	
-}
 
 
 
@@ -746,6 +719,322 @@ PetscFree(all_indices);
 
 return ierr;
 }
+
+
+PetscErrorCode VectorToGhostedVector(Vec &vec,Vec &ghostedvec,PetscScalar* &arraylocalghosted, const IS &all_is,const std::vector<std::size_t> & local_to_global_map,
+                                     const unsigned int &L2G_dim,const unsigned int &globalsize,const unsigned int &localsize )
+{
+PetscErrorCode ierr;
+PetscInt ghostsize=L2G_dim-localsize;
+arraylocalghosted=(PetscScalar *)malloc(L2G_dim*sizeof(PetscScalar)); 
+PetscInt* localindex=(PetscInt *)malloc(L2G_dim*sizeof(PetscInt)); 
+PetscInt* ghostindex=(PetscInt *)malloc(ghostsize*sizeof(PetscInt)); 
+
+// create ghost solution vector 
+Vec veclocalghosted;
+// veclocalghosted local vector with also ghost components
+ierr=VecGetSubVector(vec,all_is,&veclocalghosted);CHKERRQ(ierr);
+
+
+
+// from the vector to the array 
+for(int ii=0;ii<L2G_dim;ii++)
+   localindex[ii]=ii;
+VecGetValues(veclocalghosted,L2G_dim,localindex,arraylocalghosted);
+
+for(int ii=0;ii<ghostsize;ii++)
+   ghostindex[ii]=local_to_global_map[ii+localsize];
+
+// create the global ghost vector
+VecCreateGhostWithArray(PETSC_COMM_WORLD,localsize,globalsize,ghostsize,ghostindex,arraylocalghosted,&ghostedvec);
+VecGhostUpdateBegin(ghostedvec,INSERT_VALUES,SCATTER_FORWARD);
+VecGhostUpdateEnd(ghostedvec,INSERT_VALUES,SCATTER_FORWARD);  
+
+
+PetscFree(localindex);
+PetscFree(ghostindex);
+VecDestroy(&veclocalghosted);
+
+return ierr;
+}
+
+
+
+//  void coloring1(const std::map<int, std::set<unsigned int> >& shared_vertices,  std::shared_ptr<dolfin::Mesh> mesh, 
+//               const std::vector<std::vector< int > >& topology_N2N,std::vector<unsigned int>& vertex_color,
+//               //std::vector<unsigned int>& vertex_global_dof,std::vector<unsigned int>& vertex_shared_color,
+//               std::vector<unsigned int>& vertex_shared_global_dof,const std::map<unsigned int, unsigned int>& shared_rank_map, 
+//               std::vector<std::vector<unsigned int> >& vertex_shared_global_dof_and_color,std::vector<unsigned int>& used_color)
+//              // std::vector<bool> &use_vertex_color)
+//  {
+// 
+// 
+// 
+// unsigned int count_vertex=0;
+// int world_rank,world_size;
+// MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);  
+// MPI_Comm_size(MPI_COMM_WORLD, &world_size);
+// 
+//    // loop on all the shared nodes
+//    for (std::map< int, std::set<unsigned int> >::const_iterator shared_node=shared_vertices.begin(); shared_node!= shared_vertices.end(); ++shared_node)
+//      { 
+//      
+//         auto shared_procs=shared_node->second;
+//         std::vector<unsigned int> patch_shared_color;
+//         unsigned int vertex_index=shared_node->first;
+//         auto actual_vertex=Vertex(*mesh, vertex_index);
+//         unsigned int global_vertex_index=actual_vertex.global_index();
+//         // no previous process has colored the actual process, therefore we can add it 
+//         if(vertex_color[vertex_index]==0)
+//          {
+//          
+//          
+//          if(used_color.size()==1)
+//            {
+//             used_color.push_back(1);
+//             vertex_color[vertex_index]=1;
+//            // vertex_global_dof[vertex_index]=global_vertex_index;
+//             //vertex_shared_color.push_back(1);
+//             vertex_shared_global_dof.push_back(global_vertex_index);
+//             for ( std::set<unsigned int>::const_iterator it_procs = shared_procs.begin(); it_procs != shared_procs.end(); ++it_procs)
+//                  {vertex_shared_global_dof_and_color[shared_rank_map.at(*it_procs)].push_back(global_vertex_index);
+//                   vertex_shared_global_dof_and_color[shared_rank_map.at(*it_procs)].push_back(vertex_color[vertex_index]);
+//                  }           
+//             
+//             count_vertex++;
+//            }
+//          else
+//          {
+//            
+//            
+//       	   auto N2N=topology_N2N[vertex_index];
+//      	   
+//     	    // check which color I can use 
+//     	    for(int ii=0;ii<N2N.size();ii++)
+//    	        {
+//    	          // consider all the colors >1 of the patch
+//   	          if(vertex_color[N2N[ii]]>0)
+//   	            patch_shared_color.push_back(vertex_color[N2N[ii]]);
+//   	         }
+//   	         
+//   	     // sort and unique patch_shared_color
+//  		 std::sort(patch_shared_color.begin(),patch_shared_color.end());
+//          auto patch_shared_color_tmp = std::unique(patch_shared_color.begin(), patch_shared_color.end());
+//     	 patch_shared_color.erase(patch_shared_color_tmp, patch_shared_color.end());   	
+//      	 
+//     	 // if the numer of colors up to now used (except the zero) is equal to the ones on the patch
+//     	 // then add onother color
+//     	 unsigned int used_color_size=used_color.size();
+//     	 if(patch_shared_color.size()==used_color_size-1)   
+//     	   { 
+//     	    used_color.push_back(1);
+//     	    vertex_color[vertex_index]=used_color_size;
+//     	    
+//     	   // vertex_global_dof[vertex_index]=global_vertex_index;
+//     	   // vertex_shared_color.push_back(used_color_size);
+//             vertex_shared_global_dof.push_back(global_vertex_index);
+//             for ( std::set<unsigned int>::const_iterator it_procs = shared_procs.begin(); it_procs != shared_procs.end(); ++it_procs)
+//                  {vertex_shared_global_dof_and_color[shared_rank_map.at(*it_procs)].push_back(global_vertex_index);
+//                   vertex_shared_global_dof_and_color[shared_rank_map.at(*it_procs)].push_back(vertex_color[vertex_index]);
+//                  }
+//             count_vertex++; 
+//     	   }     
+//     	 //otherwise we can opt among one of the colors already use
+//     	 // we discard the ones in patch_shared_color
+//     	 // and of the remaining in used_colors, we take the one which has less vertices
+//     	 else
+//     	   {
+//     	    std::vector<unsigned int> unused_colors(used_color);
+//     	    std::vector<int> unused_colors_range(unused_colors.size());
+//             std::iota(unused_colors_range.begin(), unused_colors_range.end(), 0);
+//             
+//     	    for(int ii=0;ii<patch_shared_color.size();ii++)
+//                 {unused_colors.erase( unused_colors.begin() +  patch_shared_color[ii]-ii);
+//                  unused_colors_range.erase( unused_colors_range.begin() +  patch_shared_color[ii]-ii);
+//                 }
+//             vertex_color[vertex_index]=unused_colors_range[std::distance(unused_colors.begin(), std::min_element(unused_colors.begin(), unused_colors.end()))];
+//           //  vertex_global_dof[vertex_index]=global_vertex_index;
+//     	 //   vertex_shared_color.push_back(vertex_color[vertex_index]);
+//             vertex_shared_global_dof.push_back(global_vertex_index);
+//             count_vertex++; 
+//             for ( std::set<unsigned int>::const_iterator it_procs = shared_procs.begin(); it_procs != shared_procs.end(); ++it_procs)
+//                  {vertex_shared_global_dof_and_color[shared_rank_map.at(*it_procs)].push_back(global_vertex_index);
+//                   vertex_shared_global_dof_and_color[shared_rank_map.at(*it_procs)].push_back(vertex_color[vertex_index]);
+//                  }
+//             }
+//                                  
+//           }
+//           }
+// 
+//          patch_shared_color.clear();
+//      }    
+// 
+// }   
+
+
+
+
+
+
+
+
+
+
+// std::vector< std::vector< unsigned int> > color2vertex1(std::shared_ptr<dolfin::Mesh> mesh,
+//                                                        const std::vector<std::vector< int > > &topology_N2N,
+//                                                        const std::map<int, std::set<unsigned int> >& shared_vertices,
+//                                                        unsigned int &max_num_colors)
+// {
+// int world_rank,world_size;
+// MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);  
+// MPI_Comm_size(MPI_COMM_WORLD, &world_size);
+// std::vector< std::vector< unsigned int> > color_2_vertex;
+// if(world_size==1)
+// {
+// max_num_colors=2;
+// int num_vertices=mesh->num_vertices();
+// std::vector< std::vector< unsigned int> > color_2_vertex(max_num_colors);
+// std::vector<unsigned int> vertex_color(num_vertices);
+// std::vector<bool> use_vertex_color(mesh->num_vertices(),true);
+// 
+// color_2_vertex[0].push_back(0);
+// for(unsigned int ii=1;ii<num_vertices;ii++)
+//     color_2_vertex[1].push_back(ii);
+// 
+// vertex_color[0]=0;
+// for(unsigned int ii=1;ii<num_vertices;ii++)
+//     vertex_color[ii]=1;
+// WriteColorToFile(mesh,vertex_color,use_vertex_color);
+// 
+// return color_2_vertex;
+// }
+// else
+// {
+// std::vector<unsigned int> vertex_shared_global_dof;
+// std::vector<unsigned int> vertex_color(mesh->num_vertices(),0);
+// 
+// std::vector<unsigned int> used_color(1,mesh->num_vertices());
+// std::vector<unsigned int> keys; 
+// std::vector<unsigned int> shared_rank, all_shared_ranks;
+// std::map<unsigned int, unsigned int> shared_rank_map;
+// std::vector<std::set<unsigned int> > vals;
+// 
+// find_communicating_processes(shared_rank,all_shared_ranks, shared_vertices,shared_rank_map);
+// std::map<unsigned int, unsigned int> global_to_local_vertex=global2local_vertex(mesh,shared_vertices) ;
+// std::vector<std::vector<unsigned int> > vertex_shared_global_dof_and_color(shared_rank_map.size());
+// 
+// 
+// 
+//    // RECEIVE 
+//    for(int ii=0;ii<all_shared_ranks.size();ii++)
+//      {// receive from processes with a lower rank
+//       if(all_shared_ranks[ii]<world_rank)
+//          {MPI_Status status_now;
+//          int count_recv;
+//          unsigned int* buffer;
+//          MPI_Probe(MPI_ANY_SOURCE, MPI_ANY_TAG, MPI_COMM_WORLD, &status_now);
+//          MPI_Get_count(&status_now, MPI_UNSIGNED, &count_recv); 
+//          buffer=(unsigned int*)malloc(sizeof(unsigned int)*count_recv);
+//          MPI_Recv(buffer, count_recv, MPI_UNSIGNED, status_now.MPI_SOURCE, status_now.MPI_TAG,MPI_COMM_WORLD,MPI_STATUS_IGNORE);// &status_now); 
+//          
+//           for(int jj=0;jj<count_recv;jj=jj+2)
+//                {
+//                vertex_color[global_to_local_vertex.at(buffer[jj])]=buffer[jj+1];
+//                if(used_color.size()-1<buffer[jj])
+//                  while(used_color.size()<buffer[jj])
+//                       used_color.push_back(0);
+//                 used_color[ buffer[jj] ] ++; 
+//                }
+//          //free (buffer);
+//           }
+//       }
+//  
+//  
+// 
+//  
+//  
+//         
+//    coloring1(shared_vertices,mesh,topology_N2N,vertex_color,vertex_shared_global_dof,shared_rank_map,vertex_shared_global_dof_and_color,used_color);
+// 
+//     for(int ii=0;ii<all_shared_ranks.size();ii++)
+//       {
+//       if(all_shared_ranks[ii]>world_rank)
+//         {unsigned int* buffer;
+//         int tag=world_rank*world_size+all_shared_ranks[ii];
+//         int rank2send=shared_rank_map.at(all_shared_ranks[ii]);
+//         int recv_rank=all_shared_ranks[ii];
+//         int recv_size=vertex_shared_global_dof_and_color[rank2send].size();
+//         buffer=(unsigned int*)malloc(sizeof(unsigned int)*recv_size);
+//         for(int jj=0;jj<recv_size;jj++)
+//         buffer[jj]=vertex_shared_global_dof_and_color[rank2send][jj];
+//         MPI_Send(buffer,recv_size,MPI_UNSIGNED,recv_rank,tag,MPI_COMM_WORLD);
+//         }
+//       }
+// 
+// 
+// MPI_Barrier(MPI_COMM_WORLD);
+// 
+// unsigned int used_color_size = (*max_element(vertex_color.begin(), vertex_color.end())+1);
+// 
+// 
+// MPI_Allreduce(&used_color_size,&max_num_colors,1,MPI_UNSIGNED,MPI_MAX,MPI_COMM_WORLD);
+// 
+// std::vector< std::vector< unsigned int> > color_2_vertex(max_num_colors);
+// 
+// 
+// 
+//  std::vector<bool> use_vertex_color=divide_nodes_among_processes(mesh,shared_vertices,shared_rank,all_shared_ranks, shared_rank_map,global_to_local_vertex);
+// 
+// 
+// // --Loop on all the vertices belonging to the domain
+// //   Then add a vertex to the color_2_vertex map if and only if:
+// //   the current process has the smallest rank
+// //   among all the processors to which this vertex belong 
+// // -- If the vertex belongs only to this processor, then for sure it will be added
+// unsigned int num_domain_vertices=mesh->topology().ghost_offset(0);
+// for(unsigned int ii=0;ii<num_domain_vertices;ii++)
+//     {
+//     if(use_vertex_color[ii]==true)
+//     color_2_vertex[vertex_color[ii]].push_back(ii);
+//     }
+//     
+// WriteColorToFile(mesh,vertex_color,use_vertex_color);
+// 
+// return color_2_vertex;
+// }
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

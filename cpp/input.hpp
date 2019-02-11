@@ -41,8 +41,8 @@ public:
 
   void eval(Array<double>& values, const Array<double>& x) const
   {
-    values[0] = 1.0;
-    values[1] = 1.0;
+    values[0] = 0.0;
+    values[1] = 0.0;
   }
 
 private:

@@ -6,7 +6,12 @@
 #include "Prova.hpp"
 #include <fstream> 
 #include "input.hpp"
+#include "MeshUniformRefinement.hpp"
+#include "Topology.hpp"
+#include "RaviartThomasBasisFunctions.hpp"
 using namespace dolfin;
+
+
 
 
 int main()
@@ -22,7 +27,12 @@ parameters["linear_algebra_backend"] = "PETSc";
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////----------------------------- MESH ---------------------------/////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-auto mesh = std::make_shared<UnitSquareMesh>(20,20);
+auto mesh = std::make_shared<UnitSquareMesh>(15,15);
+auto gdim = mesh->geometry().dim();  
+unsigned int number_of_levels=3;
+UniformRefinement uniformrefinement(mesh,number_of_levels,gdim);
+auto mesh_list=uniformrefinement.mesh();
+auto topology_list=uniformrefinement.topology();
 // --The domain is subdivided into world_size subdomains
 // 	 each domain has exactly num_domain_vertices vertices
 //	 but each processor will contain num_all_vertices
@@ -31,7 +41,6 @@ auto mesh = std::make_shared<UnitSquareMesh>(20,20);
 unsigned int num_domain_vertices=mesh->topology().ghost_offset(0);
 unsigned int num_all_vertices=mesh->num_vertices();
 auto shared_vertices=mesh->topology().shared_entities(0);
-auto gdim = mesh->geometry().dim();  
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////----------------------------- MPI ----------------------------/////////////////////////////////////////
@@ -43,30 +52,12 @@ MPI_Comm_size(MPI_COMM_WORLD, &world_size);
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////------------------- TOPOLOGICAL INFORMATION -------------------////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
- // node to edge 
-mesh->init(0,gdim-1);
-MeshConnectivity topology_N2F=mesh->topology()(0,gdim-1);
-// face to node
-mesh->init(gdim-1,0);
-MeshConnectivity topology_F2N=mesh->topology()(gdim-1,0);
-// element to node
-mesh->init(gdim,0);
-MeshConnectivity topology_K2N=mesh->topology()(gdim,0);
-// element to face
-mesh->init(gdim,gdim-1);
-MeshConnectivity topology_K2F=mesh->topology()(gdim,gdim-1);
-// face to element
-mesh->init(gdim-1,gdim);
-MeshConnectivity topology_F2K=mesh->topology()(gdim-1,gdim);
-// node to element
-mesh->init(0,gdim);
-MeshConnectivity topology_N2K=mesh->topology()(0,gdim);
-
+Topology topology(mesh,gdim);
+MeshConnectivity topology_N2N= topology.N2N();
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////------------------------ FUNCTION SPACE  ----------------------////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 auto W = std::make_shared<MixedPoisson::FunctionSpace>(mesh);
 PetscInt W_dim=W->dim(); 
 
@@ -82,16 +73,13 @@ dofmap->tabulate_local_to_global_dofs(local_to_global_map);
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////---------------------- TOPOLOGICAL AND DOFMAP INFORMATION -------------------//////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// map between a local vertex and the local vertices belonging which share an ege with it
-std::vector<std::vector< int > > topology_N2N=topologyN2N(mesh, topology_N2F, topology_F2N);
-// map between a local vertex and the local dofs belonging to its patch
-std::vector<std::vector< unsigned int > > Patch=topologyN2PatchDofs( mesh, dofmap, topology_N2F);
+auto Patch=topology.N2PatchDofs( mesh, dofmap, topology.N2F());
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////--------------------------- COLORING --------------------------////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 unsigned int max_num_colors;    
-std::vector< std::vector< unsigned int> > color_2_vertex=color2vertex(mesh,topology_N2N,shared_vertices,max_num_colors);
+std::vector< std::vector< unsigned int> > color_2_vertex=color2vertex(mesh,topology.N2N(),shared_vertices,max_num_colors);
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -176,8 +164,9 @@ MatCreateVecs(Amat,&bbcvec,&Abbcvec);
 
 
 
-PetscInt globalsize;
-VecGetSize(bvec,&globalsize);
+PetscInt globalsize,localsize;
+ierr=VecGetSize(bvec,&globalsize);CHKERRQ(ierr);
+ierr=VecGetLocalSize(bvec,&localsize);CHKERRQ(ierr);
 Vec Ax,res,x; // Ax=A*x, res=b-A*x, x solution, which we initialize to b so that it satisfies bc
 VecDuplicate(bvec,&res);
 VecDuplicate(bvec,&x);
@@ -231,44 +220,60 @@ VecWAXPY(res,minusone,Ax,bvec);
 ierr=VecGetSubVector(res,all_is,&resloc);CHKERRQ(ierr);
 
 
-unsigned int smoothing_steps=50;
+unsigned int smoothing_steps=2000;
 
 ierr=ColoredGaussSeidel(Amat,x,bvec,Ax,res,smoothing_steps,max_num_colors,color_2_vertex,Patch,corrloc,resloc,Aloc,all_local_is,all_is);CHKERRQ(ierr); 
 
 ierr=VecScatterDestroy(&scatter);CHKERRQ(ierr); 
 
 
-ISDestroy(&all_is);
-PetscFree(all_is);
-VecDestroy(&Ax);
+
 
 
 VecAXPY(x,one,bbcvec);
 
 
-  // Compute solution
-Function w(W);//,x);
- // copyx);
- // solve(a == L, w, bc);
+//Mat WC2WF=WC2WFMatrix2D(mesh_list[1],mesh_list[2],topology_list[1],topology_list[2],Amat);
 
-// Now, the separate components ``sigma`` and ``u`` of the solution can
-// be extracted by taking components. These can then be written to XDMF
-// files.
-// 
-// .. code-reslock:: cpp
 
-  // Extract sub functions (function views)
-   Function& sigma = w[0];
-   Function& u = w[1];
+
+Vec xsol;
+PetscScalar *arraylocalghosted;
+ierr=VectorToGhostedVector(x,xsol,arraylocalghosted,all_is,local_to_global_map,L2G_dim,globalsize,localsize );CHKERRQ(ierr);
+auto sol = std::make_shared<PETScVector>(xsol); 
+Function w(W,sol);
+// Extract sub functions (function views)
+Function& sigma = w[0];
+Function& u = w[1];
  
-   //File file1("mixedpoisson_u.pvd");
-   //file1 << u;
-   //File file2("mixedpoisson_sigma.pvd");
-   //file2 << sigma;
-  
-//   XDMFFile("sigma.xdmf").write(sigma);
-//   XDMFFile("u.xdmf").write(u);
+File fileu("../output/mixedpoisson_u.pvd");
+fileu << u;
+File filesigma("../output/mixedpoisson_sigma.pvd");
+filesigma << sigma;
+ 
+//  auto W2=std::make_shared<MixedPoisson::FunctionSpace>(mesh_list[2]);
+// Function w2(W2);
+// Function& sigma2 = w2[0];
+//    File file2("../output/mixedpoisson_prova2.pvd");
+//    file2 << sigma2;
+//    
+//  auto W1=std::make_shared<MixedPoisson::FunctionSpace>(mesh_list[1]);
+// Function w1(W1);
+// Function& sigma1 = w1[0];
+//    File file1("../output/mixedpoisson_prova1.pvd");
+//    file1 << sigma1;
+// 
+// Function w0(W);
+// Function& sigma0 = w0[0];
+//    File file0("../output/mixedpoisson_prova0.pvd");
+//    file0 << sigma0;      
 
+
+PetscFree(arraylocalghosted);
+VecDestroy(&xsol);
+ISDestroy(&all_is);
+PetscFree(all_is);
+VecDestroy(&Ax);
   return 0;
 }
 
@@ -786,3 +791,10 @@ for(int jj=0;jj<world_size;jj++)
 //ierr=VecView(Abbcvec, PETSC_VIEWER_STDOUT_SELF);CHKERRQ(ierr); // view the subvector
 //ierr=VecView(bbcfoundvec, PETSC_VIEWER_STDOUT_SELF);CHKERRQ(ierr); // view the subvector
 //WriteVectorToFile("indices"+std::to_string(world_rank)+".txt","indices"+std::to_string(world_rank),L2G_dim,vecprova,1);
+
+
+
+
+
+// Function w(W);
+// solve(a == L, w, bc);

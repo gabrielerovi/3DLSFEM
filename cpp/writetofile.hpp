@@ -139,3 +139,72 @@ outputFile << point_vertex[0]<<", "<<point_vertex[1]<<", "<<vertex_color[ii]<<",
 }
 
 }
+
+
+
+
+
+
+
+
+
+
+void WritetopologyN2PatchDofs( std::shared_ptr<dolfin::Mesh> mesh,std::shared_ptr<const dolfin::GenericDofMap> dofmap, 
+                               dolfin::MeshConnectivity &topology_N2F, unsigned int rank, 
+                               const std::map<int, std::set<unsigned int> >& shared_vertices, PetscScalar * all_indices_scalar)
+{
+std::ofstream myfile;
+std::string outputname="../output/patchdof"+std::to_string(rank)+".txt";
+myfile.open (outputname);
+//myfile <<"patchdof"+std::to_string(rank)+"=[";
+
+
+
+
+	std::vector<std::vector< unsigned int > > Patch(mesh->num_vertices());
+    unsigned int gdim = mesh->geometry().dim();  
+    VertexIterator vertex=VertexIterator(*mesh);
+    
+	for (; !vertex.end(); ++vertex)
+	{
+	auto vertex_index=vertex->index();
+	std::vector<long unsigned int> vertex_vector(1);
+	vertex_vector[0]=vertex_index;
+	auto actual_vertex=Vertex(*mesh, vertex_index);
+	auto point_vertex=actual_vertex.point();
+
+    myfile<<std::to_string(point_vertex[0])<<" "<<std::to_string(point_vertex[1])<<" ";
+	// add to the patch the dofs related to the node
+	auto tmp_node=dofmap->entity_dofs(*mesh, 0,vertex_vector);
+	for(int ii=0;ii<tmp_node.size();ii++)
+		{
+		myfile << std::to_string(all_indices_scalar[tmp_node[ii]]);myfile <<" ";
+		}
+     myfile <<";\n";
+	for (MeshEntityIterator ee(  MeshEntity(*mesh, 0, vertex_index),gdim-1 ); !ee.end(); ++ee)
+	{
+	  auto edge_dof=topology_N2F(vertex_index)[ee.pos()];
+	  std::vector<long unsigned int> edge_vector(1);
+	  edge_vector[0]=edge_dof;
+	  auto actual_edge=Edge(*mesh,edge_dof);
+	  auto point_edge=actual_edge.midpoint();
+	  // add to the patch the dofs related to the faces connected to the node
+	  auto tmp_face=dofmap->entity_dofs(*mesh, 1,edge_vector);
+	  
+	  
+	  myfile<<std::to_string(point_edge[0])<<" "<<std::to_string(point_edge[1])<<", ";
+	  for(int ii=0;ii<tmp_face.size();ii++)
+		  {
+		  myfile << std::to_string(all_indices_scalar[tmp_face[ii]]);myfile <<" ";
+		  }
+	myfile <<";\n";
+	}
+	}
+std::map<int, std::set<unsigned int>>::const_iterator it_sharedvertex= shared_vertices.begin();
+	// loop on all the vertices (also ghost)
+
+
+
+myfile.close();	
+}
+
