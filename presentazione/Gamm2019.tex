@@ -250,7 +250,7 @@ $\bigtriangleup$: Universit\aaa~della Svizzera italiana, Switzerland}
 
 \begin{itemize}
 \uncover<1->{\item  \textbf{First Order System Linear Elasticity}\\
-Given displacement $\bu$, stress $\bsigma$, body $\Omega$:
+Find displacement $\bu$, stress $\bsigma$ of the body $\Omega$:
 \begin{align*}
 \colk
 \footnotesize
@@ -267,7 +267,7 @@ where  $\boldsymbol{\varepsilon}(\bu)= \dfrac{1}{2} (\nabla \bu+\nabla \bu^T)$, 
 \normalsize
 \uncover<2->{\item { \textbf{Contact Constraints} }\\
 \colk
-Given the {\colp gap function g}, the {\colgold normal and tangent vectors $\bn$ and $\bt$ }: 
+Given the {\colp gap function $g \geq 0$}, the {\colgold normal and tangent vectors $\bn$ and $\bt$ }: 
 %$ \partial \Omega=\Gamma_C \cup  \Gamma_D \cup  \Gamma_N$, $\Gamma_i \cap  \Gamma_j =\emptyset$ for $i,j=D,N,C, i \neq j$
 \small
 \begin{align*}\colo
@@ -279,6 +279,7 @@ Given the {\colp gap function g}, the {\colgold normal and tangent vectors $\bn$
 \colgold \bt_i^T \colo(\bsigma \colgold \bn \colo) =0  \quad & \Gamma_C  \:\: \colk{\text{frictionless condition}}
 \end{cases}
 \end{align*}
+Portion of $\Gamma_C$ actually in contact \textbf{not known a priori} $\Rightarrow$ \textbf{non-linearity}
 \begin{figure}[htbp!]
 		\centering
 	\includegraphics[width=0.35\textwidth]{img/contactproblem.pdf}\qquad
@@ -312,7 +313,7 @@ ${}$\\
 \textbf{Convex Set} $K$
 \small
 \begin{align*}
-& K=\{  \left(\bu,  \bsigma \right)  \in  \left[H_{\Gamma_{d}}^1(\Omega) \right]^d \times \left[ H_{\text{div},\Gamma_N}(\Omega) \right]^d    : \: 
+& K=\{  \left(\bu,  \bsigma \right)  \in  \left[H_{\Gamma_{D}}^1(\Omega) \right]^d \times \left[ H_{\text{div},\Gamma_N}(\Omega) \right]^d    : \: 
  \bu \cdot \bn - g  \leq 0, \:  (\bsigma \bn) \cdot \bn \leq 0,  \: \bt_i^T(\bsigma \bn) =0 \quad  \Gamma_C
  \}
 \end{align*}
@@ -361,7 +362,7 @@ $ with $\bbx_L= \left(\bu_L,\bsigma_L \right)  \in X_L$
 }
 \uncover<4->{\item \textbf{Discrete FOSLS Functional}
 \begin{align*}
-&\mathcal{J}(\bbx_L;\bff_L)=\dfrac{1}{2} \bbx_L^T \bA_L \bbx_L - \bbx_L^T \bff_L
+&\mathcal{J}(\bbx_L)=\dfrac{1}{2} \bbx_L^T \bA_L \bbx_L - \bbx_L^T \bff_L
 \end{align*} 
 }
 \uncover<5->{\item
@@ -374,7 +375,7 @@ $ with $\bbx_L= \left(\bu_L,\bsigma_L \right)  \in X_L$
 \textbf{Minimization problem:}\\
 Find $\bbx_L \in K_L$
 \begin{align*}
-\text{argmin}\mathcal{J}(\bbx_L;\bff_L)&=\dfrac{1}{2} \bbx_L^T \bA_L \bbx_L -\bbx_L^T \bff_L\\
+\text{argmin}\mathcal{J}(\bbx_L)&=\dfrac{1}{2} \bbx_L^T \bA_L \bbx_L -\bbx_L^T \bff_L\\
 %\text{such } & \text{that}\\
 \bB_L \bbx_L &\leq \bg_L
 \end{align*}
@@ -595,14 +596,14 @@ ${}$\\${}$\\
 
 \begin{itemize}
 \uncover<1->{\item  \textbf{Exact monotone multilevel}\\
-Comparison of coarse function  $\bc_j $ with \textbf{fine constraint} $\Rightarrow$ \textbf{suboptimal complexity}
+Comparing coarse corrections $\bc_j $ with \textbf{fine constraint} $\Rightarrow$ \textbf{suboptimal complexity}
 %\begin{itemize}
 %\item  $K_{j,\nu}(\bbx)=\{\bc_j \in  \text{span(Patch}_{j,\nu})| \: \bbx_J+\bc_j \in K_J \}$
 %\item Comparison of coarse function  $\bc_j $ with \textbf{fine constraint} $\Rightarrow$ \textbf{suboptimal complexity}
 %\end{itemize}
 }
 \uncover<1->{\item \textbf{Approximate monotone multilevel}\\
-Comparison of coarse function  $\bc_j $ with \textbf{coarse constraint} $\Rightarrow$ \textbf{optimal complexity}
+Comparing of coarse corrections $\bc_j $ with \textbf{coarse constraint} $\Rightarrow$ \textbf{optimal complexity}
 %\begin{itemize}
 %\item $K_{j,\nu}(\bbx)=\{\bc_j \in  \text{span(Patch}_{j,\nu}) | \: \bbx_J+\bc_j \in K_j \}$, where $K_j \subset K$ for $j=1,..,J-1$
 %\item  Comparison of coarse function  $\bc_j $ with \textbf{coarse constraint} $\Rightarrow$ \textbf{optimal complexity}
@@ -637,7 +638,8 @@ Comparison of coarse function  $\bc_j $ with \textbf{coarse constraint} $\Righta
 \begin{frame}
 \titlecolor{Hertzian Contact - Setting}
 \begin{figure}[htbp!]
-\includegraphics[scale=0.2]{img/signorinicircle.pdf} 
+\includegraphics[scale=0.15]{img/signorinicircle.pdf} \\
+\includegraphics[scale=0.1]{img/deformed_mesh.eps} 
 \end{figure}
 $ \mu = 1$, $ \lambda = 1, \infty$ (compressible and \textbf{incompressible})
 \end{frame}
@@ -657,8 +659,13 @@ $ \mu = 1$, $ \lambda = 1, \infty$ (compressible and \textbf{incompressible})
 \end{figure}
 \begin{itemize}
 \item \textbf{First phase}: non-linear, capturing high frequencies
-\item \textbf{Second phase}: linear, known active set (blue, green), and not already known active set(red)
-\item  \textbf{Similar behaviour} of compressible and incompressible cases
+\item \textbf{Second phase}: linear
+\begin{itemize}
+\item {\colg green},  {\colb blue}: \textbf{known active set }$\Rightarrow$ faster
+\item {\colo red}: \textbf{not already known active set }$\Rightarrow$ slower
+\end{itemize}
+\item {\colg green},  {\colb blue} similar behaviour: pick {\colg green} $\Rightarrow$ easier to implement 
+\item \textbf{Incompressibility} easily solvable
 \end{itemize}
 \end{frame}
 
@@ -704,7 +711,7 @@ $ \mu = 1$, $ \lambda = 1, \infty$ (compressible and \textbf{incompressible})
 \begin{itemize}
 \item Monotone multilevel for FOSLS linear elastic contact 
 ${}$\\${}$\\
-\item Limite case: $h$-- and $L$-- independency
+\item Limit case: $h$-- and $L$-- independency
 ${}$\\${}$\\
 \item Similar behaviour of compressible and incompressible cases
 \end{itemize}
