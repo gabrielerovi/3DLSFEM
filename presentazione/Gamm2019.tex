@@ -185,7 +185,7 @@
   
   
 \title{ \textcolor{dkgrey}{  \textbf{Monotone multilevel for FOSLS linear elastic contact} }}
-\author{\textcolor{dkgrey}{\textbf{G. Rovi}$^\bigtriangleup$, B. Kober$^\circ$, G. Starke$^\circ$, R. Krause$^\bigtriangleup$}}
+\author[]{\textcolor{dkgrey}{\textbf{G. Rovi}$^\bigtriangleup$, B. Kober$^\circ$, G. Starke$^\circ$, R. Krause$^\bigtriangleup$}}
  \institute{$\circ$: Universit\"at Duisburg\,-\,Essen, Germany \\ 
 $\bigtriangleup$: Universit\aaa~della Svizzera italiana, Switzerland}
 
@@ -355,7 +355,7 @@ ${}$\\${}$\\
 \titlecolor{Discretization}
 \begin{itemize}
 \uncover<1->{\item \textbf{Discretized domain} $\Omega_L$}
-\uncover<2->{\item \textbf{FE space} $ X_L=P_{\Gamma_D}^1(\Omega_L) \times  \RT_{0,\Gamma_N}(\Omega_L)
+\uncover<2->{\item \textbf{FE space} $ X_L=\left[ P_{\Gamma_D}^1(\Omega_L)\right]^d \times \left[ \RT_{0,\Gamma_N}(\Omega_L)\right]^d
 $ with $\bbx_L= \left(\bu_L,\bsigma_L \right)  \in X_L$
 }
 \uncover<3->{\item $\bff_L$, $\bu_{D,L}$, $\bt_{N,L}$, $g_L$ FE representations of $\bff$, $\bu_D$, $\bt_N$, $g$
@@ -438,6 +438,7 @@ ${}$\\
 \\${}$\\
 \item No correction can increase energy
 \\${}$\\
+\item We introduce an hierarchy of nested meshes\\${}$\\
 \item Fine space corrections on fine grid (non-linear Gau{\ss}-Seidel) $\Rightarrow$ global convergence
 \\${}$\\
 \item Coarse space corrections $\Rightarrow$ accelerating convergence
@@ -637,11 +638,18 @@ Comparing of coarse corrections $\bc_j $ with \textbf{coarse constraint} $\Right
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 \titlecolor{Hertzian Contact - Setting}
+\textbf{Undeformed configuration}
 \begin{figure}[htbp!]
-\includegraphics[scale=0.15]{img/signorinicircle.pdf} \\
-\includegraphics[scale=0.1]{img/deformed_mesh.eps} 
+\includegraphics[scale=0.14]{img/signorinicircle.pdf} \end{figure}
+\textbf{Deformed configuration}
+\begin{figure}[htbp!]
+\includegraphics[scale=0.09]{img/deformed_mesh.eps} 
 \end{figure}
-$ \mu = 1$, $ \lambda = 1, \infty$ (compressible and \textbf{incompressible})
+\begin{itemize}
+\item Portion of $\Gamma_C$ in contact \textbf{not known} a priori
+\item $ \mu = 1$, $ \lambda = 1, \infty$ (compressible and \textbf{incompressible})
+\end{itemize}
+
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -678,7 +686,10 @@ $ \mu = 1$, $ \lambda = 1, \infty$ (compressible and \textbf{incompressible})
 \begin{figure}[htbp!]
 \includegraphics[scale=0.2]{img/signorinisquare.pdf} 
 \end{figure}
-$ \mu = 1$, $ \lambda = 1, \infty$ (compressible and \textbf{incompressible})
+\begin{itemize}
+\item Portion of $\Gamma_C$ in contact \textbf{known} a priori
+\item $ \mu = 1$, $ \lambda = 1, \infty$ (compressible and \textbf{incompressible})
+\end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -696,6 +707,7 @@ $ \mu = 1$, $ \lambda = 1, \infty$ (compressible and \textbf{incompressible})
 	\caption{Square mesh. Incompressible material.}
 	\label{ResidualRateSquare}	
 	\end{figure}
+	
 	$\bullet$ Purely linear problem: $h-$ and $L-$ independency
 \end{frame}
 
@@ -713,7 +725,7 @@ $ \mu = 1$, $ \lambda = 1, \infty$ (compressible and \textbf{incompressible})
 ${}$\\${}$\\
 \item Limit case: $h$-- and $L$-- independency
 ${}$\\${}$\\
-\item Similar behaviour of compressible and incompressible cases
+\item Solving both compressible and incompressible cases
 \end{itemize}
 \end{frame}
 
