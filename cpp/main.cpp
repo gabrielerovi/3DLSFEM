@@ -7,6 +7,8 @@
 #include <fstream> 
 #include "input.hpp"
 #include "MeshUniformRefinement.hpp"
+#include "TopologyUniformRefinement.hpp"
+#include "UniformRefinement.hpp"
 #include "Topology.hpp"
 #include "RaviartThomasBasisFunctions.hpp"
 using namespace dolfin;
@@ -27,12 +29,14 @@ parameters["linear_algebra_backend"] = "PETSc";
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////----------------------------- MESH ---------------------------/////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-auto mesh = std::make_shared<UnitSquareMesh>(15,15);
+auto mesh = std::make_shared<UnitSquareMesh>(2,2);
 auto gdim = mesh->geometry().dim();  
 unsigned int number_of_levels=3;
-UniformRefinement uniformrefinement(mesh,number_of_levels,gdim);
-auto mesh_list=uniformrefinement.mesh();
-auto topology_list=uniformrefinement.topology();
+
+MeshUniformRefinement meshL(mesh,number_of_levels);
+TopologyUniformRefinement topologyL(meshL,number_of_levels,gdim);
+//auto mesh_list=uniformrefinement.mesh();
+//auto topology_list=uniformrefinement.topology();
 // --The domain is subdivided into world_size subdomains
 // 	 each domain has exactly num_domain_vertices vertices
 //	 but each processor will contain num_all_vertices
@@ -61,6 +65,9 @@ MeshConnectivity topology_N2N= topology.N2N();
 auto W = std::make_shared<MixedPoisson::FunctionSpace>(mesh);
 PetscInt W_dim=W->dim(); 
 
+std::vector<std::shared_ptr<MixedPoisson::Form_a_FunctionSpace_0>> WL(number_of_levels);
+for(int lev=0;lev<number_of_levels;lev++)
+    WL[lev]=std::make_shared<MixedPoisson::FunctionSpace>(meshL.list()[lev]);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////---------------------------- DOFMAP ---------------------------////////////////////////////////////////
@@ -80,7 +87,9 @@ auto Patch=topology.N2PatchDofs( mesh, dofmap, topology.N2F());
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 unsigned int max_num_colors;    
 std::vector< std::vector< unsigned int> > color_2_vertex=color2vertex(mesh,topology.N2N(),shared_vertices,max_num_colors);
-
+// the ordering of the nodes on the mesh does not follow the one in the matrix
+// we reorder the nodes of each color, so that a standard block-gauss-seidel is recovered
+reordering_vertices(color_2_vertex,dofmap,mesh);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////------------------------ SYSTEM ASSEMBLING  -----------------------////////////////////////////////////
@@ -220,7 +229,7 @@ VecWAXPY(res,minusone,Ax,bvec);
 ierr=VecGetSubVector(res,all_is,&resloc);CHKERRQ(ierr);
 
 
-unsigned int smoothing_steps=2000;
+unsigned int smoothing_steps=100;
 
 ierr=ColoredGaussSeidel(Amat,x,bvec,Ax,res,smoothing_steps,max_num_colors,color_2_vertex,Patch,corrloc,resloc,Aloc,all_local_is,all_is);CHKERRQ(ierr); 
 
@@ -233,7 +242,7 @@ ierr=VecScatterDestroy(&scatter);CHKERRQ(ierr);
 VecAXPY(x,one,bbcvec);
 
 
-//Mat WC2WF=WC2WFMatrix2D(mesh_list[1],mesh_list[2],topology_list[1],topology_list[2],Amat);
+Mat WC2WF=WC2WFMatrix2D(meshL.list()[1],meshL.list()[2],topologyL.list()[1],topologyL.list()[2],Amat);
 
 
 
@@ -251,23 +260,6 @@ fileu << u;
 File filesigma("../output/mixedpoisson_sigma.pvd");
 filesigma << sigma;
  
-//  auto W2=std::make_shared<MixedPoisson::FunctionSpace>(mesh_list[2]);
-// Function w2(W2);
-// Function& sigma2 = w2[0];
-//    File file2("../output/mixedpoisson_prova2.pvd");
-//    file2 << sigma2;
-//    
-//  auto W1=std::make_shared<MixedPoisson::FunctionSpace>(mesh_list[1]);
-// Function w1(W1);
-// Function& sigma1 = w1[0];
-//    File file1("../output/mixedpoisson_prova1.pvd");
-//    file1 << sigma1;
-// 
-// Function w0(W);
-// Function& sigma0 = w0[0];
-//    File file0("../output/mixedpoisson_prova0.pvd");
-//    file0 << sigma0;      
-
 
 PetscFree(arraylocalghosted);
 VecDestroy(&xsol);

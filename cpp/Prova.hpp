@@ -420,7 +420,7 @@ for(unsigned int ii=0;ii<num_domain_vertices;ii++)
     color_2_vertex[vertex_color[ii]].push_back(ii);
     }
     
-WriteColorToFile(mesh,vertex_color,use_vertex_color);
+//WriteColorToFile(mesh,vertex_color,use_vertex_color);
 
 return color_2_vertex;
 }
@@ -757,6 +757,54 @@ VecDestroy(&veclocalghosted);
 
 return ierr;
 }
+
+
+
+template <typename T>
+std::vector<size_t> sort_indexes(const std::vector<T> &v) {
+
+  // initialize original index locations
+  std::vector<size_t> idx(v.size());
+  std::iota(idx.begin(), idx.end(), 0);
+  // sort indexes based on comparing values in v
+  std::sort(idx.begin(), idx.end(),[&v](size_t i1, size_t i2) {return v[i1] < v[i2];});
+
+
+  return idx;
+}
+
+
+
+
+
+ void reordering_vertices(std::vector< std::vector< unsigned int> > &color_2_vertex,std::shared_ptr<const dolfin::GenericDofMap> dofmap,std::shared_ptr<dolfin::Mesh> mesh)
+ {
+ 
+ unsigned int max_num_colors=color_2_vertex.size();
+ std::vector< unsigned int > color_2_vertex_tmp(max_num_colors); 
+ unsigned int ii=0; //we consider only interior node
+ std::vector<long unsigned int> vertices_vector(color_2_vertex[ii].size());
+ 
+ for(int kk=0;kk<vertices_vector.size();kk++)
+    {
+     std::vector<long unsigned int> vertexcolor(1);
+	 vertexcolor[0]=(long unsigned int)color_2_vertex[ii][kk];
+	 auto dof= dofmap->entity_dofs(*mesh, 0,vertexcolor);
+	 vertices_vector[kk]=dof[0]; 
+	 }
+	           
+ auto reorder=sort_indexes(vertices_vector);
+ color_2_vertex_tmp.resize(vertices_vector.size());
+ unsigned int cont=0;
+ for (auto kk: reorder) 
+     {
+      color_2_vertex_tmp[cont]= color_2_vertex[ii][kk] ;
+      cont++;
+      }
+	
+color_2_vertex[ii]=color_2_vertex_tmp;
+}
+	
 
 
 

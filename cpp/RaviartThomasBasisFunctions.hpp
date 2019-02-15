@@ -39,9 +39,10 @@ int world_rank,world_size;
 MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);  
 MPI_Comm_size(MPI_COMM_WORLD, &world_size);
 Mat WC2WF;
+// WC2WF has the same non-zero pattern as Amat
 MatDuplicate(Amat, MAT_SHARE_NONZERO_PATTERN,&WC2WF);
 
-MatView(WC2WF,PETSC_VIEWER_STDOUT_WORLD);
+//MatView(WC2WF,PETSC_VIEWER_STDOUT_WORLD);
 
 auto gdim = meshC->geometry().dim(); 
 auto shared_cellsC=meshC->topology().shared_entities(gdim);

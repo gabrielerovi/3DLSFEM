@@ -1,21 +1,21 @@
 Determining size of PetscInt failed with the following output:
 Change Dir: /home/fenics/shared/mixed-poisson/cpp/bin/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_3e4fc/fast"
-/usr/bin/make -f CMakeFiles/cmTC_3e4fc.dir/build.make CMakeFiles/cmTC_3e4fc.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_96643/fast"
+/usr/bin/make -f CMakeFiles/cmTC_96643.dir/build.make CMakeFiles/cmTC_96643.dir/build
 make[1]: Entering directory '/home/fenics/shared/mixed-poisson/cpp/bin/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_3e4fc.dir/PETSC_INT_SIZE.c.o
-/usr/bin/cc  -I/usr/local/petsc-32/include   -o CMakeFiles/cmTC_3e4fc.dir/PETSC_INT_SIZE.c.o   -c /home/fenics/shared/mixed-poisson/cpp/bin/CMakeFiles/CheckTypeSize/PETSC_INT_SIZE.c
+Building C object CMakeFiles/cmTC_96643.dir/PETSC_INT_SIZE.c.o
+/usr/bin/cc  -I/usr/local/petsc-32/include   -o CMakeFiles/cmTC_96643.dir/PETSC_INT_SIZE.c.o   -c /home/fenics/shared/mixed-poisson/cpp/bin/CMakeFiles/CheckTypeSize/PETSC_INT_SIZE.c
 In file included from /home/fenics/shared/mixed-poisson/cpp/bin/CMakeFiles/CheckTypeSize/PETSC_INT_SIZE.c:4:0:
 /usr/local/petsc-32/include/petscsys.h:130:12: fatal error: mpi.h: No such file or directory
  #  include <mpi.h>
             ^~~~~~~
 compilation terminated.
-CMakeFiles/cmTC_3e4fc.dir/build.make:65: recipe for target 'CMakeFiles/cmTC_3e4fc.dir/PETSC_INT_SIZE.c.o' failed
-make[1]: *** [CMakeFiles/cmTC_3e4fc.dir/PETSC_INT_SIZE.c.o] Error 1
+CMakeFiles/cmTC_96643.dir/build.make:65: recipe for target 'CMakeFiles/cmTC_96643.dir/PETSC_INT_SIZE.c.o' failed
+make[1]: *** [CMakeFiles/cmTC_96643.dir/PETSC_INT_SIZE.c.o] Error 1
 make[1]: Leaving directory '/home/fenics/shared/mixed-poisson/cpp/bin/CMakeFiles/CMakeTmp'
-Makefile:126: recipe for target 'cmTC_3e4fc/fast' failed
-make: *** [cmTC_3e4fc/fast] Error 2
+Makefile:126: recipe for target 'cmTC_96643/fast' failed
+make: *** [cmTC_96643/fast] Error 2
 
 /home/fenics/shared/mixed-poisson/cpp/bin/CMakeFiles/CheckTypeSize/PETSC_INT_SIZE.c:
 #include <sys/types.h>

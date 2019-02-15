@@ -17,17 +17,8 @@ MeshConnectivity _topology_N2N;
 MeshConnectivity init_topology(const std::shared_ptr<dolfin::Mesh> &mesh,const unsigned int &from,const unsigned int &to);
 public:
 Topology(const std::shared_ptr<dolfin::Mesh> &mesh,const unsigned int &gdim);// constructor
-~Topology(void){ // CHECK THIS
-_topology_N2F.clear();
-_topology_F2N.clear();
-_topology_K2N.clear();
-_topology_K2F.clear();
-_topology_F2K.clear();
-_topology_N2K.clear();
-_topology_N2E.clear();
-_topology_E2N.clear();
-_topology_N2N.clear();
-};
+~Topology(void);
+void clear(void);
 MeshConnectivity N2F(void){return _topology_N2F;};
 MeshConnectivity F2N(void){return _topology_F2N;};
 MeshConnectivity K2N(void){return _topology_K2N;};
@@ -48,7 +39,7 @@ mesh->init(from,to);
 return mesh->topology()(from,to);}
 
 
-
+// TOPOLOGY CONSTRUCTOR
 Topology::Topology(const std::shared_ptr<dolfin::Mesh> &mesh,const unsigned int &gdim)
 :
 _topology_N2F(init_topology(mesh,0,gdim-1)),
@@ -61,6 +52,25 @@ _topology_N2E(init_topology(mesh,0,1)),  // we consider N2E, E2N to compute N2N 
 _topology_E2N(init_topology(mesh,1,0)),  // we consider N2E, E2N to compute N2N also for the 3D case 
 _topology_N2N(topologyN2N(mesh,_topology_N2E,_topology_E2N))
 {}
+
+// TOPOLOGY DESTRUCTOR
+void Topology::clear(void)
+{ // CHECK THIS
+_topology_N2F.clear();
+_topology_F2N.clear();
+_topology_K2N.clear();
+_topology_K2F.clear();
+_topology_F2K.clear();
+_topology_N2K.clear();
+_topology_N2E.clear();
+_topology_E2N.clear();
+_topology_N2N.clear();
+};
+
+Topology::~Topology(void)
+{ // CHECK THIS
+clear();
+};
 
 
 
